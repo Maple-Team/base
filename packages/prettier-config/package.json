@@ -1,0 +1,26 @@
+{
+  "name": "@liutsing/prettier-config",
+  "version": "0.0.1",
+  "private": false,
+  "description": "",
+  "keywords": [],
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1"
+  },
+  "authors": [
+    "walle <liutsingluo@gmail.com>"
+  ]
+}

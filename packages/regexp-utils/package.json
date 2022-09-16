@@ -1,0 +1,52 @@
+{
+  "name": "@liutsing/regexp-utils",
+  "version": "0.0.1",
+  "private": false,
+  "description": "",
+  "keywords": [],
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "exports": {
+    "import": "./dist/regexp.mjs",
+    "require": "./dist/regexp.js",
+    "default": "./dist/regexp.mjs"
+  },
+  "main": "dist/regexp.js",
+  "umd:main": "dist/regexp.umd.js",
+  "module": "dist/regexp.mjs",
+  "source": "src/index.ts",
+  "jsnext:main": "dist/regexp.mjs",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "build": "microbundle -f es,cjs,umd",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier . --ext .ts -w",
+    "test": "jest"
+  },
+  "prettier": "@liutsing/prettier-config",
+  "dependencies": {
+    "babel-jest": "^28.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-typescript": "^7.17.12",
+    "@liutsing/eslint-config-typescript": "workspace:*",
+    "@liutsing/prettier-config": "workspace:*",
+    "@types/jest": "^28.1.1",
+    "@types/node": "^18.0.0",
+    "jest": "^28.1.1",
+    "microbundle": "^0.15.1"
+  },
+  "authors": [
+    "walle <liutsingluo@gmail.com>"
+  ]
+}

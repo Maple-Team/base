@@ -1,0 +1,7 @@
+- [ ] husky + lint-staged
+- [ ] changelog
+- [ ] 版本变动
+- [ ] commit钩子
+- [ ] a cli to create ts library project
+- [ ] add docs
+- [ ] add example

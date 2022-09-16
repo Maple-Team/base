@@ -1,0 +1,32 @@
+{
+  "name": "@liutsing/stylelint-config",
+  "version": "0.0.1",
+  "private": false,
+  "description": "",
+  "keywords": [],
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@liutsing/prettier-config": "workspace:*",
+    "stylelint": "^14.11.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^28.0.0"
+  },
+  "peerDependencies": {
+    "@liutsing/prettier-config": "workspace:*"
+  },
+  "authors": [
+    "walle <liutsingluo@gmail.com>"
+  ]
+}

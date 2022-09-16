@@ -1,0 +1,25 @@
+{
+  "name": "vue-ts-app",
+  "private": true,
+  "version": "0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier . --ext .ts -w",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.1.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0",
+    "@liutsing/eslint-config-typescript": "workspace:*",
+    "@liutsing/prettier-config": "workspace:*",
+    "vue-tsc": "^0.40.4"
+  },
+  "prettier": "@liutsing/prettier-config"
+}

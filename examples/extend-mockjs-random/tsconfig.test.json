@@ -1,0 +1,10 @@
+// for test
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": "."
+  },
+  "include": ["__tests__"],
+  "exclude": ["jest.config.ts"]
+}
