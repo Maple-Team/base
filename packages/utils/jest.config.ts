@@ -13,10 +13,10 @@ export default {
     },
   },
   moduleFileExtensions: ['js', 'mjs', 'cjs', 'jsx', 'ts', 'tsx', 'json', 'node'],
-  // moduleNameMapper: {
-  //   // '@/*/': 'src/*',
-  //   '/@/*//': 'src/*',
-  // },
+
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1', // runtime
+  },
   roots: ['<rootDir>'],
   testMatch: ['**/__tests__/**/*.test.[jt]s?(x)'],
   testPathIgnorePatterns: ['/node_modules/'],

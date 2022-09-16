@@ -10,7 +10,7 @@
   "types": "types/index.js",
   "scripts": {
     "prebuild": "npx rimraf types",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "build:watch": "tsc -w",
     "test": "jest",
     "test:watch": "jest -w"
