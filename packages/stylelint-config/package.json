@@ -26,6 +26,9 @@
   "peerDependencies": {
     "@liutsing/prettier-config": "workspace:*"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "authors": [
     "walle <liutsingluo@gmail.com>"
   ]

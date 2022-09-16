@@ -20,6 +20,9 @@
   "devDependencies": {
     "prettier": "^2.7.1"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "authors": [
     "walle <liutsingluo@gmail.com>"
   ]

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "types",
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "rootDir": "src",
+    "outDir": "lib"
+  }
+}

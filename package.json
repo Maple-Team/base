@@ -29,5 +29,10 @@
   },
   "authors": [
     "walle <liutsingluo@gmail.com>"
-  ]
+  ],
+  "dependencies": {
+    "@types/jest": "^28.1.1",
+    "@types/node": "^18.0.0",
+    "jest": "^28.1.1"
+  }
 }

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "rootDir": "src",
+    "outDir": "lib",
+    "declaration": true,
+    "declarationDir": "types",
+    "sourceMap": false,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": ["./"]
+    }
+  },
+  "exclude": ["__tests__", "jest.config.ts", "types"]
+}

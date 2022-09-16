@@ -46,6 +46,9 @@
     "jest": "^28.1.1",
     "microbundle": "^0.15.1"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "authors": [
     "walle <liutsingluo@gmail.com>"
   ]

@@ -1,0 +1,17 @@
+{
+  "name": "@liutsing/types-utils",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc -w"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
