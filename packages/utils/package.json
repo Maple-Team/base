@@ -23,6 +23,7 @@
     "@liutsing/eslint-config-typescript": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
     "@liutsing/types-utils": "workspace:*",
+    "@liutsing/regexp-utils": "workspace:*",
     "@types/jest": "^28.1.1",
     "@types/mockjs": "^1.0.6",
     "@types/node": "^18.0.0",

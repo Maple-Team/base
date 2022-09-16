@@ -28,7 +28,7 @@
     "rollup-plugin-terser": "^7.0.2"
   },
   "authors": [
-    "walle <liutsingluo@gmail.com>"
+    "liutsing <liutsingluo@gmail.com>"
   ],
   "dependencies": {
     "@types/jest": "^28.1.1",

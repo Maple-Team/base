@@ -1,9 +1,10 @@
-import { macAddresReg } from './index'
+import { chineseRegexp } from './index'
 
 describe('regexp test case collections', () => {
-  describe('mac address test cases', () => {
+  describe('chinese character test cases', () => {
     it('case 1', () => {
-      expect(macAddresReg.test('aa:bb:cc:dd:ee:ff')).toEqual(true)
+      expect(chineseRegexp.test('我是谁')).toEqual(true)
+      expect(chineseRegexp.test('我是谁1')).toEqual(true)
     })
   })
 })
