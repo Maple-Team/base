@@ -7,7 +7,7 @@ import type { ColorValue } from '@liutsing/types-utils'
  * @returns
  */
 export const rgbToHex = (r: ColorValue, g: ColorValue, b: ColorValue) =>
-  '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
+  '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toLowerCase()
 
 /**
  * Generate Random Hex

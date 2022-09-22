@@ -5,3 +5,5 @@
 - [ ] a cli to create ts library project
 - [ ] add docs
 - [ ] add example
+- [ ] Add github cicd
+- [ ] Nx command
