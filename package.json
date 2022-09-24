@@ -14,7 +14,9 @@
     "build:all": "nx run-many --target=build --all",
     "graph": "nx graph",
     "postinstall": "pnpm run build:all",
-    "lint": "eslint ./packages --ext=.js --ext=.ts"
+    "lint": "eslint ./packages --ext=.js --ext=.ts",
+    "lint2": "eslint --ext .js,.ts,.tsx,.vue --fix ./packages/*/src",
+    "prettier": "prettier --write --ignore-unknown '**/*'"
   },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {

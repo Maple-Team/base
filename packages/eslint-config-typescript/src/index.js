@@ -20,7 +20,7 @@ try {
   isVueExist = true
 } catch (error) {}
 
-//TODO 1. 整理规则; 2. 规则范围问题
+// TODO 1. 整理规则; 2. 规则范围问题
 /**
  * react 自定义规则配置
  * @type {import('eslint').Linter.RulesRecord}
@@ -143,9 +143,9 @@ const eslintConfig = defineConfig({
     },
     ecmaVersion: 2018,
     sourceType: 'module',
-    requireConfigFile: false, //NOTE Not typed
+    requireConfigFile: false, // NOTE Not typed
     babelOptions: {
-      //NOTE Not typed
+      // NOTE Not typed
       babelrc: false,
       configFile: false,
       // your babel options
