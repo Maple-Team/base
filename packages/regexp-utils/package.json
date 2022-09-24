@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/regexp-utils",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "description": "",
   "keywords": [],
@@ -36,8 +36,7 @@
     "new:patch": "npm version patch"
   },
   "prettier": "@liutsing/prettier-config",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.18.5",
     "@babel/preset-env": "^7.18.2",

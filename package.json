@@ -1,5 +1,5 @@
 {
-  "name": "@maple/pangu",
+  "name": "pangu",
   "version": "0",
   "description": "MapleImage tools base repo",
   "keywords": [
@@ -13,6 +13,7 @@
     "bootstrap": "pnpm i",
     "build:all": "nx run-many --target=build --all",
     "patch:all": "nx run-many --target=new:patch --all",
+    "puslish:all": "pnpm -r publish",
     "graph": "nx graph",
     "postinstall": "pnpm run build:all",
     "lint": "eslint ./packages --ext=.js --ext=.ts",
