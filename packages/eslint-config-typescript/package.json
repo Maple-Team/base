@@ -15,7 +15,8 @@
     "lib"
   ],
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "new:patch": "npm version patch"
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {

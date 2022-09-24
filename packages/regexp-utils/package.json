@@ -32,7 +32,8 @@
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "new:patch": "npm version patch"
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {

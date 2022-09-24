@@ -9,7 +9,8 @@
   "types": "types/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "build:watch": "tsc -w"
+    "build:watch": "tsc -w",
+    "new:patch": "npm version patch"
   },
   "publishConfig": {
     "access": "public"

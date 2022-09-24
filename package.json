@@ -12,6 +12,7 @@
   "scripts": {
     "bootstrap": "pnpm i",
     "build:all": "nx run-many --target=build --all",
+    "patch:all": "nx run-many --target=new:patch --all",
     "graph": "nx graph",
     "postinstall": "pnpm run build:all",
     "lint": "eslint ./packages --ext=.js --ext=.ts",
