@@ -23,7 +23,7 @@
   },
   "scripts": {
     "prebuild": "npx rimraf types dist",
-    "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.json",
+    "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
     "build:watch": "tsc -w",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -46,6 +46,9 @@
     "ts-jest": "^28.0.5",
     "ts-node": "^10.8.1",
     "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21"
   },
   "publishConfig": {
     "access": "public"

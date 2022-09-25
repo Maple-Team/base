@@ -1,3 +1,8 @@
+/*
+ * @Description: 数组操作相关
+ * @Author: Liutsing
+ */
+
 /**
  * shuffle a array
  * @param arr
