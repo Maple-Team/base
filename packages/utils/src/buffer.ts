@@ -13,8 +13,8 @@ export function base64ArrayBuffer(arrayBuffer: number) {
   const byteRemainder = byteLength % 3
   const mainLength = byteLength - byteRemainder
 
-  let a, b, c, d
-  let chunk
+  let a: number, b: number, c: number, d: number
+  let chunk: number
 
   // Main loop deals with bytes in chunks of 3
   for (let i = 0; i < mainLength; i = i + 3) {

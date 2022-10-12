@@ -1,6 +1,6 @@
 {
-  "name": "@liutsing/eslint-config-typescript",
-  "version": "0.0.3",
+  "name": "@liutsing/eslint-config",
+  "version": "0.0.4",
   "private": false,
   "description": "",
   "keywords": [],

@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/regexp-utils",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
   "description": "",
   "keywords": [],
@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "prebuild": "npx rimraf types",
-    "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.json",
+    "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "test": "jest",
@@ -41,7 +41,7 @@
     "@babel/core": "^7.18.5",
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-typescript": "^7.17.12",
-    "@liutsing/eslint-config-typescript": "workspace:*",
+    "@liutsing/eslint-config": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
     "@types/jest": "^28.1.1",
     "babel-jest": "^28.1.1",

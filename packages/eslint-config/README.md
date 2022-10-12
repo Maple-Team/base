@@ -1,18 +1,18 @@
-# `@liutsing/eslint-config-typescript`
+# `@liutsing/eslint-config`
 
 > eslint config used by `TypeScript` app of MapleImage
 
 ## Usage
 
 ```bash
-npm install @liutsing/eslint-config-typescript -D
+npm install @liutsing/eslint-config -D
 ```
 ### TypeScript project
 1. Create a `.eslintrc.js` configuration file in the root of your project with the following content:
 
 ```js
 module.exports = {
-  extends: '@liutsing/eslint-config-typescript',
+  extends: '@liutsing/eslint-config',
 }
 ```
 2. Run eslint on all the ts files etc in your project:
@@ -24,7 +24,7 @@ npx eslint . --ext .ts
 
 ```js
 module.exports = {
-  extends: '@liutsing/eslint-config-typescript',
+  extends: '@liutsing/eslint-config',
 }
 ```
 2. Run eslint on all the SCSS files etc in your project:

@@ -10,10 +10,10 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "bootstrap": "pnpm i",
+    "bootstrap": "pnpm i --registry=https://registry.npmmirror.com",
     "build:all": "nx run-many --target=build --all",
     "patch:all": "nx run-many --target=new:patch --all",
-    "puslish:all": "pnpm -r publish",
+    "publish:all": "pnpm -r publish",
     "graph": "nx graph",
     "postinstall": "pnpm run build:all",
     "lint": "eslint ./packages --ext=.js --ext=.ts",
@@ -24,7 +24,7 @@
   "devDependencies": {
     "@babel/core": "^7.18.5",
     "@babel/preset-env": "^7.18.2",
-    "@liutsing/eslint-config-typescript": "workspace:*",
+    "@liutsing/eslint-config": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
     "nx": "^14.7.5",
     "rollup": "^2.79.0",

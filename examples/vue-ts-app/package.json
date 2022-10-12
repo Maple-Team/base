@@ -16,7 +16,7 @@
     "@vitejs/plugin-vue": "^3.1.0",
     "typescript": "^4.6.4",
     "vite": "^3.1.0",
-    "@liutsing/eslint-config-typescript": "workspace:*",
+    "@liutsing/eslint-config": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
     "vue-tsc": "^0.40.4"
   },
