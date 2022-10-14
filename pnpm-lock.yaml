@@ -91,6 +91,7 @@ importers:
       '@babel/core': ^7.18.5
       '@babel/eslint-parser': ^7.18.9
       '@babel/preset-env': ^7.18.2
+      '@ecar/eslint-config-standard-react': ^11.0.1
       '@liutsing/prettier-config': workspace:*
       '@typescript-eslint/eslint-plugin': ^5.37.0
       '@typescript-eslint/parser': ^5.37.0
@@ -99,7 +100,6 @@ importers:
       eslint-config-prettier: ^8.5.0
       eslint-config-standard: ^17.0.0
       eslint-config-standard-jsx: ^11.0.0
-      eslint-config-standard-react: ^11.0.1
       eslint-define-config: ^1.7.0
       eslint-plugin-import: ^2.26.0
       eslint-plugin-n: ^15.2.5
@@ -116,6 +116,7 @@ importers:
       '@babel/core': 7.19.0
       '@babel/eslint-parser': 7.18.9_eia2ig3m3pjccex4igkch6uffy
       '@babel/preset-env': 7.19.0_@babel+core@7.19.0
+      '@ecar/eslint-config-standard-react': 11.0.2
       '@liutsing/prettier-config': link:../prettier-config
       '@typescript-eslint/eslint-plugin': 5.37.0_22c5fnooleyfkzrkkgdmel5kmi
       '@typescript-eslint/parser': 5.37.0_irgkl5vooow2ydyo6aokmferha
@@ -124,7 +125,6 @@ importers:
       eslint-config-prettier: 8.5.0_eslint@8.23.1
       eslint-config-standard: 17.0.0_4nulviyjkaspo7v2xlghuwxbf4
       eslint-config-standard-jsx: 11.0.0_g6sljrn72fr5r5n2js2jyjg7bi
-      eslint-config-standard-react: 11.0.1_g6sljrn72fr5r5n2js2jyjg7bi
       eslint-define-config: 1.7.0
       eslint-plugin-import: 2.26.0_uzffwd2kxyy6gwinwkcp25zmz4
       eslint-plugin-n: 15.2.5_eslint@8.23.1
@@ -1509,6 +1509,10 @@ packages:
       postcss: 8.4.16
       postcss-selector-parser: 6.0.10
     dev: true
+
+  /@ecar/eslint-config-standard-react/11.0.2:
+    resolution: {integrity: sha512-2EEj6Ps001Z/yztsyfbUBNUWPTm0rW1t0ziXwvO0aCoQ7bb/mxWZTylsGXm8iAAf2SXtP+q9OYwFWoT7GAQylQ==, tarball: '@ecar/eslint-config-standard-react/-/@ecar/eslint-config-standard-react-11.0.2.tgz'}
+    dev: false
 
   /@esbuild/linux-loong64/0.15.7:
     resolution: {integrity: sha512-IKznSJOsVUuyt7cDzzSZyqBEcZe+7WlBqTVXiF1OXP/4Nm387ToaXZ0fyLwI1iBlI/bzpxVq411QE2/Bt2XWWw==}
@@ -3634,16 +3638,6 @@ packages:
     peerDependencies:
       eslint: ^8.8.0
       eslint-plugin-react: ^7.28.0
-    dependencies:
-      eslint: 8.23.1
-      eslint-plugin-react: 7.31.8_eslint@8.23.1
-    dev: false
-
-  /eslint-config-standard-react/11.0.1_g6sljrn72fr5r5n2js2jyjg7bi:
-    resolution: {integrity: sha512-4WlBynOqBZJRaX81CBcIGDHqUiqxvw4j/DbEIICz8QkMs3xEncoPgAoysiqCSsg71X92uhaBc8sgqB96smaMmg==}
-    peerDependencies:
-      eslint: ^7.12.1
-      eslint-plugin-react: ^7.21.5
     dependencies:
       eslint: 8.23.1
       eslint-plugin-react: 7.31.8_eslint@8.23.1
