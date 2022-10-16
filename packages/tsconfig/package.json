@@ -1,0 +1,28 @@
+{
+  "name": "@liutsing/tsconfig",
+  "version": "0.0.1",
+  "description": "TypeScript configuration shared across projects in Maple",
+  "author": "liutsing <liutsingluo@gmail.com>",
+  "license": "mit",
+  "main": "tsconfig.json",
+  "exports": {
+    "import": "./tsconfig.json",
+    "require": "./tsconfig.json"
+  },
+  "scripts": {
+    "prepublishOnly": "test $RUNNING_FROM_SCRIPT || (echo \"You must use publish.sh instead of 'npm publish' directly!\"; exit 1)"
+  },
+  "files": [
+    "tsconfig.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
