@@ -1,16 +1,4 @@
 {
-  "compilerOptions": {
-    "module": "esnext",
-    "target": "esnext",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "declaration": true,
-    "outDir": "dist",
-    "rootDir": ".",
-    "declarationDir": "types",
-    "skipLibCheck": true,
-    "sourceMap": false,
-    "baseUrl": "."
-  },
+  "extends": "@liutsing/tsconfig",
   "exclude": ["jest.config.ts", "types"]
 }

@@ -26,6 +26,7 @@
     "@babel/preset-env": "^7.18.2",
     "@liutsing/eslint-config": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
+    "@liutsing/tsconfig": "workspace:*",
     "@types/jest": "^28.1.1",
     "@types/node": "^18.7.18",
     "husky": "^8.0.1",

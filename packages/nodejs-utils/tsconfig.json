@@ -1,18 +1,4 @@
 {
-  "compilerOptions": {
-    "module": "CommonJS",
-    "target": "es5",
-    "rootDir": ".",
-    "outDir": "lib",
-    "baseUrl": ".",
-    "declaration": true,
-    "declarationDir": "types",
-    "sourceMap": false,
-    "skipLibCheck": true,
-    "moduleResolution": "node",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  },
+  "extends": "@liutsing/tsconfig",
   "exclude": ["jest.config.ts", "types"]
 }
