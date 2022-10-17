@@ -6,7 +6,8 @@ require('yargonaut').style('blue').style('yellow', 'required').helpStyle('green'
 import { CreateProjectCommand } from './commands/CreateProjectCommand'
 import { RunProjectCommand } from './commands/RunProjectCommand'
 import yargs from 'yargs'
-import { version } from '../package.json'
+// eslint-disable-next-line
+const version = require('../package.json').version
 
 const cli = yargs
   .scriptName('pangu')

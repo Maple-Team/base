@@ -18,6 +18,7 @@
     "removeComments": true,
     "resolveJsonModule": true,
     "rootDir": ".",
+    "outDir": "dist",
     "skipLibCheck": true,
     "sourceMap": false,
     "strict": true,

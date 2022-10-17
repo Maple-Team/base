@@ -31,8 +31,8 @@ function getRootVersion(): string {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires,import/no-dynamic-require,global-require
-  rootVersion = require(resolve(root, './packages/crawlee/package.json')).version.replace(/^(\d+\.\d+\.\d+)-?.*$/, '$1')
-
+  // rootVersion = require(resolve(root, './packages/pangu/package.json')).version.replace(/^(\d+\.\d+\.\d+)-?.*$/, '$1')
+  rootVersion = '0.1.0'
   const parts = rootVersion.split('.')
   parts[2] = `${+parts[2] + 1}`
   rootVersion = parts.join('.')
@@ -41,14 +41,14 @@ function getRootVersion(): string {
 }
 
 /**
- * Checks next dev version number based on the `crawlee` meta package via `npm show`.
+ * Checks next dev version number based on the `pangu` meta package via `npm show`.
  * We always use this package, so we ensure the version is the same for each package in the monorepo.
  */
 function getNextVersion() {
   const versions: string[] = []
 
   try {
-    const versionString = execSync(`npm show crawlee versions --json`, { encoding: 'utf8', stdio: 'pipe' })
+    const versionString = execSync(`npm show pangu versions --json`, { encoding: 'utf8', stdio: 'pipe' })
     const parsed = JSON.parse(versionString) as string[]
     versions.push(...parsed)
   } catch {
@@ -87,7 +87,7 @@ if (options.canary) {
   pkgJson.version = nextVersion
 
   for (const dep of Object.keys(pkgJson.dependencies)) {
-    if (dep.startsWith('@crawlee/') || dep === 'crawlee') {
+    if (dep.startsWith('@liutsing/') || dep === 'pangu') {
       const prefix = pkgJson.dependencies[dep].startsWith('^') ? '^' : ''
       pkgJson.dependencies[dep] = prefix + nextVersion
     }

@@ -3,11 +3,15 @@ import { mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { setTimeout } from 'node:timers/promises'
 import { execSync } from 'node:child_process'
-import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
+import type {
+  // ArgumentsCamelCase,
+  Argv,
+  CommandModule,
+} from 'yargs'
 import { prompt } from 'inquirer'
 import colors from 'ansi-colors'
-// import type { Template } from '@liutsing/templates'
-// import { fetchManifest } from '@liutsing/templates'
+import type { Template } from '@liutsing/templates'
+import { fetchManifest } from '@liutsing/templates'
 import { resolve } from 'path'
 import { readFile, writeFile } from 'node:fs/promises'
 import { get } from 'node:https'
@@ -34,17 +38,13 @@ async function rewrite(path: string, replacer: (from: string) => string) {
   }
 }
 
-async function withRetries<F extends (...args: unknown[]) => unknown>(
-  func: F,
-  retries: number,
-  label: string
-): Promise<Awaited<ReturnType<F>>> {
+async function withRetries<F extends (...args: unknown[]) => unknown>(func: F, retries: number, label: string) {
   let attempt = 0
   let lastError: any
 
   while (attempt < retries) {
     try {
-      return (await func()) as Awaited<ReturnType<F>>
+      return await func()
     } catch (error: any) {
       attempt++
       lastError = error
@@ -68,7 +68,7 @@ async function withRetries<F extends (...args: unknown[]) => unknown>(
   )
 }
 
-async function downloadTemplateFilesToDisk(template: any, destinationDirectory: string) {
+async function downloadTemplateFilesToDisk(template: Template, destinationDirectory: string) {
   const promises: Promise<void>[] = []
 
   for (const file of template.files) {
@@ -83,6 +83,7 @@ async function downloadTemplateFilesToDisk(template: any, destinationDirectory: 
         await writeFile(resolve(destinationDirectory, file.path), buffer)
       })
 
+    //@ts-ignore
     promises.push(withRetries(promise, 3, `Template: ${template.name}, file: ${file.path}`))
   }
 
@@ -136,7 +137,7 @@ export class CreateProjectCommand<T> implements CommandModule<T, CreateProjectAr
   /**
    * @inheritDoc
    */
-  async handler(args: ArgumentsCamelCase<CreateProjectArgs>) {
+  async handler(args: any) {
     let { projectName, template } = args
 
     // Check proper format of projectName
@@ -162,6 +163,7 @@ export class CreateProjectCommand<T> implements CommandModule<T, CreateProjectAr
     }
 
     const manifest = await withRetries(fetchManifest, 5, 'Template Manifest')
+    //@ts-ignore
     const choices = manifest.templates.map((t) => ({
       value: t.name,
       name: t.description,
@@ -192,7 +194,7 @@ export class CreateProjectCommand<T> implements CommandModule<T, CreateProjectAr
       }
       throw err
     }
-
+    //@ts-ignore
     const templateData = manifest.templates.find((item) => item.name === template)!
 
     await downloadTemplateFilesToDisk(templateData, projectDir)
