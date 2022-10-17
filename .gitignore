@@ -3,3 +3,4 @@ lib
 esm
 examples
 dist
+*.tsbuildinfo

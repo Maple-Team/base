@@ -3,7 +3,7 @@
 ## Install
 
 ```bash
-npm install --save-dev typescript @apify/tsconfig 
+npm install --save-dev typescript @liutsing/tsconfig
 ```
 
 ## Create `tsconfig.json`
@@ -12,7 +12,7 @@ Create `tsconfig.json` file in the root of the project and add:
 
 ```
 {
-    "extends": "@apify/tsconfig"
+    "extends": "@liutsing/tsconfig"
 }
 ```
 

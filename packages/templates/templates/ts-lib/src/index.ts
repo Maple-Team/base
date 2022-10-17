@@ -1,4 +1,10 @@
 /**
+ * 是否为颜色值表示字符串
+ * 如#ff9527
+ */
+export const isColorStr = (str: string) => /^#/.test(str)
+
+/**
  * Convert RGB to Hex
  * @param r
  * @param g
