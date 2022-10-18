@@ -1,27 +1,30 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+     // 类型声明, map
     "declaration": true,
     "declarationDir": "types",
-    "declarationMap": true,
-    "esModuleInterop": true,
-    "importHelpers": true,
-    "importsNotUsedAsValues": "remove",
-    "incremental": true,
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "noEmitHelpers": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "preserveConstEnums": true,
-    "pretty": true,
-    "removeComments": true,
-    "resolveJsonModule": true,
-    "rootDir": ".",
-    "outDir": "dist",
-    "skipLibCheck": true,
+    "declarationMap": false,
     "sourceMap": false,
+    // 核心
+    "target": "esnext",
+    "resolveJsonModule": true,
+    "lib": ["ESNext"],
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "Node",
+    // 错误处理
+    "skipLibCheck": true,
+    // 性能
+    "incremental": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    // 代码风格
+    "importsNotUsedAsValues": "remove",
     "strict": true,
-    "target": "ESNext"
+    "pretty": true,
+    "removeComments": false,
+    "noFallthroughCasesInSwitch": true,
+    // baseUrl, rootDir, outDir 在各自的项目中配置
   }
 }
