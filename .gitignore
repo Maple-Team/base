@@ -4,3 +4,4 @@ esm
 examples
 dist
 *.tsbuildinfo
+.rollup.cache

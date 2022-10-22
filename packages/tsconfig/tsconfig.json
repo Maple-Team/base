@@ -1,15 +1,16 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-     // 类型声明, map
+    // 类型声明, map
     "declaration": true,
     "declarationDir": "types",
     "declarationMap": false,
     "sourceMap": false,
+    "emitDeclarationOnly": true,
     // 核心
     "target": "esnext",
     "resolveJsonModule": true,
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "DOM"],
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "Node",
@@ -24,7 +25,7 @@
     "strict": true,
     "pretty": true,
     "removeComments": false,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": true
     // baseUrl, rootDir, outDir 在各自的项目中配置
   }
 }
