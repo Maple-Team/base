@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from '@liutsing/component-demo'
+import '@liutsing/component-demo/dist/esm/index.css'
 
 function App() {
   const [count, setCount] = useState(0)

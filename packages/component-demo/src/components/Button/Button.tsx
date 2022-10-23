@@ -1,8 +1,9 @@
 import React from 'react'
-import './Button.css'
+import './Button.less'
 
 export interface ButtonProps {
   label: string
+  size?: 'large' | 'middle' | 'small'
 }
 
 const Button = (props: ButtonProps) => {
