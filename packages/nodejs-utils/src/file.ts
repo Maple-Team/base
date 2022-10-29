@@ -12,8 +12,10 @@ type MkdirOptions = fs.MakeDirectoryOptions & {
  * @param dirname
  * @param options
  */
-export const mkdirSyncSafe = (dirname: string, options: MkdirOptions) => {
-  if (!fs.statSync(dirname)) {
+export const mkdirSyncSafe = (dirname: string, options?: MkdirOptions) => {
+  try {
+    fs.accessSync(dirname, fs.constants.R_OK | fs.constants.W_OK)
+  } catch (error) {
     fs.mkdirSync(dirname, options)
   }
 }
@@ -22,16 +24,19 @@ export const mkdirSyncSafe = (dirname: string, options: MkdirOptions) => {
  * @param dirname
  * @param options
  */
-export const mkdirSafe = async (dirname: string, options: MkdirOptions) => {
-  if (!fs.statSync(dirname)) {
-    return new Promise<void>(function (resolve, reject) {
+export const mkdirSafe = async (dirname: string, options?: MkdirOptions) => {
+  try {
+    fs.accessSync(dirname, fs.constants.R_OK | fs.constants.W_OK)
+  } catch (error) {
+    return new Promise<boolean>(function (resolve, reject) {
       fs.mkdir(dirname, options, (e2) => {
         if (e2) {
           reject(e2)
         } else {
-          resolve()
+          resolve(true)
         }
       })
     })
   }
+  return true
 }
