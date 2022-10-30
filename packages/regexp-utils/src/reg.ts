@@ -16,3 +16,5 @@ export const pairTagReg = /<([^>]+)>.*?<\/\1>/
  * \1: 表示匹配到的第一个group
  */
 export const pairQuoteReg = /^(['"])(.+)\1$/
+
+export const cssPropertyReg = /^(['"])\$(.+)\1$/

@@ -1,0 +1,10 @@
+{
+  "extends": "@liutsing/tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "exclude": ["jest.config.ts", "types"]
+}

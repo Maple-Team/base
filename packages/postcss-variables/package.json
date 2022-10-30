@@ -1,0 +1,61 @@
+{
+  "name": "@liutsing/postcss-variable",
+  "version": "0.0.1",
+  "private": false,
+  "description": "A consolidated list of PostCSS plugins in an ready-to-use format.",
+  "keywords": [
+    "postcss",
+    "postcss-plugin",
+    "css",
+    "list",
+    "library",
+    "plugins"
+  ],
+  "homepage": "",
+  "bugs": {
+    "url": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@192.168.110.136:etlink/frontend/ecar-base.git"
+  },
+  "license": "ISC",
+  "author": "walle <luo.liuqing@ecar.com>",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js",
+    "default": "./dist/index.mjs",
+    "types": "./types/index.d.ts"
+  },
+  "main": "dist/index.js",
+  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "source": "src/index.ts",
+  "jsnext:main": "dist/index.mjs",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "build": "microbundle -f es,cjs,umd --no-sourcemap --tsconfig tsconfig.build.json",
+    "lint": "eslint . --ext .ts",
+    "patch": "npm version patch",
+    "prettier": "prettier . --ext .ts -w",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "prettier": "@liutsing/prettier-config",
+  "dependencies": {
+    "@liutsing/regexp-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.17"
+  },
+  "peerDependencies": {
+    "postcss": "^8.0.0"
+  },
+  "authors": [
+    "walle <liutsingluo@gmail.com>"
+  ]
+}

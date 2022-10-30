@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`postcss-variables test cases should pass with matching css 1`] = `
+"
+        a{
+          font-family: 'ph55','other font family';
+          color: rgba(0,0,0,.85);
+        }
+        b{
+          font-family: 'ph65','other font family';
+          color: rgba(0,0,0,.65);
+        }
+        i{
+          font-family: 'ph75','other font family';
+        }
+      "
+`;
