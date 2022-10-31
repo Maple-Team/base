@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 
-type Status = 'idle' | 'loading' | 'ready' | 'error'
+export type Status = 'idle' | 'loading' | 'ready' | 'error'
 
 export const useScript = (src: string) => {
-  const [status, setStatus] = useState<Status>(src ? 'loading' : 'idle')
+  const initValue: Status = src ? 'loading' : 'idle'
+
+  const [status, setStatus] = useState<Status>(initValue)
   useEffect(() => {
     if (!src) {
       setStatus('idle')
