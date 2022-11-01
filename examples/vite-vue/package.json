@@ -18,7 +18,7 @@
     "vite": "^3.1.0",
     "@liutsing/eslint-config": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
-    "vue-tsc": "^0.40.4"
+    "vue-tsc": "^1.0.9"
   },
   "prettier": "@liutsing/prettier-config"
 }
