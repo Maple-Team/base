@@ -1,7 +1,7 @@
 node_modules
 lib
 esm
-examples
 dist
 *.tsbuildinfo
 .rollup.cache
+coverage
