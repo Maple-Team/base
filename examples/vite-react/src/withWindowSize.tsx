@@ -1,5 +1,5 @@
 import React from 'react'
-import { type Size, useWindowSize } from '@liutsing/hooks'
+import { type Size, useWindowSize } from '@liutsing/rc-hooks'
 
 export type Props = {
   name: string

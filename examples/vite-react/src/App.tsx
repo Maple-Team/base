@@ -1,7 +1,7 @@
 import './App.css'
 import Hello from './Hello'
-import { Button, Scrollbar } from '@liutsing/components'
-import '@liutsing/components/dist/esm/index.css'
+import { Button, Scrollbar } from '@liutsing/rc-components'
+import '@liutsing/rc-components/dist/esm/index.css'
 
 function App() {
   return (
