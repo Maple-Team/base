@@ -3,6 +3,7 @@
  * @Author: Liutsing
  */
 import * as fs from 'fs'
+import { MakeDirectoryOptions } from 'fs'
 type MkdirOptions = fs.MakeDirectoryOptions & {
   recursive: true
 }
@@ -12,12 +13,18 @@ type MkdirOptions = fs.MakeDirectoryOptions & {
  * @param dirname
  * @param options
  */
-export const mkdirSafeSync = (dirname: string, options?: MkdirOptions) => {
-  try {
-    fs.accessSync(dirname, fs.constants.R_OK | fs.constants.W_OK)
-  } catch (error) {
-    fs.mkdirSync(dirname, options)
+
+export const mkdirSafeSync = (dirname: string, option?: MakeDirectoryOptions) => {
+  // try {
+  //   fs.accessSync(dirname, fs.constants.R_OK | fs.constants.W_OK)
+  // } catch (error) {
+  //   fs.mkdirSync(dirname, options)
+  // }
+  const exists = fs.existsSync(dirname)
+  if (!exists) {
+    fs.mkdirSync(dirname, option)
   }
+  return fs.existsSync(dirname)
 }
 /**
  * 安全的新建文件夹
@@ -25,20 +32,17 @@ export const mkdirSafeSync = (dirname: string, options?: MkdirOptions) => {
  * @param options
  */
 export const mkdirSafe = async (dirname: string, options?: MkdirOptions) => {
-  try {
-    fs.accessSync(dirname, fs.constants.R_OK | fs.constants.W_OK)
-  } catch (error) {
-    return new Promise<boolean>(function (resolve, reject) {
-      fs.mkdir(dirname, options, (e2) => {
-        if (e2) {
-          reject(e2)
-        } else {
-          resolve(true)
-        }
-      })
+  const exists = fs.existsSync(dirname)
+  if (exists) return true
+  return new Promise<boolean>(function (resolve, reject) {
+    fs.mkdir(dirname, options, (e) => {
+      if (e) {
+        reject(e)
+      } else {
+        resolve(true)
+      }
     })
-  }
-  return true
+  })
 }
 
 /**
