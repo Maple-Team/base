@@ -17,7 +17,8 @@
     "graph": "nx graph",
     "lint": "eslint ./packages --ext=.js --ext=.ts",
     "lint2": "eslint --ext .js,.ts,.tsx,.vue --fix ./packages/*/src",
-    "prettier": "prettier --write --ignore-unknown '**/*'"
+    "prettier": "prettier --write --ignore-unknown '**/*'",
+    "tsc": "nx run-many --target=tsc --all"
   },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {
@@ -26,6 +27,7 @@
     "@liutsing/eslint-config": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
     "@liutsing/tsconfig": "workspace:*",
+    "@liutsing/types-utils": "workspace:*",
     "@types/jest": "^28.1.1",
     "@types/node": "^18.7.18",
     "gen-esm-wrapper": "^1.1.3",

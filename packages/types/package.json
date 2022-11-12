@@ -14,5 +14,19 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "exports": {
+    ".": {
+      "tyeps": "./types/index.d.ts",
+      "import": "./types/index.d.ts"
+    },
+    "./global": {
+      "types": "./global.d.ts"
+    }
+  },
+  "files": [
+    "lib",
+    "types",
+    "global.d.ts"
+  ]
 }

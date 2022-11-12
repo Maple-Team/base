@@ -128,7 +128,7 @@ const eslintConfig = defineConfig({
   extends: [
     'standard',
     isReactExist && 'standard-jsx',
-    isReactExist && 'standard-react',
+    isReactExist && '@liutsing/eslint-config-standard-react',
     'prettier',
     'plugin:prettier/recommended',
   ].filter(Boolean),
@@ -180,7 +180,7 @@ const eslintConfig = defineConfig({
       extends: [
         'standard',
         isReactExist && 'standard-jsx',
-        isReactExist && 'standard-react',
+        isReactExist && '@liutsing/eslint-config-standard-react',
         'prettier',
         'plugin:prettier/recommended',
         'plugin:@typescript-eslint/recommended',
@@ -196,6 +196,7 @@ const eslintConfig = defineConfig({
         'no-dupe-class-members': 'off',
         // 'tsc' already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/477)
         'no-undef': 'off',
+        'no-unused-vars': 'off',
         'no-array-constructor': 'off',
         'no-use-before-define': 'off',
         'standard/no-callback-literal': 'off',

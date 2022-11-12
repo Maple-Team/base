@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-type AnyToFix = any
 
-const Scrollbar = ({ children, className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
+const Scrollbar = ({ children, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
   const contentRef = useRef<HTMLDivElement>(null)
   // track轨道
   const scrollTrackRef = useRef<HTMLDivElement>(null)
@@ -40,7 +39,7 @@ const Scrollbar = ({ children, className, ...props }: React.ComponentPropsWithou
   }
 
   const handleTrackClick = useCallback(
-    (e: { preventDefault: AnyToFix; stopPropagation: AnyToFix; target?: HTMLElement; clientY: number }) => {
+    (e: React.MouseEvent<HTMLDivElement>) => {
       e.preventDefault()
       e.stopPropagation()
       const { current: trackCurrent } = scrollTrackRef

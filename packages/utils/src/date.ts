@@ -52,12 +52,14 @@ export const progressOfQuarter = () => {
   const year = now.getFullYear()
   const month = now.getMonth()
   const currentSeasonMonths = () => {
-    return [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [9, 10, 11],
-    ].find((seasons) => seasons.includes(month))
+    return (
+      [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [9, 10, 11],
+      ].find((seasons) => seasons.includes(month)) || []
+    )
   }
   const seasonMonths = currentSeasonMonths()
   const total = seasonMonths.reduce((p, c) => p + getMonthTotalTime(c, year), 0)

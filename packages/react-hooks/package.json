@@ -23,11 +23,12 @@
     "types"
   ],
   "scripts": {
-    "prebuild": "pnpx rimraf types dist && pnpx run test",
+    "prebuild": "pnpx rimraf types dist && pnpm run test",
     "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
     "build:watch": "tsc -w",
     "new:patch": "npm version patch",
     "test": "jest",
+    "tsc": "tsc",
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w"
@@ -40,6 +41,7 @@
     "jest": "^28.1.1",
     "lint-staged": "^13.0.3",
     "rimraf": "^3.0.2",
+    "@liutsing/types-utils": "workspace:*",
     "ts-node": "^10.9.1",
     "@types/react": "^18.0.24",
     "react": "^18.2.0",

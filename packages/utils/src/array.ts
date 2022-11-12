@@ -19,3 +19,8 @@ export function generateArray(num: number): Array<number> {
   // TODO 支持cb
   return Array.from({ length: num }, (_, i) => i)
 }
+
+export function removeItem<T extends string | number | boolean>(array: T[], item: T) {
+  array.splice(array.indexOf(item) >>> 0, 1)
+  return array
+}
