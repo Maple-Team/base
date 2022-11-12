@@ -20,7 +20,18 @@ export function generateArray(num: number): Array<number> {
   return Array.from({ length: num }, (_, i) => i)
 }
 
-export function removeItem<T extends string | number | boolean>(array: T[], item: T) {
-  array.splice(array.indexOf(item) >>> 0, 1)
+/**
+ * 移除数组中的某个元素
+ * @param array
+ * @param item
+ * @param cb
+ * @returns
+ */
+export function removeItem<T>(array: T[], item: T, cb?: (arr: T[], item: T) => number) {
+  if (cb) {
+    array.splice(cb(array, item) >>> 0, 1)
+  } else {
+    array.splice(array.indexOf(item) >>> 0, 1)
+  }
   return array
 }
