@@ -3,3 +3,4 @@ packages:
   - 'packages/**'
   - 'examples/**'
   - '!packages/templates/templates/**'
+  - '!packages/tsconfig'

@@ -8,7 +8,7 @@ importers:
       '@babel/preset-env': ^7.18.2
       '@liutsing/eslint-config': workspace:*
       '@liutsing/prettier-config': workspace:*
-      '@liutsing/tsconfig': workspace:*
+      '@liutsing/tsconfig': ^0.0.2
       '@liutsing/types-utils': workspace:*
       '@types/jest': ^28.1.1
       '@types/node': ^18.7.18
@@ -29,8 +29,8 @@ importers:
       '@babel/preset-env': 7.19.0_@babel+core@7.19.0
       '@liutsing/eslint-config': link:packages/eslint-config
       '@liutsing/prettier-config': link:packages/prettier-config
-      '@liutsing/tsconfig': link:packages/tsconfig
-      '@liutsing/types-utils': link:packages/types
+      '@liutsing/tsconfig': 0.0.2
+      '@liutsing/types-utils': link:packages/types-utils
       '@types/jest': 28.1.8
       '@types/node': 18.7.18
       benny: 3.7.1
@@ -87,6 +87,7 @@ importers:
     specifiers:
       '@liutsing/rc-components': workspace:*
       '@liutsing/rc-hooks': workspace:*
+      '@liutsing/tsconfig': ^0.0.2
       '@types/react': ^18.0.22
       '@types/react-dom': ^18.0.7
       '@vitejs/plugin-react': ^2.2.0
@@ -100,6 +101,7 @@ importers:
     devDependencies:
       '@liutsing/rc-components': link:../../packages/react-components
       '@liutsing/rc-hooks': link:../../packages/react-hooks
+      '@liutsing/tsconfig': 0.0.2
       '@types/react': 18.0.24
       '@types/react-dom': 18.0.8
       '@vitejs/plugin-react': 2.2.0_vite@3.2.2
@@ -248,7 +250,7 @@ importers:
       '@liutsing/eslint-config': link:../eslint-config
       '@liutsing/prettier-config': link:../prettier-config
       '@liutsing/regexp-utils': link:../regexp-utils
-      '@liutsing/types-utils': link:../types
+      '@liutsing/types-utils': link:../types-utils
       '@types/jest': 28.1.8
       '@types/mockjs': 1.0.6
       '@types/node': 18.7.18
@@ -342,8 +344,8 @@ importers:
       ts-node: ^10.9.1
       typescript: ^4.8.4
     devDependencies:
-      '@liutsing/tsconfig': link:../tsconfig
-      '@liutsing/types-utils': link:../types
+      '@liutsing/tsconfig': 0.0.2
+      '@liutsing/types-utils': link:../types-utils
       '@types/jest': 28.1.8
       '@types/react': 18.0.24
       babel-jest: 28.1.3_@babel+core@7.19.6
@@ -400,13 +402,7 @@ importers:
       yargonaut: 1.1.4
       yargs: 17.5.1
 
-  packages/tsconfig:
-    specifiers:
-      tslib: ^2.4.1
-    dependencies:
-      tslib: 2.4.1
-
-  packages/types:
+  packages/types-utils:
     specifiers: {}
 
   packages/utils:
@@ -436,7 +432,7 @@ importers:
       '@liutsing/eslint-config': link:../eslint-config
       '@liutsing/prettier-config': link:../prettier-config
       '@liutsing/regexp-utils': link:../regexp-utils
-      '@liutsing/types-utils': link:../types
+      '@liutsing/types-utils': link:../types-utils
       '@types/jest': 28.1.8
       '@types/mockjs': 1.0.6
       '@types/node': 18.7.18
@@ -445,6 +441,24 @@ importers:
       ts-jest: 28.0.8_ph33yxppqfm63ksx5xeap5h7bi
       ts-node: 10.9.1_bidgzm5cq2du6gnjtweqqjrrn4
       typescript: 4.8.3
+
+  packages/vue-components:
+    specifiers:
+      '@babel/types': ^7.20.2
+      '@vitejs/plugin-vue': ^3.1.0
+      '@vue/tsconfig': ^0.1.3
+      sass: ^1.56.1
+      vite: ^3.2.3
+      vue: ^3.2.37
+      vue-tsc: ^1.0.9
+    devDependencies:
+      '@babel/types': 7.20.2
+      '@vitejs/plugin-vue': 3.1.0_vite@3.2.3+vue@3.2.39
+      '@vue/tsconfig': 0.1.3
+      sass: 1.56.1
+      vite: 3.2.3_sass@1.56.1
+      vue: 3.2.39
+      vue-tsc: 1.0.9_typescript@4.8.4
 
 packages:
 
@@ -921,7 +935,7 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
     dependencies:
-      '@babel/types': 7.20.0
+      '@babel/types': 7.20.2
 
   /@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression/7.18.6_@babel+core@7.19.0:
     resolution: {integrity: sha512-Dgxsyg54Fx1d4Nge8UnvTrED63vrwOdPmyvPzlNN/boaliRP54pm3pGzZD1SJUwrBA+Cs/xdG8kXX6Mn/RfISQ==}
@@ -2782,6 +2796,14 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
 
+  /@babel/types/7.20.2:
+    resolution: {integrity: sha512-FnnvsNWgZCr232sqtXggapvlkk/tuwR/qhGzcmxI0GXLCjmPYQPzio2FbdlWuY6y1sHFfQKk+rRbUZ9VStQMog==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/helper-string-parser': 7.19.4
+      '@babel/helper-validator-identifier': 7.19.1
+      to-fast-properties: 2.0.0
+
   /@bcoe/v8-coverage/0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
@@ -3191,6 +3213,10 @@ packages:
       eslint: 8.23.1
       eslint-plugin-react: 7.31.8_eslint@8.23.1
     dev: false
+
+  /@liutsing/tsconfig/0.0.2:
+    resolution: {integrity: sha512-o9gXpN5Yh0VZuAgPJpVE+5EwOD+YVAG+jT9zCLUTvrh4QEQpH4EzeeVzpSqzTdL/kU/DUZhwg6uB/AtBxplbTA==}
+    dev: true
 
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3833,6 +3859,17 @@ packages:
       vue: 3.2.39
     dev: true
 
+  /@vitejs/plugin-vue/3.1.0_vite@3.2.3+vue@3.2.39:
+    resolution: {integrity: sha512-fmxtHPjSOEIRg6vHYDaem+97iwCUg/uSIaTzp98lhELt2ISOQuDo2hbkBdXod0g15IhfPMQmAxh4heUks2zvDA==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      vite: ^3.0.0
+      vue: ^3.2.25
+    dependencies:
+      vite: 3.2.3_sass@1.56.1
+      vue: 3.2.39
+    dev: true
+
   /@volar/language-core/1.0.9:
     resolution: {integrity: sha512-5Fty3slLet6svXiJw2YxhYeo6c7wFdtILrql5bZymYLM+HbiZtJbryW1YnUEKAP7MO9Mbeh+TNH4Z0HFxHgIqw==}
     dependencies:
@@ -4023,6 +4060,15 @@ packages:
 
   /@vue/shared/3.2.44:
     resolution: {integrity: sha512-mGZ44bnn0zpZ36nXtxbrBPno43yr96wjQE1dBEKS1Sieugt27HS4OGZVBRIgsdGzosB7vqZAvu0ttu1FDVdolA==}
+    dev: true
+
+  /@vue/tsconfig/0.1.3:
+    resolution: {integrity: sha512-kQVsh8yyWPvHpb8gIc9l/HIDiiVUy1amynLNpCy8p+FoCiZXCo6fQos5/097MmnNZc9AtseDsCrfkhqCrJ8Olg==}
+    peerDependencies:
+      '@types/node': '*'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
     dev: true
 
   /@webassemblyjs/ast/1.11.1:
@@ -6690,6 +6736,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /immutable/4.1.0:
+    resolution: {integrity: sha512-oNkuqVTA8jqG1Q6c+UglTOD1xhC1BtjKI7XkCXRkZHrN5m18/XsnUp8Q89GkQO/z+0WjonSvl0FLhDYftp46nQ==}
+    dev: true
 
   /import-cwd/3.0.0:
     resolution: {integrity: sha512-4pnzH16plW+hgvRECbDWpQl3cqtvSofHWh44met7ESfZ8UZOWWddm8hEyDTqREJ9RbYHY8gi8DqmaelApoOGMg==}
@@ -9682,6 +9732,16 @@ packages:
   /safer-buffer/2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
+  /sass/1.56.1:
+    resolution: {integrity: sha512-VpEyKpyBPCxE7qGDtOcdJ6fFbcpOM+Emu7uZLxVrkX8KVU/Dp5UF7WLvzqRuUhB6mqqQt1xffLoG+AndxTZrCQ==}
+    engines: {node: '>=12.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.3
+      immutable: 4.1.0
+      source-map-js: 1.0.2
+    dev: true
+
   /saxes/5.0.1:
     resolution: {integrity: sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==}
     engines: {node: '>=10'}
@@ -10608,6 +10668,40 @@ packages:
       postcss: 8.4.18
       resolve: 1.22.1
       rollup: 2.79.1
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
+  /vite/3.2.3_sass@1.56.1:
+    resolution: {integrity: sha512-h8jl1TZ76eGs3o2dIBSsvXDLb1m/Ec1iej8ZMdz+PsaFUsftZeWe2CZOI3qogEsMNaywc17gu0q6cQDzh/weCQ==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      esbuild: 0.15.12
+      postcss: 8.4.18
+      resolve: 1.22.1
+      rollup: 2.79.1
+      sass: 1.56.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true

@@ -6,7 +6,7 @@
   "license": "ISC",
   "author": "",
   "main": "lib/index.js",
-  "types": "types/index.d.ts",
+  "types": "src/index.ts",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc -w",
@@ -17,8 +17,8 @@
   },
   "exports": {
     ".": {
-      "tyeps": "./types/index.d.ts",
-      "import": "./types/index.d.ts"
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
     },
     "./global": {
       "types": "./global.d.ts"
