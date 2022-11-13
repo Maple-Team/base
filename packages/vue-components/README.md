@@ -68,3 +68,4 @@
 
 - [Vite Building for Production](http://localhost:7005/guide/build.html#library-mode), library-mode
 - [create-a-vue-3-component-with-typescript](https://blog.totominc.io/blog/create-a-vue-3-component-with-typescript)
+- [vue-component-lib-starter](https://github.com/wuruoyun/vue-component-lib-starter)
