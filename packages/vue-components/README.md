@@ -57,10 +57,14 @@
 
 // TODO
 
-- unit-tests with `Vitest`
-- component-testing with `Cypress`
-- component docs
+- [ ] unit-tests with `Vitest`
+- [ ] component-testing with `Cypress`
+- [ ] component docs
+- [ ] 主题化、全局状态注入
+- [ ] 样式`less`化
+- [ ] 样式单位：em, rem?
 
 ## Resouces
 
 - [Vite Building for Production](http://localhost:7005/guide/build.html#library-mode), library-mode
+- [create-a-vue-3-component-with-typescript](https://blog.totominc.io/blog/create-a-vue-3-component-with-typescript)
