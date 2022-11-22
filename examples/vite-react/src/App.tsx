@@ -1,5 +1,5 @@
 import { useState, useCallback, memo, useRef } from 'react'
-import { useMount, useMount2 } from '@liutsing/rc-hooks'
+import { useMount } from '@liutsing/rc-hooks'
 
 const BigNumber = ({ number }: { number: number }) => <div style={{ fontWeight: 700, fontSize: 36 }}>{number}</div>
 const SomeDecoration = memo(({ cb1, cb2 }: { cb1?: () => void; cb2?: () => void }) => {
@@ -25,9 +25,6 @@ const Counter = () => {
 
   useMount(() => {
     console.count('execute times')
-  })
-  useMount2(() => {
-    console.count('2execute times')
   })
 
   return (
