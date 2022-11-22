@@ -7,6 +7,12 @@ export const useMount = (fn: Fn) => {
     fn?.()
   }, [])
 }
+export const useMount2 = (fn: Fn) => {
+  const ref = useRef(fn)
+  useEffect(() => {
+    fn?.()
+  }, [ref.current])
+}
 
 export const useSingleton = (fn: Fn) => {
   const ref = useRef<boolean>(false)
