@@ -23,7 +23,7 @@
     "types"
   ],
   "scripts": {
-    "prebuild": "pnpx rimraf types dist && pnpm run test",
+    "prebuild": "rimraf types dist && pnpm run test",
     "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
     "build:watch": "tsc -w",
     "new:patch": "npm version patch",

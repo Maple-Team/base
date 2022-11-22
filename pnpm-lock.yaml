@@ -88,6 +88,7 @@ importers:
       '@liutsing/rc-components': workspace:*
       '@liutsing/rc-hooks': workspace:*
       '@liutsing/tsconfig': ^0.0.2
+      '@liutsing/types-utils': workspace:*
       '@types/react': ^18.0.22
       '@types/react-dom': ^18.0.7
       '@vitejs/plugin-react': ^2.2.0
@@ -102,6 +103,7 @@ importers:
       '@liutsing/rc-components': link:../../packages/react-components
       '@liutsing/rc-hooks': link:../../packages/react-hooks
       '@liutsing/tsconfig': 0.0.2
+      '@liutsing/types-utils': link:../../packages/types-utils
       '@types/react': 18.0.24
       '@types/react-dom': 18.0.8
       '@vitejs/plugin-react': 2.2.0_vite@3.2.2
