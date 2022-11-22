@@ -16,7 +16,7 @@
     // 错误处理
     "skipLibCheck": true,
     // 性能
-    "incremental": true,
+    "incremental": false,
     "importHelpers": true,
     "noEmitHelpers": true,
     // 代码风格
