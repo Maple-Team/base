@@ -2,8 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
-    "baseUrl": "./",
-    "outDir": "../dist",
+    "baseUrl": ".",
+    "outDir": "./dist",
     "module": "commonjs",
     "target": "es5"
   },

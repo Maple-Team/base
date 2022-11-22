@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "baseUrl": ".",
-    "outDir": "../esm",
+    "outDir": "./esm",
     "declarationDir": "types"
   },
   "exclude": ["jest.config.ts", "types", "__tests__"]

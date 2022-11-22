@@ -15,7 +15,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c --bundleConfigAsCjs",
     "new:patch": "npm version patch"
   },
   "dependencies": {
