@@ -28,10 +28,11 @@
     "types"
   ],
   "scripts": {
-    "build": "rimraf types && tsc",
+    "build": "tsc",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
-    "prepublish": "npm run build",
+    "prebuild": "rimraf types && rimraf lib",
+    "prepublish": "rimraf types && rimraf lib",
     "test": "jest"
   },
   "prettier": "@liutsing/prettier-config",

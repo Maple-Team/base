@@ -28,5 +28,8 @@
     "lib",
     "types",
     "global.d.ts"
-  ]
+  ],
+  "devDependencies": {
+    "typescript": "^4.9.3"
+  }
 }

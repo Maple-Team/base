@@ -21,7 +21,7 @@ const options = {
     }),
     terser(),
   ],
-  external: ['postcss'],
+  external: ['postcss', '@liutsing/regexp-utils'],
 }
 
 export default options

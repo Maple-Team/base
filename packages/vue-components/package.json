@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && pnpm run build:types",
-    "build:types": "vue-tsc --project tsconfig.types.json --declaration --emitDeclarationOnly --outDir dist/types",
+    "build:types": "vue-tsc --project tsconfig.types.json --declaration --emitDeclarationOnly --skipLibCheck --outDir dist/types",
     "typescheck": "vue-tsc --project tsconfig.types.json --noEmit",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
