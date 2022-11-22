@@ -1,5 +1,5 @@
 import { useState, useCallback, memo, useRef } from 'react'
-import { useSingleton } from '@liutsing/rc-hooks'
+import { useMount } from '@liutsing/rc-hooks'
 
 const BigNumber = ({ number }: { number: number }) => <div style={{ fontWeight: 700, fontSize: 36 }}>{number}</div>
 const SomeDecoration = memo(({ cb1, cb2 }: { cb1?: () => void; cb2?: () => void }) => {
@@ -23,8 +23,8 @@ const Counter = () => {
     console.log('456', new Date().getTime())
   }, [ref.current]) // -> same fn
 
-  useSingleton(() => {
-    console.count('execute time')
+  useMount(() => {
+    console.count('execute times')
   })
 
   return (

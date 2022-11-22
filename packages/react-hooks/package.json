@@ -31,12 +31,15 @@
     "tsc": "tsc",
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .ts",
+    "lint:types": "tsc --noEmit",
+    "build:cjs": "tsc",
+    "build:es": "tsc -m esNext --outDir esm",
     "prettier": "prettier . --ext .ts -w"
   },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {
     "@types/jest": "^28.1.1",
-    "@liutsing/tsconfig": "^0.0.2",
+    "@liutsing/tsconfig": "^0.0.3",
     "babel-jest": "^28.1.1",
     "jest": "^28.1.1",
     "lint-staged": "^13.0.3",

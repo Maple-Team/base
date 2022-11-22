@@ -1,0 +1,9 @@
+[submodule "hooks"]
+	path = hooks
+	url = https://github.com/alibaba/hooks.git
+[submodule "react-use"]
+	path = react-use
+	url = https://github.com/streamich/react-use.git
+[submodule "vueuse"]
+	path = vueuse
+	url = https://github.com/vueuse/vueuse.git

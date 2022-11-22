@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/tsconfig",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "TypeScript configuration shared across projects in Maple",
   "author": "liutsing <liutsingluo@gmail.com>",
   "license": "mit",

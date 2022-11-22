@@ -6,7 +6,6 @@
     "declarationDir": "types",
     "declarationMap": false,
     "sourceMap": false,
-    "emitDeclarationOnly": true,
     // 核心
     "target": "esnext",
     "resolveJsonModule": true,
