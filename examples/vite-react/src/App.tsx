@@ -1,5 +1,5 @@
 import { useState, useCallback, memo, useRef } from 'react'
-import { useMount, useUnmount } from '@liutsing/rc-hooks'
+import { useMount, useUnmount, useAsync } from '@liutsing/rc-hooks'
 
 const BigNumber = ({ number }: { number: number }) => {
   useUnmount(() => {
@@ -33,22 +33,28 @@ const Counter = () => {
   })
 
   const [visible, setVisible] = useState<boolean>(true)
+  const { data, isLoading, error } = useAsync('https://randomuser.me/api')
 
   return (
     <div>
-      {visible && <BigNumber number={count} />}
-      <button onClick={handleButtonClick}>Increment</button>
-      <button
-        onClick={() => {
-          setVisible((_) => !_)
-        }}
-      >
-        Toggle Visible
-      </button>
-      <SomeDecoration
-        // cb1={cb1}
-        cb2={cb2}
-      />
+      <>
+        {isLoading ? <span>loading</span> : ''}
+        {error ? <span>{JSON.stringify(error)}</span> : ''}
+        {data && <span>{JSON.stringify(data)}</span>}
+        {visible && <BigNumber number={count} />}
+        <button onClick={handleButtonClick}>Increment</button>
+        <button
+          onClick={() => {
+            setVisible((_) => !_)
+          }}
+        >
+          Toggle Visible
+        </button>
+        <SomeDecoration
+          // cb1={cb1}
+          cb2={cb2}
+        />
+      </>
     </div>
   )
 }
