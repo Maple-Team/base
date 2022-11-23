@@ -15,7 +15,6 @@
   "devDependencies": {
     "@liutsing/rc-components": "workspace:*",
     "@liutsing/rc-hooks": "workspace:0.0.1",
-    "@liutsing/tsconfig": "^0.0.3",
     "@liutsing/types-utils": "workspace:*",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
