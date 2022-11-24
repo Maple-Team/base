@@ -6,11 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "report": "tsc --noEmit && vite build --analysis"
   },
   "dependencies": {
+    "@antv/g2plot": "^2.4.22",
+    "antd": "^5.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "rollup-plugin-visualizer": "^5.8.3"
   },
   "devDependencies": {
     "@liutsing/rc-components": "workspace:*",

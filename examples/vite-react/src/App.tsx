@@ -1,5 +1,7 @@
 import { useState, useCallback, memo, useRef } from 'react'
 import { useMount, useUnmount } from '@liutsing/rc-hooks'
+import { Switch } from 'antd'
+import { AreaChart } from './Area'
 
 const BigNumber = ({ number }: { number: number }) => {
   useUnmount(() => {
@@ -36,6 +38,10 @@ const Counter = () => {
 
   return (
     <div>
+      {/* <Switch
+        loading
+        defaultChecked
+      /> */}
       {visible && <BigNumber number={count} />}
       <button onClick={handleButtonClick}>Increment</button>
       <button
@@ -55,6 +61,7 @@ const Counter = () => {
 
 const App = () => (
   <>
+    <AreaChart />
     <Counter />
     <footer>
       <a href="https://skk.moe/">Sukka</a>
