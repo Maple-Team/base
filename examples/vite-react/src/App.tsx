@@ -1,5 +1,5 @@
 import { useState, useCallback, memo, useRef } from 'react'
-import { useMount, useUnmount, useAsync } from '@liutsing/rc-hooks'
+import { useMount, useUnmount, useAsync, useScroll } from '@liutsing/rc-hooks'
 
 const BigNumber = ({ number }: { number: number }) => {
   useUnmount(() => {
@@ -34,7 +34,7 @@ const Counter = () => {
 
   const [visible, setVisible] = useState<boolean>(true)
   const { data, isLoading, error } = useAsync('https://randomuser.me/api')
-
+  useScroll(console.log)
   return (
     <div>
       <>
