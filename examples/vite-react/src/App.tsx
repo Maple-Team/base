@@ -1,7 +1,5 @@
 import { useState, useCallback, memo, useRef } from 'react'
-import { useMount, useUnmount } from '@liutsing/rc-hooks'
-import { Switch } from 'antd'
-import { AreaChart } from './Area'
+import { useMount, useUnmount, useAsync, useScroll } from '@liutsing/rc-hooks'
 
 const BigNumber = ({ number }: { number: number }) => {
   useUnmount(() => {
@@ -35,33 +33,34 @@ const Counter = () => {
   })
 
   const [visible, setVisible] = useState<boolean>(true)
-
+  const { data, isLoading, error } = useAsync('https://randomuser.me/api')
+  useScroll(console.log)
   return (
     <div>
-      {/* <Switch
-        loading
-        defaultChecked
-      /> */}
-      {visible && <BigNumber number={count} />}
-      <button onClick={handleButtonClick}>Increment</button>
-      <button
-        onClick={() => {
-          setVisible((_) => !_)
-        }}
-      >
-        Toggle Visible
-      </button>
-      <SomeDecoration
-        // cb1={cb1}
-        cb2={cb2}
-      />
+      <>
+        {isLoading ? <span>loading</span> : ''}
+        {error ? <span>{JSON.stringify(error)}</span> : ''}
+        {data && <span>{JSON.stringify(data)}</span>}
+        {visible && <BigNumber number={count} />}
+        <button onClick={handleButtonClick}>Increment</button>
+        <button
+          onClick={() => {
+            setVisible((_) => !_)
+          }}
+        >
+          Toggle Visible
+        </button>
+        <SomeDecoration
+          // cb1={cb1}
+          cb2={cb2}
+        />
+      </>
     </div>
   )
 }
 
 const App = () => (
   <>
-    <AreaChart />
     <Counter />
     <footer>
       <a href="https://skk.moe/">Sukka</a>
