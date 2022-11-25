@@ -1,3 +1,18 @@
 {
-  "presets": [["@babel/preset-env", { "modules": false }], "@babel/preset-react", "@babel/preset-typescript"]
+  "presets": [["@babel/preset-env", { "modules": false }], "@babel/preset-typescript", "@babel/preset-react"],
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "node": true
+            },
+            "modules": "commonjs"
+          }
+        ]
+      ]
+    }
+  }
 }

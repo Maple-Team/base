@@ -5,14 +5,16 @@
   "sideEffects": false,
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config config/webpack.config.js",
-    "serve": "webpack serve"
+    "build": "webpack --config config/webpack.prod.js",
+    "stats": "webpack --config config/webpack.stats.js",
+    "serve": "webpack serve  --config config/webpack.dev.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@antv/g2plot": "^2.4.22",
+    "@liutsing/rc-hooks": "workspace:^0.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "ts-loader": "^9.4.1"

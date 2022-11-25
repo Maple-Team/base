@@ -30,7 +30,7 @@ export const useAsync = <T>(src: string, options?: RequestInit) => {
         })
         .catch((e: Error) => {
           setError(e)
-          console.error(e)
+          console.error(e.message)
         })
         .finally(() => {
           setLoading(false)
