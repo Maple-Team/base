@@ -34,12 +34,12 @@ const Counter = () => {
 
   const [visible, setVisible] = useState<boolean>(true)
   const { data, isLoading, error } = useAsync('https://randomuser.me/api')
-  useScroll(console.log)
+  useScroll((e: Event) => console.log(e))
   return (
     <div>
       <>
         {isLoading ? <span>loading</span> : ''}
-        {error ? <span>{JSON.stringify(error)}</span> : ''}
+        {error ? <span>{error.message}</span> : ''}
         {data && <span>{JSON.stringify(data)}</span>}
         {visible && <BigNumber number={count} />}
         <button onClick={handleButtonClick}>Increment</button>
@@ -54,6 +54,7 @@ const Counter = () => {
           // cb1={cb1}
           cb2={cb2}
         />
+        <div style={{ height: 1500 }}></div>
       </>
     </div>
   )
