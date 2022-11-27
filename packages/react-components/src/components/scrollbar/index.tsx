@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 
-const Scrollbar = ({ children, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
+export const Scrollbar = ({ children, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
   const contentRef = useRef<HTMLDivElement>(null)
   // track轨道
   const scrollTrackRef = useRef<HTMLDivElement>(null)
@@ -184,5 +184,3 @@ const Scrollbar = ({ children, ...props }: React.ComponentPropsWithoutRef<'div'>
     </div>
   )
 }
-
-export default Scrollbar

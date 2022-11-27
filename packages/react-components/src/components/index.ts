@@ -1,2 +1,3 @@
-export { default as Button } from './Button'
-export { default as Scrollbar } from './scrollbar'
+export { Button } from './Button'
+export { RippleButton } from './RippleButton'
+export { Scrollbar } from './scrollbar'

@@ -2,6 +2,9 @@
   "name": "@liutsing/rc-components",
   "version": "0.0.1",
   "description": "",
+  "sideEffects": [
+    "*.less"
+  ],
   "scripts": {
     "prebuild": "pnpm run test",
     "build": "rollup -c",
