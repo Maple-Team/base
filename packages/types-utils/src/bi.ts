@@ -27,7 +27,6 @@ interface Medialist {
   bv_id: string
   short_link: string
   rights: Rights
-  elec_info?: any
   coin: Coin
 }
 

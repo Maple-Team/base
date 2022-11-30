@@ -1,3 +1,8 @@
 {
-  "extends": "@liutsing/tsconfig"
+  "extends": "@liutsing/tsconfig",
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": "."
+  },
+  "include": ["global.d.ts"]
 }
