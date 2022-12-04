@@ -5,8 +5,15 @@ import dts from 'rollup-plugin-dts'
 import postcss from 'rollup-plugin-postcss'
 import { terser } from 'rollup-plugin-terser'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
+import alias from '@rollup/plugin-alias'
+import path from 'path'
+
+const projectRootDir = path.resolve(__dirname)
 
 const packageJson = require('./package.json')
+const customResolver = resolve({
+  extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.sass', '.scss'],
+})
 
 export default [
   {
@@ -33,6 +40,10 @@ export default [
         extensions: ['.less', '.css'],
       }),
       terser(),
+      alias({
+        entries: [{ find: '@', replacement: path.resolve(projectRootDir, 'src') }],
+        customResolver,
+      }),
     ],
   },
   {
