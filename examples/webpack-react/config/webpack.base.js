@@ -24,7 +24,7 @@ const config = {
   plugins: [],
   target: 'web',
   externals: {
-    //@https://www.webpackjs.com/configuration/externals/#externalstype
+    // @https://www.webpackjs.com/configuration/externals/#externalstype
     react: 'React',
     'react-dom': 'ReactDOM',
   },

@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@liutsing/rc-components": "workspace:*",
+    "@liutsing/rcv-components": "workspace:*",
     "@liutsing/rc-hooks": "workspace:0.0.1",
     "@liutsing/types-utils": "workspace:*",
     "@types/react": "^18.0.22",
