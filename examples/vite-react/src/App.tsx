@@ -36,7 +36,7 @@ const Counter = () => {
 
   const [visible, setVisible] = useState<boolean>(true)
   const { data, isLoading, error } = useAsync('https://randomuser.me/api')
-  //@ts-ignore
+  // @ts-ignore
   useScroll((e: Event) => console.log(e))
   return (
     <div>

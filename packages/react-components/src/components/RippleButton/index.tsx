@@ -1,4 +1,6 @@
-import React, { useCallback, MouseEvent, ReactNode } from 'react'
+import React, { useCallback, MouseEvent, ReactNode, useContext } from 'react'
+import { PREFIX_CLS } from '@/constant'
+import { UIContext } from '../ConfigProvider'
 import './style.less'
 
 function createRipple(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) {
@@ -24,10 +26,11 @@ function createRipple(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent
 }
 
 interface Props {
-  prefixCls?: string
   children?: ReactNode
 }
-export const RippleButton = ({ prefixCls = 'maple', children }: Props) => {
+export const RippleButton = ({ children }: Props) => {
+  const context = useContext(UIContext)
+  const prefixCls = context.prefixCls || PREFIX_CLS
   const handleClick = useCallback((e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     createRipple(e)
   }, [])
