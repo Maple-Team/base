@@ -17,9 +17,10 @@ module.exports = function (source) {
   // const filename = path.basename(this.resourcePath)
   // const assetInfo = { sourceFilename: filename }
   // this.emitFile(filename, source, null, assetInfo)
-  const logger = this.getLogger()
+
+  // const logger = this.getLogger()
   const content = `${loaderName} is handing file: ${this.resourcePath}`
-  logger.info(content)
+  // logger.info(content)
 
   fs.writeFile(
     path.resolve(__dirname, `../${loaderName}.log`),

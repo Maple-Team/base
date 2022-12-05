@@ -13,6 +13,9 @@ const prod = {
     chunkFilename: '[name].[contenthash].js',
   },
   devtool: 'hidden-source-map',
+  performance: {
+    hints: 'warning',
+  },
   plugins: [new ForkTsCheckerWebpackPlugin()],
   module: {
     rules: [
