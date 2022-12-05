@@ -1,5 +1,22 @@
 {
-  "presets": [["@babel/preset-env", { "modules": false }], "@babel/preset-typescript", "@babel/preset-react"],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage",
+        "corejs": "3.26.1",
+        "exclude": [
+          // \\ for Windows, \/ for Mac OS and Linux
+          // TODO https://babeljs.io/docs/en/babel-preset-env#exclude
+          // /node_modules[\\\/]core-js/,
+          // /node_modules[\\\/]webpack[\\\/]buildin/,
+        ]
+      }
+    ],
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ],
+  "plugins": ["@babel/plugin-transform-runtime"],
   "env": {
     "test": {
       "presets": [
