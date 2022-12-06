@@ -50,7 +50,17 @@ const dev = {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
         include: [path.resolve(__dirname, '../src'), path.resolve(__dirname, '../../../packages')],
-        use: ['babel-loader', 'maple-pattern-loader'],
+        use: [
+          'babel-loader',
+          {
+            loader: '@liutsing/pattern-logger-loader',
+            options: {
+              logFileName: path.resolve(__dirname, '../loader.log'),
+              showGap: true,
+              saveToDisk: true,
+            },
+          },
+        ],
       },
       // MORE-LOADER
     ],
