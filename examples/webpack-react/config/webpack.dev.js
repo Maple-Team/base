@@ -56,7 +56,6 @@ const dev = {
             loader: '@liutsing/pattern-logger-loader',
             options: {
               logFileName: path.resolve(__dirname, '../loader.log'),
-              showGap: true,
               saveToDisk: true,
             },
           },

@@ -2,6 +2,7 @@
   "name": "@liutsing/utils",
   "version": "0.0.5",
   "description": "",
+  "sideEffect": false,
   "keywords": [],
   "license": "ISC",
   "author": "",

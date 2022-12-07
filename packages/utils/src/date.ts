@@ -1,3 +1,5 @@
+import { padStartDouble } from './help'
+
 /**
  * 判断日期是否有效
  * @param val
@@ -117,3 +119,21 @@ const getMonthTotalTime = (month: number, year: number) => {
  * @returns
  */
 export const isLeap = (year: number) => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
+
+/**
+ * 时间格式化(简单处理)
+ *
+ * TODO use date-fns
+ * @param date
+ * @param _formate
+ * @returns
+ */
+export const dateSimpleFormate = (inputDate?: Date, _formate?: 'YYYY-MM-DD HH:mm:ss') => {
+  const date = inputDate || new Date()
+  // TODO 解析
+  return `${date.getFullYear()}-${padStartDouble(date.getMonth() + 1)}-${padStartDouble(
+    date.getDate()
+  )} ${date.getHours()}:${date.getMinutes()}:${padStartDouble(date.getSeconds())}`
+}
+
+export const dateFormat = dateSimpleFormate

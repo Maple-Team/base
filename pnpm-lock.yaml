@@ -14,6 +14,7 @@ importers:
       '@liutsing/prettier-config': workspace:*
       '@liutsing/tsconfig': ^0.0.4
       '@liutsing/types-utils': workspace:*
+      '@liutsing/utils': workspace:*
       '@pmmmwh/react-refresh-webpack-plugin': ^0.5.10
       '@types/jest': ^28.1.1
       '@types/node': ^18.7.18
@@ -55,6 +56,7 @@ importers:
       '@liutsing/prettier-config': link:packages/prettier-config
       '@liutsing/tsconfig': 0.0.4
       '@liutsing/types-utils': link:packages/types-utils
+      '@liutsing/utils': link:packages/utils
       '@pmmmwh/react-refresh-webpack-plugin': 0.5.10_xsftmjzvfioxqs4ify53ibh7ay
       '@types/jest': 28.1.8
       '@types/node': 18.11.11

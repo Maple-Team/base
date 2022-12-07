@@ -9,10 +9,6 @@ export interface LoaderOptions {
    */
   showLogger?: boolean
   /**
-   * 日志是否写入文件
-   */
-  saveToDisk?: boolean
-  /**
    * 日志文件名
    */
   logFileName?: string
