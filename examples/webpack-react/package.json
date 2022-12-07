@@ -23,6 +23,7 @@
     "style-loader": "^3.3.1",
     "webpack-dev-server": "^4.11.1",
     "@liutsing/pattern-logger-loader": "workspace:*",
+    "@liutsing/html-webpack-plugin": "workspace:*",
     "webpack-bundle-analyzer": "^4.7.0",
     "webpack-cli": "^5.0.0",
     "webpack-merge": "^5.8.0"

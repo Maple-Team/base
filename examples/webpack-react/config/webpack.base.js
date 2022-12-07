@@ -1,6 +1,21 @@
 const path = require('path')
 const { ProvidePlugin, DefinePlugin } = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
+
+const { readFileSync, writeFileSync } = require('fs')
+
+const reactContent = readFileSync(
+  path.resolve(__dirname, '../../../node_modules/.pnpm/react@18.2.0/node_modules/react/umd/react.production.min.js')
+).toString()
+const reactDOMContent = readFileSync(
+  path.resolve(
+    __dirname,
+    '../../../node_modules/.pnpm/react-dom@18.2.0_react@18.2.0/node_modules/react-dom/umd/react-dom.production.min.js'
+  )
+).toString()
+writeFileSync(path.resolve(__dirname, '../public/react18.min.js'), `${reactContent}${reactDOMContent}`)
+
 /**
  * @type {import('webpack').Configuration}
  */
@@ -27,8 +42,8 @@ const config = {
       inject: true,
       template: path.resolve(__dirname, '../public/index.html'),
       title: 'webpack config demo',
-      // TODO 模板有分环境
     }),
+    new MapleHtmlWebpackPlugin({ src: './react18.min.js', tagName: 'script' }),
     new ProvidePlugin({
       React: 'react',
       process: 'process/browser',
