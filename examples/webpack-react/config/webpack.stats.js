@@ -6,6 +6,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
  * @type {import("webpack").Configuration}
  */
 const stats = {
+  mode: 'development',
+  // mode: 'production',
   plugins: [
     new BundleAnalyzerPlugin({
       open: false,

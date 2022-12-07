@@ -16,7 +16,18 @@
     "@babel/preset-react",
     "@babel/preset-typescript"
   ],
-  "plugins": ["@babel/plugin-transform-runtime", "react-refresh/babel"],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "react-refresh/babel"
+    // [
+    //   "import",
+    //   {
+    //     "libraryName": "lodash",
+    //     "libraryDirectory": "",
+    //     "camel2DashComponentName": false // default: true
+    //   }
+    // ]
+  ],
   "env": {
     "test": {
       "presets": [

@@ -7,6 +7,7 @@
 - antd-mobile utils
 - antd utils
 - lodash methods
+- @antv/util
 
 ## benchmark
 

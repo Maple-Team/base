@@ -19,7 +19,6 @@ export default class MapleHtmlWebpackPlugin {
   apply(compiler: webpack.Compiler) {
     return compiler.hooks.compilation.tap('MapleHtmlWebpackPlugin', (compilation) => {
       HtmlWebpackPlugin.getHooks(compilation).alterAssetTagGroups.tapAsync('MapleHtmlWebpackPlugin', (data, cb) => {
-        console.log('data', data)
         if (this.options) {
           const { src, tagName } = this.options
           data.headTags.unshift({
