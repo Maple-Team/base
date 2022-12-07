@@ -2,6 +2,9 @@
   "name": "@liutsing/rc-components",
   "version": "0.0.1",
   "description": "",
+  "sideEffects": [
+    "*.less"
+  ],
   "scripts": {
     "prebuild": "pnpm run test",
     "build": "rollup -c",
@@ -19,6 +22,7 @@
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.17.12",
+    "@rollup/plugin-alias": "^4.0.2",
     "@rollup/plugin-commonjs": "^23.0.1",
     "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-typescript": "^9.0.1",

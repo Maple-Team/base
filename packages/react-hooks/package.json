@@ -1,6 +1,7 @@
 {
   "name": "@liutsing/rc-hooks",
   "version": "0.0.1",
+  "sideEffects": false,
   "description": "",
   "keywords": [],
   "license": "MIT",

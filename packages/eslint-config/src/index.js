@@ -61,24 +61,42 @@ const vueRules = {
       math: 'always',
     },
   ],
+  'vue/multi-word-component-names': [
+    'error',
+    {
+      ignores: ['index'],
+    },
+  ],
 }
 /**
  * ts文件 自定义规则配置
  * @type {import('eslint').Linter.RulesRecord}
  */
 const typescriptRules = {
-  '@typescript-eslint/ban-ts-ignore': 'off',
-  '@typescript-eslint/explicit-function-return-type': 'off',
-  '@typescript-eslint/no-explicit-any': 'off',
-  '@typescript-eslint/no-var-requires': 'off',
-  '@typescript-eslint/no-empty-function': 'off',
-  'vue/custom-event-name-casing': 'off',
+  // TypeScript's `noFallthroughCasesInSwitch` option is more robust (#6906)
+  'default-case': 'off',
+  // 'tsc' already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/291)
+  'no-dupe-class-members': 'off',
+  // 'tsc' already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/477)
+  'no-undef': 'off',
+  'no-unused-vars': 'off',
+  'no-array-constructor': 'off',
   'no-use-before-define': 'off',
-  '@typescript-eslint/no-use-before-define': 'off',
-  '@typescript-eslint/ban-ts-comment': 'off',
-  '@typescript-eslint/ban-types': 'off',
-  '@typescript-eslint/no-non-null-assertion': 'off',
-  '@typescript-eslint/explicit-module-boundary-types': 'off',
+  'standard/no-callback-literal': 'off',
+  'no-useless-constructor': 'off',
+  // Add TypeScript specific rules (and turn off ESLint equivalents)
+  '@typescript-eslint/consistent-type-assertions': 'warn',
+  '@typescript-eslint/no-array-constructor': 'warn',
+  '@typescript-eslint/no-namespace': 'error',
+  '@typescript-eslint/no-use-before-define': [
+    'error',
+    {
+      functions: false,
+      classes: false,
+      variables: false,
+      typedefs: false,
+    },
+  ],
   '@typescript-eslint/no-unused-vars': [
     'error',
     {
@@ -87,6 +105,18 @@ const typescriptRules = {
       varsIgnorePattern: '^_',
     },
   ],
+  '@typescript-eslint/explicit-function-return-type': 'off',
+  '@typescript-eslint/explicit-module-boundary-types': 'off',
+  '@typescript-eslint/member-delimiter-style': 'off',
+  '@typescript-eslint/no-explicit-any': 'error',
+  '@typescript-eslint/no-useless-constructor': 'warn',
+  '@typescript-eslint/ban-ts-ignore': 'off',
+  '@typescript-eslint/no-var-requires': 'off',
+  '@typescript-eslint/no-empty-function': 'off',
+  'vue/custom-event-name-casing': 'off',
+  '@typescript-eslint/ban-ts-comment': 'off',
+  '@typescript-eslint/ban-types': 'off',
+  '@typescript-eslint/no-non-null-assertion': 'off',
 }
 /**
  * 基础js 自定义规则配置
@@ -190,43 +220,7 @@ const eslintConfig = defineConfig({
       ),
       rules: {
         ...baseRules,
-        // TypeScript's `noFallthroughCasesInSwitch` option is more robust (#6906)
-        'default-case': 'off',
-        // 'tsc' already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/291)
-        'no-dupe-class-members': 'off',
-        // 'tsc' already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/477)
-        'no-undef': 'off',
-        'no-unused-vars': 'off',
-        'no-array-constructor': 'off',
-        'no-use-before-define': 'off',
-        'standard/no-callback-literal': 'off',
-        'no-useless-constructor': 'off',
-        // Add TypeScript specific rules (and turn off ESLint equivalents)
-        '@typescript-eslint/consistent-type-assertions': 'warn',
-        '@typescript-eslint/no-array-constructor': 'warn',
-        '@typescript-eslint/no-namespace': 'error',
-        '@typescript-eslint/no-use-before-define': [
-          'error',
-          {
-            functions: false,
-            classes: false,
-            variables: false,
-            typedefs: false,
-          },
-        ],
-        '@typescript-eslint/no-unused-vars': [
-          'error',
-          {
-            vars: 'all',
-            argsIgnorePattern: '^_',
-            varsIgnorePattern: '^_',
-          },
-        ],
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-        '@typescript-eslint/member-delimiter-style': 'off',
-        '@typescript-eslint/no-explicit-any': 'error',
-        '@typescript-eslint/no-useless-constructor': 'warn',
+        ...typescriptRules,
         ...(isReactExist
           ? {
               'react/prop-types': 'off',

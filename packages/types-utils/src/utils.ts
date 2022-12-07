@@ -1,7 +1,7 @@
 type Ran<T extends number> = number extends T ? number : _Range<T, []>
 type _Range<T extends number, R extends unknown[]> = R['length'] extends T ? R[number] : _Range<T, [R['length'], ...R]>
 
-//@ts-ignore
+// @ts-ignore
 export type ColorValue = Ran<256>
 
 type CreateArrayWithLengthX<LENGTH extends number, ACC extends unknown[] = []> = ACC['length'] extends LENGTH
@@ -16,5 +16,5 @@ type NumericRange<
 
 //
 //
-//@ts-ignore
+// @ts-ignore
 export type TWENTY_TO_FORTY = NumericRange<CreateArrayWithLengthX<0>, 256>

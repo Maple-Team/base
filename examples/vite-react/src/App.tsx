@@ -1,5 +1,7 @@
 import { useState, useCallback, memo, useRef } from 'react'
 import { useMount, useUnmount, useAsync, useScroll } from '@liutsing/rc-hooks'
+import { RippleButton, Button } from '@liutsing/rc-components'
+import '@liutsing/rc-components/dist/esm/index.css'
 
 const BigNumber = ({ number }: { number: number }) => {
   useUnmount(() => {
@@ -34,6 +36,7 @@ const Counter = () => {
 
   const [visible, setVisible] = useState<boolean>(true)
   const { data, isLoading, error } = useAsync('https://randomuser.me/api')
+
   useScroll((e: Event) => console.log(e))
   return (
     <div>
@@ -54,6 +57,8 @@ const Counter = () => {
           // cb1={cb1}
           cb2={cb2}
         />
+        <Button>Normal Button</Button>
+        <RippleButton>Ripple Button</RippleButton>
         <div style={{ height: 1500 }}></div>
       </>
     </div>

@@ -6,7 +6,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>React Webpack App</title>
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <script src="./react.development.js"></script>
+    <script src="./react-dom.development.js"></script>
+
+    <%= htmlWebpackPlugin.tags.scriptTags %>
   </head>
 
   <body>

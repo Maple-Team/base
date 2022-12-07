@@ -5,6 +5,10 @@
     "jsx": "react",
     "outDir": "dist",
     "rootDir": ".",
-    "sourceMap": true
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   }
 }

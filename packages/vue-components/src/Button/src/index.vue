@@ -21,6 +21,7 @@ withDefaults(
   }
 )
 </script>
+
 <style lang="scss" scoped>
 .btn {
   padding: 2px;
