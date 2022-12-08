@@ -46,6 +46,7 @@ importers:
       ts-jest: ^28.0.5
       ts-node: ^10.8.1
       tslib: ^2.4.1
+      typescript: ^4.9.4
       vue-tsc: ^1.0.10
       webpack: ^5.75.0
     dependencies:
@@ -74,7 +75,7 @@ importers:
       babel-loader: 9.1.0_ztqwsvkb6z73luspkai6ilstpu
       benny: 3.7.1
       css-loader: 6.7.2_webpack@5.75.0
-      fork-ts-checker-webpack-plugin: 7.2.13_vfotqvx6lgcbf3upbs6hgaza4q
+      fork-ts-checker-webpack-plugin: 7.2.13_3fkjkrd3audxnith3e7fo4fnxi
       gen-esm-wrapper: 1.1.3
       html-webpack-plugin: 5.5.0_webpack@5.75.0
       husky: 8.0.2
@@ -89,10 +90,11 @@ importers:
       rollup: 3.6.0
       rollup-plugin-cleanup: 3.2.1_rollup@3.6.0
       rollup-plugin-terser: 7.0.2_rollup@3.6.0
-      ts-jest: 28.0.8_ic6wxeigwnkqw2pudjw44t7ibi
-      ts-node: 10.9.1_zhirybrk4zoofuxp64necizyzy
+      ts-jest: 28.0.8_nbgnmamsijfwxy4jc4aybulfwy
+      ts-node: 10.9.1_bspv7bpieoza2i5ctiw2ofswem
       tslib: 2.4.1
-      vue-tsc: 1.0.11_typescript@4.9.3
+      typescript: 4.9.4
+      vue-tsc: 1.0.11_typescript@4.9.4
       webpack: 5.75.0
 
   examples/ts-lib:
@@ -6208,7 +6210,7 @@ packages:
     dependencies:
       is-callable: 1.2.7
 
-  /fork-ts-checker-webpack-plugin/7.2.13_vfotqvx6lgcbf3upbs6hgaza4q:
+  /fork-ts-checker-webpack-plugin/7.2.13_3fkjkrd3audxnith3e7fo4fnxi:
     resolution: {integrity: sha512-fR3WRkOb4bQdWB/y7ssDUlVdrclvwtyCUIHCfivAoYxq9dF7XfrDKbMdZIfwJ7hxIAqkYSGeU7lLJE6xrxIBdg==}
     engines: {node: '>=12.13.0', yarn: '>=1.0.0'}
     peerDependencies:
@@ -6231,7 +6233,7 @@ packages:
       schema-utils: 3.1.1
       semver: 7.3.8
       tapable: 2.2.1
-      typescript: 4.9.3
+      typescript: 4.9.4
       webpack: 5.75.0
     dev: true
 
@@ -6600,7 +6602,7 @@ packages:
       lodash: 4.17.21
       pretty-error: 4.0.0
       tapable: 2.2.1
-      webpack: 5.75.0_webpack-cli@5.0.1
+      webpack: 5.75.0
 
   /htmlparser2/6.1.0:
     resolution: {integrity: sha512-gyyPk6rgonLFEDGoeRgQNaEUvdJ4ktTmmUh/h2t7s+M8oPpIPxgNACWa+6ESR57kXstwqPiCut0V8NRpcwgU7A==}
@@ -7225,7 +7227,7 @@ packages:
       pretty-format: 28.1.3
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1_zhirybrk4zoofuxp64necizyzy
+      ts-node: 10.9.1_bspv7bpieoza2i5ctiw2ofswem
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -8143,13 +8145,13 @@ packages:
       rollup-plugin-bundle-size: 1.0.3
       rollup-plugin-postcss: 4.0.2_v776zzvn44o7tpgzieipaairwm
       rollup-plugin-terser: 7.0.2_rollup@2.79.1
-      rollup-plugin-typescript2: 0.32.1_k35zwyycrckt5xfsejji7kbwn4
+      rollup-plugin-typescript2: 0.32.1_ntuob3xud5wukob6phfmz2mbyy
       rollup-plugin-visualizer: 5.8.3_rollup@2.79.1
       sade: 1.8.1
       terser: 5.16.1
       tiny-glob: 0.2.9
       tslib: 2.4.1
-      typescript: 4.9.3
+      typescript: 4.9.4
     transitivePeerDependencies:
       - '@types/babel__core'
       - supports-color
@@ -8860,7 +8862,7 @@ packages:
     dependencies:
       lilconfig: 2.0.6
       postcss: 8.4.19
-      ts-node: 10.9.1_zhirybrk4zoofuxp64necizyzy
+      ts-node: 10.9.1_bspv7bpieoza2i5ctiw2ofswem
       yaml: 1.10.2
     dev: true
 
@@ -10245,7 +10247,7 @@ packages:
       terser: 5.16.1
     dev: true
 
-  /rollup-plugin-typescript2/0.32.1_k35zwyycrckt5xfsejji7kbwn4:
+  /rollup-plugin-typescript2/0.32.1_ntuob3xud5wukob6phfmz2mbyy:
     resolution: {integrity: sha512-RanO8bp1WbeMv0bVlgcbsFNCn+Y3rX7wF97SQLDxf0fMLsg0B/QFF005t4AsGUcDgF3aKJHoqt4JF2xVaABeKw==}
     peerDependencies:
       rollup: '>=1.26.3'
@@ -10257,7 +10259,7 @@ packages:
       resolve: 1.22.1
       rollup: 2.79.1
       tslib: 2.4.1
-      typescript: 4.9.3
+      typescript: 4.9.4
     dev: true
 
   /rollup-plugin-visualizer/5.8.3:
@@ -11129,7 +11131,7 @@ packages:
       schema-utils: 3.1.1
       serialize-javascript: 6.0.0
       terser: 5.16.1
-      webpack: 5.75.0_webpack-cli@5.0.1
+      webpack: 5.75.0
 
   /terser/5.16.1:
     resolution: {integrity: sha512-xvQfyfA1ayT0qdK47zskQgRZeWLoOQ8JQ6mIgRGVNwZKdQMU+5FkCBjmv4QjcrTzyZquRw2FVtlJSRUmMKQslw==}
@@ -11222,7 +11224,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /ts-jest/28.0.8_ic6wxeigwnkqw2pudjw44t7ibi:
+  /ts-jest/28.0.8_nbgnmamsijfwxy4jc4aybulfwy:
     resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
@@ -11253,7 +11255,7 @@ packages:
       lodash.memoize: 4.1.2
       make-error: 1.3.6
       semver: 7.3.8
-      typescript: 4.9.3
+      typescript: 4.9.4
       yargs-parser: 21.1.1
     dev: true
 
@@ -11272,7 +11274,7 @@ packages:
       webpack: 5.75.0_webpack-cli@5.0.1
     dev: false
 
-  /ts-node/10.9.1_zhirybrk4zoofuxp64necizyzy:
+  /ts-node/10.9.1_bspv7bpieoza2i5ctiw2ofswem:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -11298,7 +11300,7 @@ packages:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 4.9.3
+      typescript: 4.9.4
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     dev: true
@@ -11382,6 +11384,12 @@ packages:
     resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
+
+  /typescript/4.9.4:
+    resolution: {integrity: sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
 
   /uglify-js/2.8.29:
     resolution: {integrity: sha512-qLq/4y2pjcU3vhlhseXGGJ7VbFO4pBANu0kwl8VCa9KEI0V8VfZIx2Fy3w01iSTA/pGwKZSmu/+I4etLNDdt5w==}
@@ -11664,6 +11672,17 @@ packages:
       typescript: 4.9.3
     dev: true
 
+  /vue-tsc/1.0.11_typescript@4.9.4:
+    resolution: {integrity: sha512-lj+6dEroPsE4wmQOPtjCzAf8x363Km5/tuEvMEoQaoRnzs9myBM46FNvCGIIPStYUGuaqF1W1bORmP2KDQEORA==}
+    hasBin: true
+    peerDependencies:
+      typescript: '*'
+    dependencies:
+      '@volar/vue-language-core': 1.0.11
+      '@volar/vue-typescript': 1.0.11
+      typescript: 4.9.4
+    dev: true
+
   /vue/3.2.45:
     resolution: {integrity: sha512-9Nx/Mg2b2xWlXykmCwiTUCWHbWIj53bnkizBxKai1g61f2Xit700A1ljowpTIM11e3uipOeiPcSqnmBg6gyiaA==}
     dependencies:
@@ -11871,7 +11890,6 @@ packages:
       - '@swc/core'
       - esbuild
       - uglify-js
-    dev: true
 
   /webpack/5.75.0_webpack-cli@5.0.1:
     resolution: {integrity: sha512-piaIaoVJlqMsPtX/+3KTTO6jfvrSYgauFVdt8cr9LTHKmcq/AMd4mhzsiP7ZF/PGRNPGA8336jldh9l2Kt2ogQ==}

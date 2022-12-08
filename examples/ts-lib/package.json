@@ -1,5 +1,5 @@
 {
-  "name": "@liutsing/mock-extend",
+  "name": "example-1",
   "version": "0.0.1",
   "private": true,
   "description": "A lib to extend mockjs Random's methods",
@@ -40,6 +40,5 @@
     "mockjs": "^1.1.0",
     "moment": "^2.29.3"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
