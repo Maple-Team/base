@@ -27,12 +27,15 @@ function createRipple(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent
 
 interface Props {
   children?: ReactNode
+  onClick?: (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => void
 }
-export const RippleButton = ({ children }: Props) => {
+export const RippleButton = ({ children, onClick }: Props) => {
   const context = useContext(UIContext)
   const prefixCls = context.prefixCls || PREFIX_CLS
   const handleClick = useCallback((e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+    onClick && onClick(e)
     createRipple(e)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

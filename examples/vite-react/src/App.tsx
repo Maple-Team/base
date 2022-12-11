@@ -1,77 +1,38 @@
-import { useState, useCallback, memo, useRef } from 'react'
-import { useMount, useUnmount, useAsync, useScroll } from '@liutsing/rc-hooks'
-import { RippleButton, Button } from '@liutsing/rc-components'
+import React, { useCallback, useState } from 'react'
 import '@liutsing/rc-components/dist/esm/index.css'
+import { RenderComponent } from './RenderComponent'
+import { Button, RippleButton } from '@liutsing/rc-components'
 
-const BigNumber = ({ number }: { number: number }) => {
-  useUnmount(() => {
-    console.log('BigNumber unmount')
-  })
-  return <div style={{ fontWeight: 700, fontSize: 36 }}>{number}</div>
+const UseCount = () => {
+  const [num, setNum] = useState<number>(0)
+  const increase = useCallback(() => {
+    setNum((_) => _ + 1)
+  }, [])
+  const decrease = useCallback(() => {
+    setNum((_) => _ - 1)
+  }, [])
+  return {
+    num,
+    increase,
+    decrease,
+  }
 }
-const SomeDecoration = memo(({ cb1, cb2 }: { cb1?: () => void; cb2?: () => void }) => {
-  cb1 && cb1()
-  cb2 && cb2()
-  return <div>Hooray! {Math.random()}</div>
-})
-
-const Counter = () => {
-  const [count, setCount] = useState(0)
-  const handleButtonClick = useCallback(() => setCount((count) => count + 1), [])
-  const ref = useRef<number[]>([])
-
-  const _cb1 = useCallback(() => {
-    console.log('123', new Date().getTime())
-  }, []) // -> same fn
-  const cb2 = useCallback(() => {
-    console.log('456', new Date().getTime())
-  }, [[]]) // -> different fn
-  const _cb3 = useCallback(() => {
-    console.log('456', new Date().getTime())
-  }, [ref.current]) // -> same fn
-
-  useMount(() => {
-    console.count('execute times')
-  })
-
-  const [visible, setVisible] = useState<boolean>(true)
-  const { data, isLoading, error } = useAsync('https://randomuser.me/api')
-
-  useScroll((e: Event) => console.log(e))
+const App = () => {
+  const { num, increase, decrease } = UseCount()
   return (
-    <div>
-      <>
-        {isLoading ? <span>loading</span> : ''}
-        {error ? <span>{error.message}</span> : ''}
-        {data && <span>{JSON.stringify(data)}</span>}
-        {visible && <BigNumber number={count} />}
-        <button onClick={handleButtonClick}>Increment</button>
-        <button
-          onClick={() => {
-            setVisible((_) => !_)
-          }}
-        >
-          Toggle Visible
-        </button>
-        <SomeDecoration
-          // cb1={cb1}
-          cb2={cb2}
-        />
-        <Button>Normal Button</Button>
-        <RippleButton>Ripple Button</RippleButton>
-        <div style={{ height: 1500 }}></div>
-      </>
-    </div>
+    <>
+      <RenderComponent render={() => <div>render function component</div>} />
+      {/* <Counter /> */}
+      <div>
+        <span>num: {num}</span>
+        <RippleButton onClick={increase}>+</RippleButton>
+        <RippleButton onClick={decrease}>-</RippleButton>
+      </div>
+      <footer>
+        <a href="https://skk.moe/">Sukka</a>
+      </footer>
+    </>
   )
 }
-
-const App = () => (
-  <>
-    <Counter />
-    <footer>
-      <a href="https://skk.moe/">Sukka</a>
-    </footer>
-  </>
-)
 
 export default App
