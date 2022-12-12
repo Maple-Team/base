@@ -1,0 +1,46 @@
+{
+  "name": "@liutsing/mock-extend",
+  "version": "0.0.3",
+  "description": "A lib to extend mockjs Random's methods",
+  "keywords": [
+    "mockjs",
+    "extend methods"
+  ],
+  "author": "liutsing <liutsingluo@gmail.com>",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "typings": "types/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "types": "types"
+  },
+  "files": [
+    "lib",
+    "types"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Maple-Team/extend-mockjs-random"
+  },
+  "bugs": {
+    "url": "https://github.com/Maple-Team/extend-mockjs-random/issues"
+  },
+  "homepage": "https://github.com/Maple-Team/extend-mockjs-random",
+  "scripts": {
+    "test": "jest",
+    "build": "rimraf types && tsc --project tsconfig.build.json",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "mockjs": "^1.1.0",
+    "moment": "^2.29.3",
+    "snowflake-id": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/mockjs": "^1.0.6"
+  },
+  "prettier": "@liutsing/prettier-config"
+}

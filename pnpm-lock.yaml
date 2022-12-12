@@ -25,6 +25,7 @@ importers:
       '@types/node': ^18.7.18
       '@types/react': ^18.0.25
       '@types/react-dom': ^18.0.7
+      axios: ^1.2.1
       babel-jest: ^28.1.1
       babel-loader: ^9.1.0
       benny: ^3.7.1
@@ -57,6 +58,7 @@ importers:
       '@liutsing/rc-hooks': link:packages/react-hooks
       '@liutsing/rcv-components': link:packages/react-components-vite
       '@liutsing/types-utils': link:packages/types-utils
+      axios: 1.2.1
       core-js: 3.26.1
       dayjs: 1.11.7
     devDependencies:
@@ -227,6 +229,19 @@ importers:
       typescript: 4.9.3
       vue-eslint-parser: 9.1.0_eslint@8.29.0
 
+  packages/extend-mockjs:
+    specifiers:
+      '@types/mockjs': ^1.0.6
+      mockjs: ^1.1.0
+      moment: ^2.29.3
+      snowflake-id: ^1.1.0
+    dependencies:
+      mockjs: 1.1.0
+      moment: 2.29.4
+      snowflake-id: 1.1.0
+    devDependencies:
+      '@types/mockjs': 1.0.7
+
   packages/html-webpack-plugin:
     specifiers:
       html-webpack-plugin: ^5.5.0
@@ -370,6 +385,15 @@ importers:
 
   packages/regexp-utils:
     specifiers: {}
+
+  packages/request:
+    specifiers:
+      '@liutsing/types-utils': workspace:*
+      axios: ^1.2.1
+    dependencies:
+      axios: 1.2.1
+    devDependencies:
+      '@liutsing/types-utils': link:../types-utils
 
   packages/stylelint-config:
     specifiers:
@@ -4454,7 +4478,6 @@ packages:
 
   /asynckit/0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
-    dev: true
 
   /asyncro/3.0.0:
     resolution: {integrity: sha512-nEnWYfrBmA3taTiuiOoZYmgJ/CNrSoQLeLs29SeLcPu60yaw/mHDBHV0iOZ051fTvsTHxpCY+gXibqT9wbQYfg==}
@@ -4495,7 +4518,6 @@ packages:
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
-    dev: true
 
   /babel-jest/28.1.3_@babel+core@7.20.5:
     resolution: {integrity: sha512-epUaPOEWMk3cWX0M/sPvCHHCe9fMFAa/9hXEgKP8nFfNl/jlGkE9ucq9NqkZGXLDduCJYS0UvSlPUwC0S+rH6Q==}
@@ -4648,7 +4670,6 @@ packages:
     dependencies:
       core-js: 2.6.12
       regenerator-runtime: 0.11.1
-    dev: true
 
   /balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -5217,7 +5238,6 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       delayed-stream: 1.0.0
-    dev: true
 
   /commander/2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
@@ -5368,7 +5388,6 @@ packages:
     resolution: {integrity: sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==}
     deprecated: core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.
     requiresBuild: true
-    dev: true
 
   /core-js/3.26.1:
     resolution: {integrity: sha512-21491RRQVzUn0GGM9Z1Jrpr6PNPxPi+Za8OM9q4tksTSnlbXXGKK1nXNg/QvwFYettXvSX6zWKCtHHfjN4puyA==}
@@ -5805,7 +5824,6 @@ packages:
   /delayed-stream/1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
-    dev: true
 
   /depd/1.1.2:
     resolution: {integrity: sha512-7emPTl6Dpo6JRXOXjLRxck+FlLRX5847cLKEn00PLAgc3g2hTZZgr+e4c2v6QpSmLeFP3n5yUo7ft6avBK/5jQ==}
@@ -7225,7 +7243,6 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
-    dev: true
 
   /forwarded/0.2.0:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
@@ -10826,7 +10843,6 @@ packages:
 
   /proxy-from-env/1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
-    dev: true
 
   /prr/1.0.1:
     resolution: {integrity: sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==}
@@ -11550,7 +11566,6 @@ packages:
 
   /regenerator-runtime/0.11.1:
     resolution: {integrity: sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==}
-    dev: true
 
   /regenerator-runtime/0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
@@ -12387,6 +12402,12 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /snowflake-id/1.1.0:
+    resolution: {integrity: sha512-aBOppRJ/HIe4PxkIxK5QMO4+X9pO6ejjE1i1gXgGXCEd312vtBZnvOfc2D7W2MKhVhyld7a7AwrO5ZIl297KbA==}
+    dependencies:
+      babel-runtime: 6.26.0
+    dev: false
 
   /sockjs-client/1.6.1_supports-color@6.1.0:
     resolution: {integrity: sha512-2g0tjOR+fRs0amxENLi/q5TiJTqY+WXFOzb5UwXndlK6TO3U/mirZznpx6w34HVMoc3g7cY24yC/ZMIYnDlfkw==}
