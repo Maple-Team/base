@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react'
-import '@liutsing/rc-components/dist/esm/index.css'
-import { ListWithMore } from './List'
+// import '@liutsing/rc-components/dist/esm/index.css'
+// import { Step } from './Step'
+import NiceModal, { useNiceModal } from './stores/NiceModal'
+import { Button } from 'antd'
 
 export const UseCount = () => {
   const [num, setNum] = useState<number>(0)
@@ -27,15 +29,30 @@ export const CounterRenderProps = ({
 
 const App = () => {
   // const { num, increase, decrease } = UseCount()
-  const [data, _setData] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9])
+  // const [_data, _setData] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+  const ModalExample = NiceModal.create<{ a: string }>('modal1', (props) => (
+    <NiceModal
+      id="modal1"
+      title="Nice Modal"
+      {...props}
+    >
+      Hello NiceModal!
+    </NiceModal>
+  ))
+  const { show, hide } = useNiceModal('modal1')
 
   return (
     <>
-      <ListWithMore
+      <Button onClick={() => show()}>show</Button>
+      <Button onClick={() => hide()}>hide</Button>
+      <ModalExample />
+      {/* <Step /> */}
+      {/* <ListWithMore
         data={data}
         max={5}
         renderItem={(item) => <span key={item}>{item}</span>}
-      />
+      /> */}
       {/* <RenderComponent render={() => <div>render function component</div>} /> */}
       {/* <Counter /> */}
       {/* <div>
