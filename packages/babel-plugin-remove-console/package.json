@@ -1,0 +1,35 @@
+{
+  "name": "@liutsing/babel-plugin-remove-console",
+  "version": "0.0.1",
+  "description": "A babel plugin to remove code's console.log",
+  "keywords": [
+    "babel plugin"
+  ],
+  "license": "ISC",
+  "author": "walle <luo.liuqing@gmail.com>",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js",
+    "default": "./dist/index.mjs",
+    "types": "./types/index.d.ts"
+  },
+  "main": "dist/index.js",
+  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "source": "src/index.ts",
+  "jsnext:main": "dist/index.mjs",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "prebuild": "rimraf types && rimraf lib",
+    "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier . --ext .ts -w",
+    "prepublish": "rimraf types && rimraf lib",
+    "test": "jest"
+  },
+  "prettier": "@liutsing/prettier-config"
+}

@@ -18,7 +18,8 @@
   ],
   "plugins": [
     "@babel/plugin-transform-runtime",
-    "react-refresh/babel"
+    "react-refresh/babel",
+    "@liutsing/babel-plugin-remove-console"
     // [
     //   "import",
     //   {
