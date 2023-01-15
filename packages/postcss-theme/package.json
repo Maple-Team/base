@@ -1,0 +1,68 @@
+{
+  "name": "@liutsing/postcss-theme",
+  "version": "0.0.1",
+  "private": false,
+  "description": "PostCSS plugin to configure light/dark color",
+  "keywords": [
+    "postcss",
+    "postcss-plugin",
+    "theme-color"
+  ],
+  "homepage": "https://github.com/Robert-Ro/postcss-plugin-maple-theme.git#readme",
+  "bugs": {
+    "url": "https://github.com/Robert-Ro/postcss-plugin-maple-theme.git",
+    "email": "liutsingluo@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Robert-Ro/postcss-plugin-maple-theme.git"
+  },
+  "license": "MIT",
+  "author": "Liutsing <liutsingluo@gmail.com>",
+  "exports": {
+    "default": "./dist/index.mjs",
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js",
+    "types": "./types/index.d.ts"
+  },
+  "main": "dist/index.js",
+  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "source": "src/index.ts",
+  "jsnext:main": "dist/index.mjs",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "build": "microbundle -f es,cjs,umd --no-sourcemap --tsconfig tsconfig.build.json",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "prettier": "prettier . --write",
+    "test": "jest --coverage",
+    "release": "bumpp"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "prettier": "@liutsing/prettier-config",
+  "devDependencies": {
+    "@types/postcss-nested": "^4.2.3",
+    "bumpp": "^8.2.1",
+    "postcss": "^8.3.6",
+    "postcss-nested": "^5.0.5",
+    "postcss-nesting": "^8.0.1"
+  },
+  "peerDependencies": {
+    "postcss": "^8.0.0"
+  },
+  "np": {
+    "yarn": false,
+    "contents": "dist"
+  }
+}

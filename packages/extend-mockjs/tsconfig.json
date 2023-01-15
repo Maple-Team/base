@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES5",
+    "outDir": "lib",
+    "lib": ["ES2015"],
+    "declaration": true,
+    "declarationDir": "types",
+    "removeComments": true,
+    "rootDir": ".",
+    "paths": {
+      "@": ["./src"]
+    }
+  }
+}

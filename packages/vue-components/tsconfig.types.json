@@ -1,7 +1,8 @@
 {
   "include": ["src/**/*"],
   "compilerOptions": {
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["vite/client", "node"]
   },
   "exclude": ["node_modules", "**/*.cy.ts", "**/*.spec.ts", "**/_tests__/**/*"]
 }

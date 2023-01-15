@@ -37,17 +37,7 @@
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {},
-  "devDependencies": {
-    "@babel/core": "^7.18.5",
-    "@babel/preset-env": "^7.18.2",
-    "@babel/preset-typescript": "^7.17.12",
-    "@liutsing/eslint-config": "workspace:*",
-    "@liutsing/prettier-config": "workspace:*",
-    "@types/jest": "^28.1.1",
-    "babel-jest": "^28.1.1",
-    "@types/node": "^18.0.0",
-    "jest": "^28.1.1"
-  },
+  "devDependencies": {},
   "publishConfig": {
     "access": "public"
   },
