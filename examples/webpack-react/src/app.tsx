@@ -7,6 +7,12 @@ import { join } from 'lodash-es'
 // import groupBy from 'lodash.groupby'
 
 const App = () => {
+  console.log('log')
+  console.debug('debug')
+  console.info('info')
+  console.warn('warn')
+  console.error('error')
+
   useAsync('https://randomuser.me/api')
   useScroll((e) => {
     console.log(e)

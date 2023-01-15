@@ -34,8 +34,8 @@ const config = {
   target: 'web',
   externals: {
     // @https://www.webpackjs.com/configuration/externals/#externalstype
-    react: 'React',
-    'react-dom': 'ReactDOM',
+    // react: 'React',
+    // 'react-dom': 'ReactDOM',
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -43,15 +43,16 @@ const config = {
       template: path.resolve(__dirname, '../public/index.html'),
       title: 'webpack config demo',
     }),
-    new MapleHtmlWebpackPlugin([
-      { src: './react18.min.js', tagName: 'script' },
-      {
-        tagName: 'script',
-        content: `console.log('123132')`,
-      },
-    ]),
+    new MapleHtmlWebpackPlugin(),
+    // [
+    // { src: './react18.min.js', tagName: 'script' },
+    // {
+    //   tagName: 'script',
+    //   content: `console.log('123132')`,
+    // },
+    // ]
     new ProvidePlugin({
-      React: 'react',
+      // React: 'react',
       process: 'process/browser',
     }),
     new DefinePlugin({

@@ -31,5 +31,9 @@
     "prepublish": "rimraf types && rimraf lib",
     "test": "jest"
   },
-  "prettier": "@liutsing/prettier-config"
+  "prettier": "@liutsing/prettier-config",
+  "devDependencies": {
+    "@types/babel-plugin-tester": "^9.0.5",
+    "babel-plugin-tester": "^10.1.0"
+  }
 }

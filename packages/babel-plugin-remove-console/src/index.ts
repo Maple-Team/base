@@ -2,6 +2,9 @@ import { NodePath, PluginObj } from '@babel/core'
 import t from '@babel/types'
 
 export interface Option {
+  /**
+   * 排除的项，如debug、error、warn等
+   */
   exclude?: string[]
 }
 /**
@@ -15,9 +18,8 @@ export default function ({ types: t }: { types: typeof import('@babel/types') })
       CallExpression(path: NodePath<t.CallExpression>, state: { opts: Option }) {
         const { node } = path
         if (t.isMemberExpression(node.callee) && t.isIdentifier(node.callee.object, { name: 'console' })) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          if (state.opts?.exclude?.includes(node.callee.property.name)) {
+          const property = node.callee.property as t.Identifier
+          if (!state.opts?.exclude?.includes(property.name)) {
             path.remove()
           }
         }
