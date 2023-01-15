@@ -43,7 +43,13 @@ const config = {
       template: path.resolve(__dirname, '../public/index.html'),
       title: 'webpack config demo',
     }),
-    new MapleHtmlWebpackPlugin({ src: './react18.min.js', tagName: 'script' }),
+    new MapleHtmlWebpackPlugin([
+      { src: './react18.min.js', tagName: 'script' },
+      {
+        tagName: 'script',
+        content: `console.log('123132')`,
+      },
+    ]),
     new ProvidePlugin({
       React: 'react',
       process: 'process/browser',
