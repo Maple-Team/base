@@ -1,4 +1,4 @@
-import { padStartDouble } from './help'
+import { padStart, padStartDouble } from './help'
 
 /**
  * 判断日期是否有效
@@ -137,3 +137,23 @@ export const dateSimpleFormate = (inputDate?: Date, _formate?: 'YYYY-MM-DD HH:mm
 }
 
 export const dateFormat = dateSimpleFormate
+
+/**
+ * 秒数可读性
+ * @param sec
+ * @param trim
+ * @returns
+ */
+export const showHumanizeTime = (sec: number, trim?: boolean) => {
+  const hours = Math.floor(sec / (60 * 60))
+  // method 1
+  // const minutes = Math.floor((num / 60) % 60)
+  // const seconds = Math.floor((num % 60) % 60)
+  // method 2
+  const minutes = Math.floor((sec - hours * 3600) / 60)
+  const seconds = Math.floor(sec - hours * 3600 - minutes * 60)
+
+  const formats = [hours, minutes, seconds].map((item) => padStart(item, 2, '0')).join(':')
+
+  return trim ? formats.replace(/^00:/g, '') : formats
+}

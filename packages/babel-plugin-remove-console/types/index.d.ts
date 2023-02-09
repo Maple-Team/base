@@ -1,5 +1,8 @@
 import { PluginObj } from '@babel/core';
 export interface Option {
+    /**
+     * 排除的项，如debug、error、warn等
+     */
     exclude?: string[];
 }
 /**
