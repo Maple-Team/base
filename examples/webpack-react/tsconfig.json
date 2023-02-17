@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "es6",
+    "target": "ESNext",
+    "module": "ESNext",
     "rootDir": ".",
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "Node16"
+    "moduleResolution": "Node" 
   }
 }
