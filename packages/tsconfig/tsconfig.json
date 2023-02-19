@@ -24,7 +24,8 @@
     "strict": true,
     "pretty": true,
     "removeComments": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true
     // baseUrl, rootDir, outDir 在各自的项目中配置
   }
 }
