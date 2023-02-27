@@ -1,4 +1,5 @@
 import type { ColorValue } from '@liutsing/types-utils'
+import { padEnd } from './help'
 /**
  * Convert RGB to Hex
  * @param r
@@ -13,7 +14,4 @@ export const rgbToHex = (r: ColorValue, g: ColorValue, b: ColorValue) =>
  * Generate Random Hex
  * @returns
  */
-export const randomHex = () =>
-  `#${Math.floor(Math.random() * 0xffffff)
-    .toString(16)
-    .padEnd(6, '0')}`
+export const randomHex = () => `#${padEnd(Math.floor(Math.random() * 0xffffff).toString(16), 6, '0')}`
