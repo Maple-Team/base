@@ -1,10 +1,11 @@
 import { useScroll, useAsync } from '@liutsing/rc-hooks'
-import React, { useEffect } from 'react'
-// import { AreaChart } from './area'
-// import { groupBy } from 'lodash'
+import React, { lazy, Suspense, useEffect } from 'react'
 import { join } from 'lodash-es'
-// import { groupBy } from 'lodash'
-// import groupBy from 'lodash.groupby'
+import { Component1, Component2 } from './useStateDemo'
+
+const ProductList = lazy(() => import('./ProductList/ProductList'))
+const ProductList2 = lazy(() => import('./ProductList2/ProductList'))
+const AreaChart = lazy(() => import('./area'))
 
 const App = () => {
   console.log('log')
@@ -23,7 +24,18 @@ const App = () => {
   return (
     <>
       <div>app entry</div>11
-      {/* <AreaChart /> */}
+      <Suspense fallback={<div>loading...</div>}>
+        <AreaChart />
+      </Suspense>
+      <div>
+        app entry
+        <Suspense fallback={<div>loading...</div>}>
+          <ProductList />
+          <ProductList2 />
+        </Suspense>
+      </div>
+      <Component1 />
+      <Component2 />
     </>
   )
 }

@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/prettier-config",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": false,
   "description": "",
   "keywords": [],
@@ -19,7 +19,7 @@
     "new:patch": "npm version patch"
   },
   "dependencies": {
-    "prettier": "^2.7.1"
+    "prettier": "^2.8.4"
   },
   "publishConfig": {
     "access": "public"
