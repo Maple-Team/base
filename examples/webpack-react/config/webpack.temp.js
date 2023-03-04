@@ -31,17 +31,27 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+              presets: [
+                [
+                  '@babel/preset-env',
+                  // {
+                  //   useBuiltIns: 'usage',
+                  //   corejs: '3.26.1',
+                  // },
+                ],
+                '@babel/preset-react',
+                '@babel/preset-typescript',
+              ],
               plugins: [
-                // [
-                //   '@babel/plugin-transform-runtime',
-                //   {
-                //     corejs: 3,
-                //     absoluteRuntime: true,
-                //     helpers: true,
-                //     regenerator: true,
-                //   },
-                // ],
+                [
+                  '@babel/plugin-transform-runtime',
+                  {
+                    corejs: 3,
+                    absoluteRuntime: true,
+                    helpers: true,
+                    regenerator: true,
+                  },
+                ],
               ],
             },
           },

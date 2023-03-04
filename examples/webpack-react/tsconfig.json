@@ -5,6 +5,7 @@
     "rootDir": ".",
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "Node" 
+    "moduleResolution": "Node",
+    "importHelpers": true
   }
 }
