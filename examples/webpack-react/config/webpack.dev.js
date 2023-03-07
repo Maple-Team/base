@@ -39,10 +39,6 @@ const dev = {
   output: { filename: '[name].js', path: path.resolve(__dirname, '../dist'), pathinfo: false, publicPath: '/' },
   devtool: 'eval-cheap-module-source-map',
   cache: true,
-  // cache: {
-  //   type: 'filesystem',
-  //   cacheDirectory: path.resolve(__dirname, '../node_modules/'),
-  // },
   plugins: [new ReactRefreshWebpackPlugin()],
   module: {
     rules: [
@@ -50,16 +46,7 @@ const dev = {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
         include: [path.resolve(__dirname, '../src'), path.resolve(__dirname, '../../../packages')],
-        use: [
-          'babel-loader',
-          {
-            loader: '@liutsing/pattern-logger-loader',
-            options: {
-              logFileName: path.resolve(__dirname, '../loader.log'),
-              saveToDisk: true,
-            },
-          },
-        ],
+        use: ['babel-loader'],
       },
       // MORE-LOADER
     ],
@@ -81,7 +68,6 @@ const dev = {
     appendOnly: true,
     level: 'verbose',
     debug: true,
-    // debug: [(name) => name.includes('webpack-dev-server')],
   },
   experiments: {
     lazyCompilation: false,

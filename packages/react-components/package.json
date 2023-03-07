@@ -23,7 +23,6 @@
     "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-typescript": "^9.0.1",
     "@testing-library/react": "^13.4.0",
-   
     "@types/resize-observer-browser": "^0.1.6",
     "identity-obj-proxy": "^3.0.0",
     "jest-environment-jsdom": "28",

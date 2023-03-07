@@ -4,7 +4,7 @@
  * @param radix 进制
  * @returns
  */
-export function uuid(len: number, radix = 16) {
+export function uuid(len?: number, radix = 16) {
   const numbers = Array.from({ length: 10 }, (_, i) => `${i}`)
   const upperCaseWords = Array.from({ length: 26 }, (_, i) => i + 65).map((num) => String.fromCharCode(num))
   const lowerCaseWords = Array.from({ length: 26 }, (_, i) => i + 97).map((num) => String.fromCharCode(num))
@@ -18,6 +18,7 @@ export function uuid(len: number, radix = 16) {
     for (i = 0; i < len; i++) uuid[i] = chars[0 | (Math.random() * radix)]
   } else {
     // rfc4122, version 4 form
+    // 8923FB8C-1C81-48D7-904C-23D6A48FF380
     let r
     // rfc4122 requires these characters
     uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-'

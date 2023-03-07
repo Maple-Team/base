@@ -1,0 +1,21 @@
+// prefix
+.tooltip-container{
+  position: relative;
+  &:hover{
+    .tooltip-wrapper{
+      display: block;
+    }
+  }
+  .tooltip-wrapper{
+    padding: 5px;
+    background: #3f3f3f;
+    color: white;
+    max-width: 200px;
+    width: max-content;
+    word-wrap: break-word;
+    position: absolute;
+    display: none;
+    top: 100%;
+    // TODO Add Triangle
+  }
+}
