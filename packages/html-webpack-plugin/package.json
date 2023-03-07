@@ -1,7 +1,6 @@
 {
   "name": "@liutsing/html-webpack-plugin",
   "version": "0.0.1",
-  "private": true,
   "description": "A plugin to inject addition tag to fullfill html-webpack-plugin",
   "keywords": [
     "webpack",
