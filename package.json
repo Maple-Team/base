@@ -26,9 +26,13 @@
     "@liutsing/rc-hooks": "workspace:*",
     "@liutsing/rcv-components": "workspace:*",
     "@liutsing/types-utils": "workspace:*",
+    "@tanstack/react-query": "^4.26.1",
+    "ahooks": "^3.7.5",
     "axios": "^1.2.1",
     "core-js": "^3.26.1",
-    "dayjs": "^1.11.6"
+    "dayjs": "^1.11.6",
+    "lodash-es": "^4.17.21",
+    "mitt": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.5",
@@ -47,6 +51,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@types/babel__core": "^7.1.20",
     "@types/jest": "^28.1.1",
+    "@types/lodash-es": "^4.17.6",
     "@types/mockjs": "^1.0.6",
     "@types/node": "^18.7.18",
     "@types/react": "^18.0.25",

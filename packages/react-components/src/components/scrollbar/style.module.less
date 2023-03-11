@@ -1,0 +1,85 @@
+@prefix: custom-scrollbars;
+@unFocusScrollbarWidth: 2px;
+@scrollbarWidth: 8px;
+@scrollbarRadius: 8px;
+@scrollbarThumbHoverColor: rgb(119, 121, 126);
+@scrollbarThumbColor: rgb(185, 187, 188);
+@scrollbarTrackColor: #ccc;
+
+.@{prefix}__container {
+  overflow: hidden;
+  position: relative;
+
+  &:focus,
+  &:hover {
+    .@{prefix}__scrollbar {
+      background-color: @scrollbarTrackColor;
+
+      .@{prefix}__track-and-thumb .@{prefix}__thumb {
+        left: 0;
+        transform: translateX(0);
+        width: @scrollbarWidth;
+        background-color: @scrollbarThumbHoverColor;
+      }
+    }
+  }
+
+
+  .@{prefix}__content {
+    height: 100%;
+    -ms-overflow-style: none;
+    overflow: auto;
+    scrollbar-width: none;
+    z-index: 888;
+    position: relative;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .@{prefix}__scrollbar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: @scrollbarWidth;
+    transition: all 0.3s ease-in-out;
+    z-index: 999;
+    cursor: pointer;
+    border-radius: @scrollbarRadius;
+
+    .@{prefix}__track-and-thumb {
+      display: block;
+      height: 100%;
+      position: absolute;
+      width: @scrollbarWidth;
+
+      .@{prefix}__track {
+        background-color: @scrollbarTrackColor;
+        opacity: 0;
+        border-radius: @scrollbarRadius;
+        bottom: 0;
+        position: absolute;
+        top: 0;
+        width: @scrollbarWidth;
+
+        &:focus {
+          opacity: 1;
+        }
+      }
+
+      .@{prefix}__thumb {
+        border-radius: @scrollbarRadius;
+        background-color: @scrollbarThumbColor;
+        position: absolute;
+        // width: @scrollbarWidth;
+        width: @unFocusScrollbarWidth;
+        transform: translateX(-50%);
+        left: 50%;
+        transition: all 0.3s ease-in;
+        will-change: auto;
+      }
+    }
+  }
+}

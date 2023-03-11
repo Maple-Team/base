@@ -25,7 +25,12 @@
     "pretty": true,
     "removeComments": false,
     "noFallthroughCasesInSwitch": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    //
+    "paths": {
+        "@/*": ["./src/*"],
+      }
+
     // baseUrl, rootDir, outDir 在各自的项目中配置
   }
 }
