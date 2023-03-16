@@ -1,4 +1,4 @@
-import { Icon, IconClose } from '@/components'
+import { Icon, IconClose } from '@/Components'
 import { RemotePanelType } from '@/types'
 import { Empty, Skeleton, Timeline } from 'antd'
 import React, { Suspense, useCallback, useState, ElementType, memo, lazy } from 'react'
@@ -19,7 +19,7 @@ const AlarmPanel = lazy(() => import('./AlarmPanel'))
 const StoragePanel = lazy(() => import('./StoragePanel'))
 const DrivePanel = lazy(() => import('./DrivePanel'))
 
-const TabItem = memo(({ name, icon, checked, type, code, onClick }: ItemProps) => {
+const TabItem = memo(({ name, icon, checked, type, code, onClick, children: _children }: ItemProps) => {
   if (type === 'divider') {
     return (
       <div className="px-4 mb-4">
@@ -64,7 +64,6 @@ export const RemoteControlCard = memo(({ onClosePanel }: { onClosePanel: () => v
     //  w-[669px] h-[637px]
     <div
       className={`${styles.container} absolute rounded bottom-0
-       ${showProgress ? '-right-[688px]' : '-right-[442px]'}
       transition-all duration-500 ease-in will-change-transform`}
     >
       <header className="justify-between flex items-center px-4 pt-[11px] pb-[10px] border-0 border-b-[1px] border-solid border-[#0000001A]">
@@ -81,9 +80,9 @@ export const RemoteControlCard = memo(({ onClosePanel }: { onClosePanel: () => v
       <div
         className={`${
           showProgress ? 'w-[672px]' : ' w-[426px]'
-        } flex  transition-all duration-500 ease-in will-change-auto`}
+        } flex  transition-all duration-500 ease-in will-change-auto !h-[489px]`}
       >
-        <div className="w-[124px] border-0 border-r-[1px] border-solid border-[#DDDDDD] relative z-20">
+        <div className="w-[130px] border-0 border-r-[1px] border-solid border-[#DDDDDD] relative z-20">
           {items.map((item) => (
             <TabItem
               {...item}

@@ -1,4 +1,4 @@
-import { Icon } from '@/components'
+import { Icon } from '@/Components'
 import { Switch } from 'antd'
 import React, { memo } from 'react'
 import { useIconAnimation } from './useAlarmAnimation'

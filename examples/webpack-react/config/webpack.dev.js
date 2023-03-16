@@ -45,8 +45,15 @@ const dev = {
       {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
-        include: [path.resolve(__dirname, '../src'), path.resolve(__dirname, '../../../packages')],
+        include: [path.resolve(__dirname, '../src')],
         use: ['babel-loader'],
+      },
+      {
+        test: /\.(j|t)sx?$/,
+        exclude: /node_modules/,
+        include: [path.resolve(__dirname, '../src/assets/svg-icons')],
+        use: ['babel-loader'],
+        sideEffects: true,
       },
       // MORE-LOADER
     ],

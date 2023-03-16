@@ -1,5 +1,5 @@
 import React, { useCallback, useState, memo } from 'react'
-import { Icon } from '@/components'
+import { Icon } from '@/Components'
 import { RemoteControlCard } from './RemoteCard'
 
 /**

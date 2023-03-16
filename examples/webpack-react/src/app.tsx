@@ -2,12 +2,13 @@ import { useScroll, useAsync } from '@liutsing/rc-hooks'
 import React, { useEffect } from 'react'
 import { join } from 'lodash-es'
 // import { Component1, Component2 } from './useStateDemo'
-import { Tooltip } from '@liutsing/rc-components'
-import '@liutsing/rc-components/dist/cjs/index.css'
+// import { Tooltip } from '@liutsing/rc-components'
+// import '@liutsing/rc-components/dist/cjs/index.css'
 
 // const ProductList = lazy(() => import('./ProductList/ProductList'))
 // const ProductList2 = lazy(() => import('./ProductList2/ProductList'))
 // const AreaChart = lazy(() => import('./area'))
+import { RemoteControlCard } from './RemoteControl'
 
 const App = () => {
   // console.log('log')
@@ -17,15 +18,21 @@ const App = () => {
   // console.error('error')
 
   useAsync('https://randomuser.me/api')
-  useScroll((e) => {
+  useScroll((e: AnyToFix) => {
     console.log(e)
   })
   useEffect(() => {
     join([], 'id')
   }, [])
+
   return (
     <>
-      <Tooltip title="this is a tooltip">test Tooltip</Tooltip>
+      <RemoteControlCard
+        onClosePanel={() => {
+          throw new Error('Function not implemented.')
+        }}
+      />
+      {/* <Tooltip title="this is a tooltip">test Tooltip</Tooltip> */}
       {/* <div>app entry</div> */}
       {/* <Suspense fallback={<div>loading...</div>}>{ <AreaChart /> }</Suspense> */}
       <div>

@@ -1,16 +1,10 @@
 {
+  "extends":"@liutsing/tsconfig",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
     "rootDir": ".",
     "jsx": "react",
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "Node",
-    "importHelpers": true,
-    "paths":
-      {
-        "@/*": ["./src/*"],
-      }
-
+    "paths":{
+      "@/*": ["./src/*"]
+    }
   }
 }
