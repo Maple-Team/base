@@ -60,6 +60,7 @@
     "babel-jest": "^28.1.1",
     "babel-loader": "^9.1.0",
     "benny": "^3.7.1",
+    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.2",
     "fork-ts-checker-webpack-plugin": "^7.2.13",
     "gen-esm-wrapper": "^1.1.3",
