@@ -17,7 +17,7 @@
     "@antv/g2plot": "^2.4.22",
     "@babel/runtime": "^7.20.6",
     "@babel/runtime-corejs3": "^7.20.13",
-    "@liutsing/rc-hooks": "workspace:^0.0.1",
+    "@liutsing/rc-hooks": "workspace:*",
     "antd": "^5.2.3",
     "cross-env": "^7.0.3",
     "lodash": "^4.17.21",

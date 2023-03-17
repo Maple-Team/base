@@ -3,6 +3,7 @@ const { ProvidePlugin, DefinePlugin } = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 /**
  * @type {import('webpack').Configuration}
@@ -22,6 +23,19 @@ const config = {
   target: 'web',
   module: {
     rules: [
+      {
+        test: /\.(j|t)sx?$/,
+        exclude: /node_modules/,
+        include: [path.resolve(__dirname, '../src')],
+        use: ['babel-loader'],
+      },
+      {
+        test: /\.(j|t)sx?$/,
+        exclude: /node_modules/,
+        include: [path.resolve(__dirname, '../src/assets/svg-icons')],
+        use: ['babel-loader'],
+        sideEffects: true,
+      },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader', 'postcss-loader'],
@@ -48,7 +62,10 @@ const config = {
       template: path.resolve(__dirname, '../public/index.html'),
       title: 'webpack config demo',
     }),
-    new MapleHtmlWebpackPlugin(),
+    new MapleHtmlWebpackPlugin({ tagName: 'link', rel: 'stylesheet', href: './fonts/index.css' }, 'body'),
+    new CopyPlugin({
+      patterns: [{ from: 'public/fonts', to: 'fonts' }],
+    }),
     new ProvidePlugin({
       // React: 'react',
       process: 'process/browser',

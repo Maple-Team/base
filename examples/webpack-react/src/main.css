@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: 'Lato Regular', Arial, 'Alibaba PuHuiTi 2.0 55', 'PingFang SC', 'Microsoft YaHei';
+}

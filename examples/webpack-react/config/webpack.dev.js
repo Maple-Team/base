@@ -15,16 +15,16 @@ const devServer = {
   setupExitSignals: true,
   historyApiFallback: true,
   proxy: {
-    // '/api': {
-    //   target: process.env.API_URL,
-    //   pathRewrite: { '^/api': '' },
-    // },
-    // '/ws/': {
-    //   target: process.env.WS_URL,
-    //   ws: true,
-    //   secure: false,
-    //   changeOrigin: true,
-    // },
+    '/api': {
+      target: process.env.API_URL,
+      pathRewrite: { '^/api': '' },
+    },
+    '/ws/': {
+      target: process.env.WS_URL,
+      ws: true,
+      secure: false,
+      changeOrigin: true,
+    },
   },
   client: {
     logging: 'error',
@@ -40,25 +40,6 @@ const dev = {
   devtool: 'eval-cheap-module-source-map',
   cache: true,
   plugins: [new ReactRefreshWebpackPlugin()],
-  module: {
-    rules: [
-      {
-        test: /\.(j|t)sx?$/,
-        exclude: /node_modules/,
-        include: [path.resolve(__dirname, '../src')],
-        use: ['babel-loader'],
-      },
-      {
-        test: /\.(j|t)sx?$/,
-        exclude: /node_modules/,
-        include: [path.resolve(__dirname, '../src/assets/svg-icons')],
-        use: ['babel-loader'],
-        sideEffects: true,
-      },
-      // MORE-LOADER
-    ],
-  },
-
   optimization: {
     removeAvailableModules: false,
     removeEmptyChunks: false,
