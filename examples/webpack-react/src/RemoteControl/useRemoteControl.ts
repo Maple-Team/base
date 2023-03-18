@@ -1,7 +1,7 @@
 import { emitter } from '@/events'
 import { useFetchCommandResult, useLatestVehicleResultQuery } from '@/hooks'
 import { vehicleDeviceSwitchStateEnum } from '@/enums'
-import { DriveData, DeviceStatusData, VehicleResult, RemoteControlResult } from '@/types'
+import { DriveData, DeviceStatusData, VehicleResult, RemoteControlResult } from '@liutsing/types-utils'
 import { useInterval } from 'ahooks'
 import { useState, useEffect, useCallback } from 'react'
 

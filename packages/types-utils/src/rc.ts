@@ -23,7 +23,7 @@ export interface DeviceStatusData {
   /**
    * 远程喊话
    */
-  remoteCall?: any // TODO
+  remoteCall?: string
   /**
    * 音频文件
    */
@@ -268,10 +268,6 @@ export interface Message {
 
 export type MessageType = 'rtStatus' | 'remoteControl'
 
-export interface CommandInstruction {
-  commandType: RemoteCommandType // 01-强光灯，02-警灯，03-警笛
-  switchOrder: SwitchOrder
-}
 export interface SendCommandParams {
   instructionDtoList: CommandInstruction[]
   deviceType: RemoteControlDeviceType
