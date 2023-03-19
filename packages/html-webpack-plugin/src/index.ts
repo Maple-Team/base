@@ -1,8 +1,9 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import * as webpack from 'webpack'
+import { OptionalPick } from '@liutsing/types-utils'
 
-type LinkAttribute = Pick<HTMLLinkElement, 'rel' | 'href'>
-type ScriptAttribute = Pick<HTMLScriptElement, 'src'>
+type LinkAttribute = OptionalPick<HTMLLinkElement, 'rel' | 'href'>
+type ScriptAttribute = OptionalPick<HTMLScriptElement, 'src'>
 
 // TODO 支持更多注入的
 export type Options = {

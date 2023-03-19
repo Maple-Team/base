@@ -18,3 +18,7 @@ type NumericRange<
 //
 // @ts-ignore
 export type TWENTY_TO_FORTY = NumericRange<CreateArrayWithLengthX<0>, 256>
+
+export type OptionalPick<T, U extends keyof T> = {
+  [P in U]?: T[P]
+}
