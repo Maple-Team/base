@@ -24,6 +24,7 @@
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "lodash.groupby": "^4.6.0",
+    "react-router-dom": "^6.9.0",
     "ts-loader": "^9.4.1"
   },
   "devDependencies": {

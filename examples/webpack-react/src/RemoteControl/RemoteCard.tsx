@@ -47,7 +47,7 @@ const TabItem = memo(({ name, icon, checked, type, code, onClick, children: _chi
 const CircleDot = () => (
   <i className="inline-block w-4 h-4 border-[2px] border-solid rounded-lg border-[#C8CACD] bg-transparent" />
 )
-export const RemoteControlCard = memo(({ onClosePanel }: { onClosePanel: () => void }) => {
+export const RemoteControlCard = memo(() => {
   const vin = 'TESTVIN111111'
 
   useWebSocket(`/ws/patrol/vehicle?vin=${vin}`)
@@ -81,7 +81,7 @@ export const RemoteControlCard = memo(({ onClosePanel }: { onClosePanel: () => v
         >
           车辆远控
         </span>
-        <IconClose onClick={onClosePanel} />
+        <IconClose />
       </header>
       <div
         className={`${

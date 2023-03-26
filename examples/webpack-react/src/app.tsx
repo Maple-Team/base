@@ -27,11 +27,6 @@ const App = () => {
 
   return (
     <>
-      <RemoteControlCard
-        onClosePanel={() => {
-          throw new Error('Function not implemented.')
-        }}
-      />
       {/* <Tooltip title="this is a tooltip">test Tooltip</Tooltip> */}
       {/* <div>app entry</div> */}
       {/* <Suspense fallback={<div>loading...</div>}>{ <AreaChart /> }</Suspense> */}
