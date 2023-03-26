@@ -3,7 +3,7 @@ import { useFetchCommandResult, useLatestVehicleResultQuery } from '@/hooks'
 import { vehicleDeviceSwitchStateEnum } from '@/enums'
 import { DriveData, DeviceStatusData, VehicleResult, RemoteControlResult } from '@liutsing/types-utils'
 import { useInterval } from 'ahooks'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 
 type SetStateFn = (bool: boolean) => boolean
 
@@ -198,13 +198,13 @@ export const useVehicleRealtimeControlInfo = (noUsingRTdataTimeout: number, vin?
  */
 export const useVehicleRtInfo = (vin?: string) => {
   const [vehicleInfo, setVehicleInfo] = useState<VehicleResult>()
-  const { data, isSuccess } = useLatestVehicleResultQuery(vin)
+  // const { data, isSuccess } = useLatestVehicleResultQuery(vin)
 
-  useEffect(() => {
-    if (isSuccess && vin === data.vin) {
-      setVehicleInfo(data)
-    }
-  }, [isSuccess, data, vin])
+  // useEffect(() => {
+  //   if (isSuccess && vin === data.vin) {
+  //     setVehicleInfo(data)
+  //   }
+  // }, [isSuccess, data, vin])
 
   useEffect(() => {
     const handler = (result: VehicleResult) => {
@@ -244,7 +244,7 @@ const useCountdown = (commandId: string | null | undefined, timeout: number) => 
     }
   }, [commandId, timeout])
 
-  console.log(`=====倒计时: ${num}/${timeout}`, commandId)
+  // console.log(`=====倒计时: ${num}/${timeout}`, commandId)
 
   const reset = useCallback(
     (num: number) => {
@@ -254,4 +254,49 @@ const useCountdown = (commandId: string | null | undefined, timeout: number) => 
   )
 
   return { timeout: num, reset }
+}
+interface WebSocketMsg {
+  data: string
+  vin: string
+  msgType: 'rsStatus' | 'remoteControl'
+}
+export const useWebSocket = (url: string) => {
+  const WS_URL = process.env.WS_URL!
+  const wsRef = useRef<WebSocket>()
+
+  useEffect(() => {
+    if (!wsRef.current) {
+      //@ts-ignore
+      wsRef.current = new WebSocket(`${WS_URL}${url}`)
+      wsRef.current.onopen = () => {
+        console.log(`ws: ${url} open`)
+      }
+      wsRef.current.onmessage = (msg) => {
+        const dataStr = msg.data
+        let msgObj: WebSocketMsg | undefined
+        try {
+          msgObj = JSON.parse(dataStr) as WebSocketMsg
+        } catch (error) {}
+        let realData: AnyToFix
+        let realDataStr = msgObj?.data || '{}'
+        try {
+          realData = JSON.parse(realDataStr)
+        } catch (error) {}
+        switch (msgObj?.msgType) {
+          case 'rsStatus':
+            emitter.emit('rtStatus', realData as VehicleResult)
+            break
+          case 'remoteControl':
+            emitter.emit('remoteControlResult', realData as RemoteControlResult)
+            break
+          default:
+            break
+        }
+      }
+    }
+  }, [wsRef.current])
+
+  return {
+    ws: wsRef.current,
+  }
 }

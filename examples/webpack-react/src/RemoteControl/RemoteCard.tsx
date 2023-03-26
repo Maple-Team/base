@@ -1,8 +1,9 @@
 import { Icon, IconClose } from '@/Components'
-import { RemotePanelType } from '@/types'
+import { RemotePanelType } from '@liutsing/types-utils'
 import { Empty, Skeleton, Timeline } from 'antd'
-import React, { Suspense, useCallback, useState, ElementType, memo, lazy } from 'react'
+import React, { Suspense, useCallback, useState, ElementType, memo, lazy, useEffect } from 'react'
 import { DividerLine } from './DividerLine'
+import { useWebSocket } from './useRemoteControl'
 // @ts-ignore
 import styles from './style.module.less'
 
@@ -47,6 +48,11 @@ const CircleDot = () => (
   <i className="inline-block w-4 h-4 border-[2px] border-solid rounded-lg border-[#C8CACD] bg-transparent" />
 )
 export const RemoteControlCard = memo(({ onClosePanel }: { onClosePanel: () => void }) => {
+  const vin = 'TESTVIN111111'
+
+  useWebSocket(`/ws/patrol/vehicle?vin=${vin}`)
+  useWebSocket(`/ws/patrol/common?vin=${vin}`)
+
   const items: ItemProps[] = [
     { icon: 'icon-rc-alarm', name: '警用设备', checked: true, code: 'alarm', children: AlarmPanel },
     { icon: 'icon-rc-storage', name: '储物设备', checked: false, code: 'storage', children: StoragePanel },
@@ -63,7 +69,7 @@ export const RemoteControlCard = memo(({ onClosePanel }: { onClosePanel: () => v
   return (
     //  w-[669px] h-[637px]
     <div
-      className={`${styles.container} absolute rounded bottom-0
+      className={`${styles.container} absolute rounded top-0
       transition-all duration-500 ease-in will-change-transform`}
     >
       <header className="justify-between flex items-center px-4 pt-[11px] pb-[10px] border-0 border-b-[1px] border-solid border-[#0000001A]">
@@ -80,7 +86,7 @@ export const RemoteControlCard = memo(({ onClosePanel }: { onClosePanel: () => v
       <div
         className={`${
           showProgress ? 'w-[672px]' : ' w-[426px]'
-        } flex  transition-all duration-500 ease-in will-change-auto !h-[489px]`}
+        } flex  transition-all duration-500 ease-in will-change-auto pb-3`} // !h-[489px]
       >
         <div className="w-[130px] border-0 border-r-[1px] border-solid border-[#DDDDDD] relative z-20">
           {items.map((item) => (

@@ -1,12 +1,12 @@
-import axios from 'axios'
+import { axios } from '@/http'
 import { remoteCommandTypeEnum, vehicleDeviceSwitchStateEnum } from '@/enums'
 import { RemoteControlResult, VehicleResult, SendCommandParams } from '@liutsing/types-utils'
 import { useQuery } from '@tanstack/react-query'
 
 const Api = {
-  sendControlCommand: '/vehicle-control/sendCmd', // 远控下发
-  fetchControlResult: '/vehicle-control/getVehConResult', // 某次下发命令结果
-  getLatestTracking: '/vehicle-control/getLatestTracking',
+  sendControlCommand: '/api/vehicle-control/sendCmd', // 远控下发
+  fetchControlResult: '/api/vehicle-control/getVehConResult', // 某次下发命令结果
+  getLatestTracking: '/api/vehicle-control/getLatestTracking',
 }
 
 /**

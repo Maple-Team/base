@@ -57,7 +57,7 @@ const StoragePanel = () => {
         return
       }
       resetTimeout(TIME_TO_NOT_USE_REALTIME_DATA)
-      resetFetchTimeout(FETCH_REMOTE_CONTROL_TIMEOUT)
+
       sendRemoteCommand({
         deviceType: '1',
         vin,
@@ -70,6 +70,7 @@ const StoragePanel = () => {
       })
         .then((id) => {
           message.success('发送成功')
+          resetFetchTimeout(FETCH_REMOTE_CONTROL_TIMEOUT)
           // @ts-ignore
           commandIdRef.current = id
           setLocker1Loading(true)
@@ -90,7 +91,7 @@ const StoragePanel = () => {
         return
       }
       resetTimeout(TIME_TO_NOT_USE_REALTIME_DATA)
-      resetFetchTimeout(FETCH_REMOTE_CONTROL_TIMEOUT)
+
       sendRemoteCommand({
         deviceType: '1',
         vin,
@@ -103,6 +104,7 @@ const StoragePanel = () => {
       })
         .then((id) => {
           message.success('发送成功')
+          resetFetchTimeout(FETCH_REMOTE_CONTROL_TIMEOUT)
           // @ts-ignore
           commandIdRef.current = id
           setLocker2Loading(true)
@@ -116,7 +118,7 @@ const StoragePanel = () => {
   )
 
   return (
-    <div className="pt-[14px] pl-4 flex-1 min-h-[489px]">
+    <div className="pt-[14px] pl-4 flex-1">
       <header className="text-lg border-0 border-b-[1px] pb-3 border-b-[rgba(0,0,0,0.1)] border-solid">储物功能</header>
       <div className="flex justify-between flex-wrap pt-3 pr-4">
         <FunctionButton

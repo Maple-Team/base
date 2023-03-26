@@ -24,6 +24,7 @@
   },
   "scripts": {
     "prebuild": "npx rimraf types dist",
+    "prepublish": "pnpm run build",
     "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
     "build:watch": "tsc -w",
     "test": "jest",

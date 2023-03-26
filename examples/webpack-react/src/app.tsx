@@ -17,7 +17,7 @@ const App = () => {
   // console.warn('warn')
   // console.error('error')
 
-  useAsync('https://randomuser.me/api')
+  // useAsync('https://randomuser.me/api')
   useScroll((e: AnyToFix) => {
     console.log(e)
   })

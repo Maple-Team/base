@@ -8,7 +8,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
  */
 const devServer = {
   compress: false,
-  port: 3000,
+  port: process.env.PORT,
   // host: '',
   hot: true,
   open: false,
@@ -17,7 +17,7 @@ const devServer = {
   proxy: {
     '/api': {
       target: process.env.API_URL,
-      pathRewrite: { '^/api': '' },
+      // pathRewrite: { '^/api': '' },
     },
     '/ws/': {
       target: process.env.WS_URL,

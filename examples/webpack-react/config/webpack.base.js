@@ -5,6 +5,9 @@ const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
+const appRootPath = path.join(__dirname, '..')
+const envKeys = require('../plugins/env.js')(appRootPath)
+
 /**
  * @type {import('webpack').Configuration}
  */
@@ -67,11 +70,11 @@ const config = {
       patterns: [{ from: 'public/fonts', to: 'fonts' }],
     }),
     new ProvidePlugin({
-      // React: 'react',
+      React: 'react',
       process: 'process/browser',
     }),
     new DefinePlugin({
-      // ...envKeys,
+      ...envKeys,
     }),
     new SpriteLoaderPlugin({
       plainSprite: true,
