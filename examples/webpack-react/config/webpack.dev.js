@@ -7,6 +7,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
  * @type {import("webpack-dev-server").Configuration}
  */
 const devServer = {
+  headers: { 'X-Upstream': process.env.API_URL },
   compress: false,
   port: process.env.PORT,
   // host: '',

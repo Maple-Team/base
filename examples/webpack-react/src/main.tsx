@@ -1,11 +1,27 @@
 import React, { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './app'
-// import Scrollbar from './scrollbar'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import './main.css'
 import './assets/svg-icons'
+import Root from './routes/root'
+import ErrorPage from './error-page'
+
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { RemoteControlCard } from './RemoteControl'
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/rc',
+        element: <RemoteControlCard />,
+      },
+    ],
+  },
+])
 
 const queryClient = () =>
   new QueryClient({
@@ -23,7 +39,7 @@ const root = createRoot(rootElement!)
 root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient()}>
-      <App />
+      <RouterProvider router={router} />
       <ReactQueryDevtools initialIsOpen />
     </QueryClientProvider>
   </StrictMode>
