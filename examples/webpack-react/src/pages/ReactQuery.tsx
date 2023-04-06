@@ -33,7 +33,7 @@ export const ReactQueryDemo = () => {
 
   const onRefetch = useCallback(() => {
     refetch({ cancelRefetch: false })
-  }, [])
+  }, [refetch])
   const onRefresh = useCallback(() => {
     setFlag((_) => _ + 1)
   }, [])

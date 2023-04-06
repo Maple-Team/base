@@ -30,7 +30,7 @@ const CustomButton = ({
     (e: MouseEvent) => {
       onClick(e, additionalParameter)
     },
-    [additionalParameter]
+    [additionalParameter, onClick]
   )
 
   return <Button onClick={onInnerClick}>{children}</Button>
@@ -54,45 +54,26 @@ export const FormDemo = () => {
     form.resetFields()
   }
   return (
-    <Form
-      form={form}
-      onFinish={onFinish}
-    >
-      <Form.Item
-        name="name"
-        label="name"
-      >
+    <Form form={form} onFinish={onFinish}>
+      <Form.Item name="name" label="name">
         <Input />
       </Form.Item>
-      <Form.Item
-        name="age"
-        label="age"
-      >
+      <Form.Item name="age" label="age">
         <CustomInput />
       </Form.Item>
       <Form.Item>
         {[1, 2, 3, 4, 5, 6].map((num) => {
           return (
-            <CustomButton
-              key={num}
-              onClick={onChange}
-              additionalParameter={num}
-            >
+            <CustomButton key={num} onClick={onChange} additionalParameter={num}>
               change {num}
             </CustomButton>
           )
         })}
         <br />
-        <Button
-          type="primary"
-          htmlType="submit"
-        >
+        <Button type="primary" htmlType="submit">
           Submit
         </Button>
-        <Button
-          htmlType="button"
-          onClick={onReset}
-        >
+        <Button htmlType="button" onClick={onReset}>
           Reset
         </Button>
       </Form.Item>

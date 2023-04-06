@@ -35,15 +35,15 @@ const AlarmPanel = () => {
     if (resultCode === remoteResultEnum.SUCCESS) {
       switch (commandType) {
         case remoteCommandTypeEnum.STRONG_LIGHT:
-          setStrongLightCB((_) => !_)
+          setStrongLightCB((_: boolean) => !_)
           message.success('执行成功')
           break
         case remoteCommandTypeEnum.ALARM_LIGHT:
-          setAlarmLightCB((_) => !_)
+          setAlarmLightCB((_: boolean) => !_)
           message.success('执行成功')
           break
         case remoteCommandTypeEnum.ALARM_RING:
-          setAlarmRingCB((_) => !_)
+          setAlarmRingCB((_: boolean) => !_)
           message.success('执行成功')
           break
         default:
@@ -56,7 +56,7 @@ const AlarmPanel = () => {
     setStrongLightLoading(false)
     setAlarmLightLoading(false)
     setAlarmRingLoading(false)
-  }, [result])
+  }, [result, setAlarmLightCB, setAlarmRingCB, setStrongLightCB])
 
   const onStrongLightChange = useCallback(
     async (checked: boolean) => {
@@ -86,7 +86,7 @@ const AlarmPanel = () => {
           // message.error(<MsgSendErr e={e} />)
         })
     },
-    [vin]
+    [resetFetchTimeout, resetTimeout, setStrongLightCB]
   )
 
   const onAlarmLightChange = useCallback(
@@ -117,7 +117,7 @@ const AlarmPanel = () => {
           // message.error(<MsgSendErr e={e} />)
         })
     },
-    [vin]
+    [resetFetchTimeout, resetTimeout, setAlarmLightCB]
   )
 
   const onAlarmRingChange = useCallback(
@@ -147,7 +147,7 @@ const AlarmPanel = () => {
           // message.error(<MsgSendErr e={e} />)
         })
     },
-    [vin]
+    [resetFetchTimeout, resetTimeout, setAlarmRingCB]
   )
 
   useEffect(() => {

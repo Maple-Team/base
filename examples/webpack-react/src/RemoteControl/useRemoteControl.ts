@@ -1,9 +1,9 @@
 import { emitter } from '@/events'
-import { useFetchCommandResult, useLatestVehicleResultQuery } from '@/hooks'
+import { useFetchCommandResult } from '@/hooks'
 import { vehicleDeviceSwitchStateEnum } from '@/enums'
 import { DriveData, DeviceStatusData, VehicleResult, RemoteControlResult } from '@liutsing/types-utils'
 import { useInterval } from 'ahooks'
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, SetStateAction } from 'react'
 
 type SetStateFn = (bool: boolean) => boolean
 
@@ -67,7 +67,7 @@ export const useRemoteControlResult = (commandID?: string | null) => {
         console.log('远控结果: xhr')
       }
     }
-  }, [isSuccess, commandID, data, hasWSData])
+  }, [isSuccess, commandID, data, hasWSData, resetFetchTimeout])
   /**
    *  有commandId时才开始倒计时
    *  远控下发命令的10s内不使用实况数据
@@ -150,22 +150,22 @@ export const useVehicleRealtimeControlInfo = (noUsingRTdataTimeout: number, vin?
     }
   }, [rtVehicleInfo, noUsingRTdataTimeout])
 
-  const setStrongLightCB = useCallback((bool: boolean | SetStateFn) => {
+  const setStrongLightCB = useCallback((bool: SetStateAction<boolean | SetStateFn | undefined>) => {
     setStrongLight(bool)
   }, [])
-  const setAlarmLightCB = useCallback((bool: boolean | SetStateFn) => {
+  const setAlarmLightCB = useCallback((bool: SetStateAction<boolean | SetStateFn | undefined>) => {
     setAlarmLight(bool)
   }, [])
-  const setAlarmRingCB = useCallback((bool: boolean | SetStateFn) => {
+  const setAlarmRingCB = useCallback((bool: SetStateAction<boolean | SetStateFn | undefined>) => {
     setAlarmRing(bool)
   }, [])
-  const setLocker1CB = useCallback((bool: boolean | SetStateFn) => {
+  const setLocker1CB = useCallback((bool: SetStateAction<boolean | SetStateFn | undefined>) => {
     setLocker1(bool)
   }, [])
-  const setLocker2CB = useCallback((bool: boolean | SetStateFn) => {
+  const setLocker2CB = useCallback((bool: SetStateAction<boolean | SetStateFn | undefined>) => {
     setLocker2(bool)
   }, [])
-  const setDrivingCB = useCallback((bool: boolean | SetStateFn) => {
+  const setDrivingCB = useCallback((bool: SetStateAction<boolean | SetStateFn | undefined>) => {
     setDrivingState(bool)
   }, [])
 
@@ -246,12 +246,9 @@ const useCountdown = (commandId: string | null | undefined, timeout: number) => 
 
   // console.log(`=====倒计时: ${num}/${timeout}`, commandId)
 
-  const reset = useCallback(
-    (num: number) => {
-      setNum(num)
-    },
-    [num]
-  )
+  const reset = useCallback((num: number) => {
+    setNum(num)
+  }, [])
 
   return { timeout: num, reset }
 }
@@ -266,7 +263,7 @@ export const useWebSocket = (url: string) => {
 
   useEffect(() => {
     if (!wsRef.current) {
-      //@ts-ignore
+      // @ts-ignore
       wsRef.current = new WebSocket(`${WS_URL}${url}`)
       wsRef.current.onopen = () => {
         console.log(`ws: ${url} open`)
@@ -278,7 +275,7 @@ export const useWebSocket = (url: string) => {
           msgObj = JSON.parse(dataStr) as WebSocketMsg
         } catch (error) {}
         let realData: AnyToFix
-        let realDataStr = msgObj?.data || '{}'
+        const realDataStr = msgObj?.data || '{}'
         try {
           realData = JSON.parse(realDataStr)
         } catch (error) {}
@@ -294,7 +291,7 @@ export const useWebSocket = (url: string) => {
         }
       }
     }
-  }, [wsRef.current])
+  }, [WS_URL, url])
 
   return {
     ws: wsRef.current,

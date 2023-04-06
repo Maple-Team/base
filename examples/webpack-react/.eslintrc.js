@@ -1,3 +1,5 @@
 module.exports = {
-  extends: '@liutsing',
+  extends: '@liutsing/eslint-config',
+  // extends: '@antfu/eslint-config',
+  ignorePatterns: ['**/public/*.js', '*.json'],
 }

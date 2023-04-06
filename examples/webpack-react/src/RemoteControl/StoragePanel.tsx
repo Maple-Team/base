@@ -32,10 +32,10 @@ const StoragePanel = () => {
     if (resultCode === remoteResultEnum.SUCCESS) {
       switch (commandType) {
         case remoteCommandTypeEnum.VEHICLE_LOCKER1:
-          setLocker1CB((_) => !_)
+          setLocker1CB((_: boolean) => !_)
           break
         case remoteCommandTypeEnum.VEHICLE_LOCKER2:
-          setLocker2CB((_) => !_)
+          setLocker2CB((_: boolean) => !_)
           break
         default:
           break
@@ -80,7 +80,7 @@ const StoragePanel = () => {
           // message.error(<MsgSendErr e={e} />)
         })
     },
-    [setLocker1CB, vin]
+    [resetFetchTimeout, resetTimeout, setLocker1CB]
   )
 
   const onLocker2Change = useCallback(
@@ -114,7 +114,7 @@ const StoragePanel = () => {
           // message.error(<MsgSendErr e={e} />)
         })
     },
-    [setLocker2CB, vin]
+    [resetFetchTimeout, resetTimeout, setLocker2CB]
   )
 
   return (

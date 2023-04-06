@@ -1,7 +1,7 @@
 import { Icon, IconClose } from '@/Components'
 import { RemotePanelType } from '@liutsing/types-utils'
 import { Empty, Skeleton, Timeline } from 'antd'
-import React, { Suspense, useCallback, useState, ElementType, memo, lazy, useEffect } from 'react'
+import React, { Suspense, useCallback, useState, ElementType, memo, lazy } from 'react'
 import { DividerLine } from './DividerLine'
 import { useWebSocket } from './useRemoteControl'
 // @ts-ignore
@@ -35,10 +35,7 @@ const TabItem = memo(({ name, icon, checked, type, code, onClick, children: _chi
       } flex items-center pt-[5px] pb-[3px] px-4 mb-4 cursor-pointer first:mt-4`}
       onClick={() => onClick?.(code!)}
     >
-      <Icon
-        name={checked ? `${icon}-on` : `${icon}-off`}
-        className="w-[20px] h-[20px]"
-      />
+      <Icon name={checked ? `${icon}-on` : `${icon}-off`} className="w-[20px] h-[20px]" />
       <span className="ml-3">{name}</span>
     </div>
   )
@@ -90,12 +87,7 @@ export const RemoteControlCard = memo(() => {
       >
         <div className="w-[130px] border-0 border-r-[1px] border-solid border-[#DDDDDD] relative z-20">
           {items.map((item) => (
-            <TabItem
-              {...item}
-              key={item.name}
-              onClick={handleClick}
-              checked={item.code === currentPanelType}
-            />
+            <TabItem {...item} key={item.name} onClick={handleClick} checked={item.code === currentPanelType} />
           ))}
         </div>
         {!Component ? (
@@ -105,10 +97,7 @@ export const RemoteControlCard = memo(() => {
             <Suspense
               fallback={
                 <div className="flex flex-col items-center w-full pt-[14px] px-4 max-w-[302px] h-[489px] box-border">
-                  <Skeleton
-                    paragraph={{ rows: 5 }}
-                    active
-                  />
+                  <Skeleton paragraph={{ rows: 5 }} active />
                 </div>
               }
             >
@@ -125,16 +114,10 @@ export const RemoteControlCard = memo(() => {
                     执行详情
                   </header>
                   <Timeline>
-                    <Timeline.Item
-                      color="#C8CACD"
-                      dot={<CircleDot />}
-                    >
+                    <Timeline.Item color="#C8CACD" dot={<CircleDot />}>
                       <div className="pb-[88px]">平台发送：待执行</div>
                     </Timeline.Item>
-                    <Timeline.Item
-                      color="#C8CACD"
-                      dot={<CircleDot />}
-                    >
+                    <Timeline.Item color="#C8CACD" dot={<CircleDot />}>
                       <div className="pb-[88px]">车辆接收:待执行</div>
                     </Timeline.Item>
                     <Timeline.Item color="#C8CACD">
