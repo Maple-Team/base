@@ -6,7 +6,7 @@ import {
   matchPair,
   trim,
   trim2,
-  unescapseHTML,
+  unescapeHTML,
   word2CamelCase,
   wordUppercase,
 } from './utils'
@@ -248,16 +248,16 @@ describe('regexp正则测试集', () => {
   })
   describe('html反转义', () => {
     it('case 1', () => {
-      expect(unescapseHTML('&lt;div&gt;Blah blah blah&lt;/div&gt;')).toEqual('<div>Blah blah blah</div>')
+      expect(unescapeHTML('&lt;div&gt;Blah blah blah&lt;/div&gt;')).toEqual('<div>Blah blah blah</div>')
     })
     it('case 2', () => {
-      expect(unescapseHTML('&lt;div id=&apos;a&apos; class=&quot;c&quot;&gt;&amp;Blah blah blah&lt;/div&gt;')).toEqual(
+      expect(unescapeHTML('&lt;div id=&apos;a&apos; class=&quot;c&quot;&gt;&amp;Blah blah blah&lt;/div&gt;')).toEqual(
         '<div id=\'a\' class="c">&Blah blah blah</div>'
       )
     })
     it('case 3', () => {
       expect(
-        unescapseHTML('&lt;div&nbsp;id=&apos;a&apos;&nbsp;class=&quot;c&quot;&gt;&amp;Blah blah blah&lt;/div&gt;')
+        unescapeHTML('&lt;div&nbsp;id=&apos;a&apos;&nbsp;class=&quot;c&quot;&gt;&amp;Blah blah blah&lt;/div&gt;')
       ).toEqual('<div id=\'a\' class="c">&Blah blah blah</div>')
     })
   })
