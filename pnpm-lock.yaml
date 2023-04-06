@@ -181,8 +181,10 @@ importers:
       '@babel/runtime': ^7.20.6
       '@babel/runtime-corejs3': ^7.20.13
       '@liutsing/babel-plugin-remove-console': workspace:*
+      '@liutsing/eslint-config': workspace:*
       '@liutsing/html-webpack-plugin': workspace:*
       '@liutsing/pattern-logger-loader': workspace:*
+      '@liutsing/prettier-config': workspace:*
       '@liutsing/rc-components': workspace:*
       '@liutsing/rc-hooks': workspace:*
       '@liutsing/types-utils': workspace:*
@@ -237,8 +239,10 @@ importers:
     devDependencies:
       '@babel/plugin-transform-runtime': 7.19.6_@babel+core@7.20.12
       '@liutsing/babel-plugin-remove-console': link:../../packages/babel-plugin-remove-console
+      '@liutsing/eslint-config': link:../../packages/eslint-config
       '@liutsing/html-webpack-plugin': link:../../packages/html-webpack-plugin
       '@liutsing/pattern-logger-loader': link:../../packages/pattern-logger-loader
+      '@liutsing/prettier-config': link:../../packages/prettier-config
       '@liutsing/rc-components': link:../../packages/react-components
       '@liutsing/types-utils': link:../../packages/types-utils
       '@pmmmwh/react-refresh-webpack-plugin': 0.5.10_e764yt37rymiplqgpb7fiwcihu
@@ -302,7 +306,7 @@ importers:
       '@babel/eslint-parser': 7.19.1_ydmbqfus77qykiqxhcwsorsqbq
       '@babel/preset-env': 7.20.2_@babel+core@7.20.12
       '@liutsing/eslint-config-standard-react': 11.0.1_g6zv73k3ihflkspk4fqystlkye
-      '@liutsing/prettier-config': link:../prettier-config
+      '@liutsing/prettier-config': 0.0.5
       '@typescript-eslint/eslint-plugin': 5.52.0_6cfvjsbua5ptj65675bqcn6oza
       '@typescript-eslint/parser': 5.52.0_7kw3g6rralp5ps6mg3uyzz6azm
       '@vue/eslint-config-typescript': 11.0.2_h2vevngznqqjsppuxlkfy3oipa
@@ -409,9 +413,9 @@ importers:
 
   packages/prettier-config:
     specifiers:
-      prettier: ^2.8.4
+      prettier: ^2.8.7
     dependencies:
-      prettier: 2.8.4
+      prettier: 2.8.7
 
   packages/react-components:
     specifiers:
@@ -3917,6 +3921,12 @@ packages:
     dependencies:
       eslint: 8.34.0
       eslint-plugin-react: 7.32.2_eslint@8.34.0
+    dev: false
+
+  /@liutsing/prettier-config/0.0.5:
+    resolution: {integrity: sha512-AumB1/+VZtUqQ1CNaYVTO9RVU+d+0baYXGkQIrF1rVMB8L3V/Ut53bwCnsr48NKgS1YTU1rTe62nYJUysWEiUA==}
+    dependencies:
+      prettier: 2.8.7
     dev: false
 
   /@liutsing/tsconfig/0.0.6:
@@ -13517,8 +13527,8 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
-  /prettier/2.8.4:
-    resolution: {integrity: sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==}
+  /prettier/2.8.7:
+    resolution: {integrity: sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: false
