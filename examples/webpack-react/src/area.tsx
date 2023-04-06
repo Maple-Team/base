@@ -1,8 +1,7 @@
-// import { Area } from '@antv/g2plot/esm/plots/area'
 import { Area } from '@antv/g2plot'
 import React, { useEffect } from 'react'
 
-export const AreaChart = () => {
+export const AreaChart = ({ a: _a }: { a: number }) => {
   useEffect(() => {
     fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
       .then((res) => res.json())
@@ -21,6 +20,7 @@ export const AreaChart = () => {
                 textBaseline: 'bottom',
               },
             },
+
             {
               type: 'line',
               start: ['min', 'median'],
@@ -36,12 +36,7 @@ export const AreaChart = () => {
       })
   }, [])
 
-  return (
-    <div
-      id="container"
-      style={{ width: 150, height: 180 }}
-    />
-  )
+  return <div id="container" style={{ width: 150, height: 180 }} />
 }
 
 export default AreaChart
