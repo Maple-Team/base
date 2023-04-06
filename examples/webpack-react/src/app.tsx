@@ -1,4 +1,4 @@
-import { useScroll, useAsync } from '@liutsing/rc-hooks'
+import { useScroll } from '@liutsing/rc-hooks'
 import React, { useEffect } from 'react'
 import { join } from 'lodash-es'
 // import { Component1, Component2 } from './useStateDemo'
@@ -8,7 +8,6 @@ import { join } from 'lodash-es'
 // const ProductList = lazy(() => import('./ProductList/ProductList'))
 // const ProductList2 = lazy(() => import('./ProductList2/ProductList'))
 // const AreaChart = lazy(() => import('./area'))
-import { RemoteControlCard } from './RemoteControl'
 
 const App = () => {
   // console.log('log')

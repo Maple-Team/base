@@ -1,34 +1,10 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import App from '../app'
+
 // import Scrollbar from './scrollbar'
-import { Layout, Space, Menu } from 'antd'
+import { Menu } from 'antd'
 import { ItemType } from 'antd/es/menu/hooks/useItems'
 
-const { Header, Footer, Sider, Content } = Layout
-const headerStyle: React.CSSProperties = {
-  textAlign: 'center',
-  color: '#fff',
-  height: 64,
-  paddingInline: 50,
-  lineHeight: '64px',
-}
-
-const contentStyle: React.CSSProperties = {
-  textAlign: 'center',
-  minHeight: 120,
-  color: '#fff',
-}
-
-const siderStyle: React.CSSProperties = {
-  textAlign: 'center',
-  color: '#fff',
-}
-
-const footerStyle: React.CSSProperties = {
-  textAlign: 'center',
-  color: '#fff',
-}
 export default () => {
   const items: ItemType[] = [
     { title: 'hooks example', key: 'rc', label: 'hooks example' },
@@ -37,28 +13,33 @@ export default () => {
       key: 'ToolTip',
     },
     {
-      label: '',
-      key: '',
+      label: 'React Query',
+      key: 'ReactQuery',
+    },
+    {
+      label: 'React Amap',
+      key: 'ReactAmap',
+    },
+    {
+      label: 'infinite-scroll',
+      key: 'react-infinite-scroll-component',
     },
   ]
   return (
-    <Layout>
-      <Sider
-        style={siderStyle}
-        theme="light"
-      >
+    <div className="flex h-full">
+      <aside className="w-[246px]">
         <Menu
           defaultSelectedKeys={['2']}
           items={items}
         />
-      </Sider>
-      <Layout>
-        <Header style={headerStyle}>Header</Header>
-        <Content style={contentStyle}>
+      </aside>
+      <main className="flex-1 flex flex-col justify-between">
+        <header>header</header>
+        <div className="flex-1">
           <Outlet />
-        </Content>
-        <Footer style={footerStyle}>Footer</Footer>
-      </Layout>
-    </Layout>
+        </div>
+        <footer>footer</footer>
+      </main>
+    </div>
   )
 }

@@ -90,8 +90,8 @@ export const escapeHTML = (input: string): string => {
  * @param input
  * @returns
  */
-export const unescapseHTML = (input: string): string => {
-  const reg = new RegExp(`&([^;]+);`, 'g')
+export const unescapeHTML = (input: string): string => {
+  const reg = /&([^;]+);/g
   // @ts-ignore
   return input.replace(reg, (_, c: Htmlentities) => `${HTMLENTITIES[c] || ''}`)
 }
