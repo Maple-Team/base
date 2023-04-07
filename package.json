@@ -1,6 +1,6 @@
 {
   "name": "pangu",
-  "version": "0",
+  "version": "0.0.0",
   "description": "MapleImage tools base repo",
   "keywords": [
     "prettier规范",
@@ -69,7 +69,7 @@
     "html-webpack-plugin": "^5.5.0",
     "husky": "^8.0.2",
     "jest": "^28.1.1",
-    "lint-staged": "^13.0.3",
+    "lint-staged": "^13.2.0",
     "microbundle": "^0.15.1",
     "nx": "^14.7.5",
     "process": "^0.11.10",

@@ -55,7 +55,7 @@
     "html-webpack-plugin": "^5.5.0",
     "less": "^4.1.1",
     "less-loader": "^11.1.0",
-    "lint-staged": "^13.0.3",
+    "lint-staged": "^13.2.0",
     "postcss": "^8.4.21",
     "postcss-loader": "^6.1.1",
     "react-refresh": "^0.14.0",
