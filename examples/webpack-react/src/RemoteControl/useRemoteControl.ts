@@ -36,7 +36,6 @@ const useCountdown = (commandId: string | null | undefined, timeout: number) => 
 
   return { timeout: num, reset }
 }
-type SetStateFn = (bool: boolean) => boolean
 
 /**
  * 主动轮询远控结果
@@ -140,17 +139,17 @@ export const useRemoteControlResult = (commandID?: string | null) => {
  * @param vin
  */
 export const useVehicleRealtimeControlInfo = (noUsingRTdataTimeout: number, vin?: string) => {
-  const [strongLight, setStrongLight] = useState<boolean | SetStateFn>()
-  const [alarmLight, setAlarmLight] = useState<boolean | SetStateFn>()
-  const [alarmRing, setAlarmRing] = useState<boolean | SetStateFn>()
-  const [locker1, setLocker1] = useState<boolean | SetStateFn>()
-  const [locker2, setLocker2] = useState<boolean | SetStateFn>()
+  const [strongLight, setStrongLight] = useState<SetStateAction<boolean> | boolean>()
+  const [alarmLight, setAlarmLight] = useState<SetStateAction<boolean> | boolean>()
+  const [alarmRing, setAlarmRing] = useState<SetStateAction<boolean> | boolean>()
+  const [locker1, setLocker1] = useState<SetStateAction<boolean> | boolean>()
+  const [locker2, setLocker2] = useState<SetStateAction<boolean> | boolean>()
   const [audioFile, setAudioFile] = useState<string>()
   const [videoFile, setVideoFile] = useState<string>()
   const [imageFile, setImageFile] = useState<string>()
   // const [remoteCall, setRemoteCall] = useState<string>()
 
-  const [drivingState, setDrivingState] = useState<boolean | SetStateFn>()
+  const [drivingState, setDrivingState] = useState<SetStateAction<boolean> | boolean>()
   const rtVehicleInfo = useVehicleRtInfo(vin)
 
   useEffect(() => {
@@ -207,22 +206,22 @@ export const useVehicleRealtimeControlInfo = (noUsingRTdataTimeout: number, vin?
     }
   }, [rtVehicleInfo, noUsingRTdataTimeout])
 
-  const setStrongLightCB = useCallback((bool: SetStateAction<boolean | SetStateFn | undefined>) => {
+  const setStrongLightCB = useCallback((bool: SetStateAction<boolean> | boolean) => {
     setStrongLight(bool)
   }, [])
-  const setAlarmLightCB = useCallback((bool: SetStateAction<boolean | SetStateFn | undefined>) => {
+  const setAlarmLightCB = useCallback((bool: SetStateAction<boolean> | boolean) => {
     setAlarmLight(bool)
   }, [])
-  const setAlarmRingCB = useCallback((bool: SetStateAction<boolean | SetStateFn | undefined>) => {
+  const setAlarmRingCB = useCallback((bool: SetStateAction<boolean> | boolean) => {
     setAlarmRing(bool)
   }, [])
-  const setLocker1CB = useCallback((bool: SetStateAction<boolean | SetStateFn | undefined>) => {
+  const setLocker1CB = useCallback((bool: SetStateAction<boolean> | boolean) => {
     setLocker1(bool)
   }, [])
-  const setLocker2CB = useCallback((bool: SetStateAction<boolean | SetStateFn | undefined>) => {
+  const setLocker2CB = useCallback((bool: SetStateAction<boolean> | boolean) => {
     setLocker2(bool)
   }, [])
-  const setDrivingCB = useCallback((bool: SetStateAction<boolean | SetStateFn | undefined>) => {
+  const setDrivingCB = useCallback((bool: SetStateAction<boolean> | boolean) => {
     setDrivingState(bool)
   }, [])
 

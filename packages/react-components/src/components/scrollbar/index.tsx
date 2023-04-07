@@ -4,25 +4,24 @@
  * @Author: liutsing
  * @Date: 2023-03-10 Friday 15:50
  */
-import React, { useState, useEffect, useRef, useCallback, ReactNode, useMemo } from 'react'
+import type { ReactNode } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styles from './style.module.less'
+
 const prefix = 'custom-scrollbars'
 
 type Direction = 'up' | 'down'
 interface DirectionButtonPros {
   children?: ReactNode
   direction: Direction
-  onClick: (direction: Direction) => void
+  onClick?: (direction: Direction) => void
 }
 
 const DirectionButton = ({ onClick, direction, children }: DirectionButtonPros) => {
-  const _onClick = useCallback(() => onClick(direction), [direction])
+  const innerClick = useCallback(() => onClick?.(direction), [direction, onClick])
 
   return (
-    <button
-      className="custom-scrollbars__button"
-      onClick={_onClick}
-    >
+    <button className="custom-scrollbars__button" onClick={innerClick}>
       {children ?? direction === 'down' ? '⇓' : '⇑'}
     </button>
   )
@@ -137,7 +136,7 @@ export const Scrollbar = ({ children, className, containerHeight, showDirectionB
       console.log({ scrollAmount, top })
       setThumbTop(top)
     },
-    [thumbHeight]
+    [onPercentChange, thumbHeight]
   )
   /**
    * 鼠标抬起
@@ -164,7 +163,7 @@ export const Scrollbar = ({ children, className, containerHeight, showDirectionB
       console.log({ scrollAmount, top })
       setThumbTop(top)
     },
-    [onMousemove]
+    [onMousemove, onPercentChange, thumbHeight]
   )
 
   useEffect(() => {
@@ -211,7 +210,7 @@ export const Scrollbar = ({ children, className, containerHeight, showDirectionB
       console.log({ scrollAmount, top })
       setThumbTop(top)
     },
-    [thumbHeight]
+    [onPercentChange, thumbHeight]
   )
   /**
    * 滑块可见性
@@ -224,24 +223,24 @@ export const Scrollbar = ({ children, className, containerHeight, showDirectionB
   console.log(thumbTop, 'thumbTop')
   return (
     <div
-      className={`${styles[`${prefix}__container`]} ${className ?? ''}`}
+      className={
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        `${styles[`${prefix}__container`]} ${className ?? ''}`
+      }
       style={{ height: containerHeight }}
     >
-      <div
-        className={styles[`${prefix}__content`]}
-        ref={contentRef}
-        {...props}
-      >
+      <div className={styles[`${prefix}__content`]} ref={contentRef} {...props}>
         {children}
       </div>
       <div className={styles[`${prefix}__scrollbar`]}>
-        {showDirectionButton && (
-          <DirectionButton
-            direction="up"
-            onClick={onDirectionButtonClick}
-          />
-        )}
-        <div className={`${styles[`${prefix}__track-and-thumb`]} ${!thumbVisible ? 'opacity-0' : ''}`}>
+        {showDirectionButton && <DirectionButton direction="up" onClick={onDirectionButtonClick} />}
+        <div
+          className={
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+            `${styles[`${prefix}__track-and-thumb`]}
+          ${!thumbVisible ? 'opacity-0' : ''}`
+          }
+        >
           <div
             className={styles[`${prefix}__track`]}
             ref={scrollTrackRef}
@@ -259,12 +258,7 @@ export const Scrollbar = ({ children, className, containerHeight, showDirectionB
             }}
           />
         </div>
-        {showDirectionButton && (
-          <DirectionButton
-            direction="down"
-            onClick={onDirectionButtonClick}
-          />
-        )}
+        {showDirectionButton && <DirectionButton direction="down" onClick={onDirectionButtonClick} />}
       </div>
     </div>
   )
