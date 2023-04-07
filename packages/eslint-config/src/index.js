@@ -57,6 +57,7 @@ const eslintConfig = defineConfig({
     'public',
     'temp',
     'package-lock.json',
+    'package.json',
     'pnpm-lock.yaml',
     'yarn.lock',
     '__snapshots__',
@@ -136,21 +137,10 @@ const eslintConfig = defineConfig({
       },
     },
     {
-      files: ['**/*.vue'],
+      files: ['*.vue'],
       parser: 'vue-eslint-parser',
       parserOptions: {
-        parser: {
-          parser: '@typescript-eslint/parser',
-        },
-        ecmaFeatures: {
-          jsx: true,
-        },
-        vueFeatures: {
-          // NOTE specify how to parse related to Vue features
-          filter: false, // specify whether to parse the Vue2 filter | 过滤符号
-          interpolationAsNonHTML: true, // work for {{ a < b }}
-          styleCSSVariableInjection: true, // to parse expressions in `v-bind` CSS functions inside `<style>` tags
-        },
+        parser: '@typescript-eslint/parser',
       },
       extends: ['plugin:vue/vue3-essential', 'plugin:vue/vue3-recommended'],
       rules: {

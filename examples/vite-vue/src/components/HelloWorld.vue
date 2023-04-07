@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
+import { inject, ref } from 'vue'
 
-defineProps<{ msg: string }>()
+const props = defineProps<{ msg: string }>()
 
 const count = ref(0)
 const cls = inject('prefixCls')
-console.log({ cls })
+console.log({ cls }, props.msg)
 </script>
 
 <template>

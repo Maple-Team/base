@@ -1,20 +1,26 @@
 {
   "name": "example-3",
-  "private": true,
   "version": "0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "dev": "vite",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w"
   },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  },
+  "prettier": "@liutsing/prettier-config",
   "dependencies": {
     "vue": "^3.2.37"
   },
   "devDependencies": {
     "@liutsing/eslint-config": "workspace:*",
     "@liutsing/vue-components": "workspace:*"
-  },
-  "prettier": "@liutsing/prettier-config"
+  }
 }

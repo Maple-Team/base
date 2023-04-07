@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RippleButton, ConfigureProvide } from '@liutsing/vue-components'
+import { ConfigureProvide, RippleButton } from '@liutsing/vue-components'
 import HelloWorldVue from './components/HelloWorld.vue'
 
 const handleClick = (e: MouseEvent) => {
@@ -8,7 +8,7 @@ const handleClick = (e: MouseEvent) => {
 </script>
 
 <template>
-  <ConfigureProvide :prefix-cls="'test'">
+  <ConfigureProvide prefix-cls="test">
     <RippleButton @click="handleClick">Find More</RippleButton>
     <HelloWorldVue msg="11" />
   </ConfigureProvide>
