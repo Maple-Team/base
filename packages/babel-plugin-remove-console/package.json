@@ -6,7 +6,6 @@
     "babel plugin"
   ],
   "license": "ISC",
-  "author": "walle <luo.liuqing@gmail.com>",
   "exports": {
     "import": "./dist/index.mjs",
     "require": "./dist/index.js",
@@ -31,9 +30,23 @@
     "prepublish": "rimraf types && rimraf lib",
     "test": "jest"
   },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {
     "@types/babel-plugin-tester": "^9.0.5",
-    "babel-plugin-tester": "^10.1.0"
-  }
+    "babel-plugin-tester": "^10.1.0",
+    "lint-staged": "^13.0.3",
+    "simple-git-hooks": "^2.8.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": [
+    "liutsing <liutsingluo@gmail.com>"
+  ]
 }
