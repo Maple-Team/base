@@ -1,146 +1,22 @@
+import path from 'node:path'
 import { defineConfig } from 'eslint-define-config'
-import path from 'path'
+import { isPackageExists } from 'local-pkg'
+import { baseRules } from './base'
+import { reactRules } from './react'
+import { vueRules } from './vue'
+import { typescriptRules } from './typescript'
 
-/**
- * 目的：Support lint Vue, React, ts, js files
- */
-/**
- * 是否React项目
- */
-let isReactExist = false
-/**
- * 是否Vue项目
- */
-let isVueExist = false
+const TS = isPackageExists('typescript')
 
-try {
-  require('react')
-  isReactExist = true
-} catch (error) {}
-try {
-  require('vue')
-  isVueExist = true
-} catch (error) {}
+if (!TS) console.warn('[@liutsing/eslint-config] TypeScript is not installed, fallback to JS only.')
 
 // TODO 1. 整理规则; 2. 规则范围问题
-/**
- * react 自定义规则配置
- * @type {import('eslint').Linter.RulesRecord}
- */
-const reactRules = {
-  'jsx-quotes': ['error', 'prefer-double'],
-  'react-hooks/rules-of-hooks': 'error',
-  'react-hooks/exhaustive-deps': 'warn',
-  'react/jsx-curly-newline': 'off',
-  'react/jsx-indent': 'off',
-  'react/jsx-handler-names': 'off',
-}
 
-/**
- * vue 自定义规则配置
- * @type {import('eslint').Linter.RulesRecord}
- */
-const vueRules = {
-  'vue/script-setup-uses-vars': 'error',
-  'vue/custom-event-name-casing': 'off',
-  'vue/attributes-order': 'off',
-  'vue/one-component-per-file': 'off',
-  'vue/html-closing-bracket-newline': 'off',
-  'vue/max-attributes-per-line': 'off',
-  'vue/multiline-html-element-content-newline': 'off',
-  'vue/singleline-html-element-content-newline': 'off',
-  'vue/attribute-hyphenation': 'off',
-  'vue/require-default-prop': 'off',
-  'vue/html-self-closing': [
-    'error',
-    {
-      html: {
-        void: 'always',
-        normal: 'never',
-        component: 'always',
-      },
-      svg: 'always',
-      math: 'always',
-    },
-  ],
-  'vue/multi-word-component-names': [
-    'error',
-    {
-      ignores: ['index'],
-    },
-  ],
+const baseSettings = {
+  'import/resolver': {
+    node: { extensions: ['.js', '.mjs'] },
+  },
 }
-/**
- * ts文件 自定义规则配置
- * @type {import('eslint').Linter.RulesRecord}
- */
-const typescriptRules = {
-  // TypeScript's `noFallthroughCasesInSwitch` option is more robust (#6906)
-  'default-case': 'off',
-  // 'tsc' already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/291)
-  'no-dupe-class-members': 'off',
-  // 'tsc' already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/477)
-  'no-undef': 'off',
-  'no-unused-vars': 'off',
-  'no-array-constructor': 'off',
-  'no-use-before-define': 'off',
-  'standard/no-callback-literal': 'off',
-  'no-useless-constructor': 'off',
-  // Add TypeScript specific rules (and turn off ESLint equivalents)
-  '@typescript-eslint/consistent-type-assertions': 'warn',
-  '@typescript-eslint/no-array-constructor': 'warn',
-  '@typescript-eslint/no-namespace': 'error',
-  '@typescript-eslint/no-use-before-define': [
-    'error',
-    {
-      functions: false,
-      classes: false,
-      variables: false,
-      typedefs: false,
-    },
-  ],
-  '@typescript-eslint/no-unused-vars': [
-    'error',
-    {
-      vars: 'all',
-      argsIgnorePattern: '^_',
-      varsIgnorePattern: '^_',
-    },
-  ],
-  '@typescript-eslint/explicit-function-return-type': 'off',
-  '@typescript-eslint/explicit-module-boundary-types': 'off',
-  '@typescript-eslint/member-delimiter-style': 'off',
-  '@typescript-eslint/no-explicit-any': 'error',
-  '@typescript-eslint/no-useless-constructor': 'warn',
-  '@typescript-eslint/ban-ts-ignore': 'off',
-  '@typescript-eslint/no-var-requires': 'off',
-  '@typescript-eslint/no-empty-function': 'off',
-  'vue/custom-event-name-casing': 'off',
-  '@typescript-eslint/ban-ts-comment': 'off',
-  '@typescript-eslint/ban-types': 'off',
-  '@typescript-eslint/no-non-null-assertion': 'off',
-}
-/**
- * 基础js 自定义规则配置
- * @type {import('eslint').Linter.RulesRecord}
- */
-const baseRules = {
-  'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-  'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-  'prettier/prettier': 'error',
-  'standard/no-callback-literal': 'off',
-  'no-unused-vars': [
-    'error',
-    {
-      vars: 'all',
-      argsIgnorePattern: '^_',
-      varsIgnorePattern: '^_',
-    },
-  ],
-  'no-undef': 'error',
-  'no-var': 'error',
-}
-
 /**
  * 导出的eslint配置文件
  */
@@ -158,34 +34,57 @@ const eslintConfig = defineConfig({
   /**
    * 继承来源
    */
-  extends: [
-    'standard',
-    isReactExist && 'standard-jsx',
-    isReactExist && '@liutsing/eslint-config-standard-react',
-    'prettier',
-    'plugin:prettier/recommended',
-  ].filter(Boolean),
+  extends: ['standard', 'prettier', 'plugin:prettier/recommended'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
-  plugins: [isReactExist && 'react', isReactExist && 'react-hooks', 'prettier'].filter(Boolean),
+  plugins: ['prettier', 'unused-imports'],
   rules: {
     ...baseRules,
-    ...(isReactExist ? reactRules : {}),
   },
-  settings: isReactExist
-    ? {
-        react: {
-          version: 'detect',
-        },
-      }
-    : {},
+  reportUnusedDisableDirectives: true,
+  ignorePatterns: [
+    '*.min.*',
+    '*.d.ts',
+    'CHANGELOG.md',
+    '*.md',
+    'dist',
+    'LICENSE*',
+    'output',
+    'out',
+    'coverage',
+    'public',
+    'temp',
+    'package-lock.json',
+    'package.json',
+    'pnpm-lock.yaml',
+    'yarn.lock',
+    '__snapshots__',
+    // ignore for in lint-staged
+    '*.css',
+    '*.png',
+    '*.ico',
+    '*.toml',
+    '*.patch',
+    '*.txt',
+    '*.crt',
+    '*.key',
+    'Dockerfile',
+    // force include
+    '!.github',
+    '!.vitepress',
+    '!.vscode',
+  ],
+  settings: {
+    ...baseSettings,
+  },
 
   overrides: [
     {
-      files: ['**/*.ts?(x)'],
+      files: ['*.ts', '*.tsx'],
       parser: '@typescript-eslint/parser',
+      excludedFiles: ['**/*.md/*.*'],
       parserOptions: {
         sourceType: 'module',
         ecmaVersion: 'latest',
@@ -193,38 +92,48 @@ const eslintConfig = defineConfig({
           jsx: true,
         },
         warnOnUnsupportedTypeScriptVersion: true,
-        project: ['tsconfig.json'],
+        project: ['./tsconfig.json'],
         tsconfigRootDir: path.dirname(path.resolve(process.cwd(), 'tsconfig.json')),
+      },
+      settings: {
+        'import/resolver': {
+          node: { extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx', '.d.ts'] },
+        },
       },
       extends: [
         'standard',
-        isReactExist && 'standard-jsx',
-        isReactExist && '@liutsing/eslint-config-standard-react',
-        'prettier',
-        'plugin:prettier/recommended',
+        'standard-jsx',
+        '@liutsing/eslint-config-standard-react',
+        'plugin:react/recommended',
+        'plugin:react-hooks/recommended',
         'plugin:@typescript-eslint/recommended',
-      ].filter(Boolean),
-      plugins: [isReactExist && 'react', isReactExist && 'react-hooks', 'prettier', '@typescript-eslint'].filter(
-        Boolean
-      ),
+      ],
+      plugins: ['react', 'react-hooks', 'prettier', '@typescript-eslint'],
       rules: {
         ...baseRules,
         ...typescriptRules,
-        ...(isReactExist
-          ? {
-              'react/prop-types': 'off',
-              'react-hooks/rules-of-hooks': 'error',
-              'react-hooks/exhaustive-deps': 'warn',
-              'react/jsx-curly-newline': 'off',
-              'react/jsx-indent': 'off',
-              'react/jsx-handler-names': 'off',
-            }
-          : {}),
-        ...(isVueExist
-          ? {
-              // TODO
-            }
-          : {}),
+        ...reactRules,
+        'no-throw-literal': 'off',
+        '@typescript-eslint/no-throw-literal': 'error',
+        'no-implied-eval': 'off',
+        '@typescript-eslint/no-implied-eval': 'error',
+        'dot-notation': 'off',
+        '@typescript-eslint/dot-notation': ['error', { allowKeywords: true }],
+        '@typescript-eslint/no-floating-promises': 'error',
+        '@typescript-eslint/no-misused-promises': 'error',
+        '@typescript-eslint/await-thenable': 'error',
+        '@typescript-eslint/no-for-in-array': 'error',
+        '@typescript-eslint/no-unnecessary-type-assertion': 'error',
+        '@typescript-eslint/no-unsafe-argument': 'off',
+        '@typescript-eslint/no-unsafe-assignment': 'off',
+        '@typescript-eslint/no-unsafe-call': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/no-unsafe-return': 'off',
+        'require-await': 'off',
+        '@typescript-eslint/require-await': 'error',
+        '@typescript-eslint/restrict-plus-operands': 'error',
+        '@typescript-eslint/restrict-template-expressions': 'error',
+        '@typescript-eslint/unbound-method': 'error',
       },
     },
     {
@@ -232,13 +141,8 @@ const eslintConfig = defineConfig({
       parser: 'vue-eslint-parser',
       parserOptions: {
         parser: {
-          // NOTE customer parser to parse <script> tags
-          ts: '@typescript-eslint/parser',
-          js: '@babel/eslint-parser',
+          parser: '@typescript-eslint/parser',
         },
-        ecmaVersion: 2020,
-        sourceType: 'module',
-        jsxPragma: 'preserve',
         ecmaFeatures: {
           jsx: true,
         },
@@ -254,11 +158,11 @@ const eslintConfig = defineConfig({
         ...baseRules,
         ...typescriptRules,
         ...vueRules,
-        'space-before-function-paren': 'off',
       },
     },
     {
       files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
+      plugins: ['jest'],
       env: {
         jest: true,
       },
