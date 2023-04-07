@@ -21,7 +21,10 @@ const DirectionButton = ({ onClick, direction, children }: DirectionButtonPros) 
   const innerClick = useCallback(() => onClick?.(direction), [direction, onClick])
 
   return (
-    <button className="custom-scrollbars__button" onClick={innerClick}>
+    <button
+      className="custom-scrollbars__button"
+      onClick={innerClick}
+    >
       {children ?? direction === 'down' ? '⇓' : '⇑'}
     </button>
   )
@@ -229,11 +232,20 @@ export const Scrollbar = ({ children, className, containerHeight, showDirectionB
       }
       style={{ height: containerHeight }}
     >
-      <div className={styles[`${prefix}__content`]} ref={contentRef} {...props}>
+      <div
+        className={styles[`${prefix}__content`]}
+        ref={contentRef}
+        {...props}
+      >
         {children}
       </div>
       <div className={styles[`${prefix}__scrollbar`]}>
-        {showDirectionButton && <DirectionButton direction="up" onClick={onDirectionButtonClick} />}
+        {showDirectionButton && (
+          <DirectionButton
+            direction="up"
+            onClick={onDirectionButtonClick}
+          />
+        )}
         <div
           className={
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
@@ -258,7 +270,12 @@ export const Scrollbar = ({ children, className, containerHeight, showDirectionB
             }}
           />
         </div>
-        {showDirectionButton && <DirectionButton direction="down" onClick={onDirectionButtonClick} />}
+        {showDirectionButton && (
+          <DirectionButton
+            direction="down"
+            onClick={onDirectionButtonClick}
+          />
+        )}
       </div>
     </div>
   )

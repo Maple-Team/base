@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/webpack-config",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "private": false,
   "description": "common webpack config",
   "keywords": [
@@ -10,7 +10,9 @@
   "license": "ISC",
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "config",
+    "plugins"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -37,6 +39,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "core-js": "^3.26.1",
     "css-loader": "^6.7.3",
+    "fork-ts-checker-webpack-plugin": "^8.0.0",
     "html-webpack-plugin": "^5.5.0",
     "less": "^4.1.1",
     "less-loader": "^11.1.0",
