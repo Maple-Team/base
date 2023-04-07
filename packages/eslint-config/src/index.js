@@ -57,7 +57,6 @@ const eslintConfig = defineConfig({
     'public',
     'temp',
     'package-lock.json',
-    'package.json',
     'pnpm-lock.yaml',
     'yarn.lock',
     '__snapshots__',
