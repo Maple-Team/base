@@ -41,6 +41,7 @@
     "@liutsing/html-webpack-plugin": "workspace:*",
     "@liutsing/pattern-logger-loader": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
+    "@liutsing/webpack-config": "workspace:*",
     "@liutsing/rc-components": "workspace:*",
     "@liutsing/types-utils": "workspace:*",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",

@@ -5,21 +5,21 @@ const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
-const appRootPath = path.join(__dirname, '..')
-const envKeys = require('../plugins/env.js')(appRootPath)
+const root = process.cwd()
+const envKeys = require('../plugins/env.js')(root)
 
 /**
  * @type {import('webpack').Configuration}
  */
 const config = {
-  entry: path.resolve(__dirname, '../src/main.tsx'),
+  entry: path.resolve(root, './src/main.tsx'),
 
   // NOTE @antv/g2 按需加载
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
     mainFiles: ['index'],
     alias: {
-      '@': path.resolve(__dirname, '../src'),
+      '@': path.resolve(root, './src'),
     },
     cacheWithContext: false,
   },
@@ -29,13 +29,13 @@ const config = {
       {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
-        include: [path.resolve(__dirname, '../src')],
+        include: [path.resolve(root, './src')],
         use: ['babel-loader'],
       },
       {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
-        include: [path.resolve(__dirname, '../src/assets/svg-icons')],
+        include: [path.resolve(root, './src/assets/svg-icons')],
         use: ['babel-loader'],
         sideEffects: true,
       },
@@ -62,12 +62,17 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(__dirname, '../public/index.html'),
+      template: path.resolve(root, './public/index.html'),
       title: 'webpack config demo',
     }),
     new MapleHtmlWebpackPlugin({ tagName: 'link', rel: 'stylesheet', href: './fonts/index.css' }, 'body'),
     new CopyPlugin({
-      patterns: [{ from: 'public/fonts', to: 'fonts' }],
+      patterns: [
+        {
+          from: path.resolve(root, './public/fonts'),
+          to: 'fonts',
+        },
+      ],
     }),
     new ProvidePlugin({
       React: 'react',
