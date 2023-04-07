@@ -5,7 +5,7 @@ export const AreaChart = ({ a }: { a: number }) => {
   useEffect(() => {
     fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: { date: string; scales: String }[]) => {
         const area = new Area('container', {
           data,
           xField: 'Date',
@@ -35,6 +35,7 @@ export const AreaChart = ({ a }: { a: number }) => {
         })
         area.render()
       })
+      .catch(console.log)
   }, [])
   const [num, setNum] = useState(0)
   useEffect(() => {

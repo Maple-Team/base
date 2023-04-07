@@ -1,8 +1,5 @@
-import { sendRemoteCommand } from '@/hooks'
-import { remoteCommandTypeEnum, remoteResultEnum, vehicleDeviceSwitchStateEnum } from '@/enums'
 import { message } from 'antd'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-
 import { FunctionButton } from './FunctionButton'
 import {
   FETCH_REMOTE_CONTROL_TIMEOUT,
@@ -10,11 +7,14 @@ import {
   useRemoteControlResult,
   useVehicleRealtimeControlInfo,
 } from './useRemoteControl'
+import { showMesage } from './utils'
+import { remoteCommandTypeEnum, remoteResultEnum, vehicleDeviceSwitchStateEnum } from '@/enums'
+import { sendRemoteCommand } from '@/hooks'
 
 const StoragePanel = () => {
   const vin = ''
 
-  const commandIdRef = useRef<string>(null)
+  const commandIdRef = useRef<string | null>(null)
   const { result, noUsingRTdataTimeout, resetTimeout, resetFetchTimeout } = useRemoteControlResult(commandIdRef.current)
 
   // 实时数据
@@ -27,33 +27,36 @@ const StoragePanel = () => {
   const [locker2Loading, setLocker2Loading] = useState<boolean>()
 
   useEffect(() => {
-    if (!result) return
-    const { resultCode, resultMsg, commandType } = result.controlResultList[0]
-    if (resultCode === remoteResultEnum.SUCCESS) {
-      switch (commandType) {
-        case remoteCommandTypeEnum.VEHICLE_LOCKER1:
-          setLocker1CB((_: boolean) => !_)
-          break
-        case remoteCommandTypeEnum.VEHICLE_LOCKER2:
-          setLocker2CB((_: boolean) => !_)
-          break
-        default:
-          break
+    const handler = async () => {
+      if (!result) return
+      const { resultCode, resultMsg, commandType } = result.controlResultList[0]
+      if (resultCode === remoteResultEnum.SUCCESS) {
+        switch (commandType) {
+          case remoteCommandTypeEnum.VEHICLE_LOCKER1:
+            setLocker1CB((_: boolean) => !_)
+            break
+          case remoteCommandTypeEnum.VEHICLE_LOCKER2:
+            setLocker2CB((_: boolean) => !_)
+            break
+          default:
+            break
+        }
+        await message.success('执行成功')
+      } else {
+        await message.error(resultMsg)
       }
-      message.success('执行成功')
-    } else {
-      message.error(resultMsg)
+      // 有远控结果，loading状态重置，// NOTE 简单处理，同一时期只有一个loading
+      setLocker1Loading(false)
+      setLocker2Loading(false)
     }
-    // 有远控结果，loading状态重置，// NOTE 简单处理，同一时期只有一个loading
-    setLocker1Loading(false)
-    setLocker2Loading(false)
+    handler().catch(console.log)
   }, [result, setLocker1CB, setLocker2CB])
 
   const onLocker1Change = useCallback(
-    async (checked: boolean) => {
+    (checked: boolean) => {
       if (!vin) return
       if (!checked) {
-        message.info('储物柜不支持远程关闭')
+        showMesage('储物柜不支持远程关闭', 'info').catch(console.log)
         return
       }
       resetTimeout(TIME_TO_NOT_USE_REALTIME_DATA)
@@ -68,12 +71,11 @@ const StoragePanel = () => {
           },
         ],
       })
-        .then((id) => {
-          message.success('发送成功')
+        .then(async (id) => {
           resetFetchTimeout(FETCH_REMOTE_CONTROL_TIMEOUT)
-          // @ts-ignore
           commandIdRef.current = id
           setLocker1Loading(true)
+          await message.success('发送成功')
         })
         .catch(() => {
           setLocker1CB(false)
@@ -84,10 +86,10 @@ const StoragePanel = () => {
   )
 
   const onLocker2Change = useCallback(
-    async (checked: boolean) => {
+    (checked: boolean) => {
       if (!vin) return
       if (!checked) {
-        message.info('储物柜不支持远程关闭')
+        showMesage('储物柜不支持远程关闭', 'info').catch(console.log)
         return
       }
       resetTimeout(TIME_TO_NOT_USE_REALTIME_DATA)
@@ -102,12 +104,11 @@ const StoragePanel = () => {
           },
         ],
       })
-        .then((id) => {
-          message.success('发送成功')
+        .then(async (id) => {
           resetFetchTimeout(FETCH_REMOTE_CONTROL_TIMEOUT)
-          // @ts-ignore
           commandIdRef.current = id
           setLocker2Loading(true)
+          await message.success('发送成功')
         })
         .catch(() => {
           setLocker2CB(false)

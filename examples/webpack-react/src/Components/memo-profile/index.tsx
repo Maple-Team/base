@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { memo, useCallback, useState } from 'react'
+
 export const ChildNoMemo = () => {
   console.count('child no memo rendering')
   return <div>child no memo</div>

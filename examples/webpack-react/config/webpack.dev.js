@@ -1,7 +1,7 @@
-const { merge } = require('webpack-merge')
-const base = require('./webpack.base')
 const path = require('path')
+const { merge } = require('webpack-merge')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+const base = require('./webpack.base')
 
 /**
  * @type {import("webpack-dev-server").Configuration}

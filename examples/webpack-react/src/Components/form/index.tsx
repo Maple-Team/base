@@ -3,7 +3,8 @@
 
 import { Button, Form, Input, InputNumber } from 'antd'
 import { useForm, useWatch } from 'antd/es/form/Form'
-import React, { MouseEvent, ReactNode, useCallback } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
+import React, { useCallback } from 'react'
 
 interface FormModel {
   name: string

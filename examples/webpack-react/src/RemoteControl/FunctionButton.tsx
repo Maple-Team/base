@@ -1,10 +1,11 @@
-import { Icon } from '@/Components'
 import { Switch } from 'antd'
 import React, { memo } from 'react'
 import { useIconAnimation } from './useAlarmAnimation'
+import { Icon } from '@/Components'
+
 interface Props {
   name: string
-  icon: string
+  icon?: string
   checked?: boolean
   loading?: boolean
   disabled?: boolean
@@ -22,10 +23,12 @@ export const FunctionButton = memo(({ name, icon, onChange, checked, loading, ty
     ${disabled ? 'bg-[rgba(236,236,236,0.8)] shadow-[rgba(194,194,194,0.35)] border-[#CFCFCF]' : ''}`}
     >
       <span className="flex items-center justify-between">
-        <Icon
-          name={checked ? (type === 'alarm' ? `${icon}-on${(onNum % 2) + 1}` : `${icon}-on`) : icon}
-          className="w-[24px] h-[24px] transition-all duration-300 ease-in-out will-change-auto"
-        />
+        {icon && (
+          <Icon
+            name={checked ? (type === 'alarm' ? `${icon}-on${(onNum % 2) + 1}` : `${icon}-on`) : icon}
+            className="w-[24px] h-[24px] transition-all duration-300 ease-in-out will-change-auto"
+          />
+        )}
         <Switch
           checked={checked}
           onChange={onChange}

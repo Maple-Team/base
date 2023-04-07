@@ -1,11 +1,12 @@
-import { Icon, IconClose } from '@/Components'
-import { RemotePanelType } from '@liutsing/types-utils'
+import type { RemotePanelType } from '@liutsing/types-utils'
 import { Empty, Skeleton, Timeline } from 'antd'
-import React, { Suspense, useCallback, useState, ElementType, memo, lazy } from 'react'
+import type { ElementType } from 'react'
+import React, { Suspense, lazy, memo, useCallback, useState } from 'react'
 import { DividerLine } from './DividerLine'
 import { useWebSocket } from './useRemoteControl'
-// @ts-ignore
+
 import styles from './style.module.less'
+import { Icon, IconClose } from '@/Components'
 
 interface ItemProps {
   name: string
@@ -35,7 +36,7 @@ const TabItem = memo(({ name, icon, checked, type, code, onClick, children: _chi
       } flex items-center pt-[5px] pb-[3px] px-4 mb-4 cursor-pointer first:mt-4`}
       onClick={() => onClick?.(code!)}
     >
-      <Icon name={checked ? `${icon}-on` : `${icon}-off`} className="w-[20px] h-[20px]" />
+      {icon && <Icon name={checked ? `${icon}-on` : `${icon}-off`} className="w-[20px] h-[20px]" />}
       <span className="ml-3">{name}</span>
     </div>
   )
@@ -61,11 +62,12 @@ export const RemoteControlCard = memo(() => {
     setCurrentPanelType(type)
   }, [])
   const Component: ElementType | undefined = items.find(({ code }) => code === currentPanelType)?.children
-  const [showProgress, setProgress] = useState<boolean>(false) // TODO 待下期需求
+  const [showProgress, setProgress] = useState<boolean>(false)
 
   return (
     //  w-[669px] h-[637px]
     <div
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       className={`${styles.container} absolute rounded top-0
       transition-all duration-500 ease-in will-change-transform`}
     >

@@ -1,12 +1,14 @@
-import React, { ReactNode, useEffect } from 'react'
+import type { ReactNode } from 'react'
+import React, { useEffect } from 'react'
 
 export default ({ children, a }: { a?: number; children: ReactNode }) => {
   useEffect(() => {
-    // @ts-ignore
-    import('lodash-es/add').then((fn: (...args: unknown[]) => unknown) => {
-      const res = fn(1 + 2)
-      console.log(res)
-    })
+    import('lodash-es/add')
+      .then((fn: AnyToFix) => {
+        const res = fn(1 + 2)
+        console.log(res)
+      })
+      .catch(console.log)
   }, [a])
   return <div>product page {children}</div>
 }

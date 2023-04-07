@@ -1,13 +1,14 @@
-const { merge } = require('webpack-merge')
-const base = require('./webpack.base')
-const { DefinePlugin, ProvidePlugin } = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { DefinePlugin, ProvidePlugin } = require('webpack')
+const { merge } = require('webpack-merge')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin')
-const appRootPath = path.join(__dirname, '..')
 
+const appRootPath = path.join(__dirname, '..')
 const envKeys = require('../../../plugins/env.js')(appRootPath)
+const base = require('./webpack.base')
+
 const host = 'dev.patrol.etlink.ecar.com'
 const port = '6971'
 

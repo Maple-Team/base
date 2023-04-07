@@ -1,10 +1,41 @@
+import type { DeviceStatusData, DriveData, RemoteControlResult, VehicleResult } from '@liutsing/types-utils'
+import { useInterval } from 'ahooks'
+import type { SetStateAction } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { emitter } from '@/events'
 import { useFetchCommandResult } from '@/hooks'
 import { vehicleDeviceSwitchStateEnum } from '@/enums'
-import { DriveData, DeviceStatusData, VehicleResult, RemoteControlResult } from '@liutsing/types-utils'
-import { useInterval } from 'ahooks'
-import { useState, useEffect, useCallback, useRef, SetStateAction } from 'react'
 
+/**
+ * 基于commandId的倒计时
+ * @param commandId
+ * @param timeout
+ * @returns
+ */
+const useCountdown = (commandId: string | null | undefined, timeout: number) => {
+  const [num, setNum] = useState(0)
+
+  useInterval(() => {
+    if (!commandId) return
+    setNum((t) => Math.max(t - 1, 0)) // 倒计时到0为止
+  }, 1000)
+
+  useEffect(() => {
+    if (commandId) {
+      // 有新的远控任务时，重置commandId对应的⏲
+      console.debug('倒计时重置', timeout)
+      setNum(timeout)
+    }
+  }, [commandId, timeout])
+
+  // console.log(`=====倒计时: ${num}/${timeout}`, commandId)
+
+  const reset = useCallback((num: number) => {
+    setNum(num)
+  }, [])
+
+  return { timeout: num, reset }
+}
 type SetStateFn = (bool: boolean) => boolean
 
 /**
@@ -15,7 +46,33 @@ export const FETCH_REMOTE_CONTROL_TIMEOUT = 65
  * NOTE 为避免远控结果过来后的闪动，需要维持若干秒远控结果的状态，在这一时间段里面不使用实时状态的数据
  */
 export const TIME_TO_NOT_USE_REALTIME_DATA = 10
+/**
+ * 获取车辆实时数据的Hook
+ * @returns
+ */
+export const useVehicleRtInfo = (vin?: string) => {
+  const [vehicleInfo, setVehicleInfo] = useState<VehicleResult>()
+  // const { data, isSuccess } = useLatestVehicleResultQuery(vin)
 
+  // useEffect(() => {
+  //   if (isSuccess && vin === data.vin) {
+  //     setVehicleInfo(data)
+  //   }
+  // }, [isSuccess, data, vin])
+
+  useEffect(() => {
+    const handler = (result: VehicleResult) => {
+      if (vin === result.vin) setVehicleInfo(result)
+    }
+
+    emitter.on('rtStatus', handler)
+    return () => {
+      emitter.off('rtStatus', handler)
+    }
+  }, [vin])
+
+  return vehicleInfo
+}
 /**
  * 根据commandId获取对应的远控结果
  * @param commandID 命令ID
@@ -191,67 +248,6 @@ export const useVehicleRealtimeControlInfo = (noUsingRTdataTimeout: number, vin?
     setDrivingCB,
   }
 }
-
-/**
- * 获取车辆实时数据的Hook
- * @returns
- */
-export const useVehicleRtInfo = (vin?: string) => {
-  const [vehicleInfo, setVehicleInfo] = useState<VehicleResult>()
-  // const { data, isSuccess } = useLatestVehicleResultQuery(vin)
-
-  // useEffect(() => {
-  //   if (isSuccess && vin === data.vin) {
-  //     setVehicleInfo(data)
-  //   }
-  // }, [isSuccess, data, vin])
-
-  useEffect(() => {
-    const handler = (result: VehicleResult) => {
-      if (vin === result.vin) {
-        setVehicleInfo(result)
-      }
-    }
-
-    emitter.on('rtStatus', handler)
-    return () => {
-      emitter.off('rtStatus', handler)
-    }
-  }, [vin])
-
-  return vehicleInfo
-}
-
-/**
- * 基于commandId的倒计时
- * @param commandId
- * @param timeout
- * @returns
- */
-const useCountdown = (commandId: string | null | undefined, timeout: number) => {
-  const [num, setNum] = useState(0)
-
-  useInterval(() => {
-    if (!commandId) return
-    setNum((t) => Math.max(t - 1, 0)) // 倒计时到0为止
-  }, 1000)
-
-  useEffect(() => {
-    if (commandId) {
-      // 有新的远控任务时，重置commandId对应的⏲
-      console.debug(`倒计时重置`, timeout)
-      setNum(timeout)
-    }
-  }, [commandId, timeout])
-
-  // console.log(`=====倒计时: ${num}/${timeout}`, commandId)
-
-  const reset = useCallback((num: number) => {
-    setNum(num)
-  }, [])
-
-  return { timeout: num, reset }
-}
 interface WebSocketMsg {
   data: string
   vin: string
@@ -263,13 +259,12 @@ export const useWebSocket = (url: string) => {
 
   useEffect(() => {
     if (!wsRef.current) {
-      // @ts-ignore
       wsRef.current = new WebSocket(`${WS_URL}${url}`)
       wsRef.current.onopen = () => {
         console.log(`ws: ${url} open`)
       }
       wsRef.current.onmessage = (msg) => {
-        const dataStr = msg.data
+        const dataStr: string = msg.data
         let msgObj: WebSocketMsg | undefined
         try {
           msgObj = JSON.parse(dataStr) as WebSocketMsg

@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/eslint-config",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": false,
   "description": "",
   "keywords": [],
@@ -20,12 +20,9 @@
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {
-    "@babel/core": "^7.20.12",
-    "@babel/eslint-parser": "^7.18.9",
-    "@babel/preset-env": "^7.18.2",
     "@liutsing/eslint-config-standard-react": "^11.0.1",
     "@liutsing/prettier-config": "^0.0.5",
-    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.52.0",
     "@vue/eslint-config-typescript": "^11.0.1",
     "eslint": "^8.34.0",
@@ -45,6 +42,7 @@
     "vue-eslint-parser": "^9.1.0"
   },
   "peerDependencies": {
+    "eslint": ">=7.4.0",
     "prettier": "^2.7.1"
   },
   "publishConfig": {

@@ -12,6 +12,9 @@
   "dependencies": {
     "vue": "^3.2.37"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@liutsing/eslint-config": "workspace:*",
+    "@liutsing/vue-components": "workspace:*"
+  },
   "prettier": "@liutsing/prettier-config"
 }

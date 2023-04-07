@@ -1,4 +1,5 @@
-import React, { CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
+import React from 'react'
 
 interface IconProps {
   /**
@@ -27,7 +28,7 @@ interface IconProps {
  */
 export const Icon = ({ name, className, currentColor, onClick, style }: IconProps) => {
   return (
-    <svg className={`${className} align-middle`} onClick={onClick} fill={currentColor} style={style}>
+    <svg className={`${className ?? ''} align-middle`} onClick={onClick} fill={currentColor} style={style}>
       <use xlinkHref={`#${name}`} />
     </svg>
   )
@@ -38,5 +39,5 @@ export const Icon = ({ name, className, currentColor, onClick, style }: IconProp
  * @returns
  */
 export const IconClose = ({ onClick, className }: { className?: string; onClick?: () => void }) => (
-  <Icon name="icon-close" className={`w-[24px] h-[24px] cursor-pointer ${className}`} onClick={onClick} />
+  <Icon name="icon-close" className={`w-[24px] h-[24px] cursor-pointer ${className ?? ''}`} onClick={onClick} />
 )

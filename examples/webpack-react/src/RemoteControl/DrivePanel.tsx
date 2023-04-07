@@ -1,5 +1,3 @@
-import { sendRemoteCommand } from '@/hooks'
-import { remoteCommandTypeEnum, remoteResultEnum } from '@/enums'
 import { message } from 'antd'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
@@ -10,11 +8,13 @@ import {
   useRemoteControlResult,
   useVehicleRealtimeControlInfo,
 } from './useRemoteControl'
+import { remoteCommandTypeEnum, remoteResultEnum } from '@/enums'
+import { sendRemoteCommand } from '@/hooks'
 
 const DrivePanel = () => {
   const vin = ''
 
-  const commandIdRef = useRef<string>(null)
+  const commandIdRef = useRef<string | null>(null)
   // 远控结果
   const { result, noUsingRTdataTimeout, resetTimeout, resetFetchTimeout } = useRemoteControlResult(commandIdRef.current)
   // 实时数据
@@ -22,30 +22,33 @@ const DrivePanel = () => {
 
   const [drivingLoading, setDrivingLoading] = useState<boolean>()
   useEffect(() => {
-    if (!result) return
-    const { resultCode, resultMsg, commandType } = result.controlResultList[0]
+    const handler = async () => {
+      if (!result) return
+      const { resultCode, resultMsg, commandType } = result.controlResultList[0]
 
-    if (resultCode === remoteResultEnum.SUCCESS) {
-      switch (commandType) {
-        case remoteCommandTypeEnum.VEHICLE_CONTINUE:
-          setDrivingCB((_) => !_)
-          message.success('执行成功')
-          break
-        case remoteCommandTypeEnum.VEHICLE_STOP:
-          setDrivingCB((_) => !_)
-          message.success('执行成功')
-          break
-        default:
-          break
+      if (resultCode === remoteResultEnum.SUCCESS) {
+        switch (commandType) {
+          case remoteCommandTypeEnum.VEHICLE_CONTINUE:
+            setDrivingCB((_: boolean) => !_)
+            await message.success('执行成功')
+            break
+          case remoteCommandTypeEnum.VEHICLE_STOP:
+            setDrivingCB((_: boolean) => !_)
+            await message.success('执行成功')
+            break
+          default:
+            break
+        }
+      } else {
+        await message.error(resultMsg)
       }
-    } else {
-      message.error(resultMsg)
+      setDrivingLoading(false)
     }
-    setDrivingLoading(false)
+    handler().catch(console.log)
   }, [result, setDrivingCB])
 
   const onDrivingChange = useCallback(
-    async (checked: boolean) => {
+    (checked: boolean) => {
       if (!vin) return
       resetTimeout(TIME_TO_NOT_USE_REALTIME_DATA)
 
@@ -59,18 +62,17 @@ const DrivePanel = () => {
           },
         ],
       })
-        .then((id) => {
-          message.success('发送成功')
+        .then(async (id) => {
           resetFetchTimeout(FETCH_REMOTE_CONTROL_TIMEOUT)
-          // @ts-ignore
           commandIdRef.current = id
           setDrivingLoading(true)
+          await message.success('发送成功')
         })
         .catch(() => {
           setDrivingCB(false)
         })
     },
-    [vin]
+    [resetFetchTimeout, resetTimeout, setDrivingCB]
   )
 
   return (

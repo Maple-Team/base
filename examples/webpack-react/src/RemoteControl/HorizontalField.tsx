@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import React from 'react'
 
 interface Props<T> {
   label: ReactNode
@@ -7,6 +8,7 @@ interface Props<T> {
   bottomLine?: 'dashed' | 'solid'
 }
 // NOTE TAILWIND HACK border-dashed border-solid
+// eslint-disable-next-line @typescript-eslint/comma-dangle
 export const HorizontalField = <T,>({ label, children, value, bottomLine = 'dashed' }: Props<T>) => {
   return (
     <div

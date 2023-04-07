@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const dayjs = require('dayjs')
+
 const loaderName = 'maple-pattern-loader'
 
 // @https://redd.one/blog/writing-custom-webpack-loader
@@ -26,7 +27,9 @@ module.exports = function (source) {
     path.resolve(__dirname, `../${loaderName}.log`),
     `[${dayjs().format('YYYY-MM-DD HH:mm:ss')}] ${content}\r\n`,
     { flag: 'a+' },
-    () => {}
+    (e) => {
+      if (e) console.error(e)
+    }
   )
   return source
 }

@@ -1,6 +1,6 @@
+const fs = require('fs') // to check if the file exists
 const dotenv = require('dotenv')
 const dotenvExpand = require('dotenv-expand')
-const fs = require('fs') // to check if the file exists
 // 参考 https://trekinbami.medium.com/using-environment-variables-in-react-6b0a99d83cf5
 
 const getEnvKeys = (pathStr) => {
@@ -25,25 +25,21 @@ module.exports = (dirname) => {
 
   const mode = process.env.mode || 'dev' // 'dev, sit, pro, ...
   // Create the fallback path (the production .env)
-  const basePath = dirname + '/.env'
+  const basePath = `${dirname}/.env`
 
   // We're concatenating the environment name to our filename to specify the correct env file!
-  const envPath = basePath + '.' + mode
-  const localPath = basePath + '.' + 'local'
+  const envPath = `${basePath}.${mode}`
+  const localPath = `${basePath}.` + `local`
 
   // Check if the file exists, otherwise fall back to the production .env
 
   let localEnvKeys, modeEnvKeys, baseEnvKeys
 
-  if (fs.existsSync(localPath)) {
-    localEnvKeys = getEnvKeys(localPath)
-  }
-  if (fs.existsSync(envPath)) {
-    modeEnvKeys = getEnvKeys(envPath)
-  }
-  if (fs.existsSync(basePath)) {
-    baseEnvKeys = getEnvKeys(basePath)
-  }
+  if (fs.existsSync(localPath)) localEnvKeys = getEnvKeys(localPath)
+
+  if (fs.existsSync(envPath)) modeEnvKeys = getEnvKeys(envPath)
+
+  if (fs.existsSync(basePath)) baseEnvKeys = getEnvKeys(basePath)
 
   // NOTE for same key .env.local > .env.xx > .env
   return Object.assign({}, { ...baseEnvKeys }, { ...modeEnvKeys }, { ...localEnvKeys })

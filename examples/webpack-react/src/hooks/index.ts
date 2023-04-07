@@ -1,7 +1,7 @@
+import type { RemoteControlResult, SendCommandParams, VehicleResult } from '@liutsing/types-utils'
+import { useQuery } from '@tanstack/react-query'
 import { axios } from '@/http'
 import { remoteCommandTypeEnum, vehicleDeviceSwitchStateEnum } from '@/enums'
-import { RemoteControlResult, VehicleResult, SendCommandParams } from '@liutsing/types-utils'
-import { useQuery } from '@tanstack/react-query'
 
 const Api = {
   sendControlCommand: '/api/vehicle-control/sendCmd', // 远控下发
@@ -15,7 +15,7 @@ const Api = {
  * @returns
  */
 export const sendRemoteCommand = (data: SendCommandParams) => {
-  return axios.post<unknown, BaseResponse<string>>(Api.sendControlCommand, data)
+  return axios.post<unknown, string, SendCommandParams>(Api.sendControlCommand, data)
 }
 
 export const closeShoutBeaconRequest = (vin?: string) => {

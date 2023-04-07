@@ -1,5 +1,3 @@
-import { closeShoutBeaconRequest, sendRemoteCommand } from '@/hooks'
-import { remoteCommandTypeEnum, remoteResultEnum, vehicleDeviceSwitchStateEnum } from '@/enums'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { FunctionButton } from './FunctionButton'
 import {
@@ -8,11 +6,13 @@ import {
   useRemoteControlResult,
   useVehicleRealtimeControlInfo,
 } from './useRemoteControl'
-import { message } from 'antd'
+import { showMesage } from './utils'
+import { closeShoutBeaconRequest, sendRemoteCommand } from '@/hooks'
+import { remoteCommandTypeEnum, remoteResultEnum, vehicleDeviceSwitchStateEnum } from '@/enums'
 
 const AlarmPanel = () => {
   const vin = 'TESTVIN111111'
-  const commandIdRef = useRef<string>(null)
+  const commandIdRef = useRef<string | null>(null)
 
   // 远控结果
   const { result, noUsingRTdataTimeout, resetTimeout, resetFetchTimeout } = useRemoteControlResult(commandIdRef.current)
@@ -36,21 +36,21 @@ const AlarmPanel = () => {
       switch (commandType) {
         case remoteCommandTypeEnum.STRONG_LIGHT:
           setStrongLightCB((_: boolean) => !_)
-          message.success('执行成功')
+          showMesage('执行成功', 'success').catch(console.log)
           break
         case remoteCommandTypeEnum.ALARM_LIGHT:
           setAlarmLightCB((_: boolean) => !_)
-          message.success('执行成功')
+          showMesage('执行成功', 'success').catch(console.log)
           break
         case remoteCommandTypeEnum.ALARM_RING:
           setAlarmRingCB((_: boolean) => !_)
-          message.success('执行成功')
+          showMesage('执行成功', 'success').catch(console.log)
           break
         default:
           break
       }
     } else {
-      message.error(resultMsg)
+      showMesage(resultMsg, 'error').catch(console.log)
     }
     // 有远控结果，loading状态重置 // NOTE 简单处理，同一时期只有一个loading
     setStrongLightLoading(false)
@@ -59,7 +59,7 @@ const AlarmPanel = () => {
   }, [result, setAlarmLightCB, setAlarmRingCB, setStrongLightCB])
 
   const onStrongLightChange = useCallback(
-    async (checked: boolean) => {
+    (checked: boolean) => {
       if (!vin) return
       resetTimeout(TIME_TO_NOT_USE_REALTIME_DATA)
 
@@ -74,9 +74,8 @@ const AlarmPanel = () => {
         ],
       })
         .then((id) => {
-          message.success('发送成功')
+          showMesage('发送成功', 'success').catch(console.log)
           resetFetchTimeout(FETCH_REMOTE_CONTROL_TIMEOUT)
-          // @ts-ignore
           commandIdRef.current = id
           setStrongLightLoading(true)
         })
@@ -105,10 +104,9 @@ const AlarmPanel = () => {
         ],
       })
         .then((id) => {
-          message.success('发送成功')
+          showMesage('发送成功', 'success').catch(console.log)
           resetFetchTimeout(FETCH_REMOTE_CONTROL_TIMEOUT)
           setAlarmLightLoading(true)
-          // @ts-ignore
           commandIdRef.current = id
         })
         .catch((e) => {
@@ -135,10 +133,9 @@ const AlarmPanel = () => {
         ],
       })
         .then((id) => {
-          message.success('发送成功')
+          showMesage('发送成功', 'success').catch(console.log)
           resetFetchTimeout(FETCH_REMOTE_CONTROL_TIMEOUT)
           setAlarmRingLoading(true)
-          // @ts-ignore
           commandIdRef.current = id
         })
         .catch((e) => {

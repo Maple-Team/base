@@ -10,7 +10,7 @@ const handleClick = (e: MouseEvent) => {
 <template>
   <ConfigureProvide :prefix-cls="'test'">
     <RippleButton @click="handleClick">Find More</RippleButton>
-    <HelloWorldVue msg="11"></HelloWorldVue>
+    <HelloWorldVue msg="11" />
   </ConfigureProvide>
 </template>
 

@@ -1,4 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios from 'axios'
 
 const instance = axios.create({})
 
@@ -20,11 +21,8 @@ instance.interceptors.response.use(
   (res: AxiosResponse<BaseResponse<AnyToFix>>) => {
     const { data, status } = res
 
-    if (status === 200) {
-      return data.data
-    } else {
-      return Promise.reject(data)
-    }
+    if (status === 200) return data.data
+    else return Promise.reject(data)
   },
   (e) => {
     console.error('res error', e)

@@ -1,7 +1,8 @@
-import { Message, RemoteControlResult, VehicleResult } from '@/types'
+import type { EventType } from 'mitt'
 import mitt from 'mitt'
+import type { Message, RemoteControlResult, VehicleResult } from '@liutsing/types-utils'
 
-type Events = {
+interface Events extends Record<EventType, unknown> {
   /**
    * websocket事件
    */

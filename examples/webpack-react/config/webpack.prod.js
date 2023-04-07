@@ -1,7 +1,7 @@
-const { merge } = require('webpack-merge')
-const base = require('./webpack.base')
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const path = require('path')
+const { merge } = require('webpack-merge')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const base = require('./webpack.base')
 /**
  * @type {import("webpack").Configuration}
  */

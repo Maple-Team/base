@@ -1,4 +1,6 @@
 import { defineConfig } from 'eslint-define-config'
+import path from 'path'
+
 /**
  * 目的：Support lint Vue, React, ts, js files
  */
@@ -136,6 +138,7 @@ const baseRules = {
     },
   ],
   'no-undef': 'error',
+  'no-var': 'error',
 }
 
 /**
@@ -166,22 +169,6 @@ const eslintConfig = defineConfig({
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
-  parser: '@babel/eslint-parser',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 2018,
-    sourceType: 'module',
-    requireConfigFile: false, // NOTE Not typed
-    babelOptions: {
-      // NOTE Not typed
-      babelrc: false,
-      configFile: false,
-      // your babel options
-      presets: ['@babel/preset-env'],
-    },
-  },
   plugins: [isReactExist && 'react', isReactExist && 'react-hooks', 'prettier'].filter(Boolean),
   rules: {
     ...baseRules,
@@ -201,11 +188,13 @@ const eslintConfig = defineConfig({
       parser: '@typescript-eslint/parser',
       parserOptions: {
         sourceType: 'module',
-        ecmaVersion: 2020,
+        ecmaVersion: 'latest',
         ecmaFeatures: {
           jsx: true,
         },
         warnOnUnsupportedTypeScriptVersion: true,
+        project: ['tsconfig.json'],
+        tsconfigRootDir: path.dirname(path.resolve(process.cwd(), 'tsconfig.json')),
       },
       extends: [
         'standard',

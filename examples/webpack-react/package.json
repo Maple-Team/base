@@ -47,6 +47,7 @@
     "@types/lodash": "^4.14.191",
     "@types/lodash-es": "^4.17.6",
     "@types/svg-sprite-loader": "^3.9.5",
+    "@types/webpack-env": "^1.18.0",
     "autoprefixer": "^10.4.13",
     "clean-webpack-plugin": "^4.0.0",
     "core-js": "^3.26.1",
