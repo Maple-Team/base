@@ -12,6 +12,7 @@ import ErrorPage from './error-page'
 import { RemoteControlCard } from './RemoteControl'
 import { ReactQueryDemo } from './pages/ReactQuery'
 import { ReactAmap } from './pages/ReactAmap'
+import { ReactTooltip } from './pages/ReactTooltip'
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: '/react-query',
         element: <ReactQueryDemo />,
+      },
+      {
+        path: '/react-tooltip',
+        element: <ReactTooltip />,
       },
     ],
   },

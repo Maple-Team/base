@@ -28,10 +28,13 @@ export default () => {
   return (
     <div className="flex h-full">
       <aside className="w-[246px]">
-        <Menu defaultSelectedKeys={['2']} items={items} />
+        <Menu
+          defaultSelectedKeys={['2']}
+          items={items}
+        />
       </aside>
       <main className="flex-1 flex flex-col justify-between">
-        <header>header</header>
+        <header className="py-3 shadow px-4">header</header>
         <div className="flex-1">
           <Outlet />
         </div>

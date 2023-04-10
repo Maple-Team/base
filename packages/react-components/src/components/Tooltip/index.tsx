@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import React from 'react'
-// import styles from './index.less'
 import './index.less'
+
 // 样式输出到dist下面
 export interface TooltipProps {
   /**
@@ -9,14 +9,13 @@ export interface TooltipProps {
    */
   title: string
   children: ReactNode
-
-  // 位置 placement: 'left'|'top'|'right'|'bottom'
+  placement: 'left' | 'top' | 'right' | 'bottom'
 }
 
-export const Tooltip = ({ title, children }: TooltipProps) => {
+export const Tooltip = ({ title, children, placement }: TooltipProps) => {
   return (
     <div className="tooltip-container">
-      <div className="tooltip-wrapper">{title}</div>
+      <div className={`tooltip-wrapper tooltip-wrapper-${placement}`}>{title}</div>
       {children}
     </div>
   )

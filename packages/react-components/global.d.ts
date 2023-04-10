@@ -1,1 +1,1 @@
-declare module '*.less'
+/// <reference types="@liutsing/types-utils/global" />
