@@ -1,4 +1,5 @@
-import React, { createContext, ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import React, { createContext } from 'react'
 import { PREFIX_CLS } from '@/constant'
 
 interface ConfigProviderProps {
@@ -18,9 +19,7 @@ export const UIContext = createContext(contextValue)
 
 export const ConfigProvider = ({ children, prefixCls }: ConfigProviderProps) => {
   const _contentValue: Record<ContextField, string> = { ...contextValue }
-  if (prefixCls) {
-    _contentValue.prefixCls = prefixCls
-  }
+  if (prefixCls) _contentValue.prefixCls = prefixCls
 
   return <UIContext.Provider value={_contentValue}>{children}</UIContext.Provider>
 }

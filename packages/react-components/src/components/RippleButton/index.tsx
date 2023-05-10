@@ -1,15 +1,14 @@
-import React, { useCallback, MouseEvent, ReactNode, useContext } from 'react'
-import { PREFIX_CLS } from '@/constant'
+import type { MouseEvent, ReactNode } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { UIContext } from '../ConfigProvider'
+import { PREFIX_CLS } from '@/constant'
 import './style.less'
 
 function createRipple(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) {
   const button = event.currentTarget
   const ripple = button.getElementsByClassName('ripple')[0]
 
-  if (ripple) {
-    ripple.remove()
-  }
+  if (ripple) ripple.remove()
 
   // 点击的当前位置，创建一个元素，添加水波纹动画
   // dynamic inject
@@ -39,10 +38,7 @@ export const RippleButton = ({ children, onClick }: Props) => {
   }, [])
 
   return (
-    <button
-      className={`${prefixCls}-btn btn`}
-      onClick={handleClick}
-    >
+    <button className={`${prefixCls}-btn btn`} onClick={handleClick}>
       {children}
     </button>
   )

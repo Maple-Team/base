@@ -13,6 +13,7 @@ import { RemoteControlCard } from './RemoteControl'
 import { ReactQueryDemo } from './pages/ReactQuery'
 import { ReactAmap } from './pages/ReactAmap'
 import { ReactTooltip } from './pages/ReactTooltip'
+import Example from './pages/Drawer'
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,11 @@ const router = createBrowserRouter([
       {
         path: '/react-tooltip',
         element: <ReactTooltip />,
+      },
+      {
+        // 组件库显示组件
+        path: '/component',
+        element: <Example />,
       },
     ],
   },
