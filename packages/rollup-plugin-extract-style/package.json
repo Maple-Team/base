@@ -1,5 +1,5 @@
 {
-  "name": "@liutsing/rollup-plugin-write-css",
+  "name": "@liutsing/rollup-plugin-extract-style",
   "version": "0.0.1",
   "private": true,
   "description": "A loader to debug webpack module rule test pattern",

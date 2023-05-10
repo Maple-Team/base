@@ -4,7 +4,7 @@ import type { Plugin } from 'rollup'
 
 export default function writecss() {
   const result: Plugin = {
-    name: '@liutsing/rollup-plugin-write-css', // this name will show up in warnings and errors
+    name: '@liutsing/rollup-plugin-extract-style', // this name will show up in warnings and errors
     writeBundle(this, options, bundle) {
       // bundle: { [fileName: string]: AssetInfo | ChunkInfo }
       const indexCss = bundle['index.css']

@@ -7,7 +7,7 @@ import dts from 'rollup-plugin-dts'
 import postcss from 'rollup-plugin-postcss'
 import { terser } from 'rollup-plugin-terser'
 import alias from '@rollup/plugin-alias'
-import writeCss from '@liutsing/rollup-plugin-write-css'
+import writeCss from '@liutsing/rollup-plugin-extract-style'
 
 const projectRootDir = path.resolve(__dirname)
 const packageJson = require('./package.json')

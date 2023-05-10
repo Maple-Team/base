@@ -22,7 +22,7 @@
   "devDependencies": {
     "@liutsing/eslint-config": "workspace:*",
     "@liutsing/types-utils": "workspace:*",
-    "@liutsing/rollup-plugin-write-css": "workspace:*",
+    "@liutsing/rollup-plugin-extract-style": "workspace:*",
     "@rollup/plugin-alias": "^4.0.2",
     "@rollup/plugin-commonjs": "^23.0.1",
     "@rollup/plugin-node-resolve": "^15.0.0",
