@@ -13,8 +13,6 @@ const envKeys = require('../plugins/env.js')(root)
  */
 const config = {
   entry: path.resolve(root, './src/main.tsx'),
-
-  // NOTE @antv/g2 按需加载
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
     mainFiles: ['index'],
@@ -31,6 +29,7 @@ const config = {
         exclude: /node_modules/,
         include: [path.resolve(root, './src')],
         use: ['babel-loader'],
+        sideEffects: true,
       },
       {
         test: /\.(j|t)sx?$/,
