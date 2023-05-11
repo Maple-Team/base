@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import classNames from 'classnames'
 
-interface Props {
+export interface DrawerProps {
   foldRenderer?: (open?: boolean) => ReactNode
   children?: ReactNode
   /**
@@ -32,12 +32,12 @@ const Drawer = ({
   children,
   collapsed,
   drawerClassNames,
-  position,
+  position='left',
   topContentWrapperClassNames,
   topContent,
   bottomContent,
   bottomContentWrapperClassNames,
-}: Props) => {
+}: DrawerProps) => {
   const [open, setOpen] = useState<boolean>(true)
   const onToggleOpen = useCallback(() => {
     setOpen((_) => !_)
@@ -49,7 +49,6 @@ const Drawer = ({
     else setOpen(true)
   }, [collapsed])
 
-  console.log(open, 'children')
   // TODO 补充事件
 
   const foldElement = useMemo(() => {
