@@ -40,8 +40,8 @@ const dev = {
   cache: true,
   plugins: [new ReactRefreshWebpackPlugin()],
   optimization: {
-    removeAvailableModules: false,
-    removeEmptyChunks: false,
+    removeAvailableModules: true,
+    removeEmptyChunks: true,
     splitChunks: false,
     runtimeChunk: true,
   },

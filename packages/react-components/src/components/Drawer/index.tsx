@@ -36,6 +36,9 @@ interface verticalProps extends BaseProps {
    */
   position?: 'top' | 'bottom'
 }
+/**
+ * 联合类型应用 -> type narrow
+ */
 type Props = HorizontalProps | verticalProps
 /**
  * Drawer
@@ -138,14 +141,14 @@ const Drawer = ({ foldRenderer, contentWidth, children, collapsed, drawerClassNa
     return (
       <div className={verticalDrawerClass}>
         <div className={`${contentWidth ? `w-[${contentWidth}px]` : ''} h-full rounded`}>{children}</div>
-        {/* <div
+        <div
           onClick={onToggleOpen}
           className={`absolute right-0 bg-white flex flex-col justify-center items-center ${
             rest.position === 'top' ? '-bottom-5' : '-top-5'
           } cursor-pointer`}
         >
           {foldElement}
-        </div> */}
+        </div>
       </div>
     )
   } else {
