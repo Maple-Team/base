@@ -16,6 +16,7 @@
     "prebuild": "pnpm run test && rimraf dist",
     "build": "rollup -c",
     "test": "jest",
+    "test:watch": "jest --watch",
     "tsc": "tsc"
   },
   "prettier": "@liutsing/prettier-config",

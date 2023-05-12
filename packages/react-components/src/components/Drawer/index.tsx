@@ -23,7 +23,7 @@ export interface DrawerProps {
 
 /**
  * Drawer
- * @param param0
+ * @param DrawerProps props
  * @returns
  */
 const Drawer = ({
@@ -32,7 +32,7 @@ const Drawer = ({
   children,
   collapsed,
   drawerClassNames,
-  position='left',
+  position = 'left',
   topContentWrapperClassNames,
   topContent,
   bottomContent,
@@ -43,7 +43,7 @@ const Drawer = ({
     setOpen((_) => !_)
   }, [])
 
-  // 响应传入的属性值
+  // NOTE 响应传入的属性值
   useEffect(() => {
     if (collapsed) setOpen(false)
     else setOpen(true)
