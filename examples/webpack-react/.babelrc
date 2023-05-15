@@ -4,35 +4,31 @@
       "@babel/preset-env",
       {
         "useBuiltIns": "usage",
-        "corejs": "3.26.1",
-        "exclude": [
-          // \\ for Windows, \/ for Mac OS and Linux
-          // TODO https://babeljs.io/docs/en/babel-preset-env#exclude
-          // /node_modules[\\\/]core-js/,
-          // /node_modules[\\\/]webpack[\\\/]buildin/,
-        ]
+        "corejs": "3.26.1"
       }
     ],
     "@babel/preset-react",
     "@babel/preset-typescript"
   ],
   "plugins": [
-    "@babel/plugin-transform-runtime"
+    "@babel/plugin-transform-runtime",
+    // "@liutsing/babel-plugin-react-data-testid"
+    "react-data-testid",
     // "react-refresh/babel",
-    // [
-    //   "@liutsing/babel-plugin-remove-console",
-    //   {
-    //     "exclude": ["debug", "error", "warn"]
-    //   }
-    // ]
-    // [
-    //   "import",
-    //   {
-    //     "libraryName": "lodash",
-    //     "libraryDirectory": "",
-    //     "camel2DashComponentName": false // default: true
-    //   }
-    // ]
+    [
+      "@liutsing/babel-plugin-remove-console",
+      {
+        "exclude": ["debug", "error", "warn"]
+      }
+    ],
+    [
+      "import",
+      {
+        "libraryName": "lodash",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false // default: true
+      }
+    ]
   ],
   "env": {
     "test": {
