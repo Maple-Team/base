@@ -1,4 +1,5 @@
-import React, { ReactNode, MouseEvent } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
+import React from 'react'
 import './Button.less'
 
 export interface ButtonProps {
@@ -6,8 +7,10 @@ export interface ButtonProps {
   size?: 'large' | 'middle' | 'small'
   children?: ReactNode
   onClick?: (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => void
+  // TODO 待补充属性 size -> 样式, disabled, ghost, type
+  // TODO A11Y
 }
 
-export const Button = (props: ButtonProps) => {
-  return <button onClick={(e) => props.onClick && props.onClick(e)}>{props.label || props.children}</button>
+export const Button = ({ onClick, label, children, size: _size }: ButtonProps) => {
+  return <button onClick={(e) => onClick?.(e)}>{label || children}</button>
 }
