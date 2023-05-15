@@ -54,12 +54,11 @@ const Drawer = ({
   const foldElement = useMemo(() => {
     if (foldRenderer) return foldRenderer(open)
     switch (position) {
-      case 'left':
-        return open ? '<' : '>'
       case 'right':
         return open ? '>' : '<'
+      case 'left':
       default:
-        break
+        return open ? '<' : '>'
     }
   }, [open, foldRenderer, position])
 
@@ -77,15 +76,18 @@ const Drawer = ({
   )
 
   return (
-    <div className={horizontalDrawerClass}>
+    <div className={horizontalDrawerClass} data-testid="drawerWrap">
       {/* 内容区域 */}
-      <div className={`${contentWidth ? `w-[${contentWidth}px]` : ''} h-full rounded`}>{children}</div>
+      <div className={`${contentWidth ? `w-[${contentWidth}px]` : ''} h-full rounded`} data-testid="drawerContentWrap">
+        {children}
+      </div>
       {/* 折叠抓手  */}
       <div
         onClick={onToggleOpen}
         className={`absolute mt-20 top-0 w-5 bg-white h-20 flex flex-col justify-center items-center ${
           position === 'left' ? 'rounded-r -right-5' : 'rounded-l -left-5'
         } cursor-pointer`}
+        data-testid="foldElWrap"
       >
         {foldElement}
       </div>
@@ -94,6 +96,7 @@ const Drawer = ({
           className={`absolute top-0 ${position === 'left' ? 'right-0' : 'left-0'} ${
             topContentWrapperClassNames ?? ''
           }`}
+          data-testid="topContentWrap"
         >
           {topContent}
         </div>
@@ -103,6 +106,7 @@ const Drawer = ({
           className={`absolute bottom-0 ${position === 'left' ? 'right-0' : 'left-0'} ${
             bottomContentWrapperClassNames ?? ''
           }`}
+          data-testid="bottomContentWrap"
         >
           {bottomContent}
         </div>

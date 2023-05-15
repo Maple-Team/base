@@ -15,8 +15,8 @@
   "scripts": {
     "prebuild": "pnpm run test && rimraf dist",
     "build": "rollup -c",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch --coverage",
     "tsc": "tsc"
   },
   "prettier": "@liutsing/prettier-config",
