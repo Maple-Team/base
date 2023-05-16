@@ -11,6 +11,8 @@
     "serve": "webpack serve  --config config/webpack.dev.js",
     "lint": "eslint .",
     "lint:debug": "eslint . --debug",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "lint:fix": "eslint . --fix"
   },
   "keywords": [],
@@ -41,10 +43,11 @@
     "@liutsing/html-webpack-plugin": "workspace:*",
     "@liutsing/pattern-logger-loader": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
-    "@liutsing/webpack-config": "workspace:*",
     "@liutsing/rc-components": "workspace:*",
     "@liutsing/types-utils": "workspace:*",
+    "@liutsing/webpack-config": "workspace:*",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+    "@testing-library/react-hooks": "^8.0.1",
     "@types/lodash": "^4.14.191",
     "@types/lodash-es": "^4.17.6",
     "@types/svg-sprite-loader": "^3.9.5",
@@ -57,6 +60,7 @@
     "less": "^4.1.1",
     "less-loader": "^11.1.0",
     "lint-staged": "^13.2.0",
+    "nock": "^13.3.1",
     "postcss": "^8.4.21",
     "postcss-loader": "^6.1.1",
     "react-refresh": "^0.14.0",
@@ -72,7 +76,7 @@
   },
   "prettier": "@liutsing/prettier-config",
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
+    "pre-commit": "pnpx lint-staged"
   },
   "lint-staged": {
     "*": "eslint --fix"
