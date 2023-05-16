@@ -14,5 +14,6 @@ const config = {
   globals: {
     tsconfig: 'tsconfig.jest.json',
   },
+  setupFilesAfterEnv: ['./src/setupTests.ts'],
 }
 module.exports = config

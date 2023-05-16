@@ -1,6 +1,6 @@
 import React from 'react'
-import { fireEvent, render, screen } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { Button } from './Button'
 
 describe('Button', () => {
@@ -15,13 +15,14 @@ describe('Button', () => {
     expect(button).toHaveTextContent('button')
   })
 
-  it('Button component should be called onclick callback function', () => {
+  it('Button component should be called onclick callback function', async () => {
+    const user = userEvent.setup()
     const fn = jest.fn()
     render(<Button label="Hello world!" onClick={fn} />)
     const button = screen.getByText('Hello world!')
-    fireEvent.click(button)
+    await user.click(button)
     expect(fn).toHaveBeenCalled()
-    fireEvent.click(button)
+    await user.click(button)
     expect(fn).toHaveBeenCalledTimes(2)
   })
 })

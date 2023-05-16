@@ -1,6 +1,6 @@
 import React from 'react'
-import { fireEvent, render, screen } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import type { DrawerProps } from './index'
 import Drawer from './index'
 
@@ -117,22 +117,22 @@ describe('Drawer Component', () => {
     })
   })
   // NOTE 交互测试
-  it('should toggle open state when fold element is clicked', () => {
+  it('should toggle open state when fold element is clicked', async () => {
     renderDrawer({})
     // 初始状态
     const foldWrapEl = screen.getByTestId('foldElWrap')
     expect(foldWrapEl).toHaveTextContent('<')
     const drawerWrapEl = screen.getByTestId('drawerWrap')
     expect(drawerWrapEl).toHaveClass('translate-x-0')
-
+    const user = userEvent.setup()
     // 第一次点击了折叠，drawer class改变
-    fireEvent.click(foldWrapEl)
+    await user.click(foldWrapEl)
     expect(drawerWrapEl).toHaveClass('-translate-x-full')
     expect(drawerWrapEl).not.toHaveClass('translate-x-0')
     expect(foldWrapEl).toHaveTextContent('>')
 
     // 第二次点击了折叠，drawer class恢复
-    fireEvent.click(foldWrapEl)
+    await user.click(foldWrapEl)
     expect(drawerWrapEl).toHaveClass('translate-x-0')
     expect(drawerWrapEl).not.toHaveClass('-translate-x-full')
     expect(foldWrapEl).toHaveTextContent('<')
