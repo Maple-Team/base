@@ -1,21 +1,10 @@
-import { useRef, useEffect } from 'react'
-import { useEffectOnce } from './useEffectOnce'
+import { useEffect } from 'react'
 
-export const useMount = (fn: Fn) => {
+export const useMount = (fn: Fn | undefined = undefined) => {
   useEffect(() => {
-    fn?.()
-  }, [])
-}
-
-const _useMount = (fn: Fn) => {
-  const ref = useRef(fn)
-  useEffect(() => {
-    fn?.()
-  }, [ref.current])
-}
-
-export const useMount2 = (fn: Fn) => {
-  useEffectOnce(() => {
-    fn?.()
-  })
+    const asyncFn = async () => {
+      await fn?.()
+    }
+    asyncFn().catch(console.log)
+  }, [fn])
 }

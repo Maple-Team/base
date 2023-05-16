@@ -3,20 +3,17 @@
  * https://jestjs.io/docs/configuration
  */
 import { Config } from 'jest'
-export default {
+const config: Config = {
   clearMocks: true,
   collectCoverage: true,
-  coverageDirectory: 'coverage',
-  coveragePathIgnorePatterns: ['/node_modules/'],
-  moduleFileExtensions: ['js', 'mjs', 'cjs', 'jsx', 'ts', 'tsx', 'json', 'node'],
+  testEnvironment: 'jsdom',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1', // runtime
   },
-  roots: ['<rootDir>'],
   testMatch: ['**/__tests__/**/*.test.[jt]s?(x)'],
-  testPathIgnorePatterns: ['/node_modules/'],
   transform: {
     '\\.[jt]sx?$': 'babel-jest',
   },
-  transformIgnorePatterns: ['/node_modules/', '\\.pnp\\.[^\\/]+$'],
-} as Config
+}
+
+export default config

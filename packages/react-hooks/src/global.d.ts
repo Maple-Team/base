@@ -1,1 +1,1 @@
-declare type Fn = (args?: unknown) => void
+declare type Fn = (args?: unknown) => void | Promise<void>

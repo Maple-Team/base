@@ -24,6 +24,7 @@ importers:
       '@tanstack/react-query': ^4.26.1
       '@tanstack/react-query-devtools': ^4.26.1
       '@testing-library/jest-dom': ^5.16.5
+      '@testing-library/react': ^13.4.0
       '@testing-library/user-event': ^14.4.3
       '@types/babel__core': ^7.1.20
       '@types/jest': ^28.1.1
@@ -99,6 +100,7 @@ importers:
       '@pmmmwh/react-refresh-webpack-plugin': 0.5.10_2sh2n464chklv3oeyrys3t3hwy
       '@tanstack/react-query-devtools': 4.29.6_6ufraba7zs65ngvban5jjen7be
       '@testing-library/jest-dom': 5.16.5
+      '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
       '@testing-library/user-event': 14.4.3_yxlyej73nftwmh2fiao7paxmlm
       '@types/babel__core': 7.20.0
       '@types/jest': 28.1.8
