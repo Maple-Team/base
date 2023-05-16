@@ -43,16 +43,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "lint-staged": {
-    "*": "prettier --write",
-    "*.ts": [
-      "eslint --fix",
-      "prettier --write"
-    ]
-  },
-  "simple-git-hooks": {
-    "pre-commit": "lint-staged",
-    "pre-push": "pnpm run test"
   }
 }
