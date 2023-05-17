@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react'
+import { act, renderHook, waitFor } from '@testing-library/react'
 import { rest } from 'msw'
 import React from 'react'
 import { server } from '../setupTests'
@@ -32,10 +32,26 @@ describe('react query test case', () => {
     expect(result.current.data).toBeUndefined()
   })
   it('successful query component', async () => {
+    console.time('label')
     const result = renderWithClient(<Example />)
 
-    // NOTE 使用异步查询
-    const target = await result.findByTestId('test-id')
-    expect(target).toHaveTextContent(mockData.info.seed)
+    // NOTE case 1: 元素一开始就存在，需要等待
+    const target = result.getByTestId('test-id')
+    expect(target).toHaveTextContent('')
+
+    await waitFor(() => {
+      const element = result.getByTestId('test-id')
+      return element.innerHTML === mockData.info.seed
+    })
+
+    await act(async () => {
+      await waitFor(() => {})
+    })
+
+    expect(result.getByTestId('test-id')).toHaveTextContent(mockData.info.seed)
+
+    // NOTE case 2: 使用异步查询: 元素一开始不存在
+    // const target = await result.findByTestId('test-id')
+    // expect(target).toHaveTextContent(mockData.info.seed)
   })
 })
