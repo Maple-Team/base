@@ -1,23 +1,20 @@
-import https from 'node:https'
 import { useQuery } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
-// import { sleep } from '@liutsing/utils'
 import axios from 'axios'
+import dayjs from 'dayjs'
 import type { Root } from './type'
 
-const agent = new https.Agent({
-  rejectUnauthorized: false,
+export const baseURL = 'https://randomuser.me'
+export const axiosInstance = axios.create({
+  baseURL,
+  timeout: 5 * 60 * 1000,
 })
+axiosInstance.defaults.baseURL = baseURL
 
-const fetchApiInfo = async (): Promise<Root> =>
-  axios
-    .get('https://randomuser.me/api', {
-      httpsAgent: agent,
-    })
-    .then((res) => res.data)
+export const fetchApiInfo = (): Promise<Root> => axiosInstance.get('/api').then((res) => res.data)
 
 export function useCustomHook() {
-  return useQuery({ queryKey: ['customHook'], queryFn: fetchApiInfo })
+  return useQuery(['customHook', { t: dayjs().valueOf() }], fetchApiInfo)
 }
 
 export const useFetchInfo = () => {
