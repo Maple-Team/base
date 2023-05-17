@@ -1,9 +1,11 @@
 import { renderHook, waitFor } from '@testing-library/react'
 import { rest } from 'msw'
+import React from 'react'
 import { server } from '../setupTests'
-import { createWrapper } from './utils'
+import { createWrapper, renderWithClient } from './utils'
 import mockData from '@/mockData.json'
 import { useCustomHook } from '@/hooks'
+import Example from '@/pages/ReactQueryTest'
 
 describe('react query test case', () => {
   it('CustomHook test', async () => {
@@ -29,11 +31,11 @@ describe('react query test case', () => {
     expect(result.current.error).toBeDefined()
     expect(result.current.data).toBeUndefined()
   })
-  // test('successful query component', async () => {
-  //   const result = renderWithClient(<Example />)
+  it('successful query component', async () => {
+    const result = renderWithClient(<Example />)
 
-  //   result.debug()
-  //   const target = result.getByTestId('test-id')
-  //   expect(target).toHaveTextContent('b01addd22b4fc007')
-  // })
+    // NOTE 使用异步查询
+    const target = await result.findByTestId('test-id')
+    expect(target).toHaveTextContent(mockData.info.seed)
+  })
 })
