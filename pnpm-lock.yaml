@@ -217,6 +217,7 @@ importers:
       ahooks: ^3.7.5
       antd: ^5.3.3
       autoprefixer: ^10.4.13
+      axios: 1.4.0
       clean-webpack-plugin: ^4.0.0
       core-js: ^3.26.1
       cross-env: ^7.0.3
@@ -252,6 +253,7 @@ importers:
       '@pansy/react-amap': 2.15.5_react@17.0.2
       ahooks: 3.7.7_react@17.0.2
       antd: 5.4.7_6l5554ty5ajsajah6yazvrjhoe
+      axios: 1.4.0
       cross-env: 7.0.3
       lodash: 4.17.21
       lodash-es: 4.17.21

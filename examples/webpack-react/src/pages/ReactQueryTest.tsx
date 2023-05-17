@@ -1,19 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import type { Root } from './type'
-
-export const baseURL = 'https://randomuser.me'
-export const axiosInstance = axios.create({
-  timeout: 5 * 60 * 1000,
-})
-axiosInstance.defaults.baseURL = baseURL
-
-const fetchApiInfo = (): Promise<Root> => axiosInstance.get('/api').then((res) => res.data)
-
-export function useCustomHook() {
-  return useQuery(['customHook'], fetchApiInfo)
-}
+import type { Root } from '../hooks/types'
+import { useCustomHook } from '@/hooks'
 
 export const useFetchInfo = () => {
   const [info, setInfo] = useState<Root>()
@@ -21,9 +8,20 @@ export const useFetchInfo = () => {
   useEffect(() => {
     if (isSuccess) setInfo(data)
   }, [isSuccess, data])
+
   return info
 }
 export default () => {
-  const info = useFetchInfo()
-  return <div>{JSON.stringify(info)}</div>
+  const { isLoading, error, data, isFetching } = useCustomHook()
+
+  if (isLoading) return <div>Loading...</div>
+
+  if (error instanceof Error) return <div>An error has occurred: {error.message}</div>
+
+  return (
+    <div>
+      <div data-testid="test-id">{data?.info.seed}</div>
+      <div>{isFetching ? 'Updating...' : ''}</div>
+    </div>
+  )
 }
