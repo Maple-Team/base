@@ -96,8 +96,15 @@
     "liutsing <liutsingluo@gmail.com>"
   ],
   "lint-staged": {
-    "*": "prettier --write",
     "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.tsx": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.js": [
       "eslint --fix",
       "prettier --write"
     ]
