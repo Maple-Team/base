@@ -1,13 +1,14 @@
 import type { NodePath, PluginObj } from '@babel/core'
-import * as t from '@babel/types'
+import type t from '@babel/types'
 
 export interface Option {
-  /**
-   * 排除的项，如debug、error、warn等
-   */
-  exclude?: string[]
+  // 是否支持hooks
 }
-const injectNode = (container: (NodePath<t.Node> | NodePath<t.Node>[]) & t.BlockStatement, name?: string) => {
+const injectNode = (
+  t: typeof import('@babel/types'),
+  container: (NodePath<t.Node> | NodePath<t.Node>[]) & t.BlockStatement,
+  name?: string
+) => {
   if (name) {
     const countStatement = t.expressionStatement(
       t.callExpression(t.memberExpression(t.identifier('console'), t.identifier('count')), [t.stringLiteral(name)])
@@ -21,7 +22,7 @@ const injectNode = (container: (NodePath<t.Node> | NodePath<t.Node>[]) & t.Block
  * @param param0
  * @returns
  */
-export default function (): PluginObj {
+export default function ({ types: t }: { types: typeof import('@babel/types') }): PluginObj {
   return {
     name: '@liutsing/babel-plugin-console-count',
     visitor: {
@@ -30,7 +31,7 @@ export default function (): PluginObj {
           // @ts-expect-error: xx
           const componentName = path.hub.file.opts.filename || 'AnonymousComponent'
           const container = path.get('body')
-          if (t.isBlockStatement(container)) injectNode(container, componentName)
+          if (t.isBlockStatement(container)) injectNode(t, container, componentName)
         } else {
           const parent = path.findParent((p) => {
             return t.isCallExpression(p.node) && t.isIdentifier(p.node.callee, { name: 'memo' })
@@ -41,7 +42,7 @@ export default function (): PluginObj {
               const id = parent.parentPath?.node?.id
               if (t.isIdentifier(id)) {
                 const container = path.get('body')
-                if (t.isBlockStatement(container)) injectNode(container, id.name)
+                if (t.isBlockStatement(container)) injectNode(t, container, id.name)
               }
             }
           }
@@ -55,7 +56,7 @@ export default function (): PluginObj {
             if (t.isIdentifier(declaration.id)) {
               componentName = declaration.id.name
               const container = path.get('declarations.0.init.body')
-              if (t.isBlockStatement(container)) injectNode(container, componentName)
+              if (t.isBlockStatement(container)) injectNode(t, container, componentName)
             }
           }
         }

@@ -298,6 +298,18 @@ importers:
       webpack-dev-server: 4.15.0_7mg36d3tiqmfwaxmjrzyefwvom
       webpack-merge: 5.8.0
 
+  packages/babel-plugin-console-count:
+    specifiers:
+      '@types/babel-plugin-tester': ^9.0.5
+      babel-plugin-tester: ^10.1.0
+      lint-staged: ^13.0.3
+      simple-git-hooks: ^2.8.1
+    devDependencies:
+      '@types/babel-plugin-tester': 9.0.5
+      babel-plugin-tester: 10.1.0_@babel+core@7.21.8
+      lint-staged: 13.2.2
+      simple-git-hooks: 2.8.1
+
   packages/babel-plugin-remove-console:
     specifiers:
       '@types/babel-plugin-tester': ^9.0.5
