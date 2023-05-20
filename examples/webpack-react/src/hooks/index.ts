@@ -64,3 +64,4 @@ export const useFetchCommandResult = (timeout: number, commandId?: string | null
 }
 
 export * from './query'
+export * from './useFetchInfo'

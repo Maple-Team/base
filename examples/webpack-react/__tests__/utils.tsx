@@ -30,7 +30,9 @@ const createTestQueryClient = () =>
     logger: {
       log: console.log,
       warn: console.warn,
-      error: () => {},
+      error: () => {
+        //
+      },
     },
   })
 
