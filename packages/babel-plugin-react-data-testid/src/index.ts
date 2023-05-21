@@ -4,12 +4,19 @@
  * @Date: 2023-05-15 Monday 13:37
  */
 import type { NodePath, PluginObj, Visitor } from '@babel/core'
-import * as t from '@babel/types'
+import type {
+  ArrowFunctionExpression,
+  FunctionDeclaration,
+  FunctionExpression,
+  Identifier,
+  JSXOpeningElement,
+} from '@babel/types'
 
-type FunctionType = t.FunctionDeclaration | t.FunctionExpression | t.ArrowFunctionExpression
+type FunctionType = FunctionDeclaration | FunctionExpression | ArrowFunctionExpression
 
-function nameForReactComponent(path: NodePath<FunctionType>): t.Identifier | null {
+function nameForReactComponent(path: NodePath<FunctionType>, t: typeof import('@babel/types')): Identifier | null {
   const { parentPath } = path
+  //  e.isArrowFunctionExpression is not a function
   if (!t.isArrowFunctionExpression(path.node) && t.isIdentifier(path.node.id)) return path.node.id
 
   // FIXME ~
@@ -20,11 +27,11 @@ function nameForReactComponent(path: NodePath<FunctionType>): t.Identifier | nul
 
 const DEFAULT_DATA_TESTID = 'data-testid'
 
-function createDataAttribute(name: string, attributeName: string) {
+function createDataAttribute(name: string, attributeName: string, t: typeof import('@babel/types')) {
   return t.jsxAttribute(t.jsxIdentifier(attributeName), t.stringLiteral(name))
 }
 
-function hasDataAttribute(node: t.JSXOpeningElement, attributeName: string): boolean {
+function hasDataAttribute(node: JSXOpeningElement, attributeName: string, t: typeof import('@babel/types')): boolean {
   return node.attributes.some(
     (attribute) => t.isJSXAttribute(attribute) && t.isJSXIdentifier(attribute.name, { name: attributeName })
   )
@@ -33,20 +40,21 @@ function hasDataAttribute(node: t.JSXOpeningElement, attributeName: string): boo
 interface VisitorState {
   name: string
   attributes: string[]
+  t: typeof import('@babel/types')
 }
 
 const returnStatementVisitor: Visitor<VisitorState> = {
   JSXFragment(path) {
     path.skip()
   },
-  JSXElement(path, { name, attributes }) {
+  JSXElement(path, { name, attributes, t }) {
     const openingElement = path.get('openingElement')
 
     path.skip()
 
     for (const attribute of attributes) {
-      if (!hasDataAttribute(openingElement.node, attribute)) {
-        const dataAttribute = createDataAttribute(name, attribute)
+      if (!hasDataAttribute(openingElement.node, attribute, t)) {
+        const dataAttribute = createDataAttribute(name, attribute, t)
         openingElement.node.attributes.push(dataAttribute)
       }
     }
@@ -66,7 +74,7 @@ interface State {
   }
 }
 
-export default function plugin(): PluginObj<State> {
+export default function plugin(t: typeof import('@babel/types')): PluginObj<State> {
   return {
     name: 'react-data-testid',
     visitor: {
@@ -74,7 +82,7 @@ export default function plugin(): PluginObj<State> {
         path: NodePath<FunctionType>,
         state: State
       ) => {
-        const identifier = nameForReactComponent(path)
+        const identifier = nameForReactComponent(path, t)
         if (!identifier) return
 
         const attributes = state.opts.attributes ?? [DEFAULT_DATA_TESTID]
@@ -83,9 +91,10 @@ export default function plugin(): PluginObj<State> {
           path.traverse(returnStatementVisitor, {
             name: identifier.name,
             attributes,
+            t,
           })
         } else {
-          path.traverse(functionVisitor, { name: identifier.name, attributes })
+          path.traverse(functionVisitor, { name: identifier.name, attributes, t })
         }
       },
     },

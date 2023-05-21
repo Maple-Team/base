@@ -1,5 +1,5 @@
-import { NodePath, PluginObj } from '@babel/core'
-import t from '@babel/types'
+import type { NodePath, PluginObj } from '@babel/core'
+import type t from '@babel/types'
 
 export interface Option {
   /**
@@ -19,9 +19,7 @@ export default function ({ types: t }: { types: typeof import('@babel/types') })
         const { node } = path
         if (t.isMemberExpression(node.callee) && t.isIdentifier(node.callee.object, { name: 'console' })) {
           const property = node.callee.property as t.Identifier
-          if (!state.opts?.exclude?.includes(property.name)) {
-            path.remove()
-          }
+          if (!state.opts?.exclude?.includes(property.name)) path.remove()
         }
       },
     },
