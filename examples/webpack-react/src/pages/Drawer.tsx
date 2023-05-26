@@ -1,7 +1,7 @@
 import { Drawer } from '@liutsing/rc-components'
 import React from 'react'
 
-export default () => {
+const DrawerPage = () => {
   // tailwindcss w-[200px]
 
   return (
@@ -17,3 +17,5 @@ export default () => {
     </div>
   )
 }
+
+export default DrawerPage
