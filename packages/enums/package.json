@@ -1,0 +1,35 @@
+{
+  "name": "@liutsing/enums",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "source": "src/index.ts",
+  "jsnext:main": "dist/index.mjs",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js",
+    "default": "./dist/index.mjs",
+    "types": "./types/index.d.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "build": "microbundle -f es,cjs,umd",
+    "tsc": "tsc",
+    "postinstall": "pnpm run build"
+  },
+  "devDependencies": {
+    "tslib": "^2.5.2"
+  },
+  "dependencies": {
+    "microbundle": "^0.15.1"
+  }
+}
