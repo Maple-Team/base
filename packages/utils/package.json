@@ -30,7 +30,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "new:patch": "npm version patch",
-    "doc":"typedoc"
+    "postbuild":"pnpm run doc",
+    "doc":"typedoc",
+    "postdoc":"rimraf ../../docs/utils && mv  docs ../../docs/utils"
   },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {
