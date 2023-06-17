@@ -29,7 +29,8 @@
     "build:watch": "tsc -w",
     "test": "jest",
     "test:watch": "jest --watch",
-    "new:patch": "npm version patch"
+    "new:patch": "npm version patch",
+    "doc":"typedoc"
   },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {
