@@ -3,7 +3,7 @@
 /**
  * 基础属性
  */
-interface IBaseDef {
+export interface IBaseDef {
   key: PropertyKey
   value: string | number
 }
@@ -11,20 +11,20 @@ interface IBaseDef {
 /**
  * 字段前缀类型
  */
-type ToPropertyPrefix<N extends string = ''> = N extends '' ? '' : `${N}_`
+export type ToPropertyPrefix<N extends string = ''> = N extends '' ? '' : `${N}_`
 /**
  * 字段类型
  *
  * ToProperty<'bar', 'foo'>将返回'foo_bar'，而ToProperty<'baz'>将返回'baz'。
  */
-type ToProperty<Property extends string, N extends string = ''> = `${ToPropertyPrefix<N>}${Property}`
+export type ToProperty<Property extends string, N extends string = ''> = `${ToPropertyPrefix<N>}${Property}`
 
 /**
  * 从一个包含key属性的元组类型中提取所有key属性的名称，并返回一个字符串类型的数组
  *
  * 它接受一个元组类型T，并返回一个字符串类型的数组。它使用了条件类型和递归类型定义来实现。
  */
-type ToKeys<T> = T extends readonly [infer A, ...infer B] // 元组类型的解构赋值，将第一个元素赋值给变量A，将剩余元素赋值给变量B
+export type ToKeys<T> = T extends readonly [infer A, ...infer B] // 元组类型的解构赋值，将第一个元素赋值给变量A，将剩余元素赋值给变量B
   ? // 判断A是否包含key属性
     A extends {
       readonly key: infer K // 如果包含，则使用infer关键字提取key属性的类型，并将其赋值给变量K
@@ -40,7 +40,7 @@ type ToKeys<T> = T extends readonly [infer A, ...infer B] // 元组类型的解�
  *
  * 它接受一个元组类型T，并返回一个字符串类型的数组。它使用了条件类型和递归类型定义来实现。
  */
-type ToValues<T> = T extends readonly [infer A, ...infer B]
+export type ToValues<T> = T extends readonly [infer A, ...infer B]
   ? A extends {
       // 判断A是否包含value属性
       readonly value: infer K
@@ -74,7 +74,7 @@ export type MergeIntersection<A> = A extends infer T ? { [Key in keyof T]: T[Key
 /**
  * 将一个包含key属性的元组类型转换为一个以key属性的值为键，以原元组的对象为值的键值对对象类型
  */
-type ToKeyMap<T> = T extends readonly [infer A, ...infer B]
+export type ToKeyMap<T> = T extends readonly [infer A, ...infer B]
   ? B['length'] extends 0
     ? ToSingleKeyMap<A>
     : MergeIntersection<ToSingleKeyMap<A> & ToKeyMap<B>>
@@ -97,7 +97,7 @@ type ToSingleValueMap<T> = T extends {
 /**
  * 将一个包含value属性的元组类型转换为一个以value属性的值为键，以原元组的对象为值的键值对对象类型
  */
-type ToValueMap<T> = T extends readonly [infer A, ...infer B]
+export type ToValueMap<T> = T extends readonly [infer A, ...infer B]
   ? B['length'] extends 0
     ? ToSingleValueMap<A>
     : MergeIntersection<ToSingleValueMap<A> & ToValueMap<B>>
@@ -117,7 +117,7 @@ type ToSingleKeyValue<T> = T extends {
     : never
   : never
 // 多个
-type ToKeyValue<T> = T extends readonly [infer A, ...infer B]
+export type ToKeyValue<T> = T extends readonly [infer A, ...infer B]
   ? B['length'] extends 0
     ? ToSingleKeyValue<A>
     : MergeIntersection<ToSingleKeyValue<A> & ToKeyValue<B>>
@@ -137,77 +137,8 @@ type ToSingleValueKey<T> = T extends {
     : never
   : never
 // 多个
-type ToValueKey<T> = T extends readonly [infer A, ...infer B]
+export type ToValueKey<T> = T extends readonly [infer A, ...infer B]
   ? B['length'] extends 0
     ? ToSingleValueKey<A>
     : MergeIntersection<ToSingleValueKey<A> & ToValueKey<B>>
   : []
-
-export function defineConstants<T extends readonly IBaseDef[], N extends string = ''>(defs: T, namespace?: N) {
-  const prefix = namespace ? `${namespace}_` : ''
-  return {
-    [`${prefix}KEYS`]: defs.map((item) => item.key),
-    [`${prefix}VALUES`]: defs.map((item) => item.value),
-    [`${prefix}KV`]: defs.reduce(
-      (map, item) => ({
-        ...map,
-        [item.key]: item.value,
-      }),
-      {}
-    ),
-    [`${prefix}VK`]: defs.reduce(
-      (map, item) => ({
-        ...map,
-        [item.value]: item.key,
-      }),
-      {}
-    ),
-    [`${prefix}MAP_BY_KEY`]: defs.reduce(
-      (map, item) => ({
-        ...map,
-        [item.key]: item,
-      }),
-      {}
-    ),
-    [`${prefix}MAP_BY_VALUE`]: defs.reduce(
-      (map, item) => ({
-        ...map,
-        [item.value]: item,
-      }),
-      {}
-    ),
-    [`${prefix}KEY_MAP`]: defs.reduce(
-      (map, item) => ({
-        ...map,
-        [item.key]: item,
-      }),
-      {}
-    ),
-    [`${prefix}MAP`]: defs.reduce(
-      (map, item) => ({
-        ...map,
-        [item.key]: item.value,
-      }),
-      {}
-    ),
-    [`${prefix}LIST`]: defs,
-  } as MergeIntersection<
-    {
-      [Key in ToProperty<'KV', N>]: ToKeyValue<T>
-    } & {
-      [Key in ToProperty<'VK', N>]: ToValueKey<T>
-    } & {
-      [Key in ToProperty<'KEYS', N>]: ToKeys<T>
-    } & {
-      [Key in ToProperty<'VALUES', N>]: ToValues<T>
-    } & {
-      [Key in ToProperty<'MAP_BY_KEY', N>]: ToKeyMap<T>
-    } & {
-      [Key in ToProperty<'MAP_BY_VALUE', N>]: ToValueMap<T>
-    } & {
-      [Key in ToProperty<'MAP', N>]: ToKeyValue<T>
-    } & {
-      [Key in ToProperty<'LIST', N>]: T
-    }
-  >
-}

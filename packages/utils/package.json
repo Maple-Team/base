@@ -32,7 +32,9 @@
     "new:patch": "npm version patch"
   },
   "prettier": "@liutsing/prettier-config",
-  "devDependencies": {},
+  "devDependencies": {
+    "@liutsing/types-utils":"workspace:*"
+  },
   "dependencies": {
     "lodash-es": "^4.17.21"
   },
