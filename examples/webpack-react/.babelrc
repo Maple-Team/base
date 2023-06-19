@@ -12,7 +12,7 @@
   ],
   "plugins": [
     "@babel/plugin-transform-runtime",
-    "@liutsing/babel-plugin-react-data-testid",
+    // "@liutsing/babel-plugin-react-data-testid",
     // "react-refresh/babel",
     [
       "@liutsing/babel-plugin-remove-console",
