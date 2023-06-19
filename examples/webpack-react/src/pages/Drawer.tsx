@@ -1,8 +1,12 @@
 import { Drawer } from '@liutsing/rc-components'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { getIps } from '@liutsing/utils'
 
 const DrawerPage = () => {
   // tailwindcss w-[200px]
+  useEffect(() => {
+    getIps().then(console.log).catch(console.error)
+  }, [])
 
   return (
     <div className="relative h-full bg-gray-300 overflow-hidden">
