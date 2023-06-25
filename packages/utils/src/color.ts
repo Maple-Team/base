@@ -8,7 +8,7 @@ import { padEnd } from './help'
  * @returns
  */
 export const rgbToHex = (r: ColorValue, g: ColorValue, b: ColorValue) =>
-  '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toLowerCase()
+  `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toLowerCase()}`
 
 /**
  * Generate Random Hex

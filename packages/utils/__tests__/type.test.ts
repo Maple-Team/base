@@ -5,10 +5,10 @@ import {
   isFunction,
   isNull,
   isNumber,
+  isObject,
   isRegExp,
   isString,
   isUndefined,
-  isObject,
 } from '@/types'
 
 // TODO 浏览器测试
@@ -33,7 +33,7 @@ describe('type utils tests', () => {
     it.concurrent.each([
       [waittingArr[objIndex], true],
       ...waittingArr.filter((_, index) => index !== objIndex).map((item) => [item, false]),
-    ])(`%s is Array %o`, (obj, bool) => {
+    ])('%s is Array %o', (obj, bool) => {
       expect(isArray(obj)).toBe(bool)
     })
   })
@@ -42,7 +42,7 @@ describe('type utils tests', () => {
     it.concurrent.each([
       [waittingArr[objIndex], true],
       ...waittingArr.filter((_, index) => index !== objIndex).map((item) => [item, false]),
-    ])(`%s is Date %o`, (obj, bool) => {
+    ])('%s is Date %o', (obj, bool) => {
       expect(isDate(obj)).toBe(bool)
     })
   })
@@ -51,7 +51,7 @@ describe('type utils tests', () => {
     it.concurrent.each([
       [waittingArr[objIndex], true],
       ...waittingArr.filter((_, index) => index !== objIndex).map((item) => [item, false]),
-    ])(`%s is RegExp %o`, (obj, bool) => {
+    ])('%s is RegExp %o', (obj, bool) => {
       expect(isRegExp(obj)).toBe(bool)
     })
   })
@@ -60,7 +60,7 @@ describe('type utils tests', () => {
     it.concurrent.each([
       [waittingArr[objIndex], true],
       ...waittingArr.filter((_, index) => index !== objIndex).map((item) => [item, false]),
-    ])(`%s is ArrayBuffer %o`, (obj, bool) => {
+    ])('%s is ArrayBuffer %o', (obj, bool) => {
       expect(isArrayBuffer(obj)).toBe(bool)
     })
   })
@@ -69,7 +69,7 @@ describe('type utils tests', () => {
     it.concurrent.each([
       [waittingArr[objIndex], true],
       ...waittingArr.filter((_, index) => index !== objIndex).map((item) => [item, false]),
-    ])(`%s is Function %o`, (obj, bool) => {
+    ])('%s is Function %o', (obj, bool) => {
       expect(isFunction(obj)).toBe(bool)
     })
   })
@@ -78,7 +78,7 @@ describe('type utils tests', () => {
     it.concurrent.each([
       [waittingArr[objIndex], true],
       ...waittingArr.filter((_, index) => index !== objIndex).map((item) => [item, false]),
-    ])(`%s is Number %o`, (obj, bool) => {
+    ])('%s is Number %o', (obj, bool) => {
       expect(isNumber(obj)).toBe(bool)
     })
   })
@@ -87,7 +87,7 @@ describe('type utils tests', () => {
     it.concurrent.each([
       [waittingArr[objIndex], true],
       ...waittingArr.filter((_, index) => index !== objIndex).map((item) => [item, false]),
-    ])(`%s is String %o`, (obj, bool) => {
+    ])('%s is String %o', (obj, bool) => {
       expect(isString(obj)).toBe(bool)
     })
   })
@@ -96,7 +96,7 @@ describe('type utils tests', () => {
     it.concurrent.each([
       [waittingArr[objIndex], true],
       ...waittingArr.filter((_, index) => index !== objIndex).map((item) => [item, false]),
-    ])(`%s is Null %o`, (obj, bool) => {
+    ])('%s is Null %o', (obj, bool) => {
       expect(isNull(obj)).toBe(bool)
     })
   })
@@ -105,7 +105,7 @@ describe('type utils tests', () => {
     it.concurrent.each([
       [waittingArr[objIndex], true],
       ...waittingArr.filter((_, index) => index !== objIndex).map((item) => [item, false]),
-    ])(`%s is Undefine %o`, (obj, bool) => {
+    ])('%s is Undefine %o', (obj, bool) => {
       expect(isUndefined(obj)).toBe(bool)
     })
   })
@@ -114,7 +114,7 @@ describe('type utils tests', () => {
     it.concurrent.each([
       [waittingArr[objIndex], true],
       ...waittingArr.filter((_, index) => index !== objIndex).map((item) => [item, false]),
-    ])(`%s is Object %o`, (obj, bool) => {
+    ])('%s is Object %o', (obj, bool) => {
       expect(isObject(obj)).toBe(bool)
     })
   })

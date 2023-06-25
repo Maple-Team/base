@@ -8,27 +8,25 @@
  */
 export const getPercentValue = function (valueList: number[], index: number, precision: number) {
   // 判断是否为空
-  if (!valueList[index]) {
-    return 0
-  } // 求和
-  const sum = valueList.reduce(function (acc: number, val: number) {
+  if (!valueList[index]) return 0
+  // 求和
+  const sum = valueList.reduce((acc: number, val: number) => {
     return acc + (isNaN(val) ? 0 : val)
   }, 0)
-  if (sum === 0) {
-    return 0
-  } // 10的2次幂是100，用于计算精度。
-  const digits = Math.pow(10, precision) // 扩大比例100，
-  const votesPerQuota = valueList.map(function (val: number) {
+  if (sum === 0) return 0
+  // 10的2次幂是100，用于计算精度。
+  const digits = 10 ** precision // 扩大比例100，
+  const votesPerQuota = valueList.map((val: number) => {
     return ((isNaN(val) ? 0 : val) / sum) * digits * 100
   }) // 总数，扩大比例意味的总数要扩大
   const targetSeats = digits * 100 // 再向下取值，组成数组
-  const seats = votesPerQuota.map(function (votes: number) {
+  const seats = votesPerQuota.map((votes: number) => {
     return Math.floor(votes)
   }) // 再新计算合计，用于判断与总数量是否相同，相同则占比会100%
-  let currentSum = seats.reduce(function (acc: number, val: number) {
+  let currentSum = seats.reduce((acc: number, val: number) => {
     return acc + val
   }, 0) // 余数部分的数组：原先数组减去向下取值的数组，得到余数部分的数组
-  const remainder = votesPerQuota.map(function (votes: number, index: number) {
+  const remainder = votesPerQuota.map((votes: number, index: number) => {
     return votes - seats[index]
   }) // 给最大最大的余额加1，凑个占比100%；
   while (currentSum < targetSeats) {

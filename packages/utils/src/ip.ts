@@ -64,7 +64,6 @@ export const getIps = () => {
  * @param event
  */
     async function onIceCandidate(pc: RTCPeerConnection | null, event: RTCPeerConnectionIceEvent) {
-      // @ts-expect-error: fix类型问题
       await getOtherPc(pc)?.addIceCandidate(event.candidate)
       if (event.candidate) {
         const ip = event.candidate.candidate?.split(' ')[4]
