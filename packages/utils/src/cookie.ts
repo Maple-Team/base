@@ -1,5 +1,5 @@
 export const getCookie = (document: Document, name: string) =>
-  `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift()
+  `; ${document.cookie}`.split(`; ${name}=`).pop()?.split(';').shift()
 
 export const clearCookies = (document: Document) =>
   document.cookie

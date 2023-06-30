@@ -13,10 +13,7 @@
         "README.md",
         "tsconfig.json",
         "jest.config.ts",
-        "tsconfig.build.json",
-        ".husky/_/.gitignore",
-        ".husky/_/husky.sh",
-        ".husky/pre-commit",
+        "tsconfig.build.json", 
         "__tests__/index.test.ts",
         "src/index.ts",
         "pnpm-lock.yaml"

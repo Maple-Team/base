@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@liutsing/babel-plugin-remove-console 1. @liutsing/babel-plugin-remove-console: 1. @liutsing/babel-plugin-remove-console 1`] = `
+
+console.log(1)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+
+
+`;

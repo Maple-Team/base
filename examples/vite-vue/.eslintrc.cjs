@@ -1,3 +1,3 @@
 module.exports = {
-  extends: '@liutsing/eslint-config-typescript',
+  extends: '@liutsing/eslint-config',
 }

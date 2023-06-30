@@ -1,1 +1,7 @@
 export * from './useMount'
+export * from './useUnmount'
+export * from './useSingleton'
+export * from './useAsync'
+export * from './useScroll'
+export * from './useLatest'
+export * from './useExample'

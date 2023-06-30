@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'Alibaba PuHuiTi 2.0 55';
+  src: url('./AlibabaPuHuiTi_2_55_Regular.woff2') format('woff2'),
+    url('./AlibabaPuHuiTi_2_55_Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Alibaba PuHuiTi 2.0 65';
+  src: url('./AlibabaPuHuiTi_2_65_Medium.woff2') format('woff2'),
+    url('./AlibabaPuHuiTi_2_65_Medium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Alibaba PuHuiTi 2.0 75';
+  src: url('./AlibabaPuHuiTi_2_75_SemiBold.woff2') format('woff2'),
+    url('./AlibabaPuHuiTi_2_75_SemiBold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lato Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Lato Regular'), url('./Lato-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'Lato Bold';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Lato Bold'), url('./Lato-Bold.woff') format('woff');
+}

@@ -1,6 +1,5 @@
 types
 dist
 node_modules
-coverage
-.husky
+coverage 
 .prettierignore

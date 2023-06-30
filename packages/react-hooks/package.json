@@ -1,60 +1,47 @@
 {
   "name": "@liutsing/rc-hooks",
   "version": "0.0.1",
+  "sideEffects": false,
   "description": "",
   "keywords": [],
   "license": "MIT",
   "private": "false",
   "author": "",
   "exports": {
-    "import": "./dist/index.mjs",
+    "import": "./esm/index.js",
     "require": "./dist/index.js",
-    "default": "./dist/index.mjs",
+    "default": "./esm/index.js",
     "types": "./types/index.d.ts"
   },
   "main": "dist/index.js",
-  "umd:main": "dist/index.umd.js",
-  "module": "dist/index.mjs",
+  "umd:main": "dist/index.js",
+  "module": "esm/index.js",
   "source": "src/index.ts",
-  "jsnext:main": "dist/index.mjs",
+  "jsnext:main": "esm/index.js",
   "typings": "types/index.d.ts",
   "files": [
     "dist",
-    "types"
+    "types",
+    "esm"
   ],
   "scripts": {
     "prebuild": "rimraf types dist && pnpm run test",
-    "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
     "build:watch": "tsc -w",
     "new:patch": "npm version patch",
     "test": "jest",
-    "tsc": "tsc",
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .ts",
+    "lint:types": "tsc --noEmit",
+    "build:es": "tsc -p tsconfig.build.json",
+    "build:cjs": "tsc -p tsconfig.node.json",
+    "build": "pnpm run build:cjs && pnpm run build:es",
     "prettier": "prettier . --ext .ts -w"
   },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {
-    "@types/jest": "^28.1.1",
-    "@liutsing/tsconfig": "^0.0.2",
-    "babel-jest": "^28.1.1",
-    "jest": "^28.1.1",
-    "lint-staged": "^13.0.3",
-    "rimraf": "^3.0.2",
-    "@liutsing/types-utils": "workspace:*",
-    "ts-node": "^10.9.1",
-    "@types/react": "^18.0.24",
-    "react": "^18.2.0",
-    "typescript": "^4.8.4"
+    "lint-staged": "^13.0.3"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "lint-staged": {
-    "*": "prettier --write",
-    "*.ts": [
-      "eslint --fix",
-      "prettier --write"
-    ]
   }
 }

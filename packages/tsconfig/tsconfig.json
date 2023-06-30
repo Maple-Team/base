@@ -6,7 +6,6 @@
     "declarationDir": "types",
     "declarationMap": false,
     "sourceMap": false,
-    "emitDeclarationOnly": true,
     // 核心
     "target": "esnext",
     "resolveJsonModule": true,
@@ -17,7 +16,7 @@
     // 错误处理
     "skipLibCheck": true,
     // 性能
-    "incremental": true,
+    "incremental": false,
     "importHelpers": true,
     "noEmitHelpers": true,
     // 代码风格
@@ -25,7 +24,13 @@
     "strict": true,
     "pretty": true,
     "removeComments": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    //
+    "paths": {
+        "@/*": ["./src/*"],
+      }
+
     // baseUrl, rootDir, outDir 在各自的项目中配置
   }
 }

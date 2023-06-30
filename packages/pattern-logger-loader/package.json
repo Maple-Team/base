@@ -1,0 +1,45 @@
+{
+  "name": "@liutsing/pattern-logger-loader",
+  "version": "0.0.1",
+  "private": true,
+  "description": "A loader to debug webpack module rule test pattern",
+  "keywords": [
+    "webpack",
+    "webpack loader"
+  ],
+  "homepage": "",
+  "bugs": {
+    "url": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "author": "liutsing <liutsingluo@gmail.com>",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js",
+    "default": "./dist/index.mjs",
+    "types": "./types/index.d.ts"
+  },
+  "main": "dist/index.js",
+  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "source": "src/index.ts",
+  "jsnext:main": "dist/index.mjs",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier . --ext .ts -w",
+    "prebuild": "rimraf types && rimraf lib",
+    "prepublish": "rimraf types && rimraf lib",
+    "test": "jest"
+  },
+  "prettier": "@liutsing/prettier-config"
+}

@@ -8,7 +8,8 @@
           "test"
         ]
       }
-    }
+    },
+    "parallel": 5
   },
   "targetDefaults": {
     "build": {
@@ -16,5 +17,9 @@
         "!{projectRoot}/**/*.md"
       ]
     }
+  },
+  "workspaceLayout": {
+    "appsDir": "examples",
+    "libsDir": "packages"
   }
 }

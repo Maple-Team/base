@@ -1,51 +1,81 @@
-import { useState, useCallback, memo, useRef } from 'react'
-import { useSingleton } from '@liutsing/rc-hooks'
+import React, { useCallback, useState } from 'react'
+// import '@liutsing/rc-components/dist/esm/index.css'
+// import { Step } from './Step'
+import NiceModal, { useNiceModal } from './stores/NiceModal'
+import { Button } from 'antd'
 
-const BigNumber = ({ number }: { number: number }) => <div style={{ fontWeight: 700, fontSize: 36 }}>{number}</div>
-const SomeDecoration = memo(({ cb1, cb2 }: { cb1?: () => void; cb2?: () => void }) => {
-  cb1 && cb1()
-  cb2 && cb2()
-  return <div>Hooray! {Math.random()}</div>
-})
-
-const Counter = () => {
-  const [count, setCount] = useState(0)
-  const handleButtonClick = useCallback(() => setCount((count) => count + 1), [])
-  const ref = useRef<number[]>([])
-
-  const _cb1 = useCallback(() => {
-    console.log('123', new Date().getTime())
-  }, []) // -> same fn
-  const cb2 = useCallback(() => {
-    console.log('456', new Date().getTime())
-  }, [[]]) // -> different fn
-  const _cb3 = useCallback(() => {
-    console.log('456', new Date().getTime())
-  }, [ref.current]) // -> same fn
-
-  useSingleton(() => {
-    console.count('execute time')
-  })
-
-  return (
-    <div>
-      <BigNumber number={count} />
-      <button onClick={handleButtonClick}>Increment</button>
-      <SomeDecoration
-        // cb1={cb1}
-        cb2={cb2}
-      />
-    </div>
-  )
+export const UseCount = () => {
+  const [num, setNum] = useState<number>(0)
+  const increase = useCallback(() => {
+    setNum((_) => _ + 1)
+  }, [])
+  const decrease = useCallback(() => {
+    setNum((_) => _ - 1)
+  }, [])
+  return {
+    num,
+    increase,
+    decrease,
+  }
+}
+export const CounterRenderProps = ({
+  children, // children特殊属性
+}: {
+  children: ({ num, increase, decrease }: { num: number; increase: () => void; decrease: () => void }) => JSX.Element
+}) => {
+  const { num, increase, decrease } = UseCount()
+  return children({ num, increase, decrease })
 }
 
-const App = () => (
-  <>
-    <Counter />
-    <footer>
-      <a href="https://skk.moe/">Sukka</a>
-    </footer>
-  </>
-)
+const App = () => {
+  // const { num, increase, decrease } = UseCount()
+  // const [_data, _setData] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+  const ModalExample = NiceModal.create<{ a: string }>('modal1', (props) => (
+    <NiceModal
+      id="modal1"
+      title="Nice Modal"
+      {...props}
+    >
+      Hello NiceModal!
+    </NiceModal>
+  ))
+  const { show, hide } = useNiceModal('modal1')
+
+  return (
+    <>
+      <Button onClick={() => show()}>show</Button>
+      <Button onClick={() => hide()}>hide</Button>
+      <ModalExample />
+      {/* <Step /> */}
+      {/* <ListWithMore
+        data={data}
+        max={5}
+        renderItem={(item) => <span key={item}>{item}</span>}
+      /> */}
+      {/* <RenderComponent render={() => <div>render function component</div>} /> */}
+      {/* <Counter /> */}
+      {/* <div>
+        <span>num: {num}</span>
+        <RippleButton onClick={increase}>+</RippleButton>
+        <RippleButton onClick={decrease}>-</RippleButton>
+      </div>
+      <CounterRenderProps>
+        {({ num, increase, decrease }) => {
+          return (
+            <>
+              {num}
+              <button onClick={increase}>+</button>
+              <button onClick={decrease}>-</button>
+            </>
+          )
+        }}
+      </CounterRenderProps> */}
+      {/* <footer>
+        <a href="https://skk.moe/">Sukka</a>
+      </footer> */}
+    </>
+  )
+}
 
 export default App

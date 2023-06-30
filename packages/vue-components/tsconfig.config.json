@@ -4,6 +4,7 @@
   "compilerOptions": {
     "composite": true,
     "baseUrl": ".",
-    "types": ["node"]
+    "skipLibCheck": true,
+    "types": ["vite/client", "node"]
   }
 }

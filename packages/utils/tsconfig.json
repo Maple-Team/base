@@ -6,7 +6,11 @@
 
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
   },
-  "exclude": ["jest.config.ts", "types"]
+  "exclude": ["jest.config.ts", "types"],
+  "typedocOptions": {
+    "entryPoints": ["src/index.ts"],
+    "out": "docs"
+}
 }

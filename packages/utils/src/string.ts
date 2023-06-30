@@ -1,5 +1,5 @@
 /**
- * Capitalise a String
+ * Capitalize a String
  * @param str
  * @returns
  */
