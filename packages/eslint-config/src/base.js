@@ -53,7 +53,6 @@ export const baseRules = {
   'vars-on-top': 'error',
   'require-await': 'off',
   'no-return-assign': 'off',
-  'operator-linebreak': ['error', 'after'],
   'max-statements-per-line': ['error', { max: 1 }],
 
   // node
@@ -150,5 +149,6 @@ export const baseRules = {
       },
     },
   ],
-  'multiline-ternary': ['error', 'never'],
+  'multiline-ternary': 'off',
+  'operator-linebreak': 'off',
 }

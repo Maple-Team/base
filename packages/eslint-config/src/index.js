@@ -84,7 +84,7 @@ const eslintConfig = defineConfig({
     {
       files: ['*.ts', '*.tsx'],
       parser: '@typescript-eslint/parser',
-      excludedFiles: ['**/*.md/*.*'],
+      excludedFiles: ['**/*.md/*.*', '.eslintrc.js'],
       parserOptions: {
         sourceType: 'module',
         ecmaVersion: 'latest',

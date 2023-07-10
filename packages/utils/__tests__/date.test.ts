@@ -1,10 +1,10 @@
 import {
   dayOfYear,
   getWeekNumber,
-  progressOfDay,
-  progressOfMonth,
-  progressOfQuarter,
-  progressOfYear,
+  // progressOfDay,
+  // progressOfMonth,
+  // progressOfQuarter,
+  // progressOfYear,
   showHumanizeTime,
 } from '@/date'
 
@@ -29,10 +29,10 @@ describe('date utils', () => {
     })
   })
   describe('progress of day', () => {
-    console.log(progressOfDay())
-    console.log(progressOfMonth())
-    console.log(progressOfQuarter())
-    console.log(progressOfYear())
+    // console.log(progressOfDay())
+    // console.log(progressOfMonth())
+    // console.log(progressOfQuarter())
+    // console.log(progressOfYear())
   })
   describe('seconds4human', () => {
     it.concurrent.each([

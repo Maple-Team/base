@@ -17,13 +17,18 @@
 <h1>Function uuid</h1></div>
 <section class="tsd-panel">
 <ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="uuid"><span class="tsd-kind-call-signature">uuid</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">len</span><span class="tsd-signature-symbol">?</span>, <span class="tsd-kind-parameter">radix</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><a href="#uuid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><g stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" id="icon-anchor"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5"></path></g></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="uuid"><span class="tsd-kind-call-signature">uuid</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">useBuiltIn</span><span class="tsd-signature-symbol">?</span>, <span class="tsd-kind-parameter">len</span><span class="tsd-signature-symbol">?</span>, <span class="tsd-kind-parameter">radix</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><a href="#uuid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><g stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" id="icon-anchor"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5"></path></g></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>生成uuid</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">useBuiltIn</span>: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
+<div class="tsd-comment tsd-typography"><p>是否使用原生</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li>
 <li>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">len</span>: <span class="tsd-signature-type">number</span></h5>
 <div class="tsd-comment tsd-typography"><p>指定长度</p>
@@ -37,7 +42,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Maple-Team/base/blob/2195713/packages/utils/src/uuid.ts#L7">packages/utils/src/uuid.ts:7</a></li></ul></aside></li></ul></section></div>
+<li>Defined in <a href="https://github.com/Maple-Team/base/blob/1553d4f/packages/utils/src/uuid.ts#L8">packages/utils/src/uuid.ts:8</a></li></ul></aside></li></ul></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -86,6 +91,7 @@
 <li><a href="isString.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>String</span></a></li>
 <li><a href="isSymbol.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Symbol</span></a></li>
 <li><a href="isUndefined.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Undefined</span></a></li>
+<li><a href="md5.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>md5</span></a></li>
 <li><a href="padEnd.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>pad<wbr/>End</span></a></li>
 <li><a href="padEndDouble.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>pad<wbr/>End<wbr/>Double</span></a></li>
 <li><a href="padStart.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>pad<wbr/>Start</span></a></li>
@@ -97,6 +103,8 @@
 <li><a href="randomHex.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>random<wbr/>Hex</span></a></li>
 <li><a href="removeItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>remove<wbr/>Item</span></a></li>
 <li><a href="rgbToHex.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>rgb<wbr/>To<wbr/>Hex</span></a></li>
+<li><a href="sha1.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>sha1</span></a></li>
+<li><a href="sha256.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>sha256</span></a></li>
 <li><a href="showHumanizeTime.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>show<wbr/>Humanize<wbr/>Time</span></a></li>
 <li><a href="shuffleArray.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>shuffle<wbr/>Array</span></a></li>
 <li><a href="sleep.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>sleep</span></a></li>

@@ -64,7 +64,7 @@ export const getIps = () => {
  * @param event
  */
     async function onIceCandidate(pc: RTCPeerConnection | null, event: RTCPeerConnectionIceEvent) {
-      await getOtherPc(pc)?.addIceCandidate(event.candidate)
+      await getOtherPc(pc)?.addIceCandidate(event.candidate as RTCIceCandidateInit)
       if (event.candidate) {
         const ip = event.candidate.candidate?.split(' ')[4]
         ips.add(ip)
