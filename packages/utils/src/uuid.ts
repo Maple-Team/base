@@ -2,9 +2,11 @@
  * 生成uuid
  * @param len 指定长度
  * @param radix 进制
+ * @param useBuiltIn 是否使用原生
  * @returns
  */
-export function uuid(len?: number, radix = 16) {
+export function uuid(useBuiltIn = false, len?: number, radix = 16) {
+  if (useBuiltIn && crypto) return crypto.randomUUID()
   const numbers = Array.from({ length: 10 }, (_, i) => `${i}`)
   const upperCaseWords = Array.from({ length: 26 }, (_, i) => i + 65).map((num) => String.fromCharCode(num))
   const lowerCaseWords = Array.from({ length: 26 }, (_, i) => i + 97).map((num) => String.fromCharCode(num))

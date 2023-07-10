@@ -55,7 +55,7 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/babel__core": "^7.1.20",
-    "@types/jest": "^28.1.1",
+    "@types/jest": "^28.1.8",
     "@types/lodash-es": "^4.17.6",
     "@types/mockjs": "^1.0.6",
     "@types/node": "^18.7.18",

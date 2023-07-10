@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/utils",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "",
   "sideEffect": false,
   "keywords": [],
@@ -30,15 +30,17 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "new:patch": "npm version patch",
-    "postbuild":"pnpm run doc",
-    "doc":"typedoc",
-    "postdoc":"rimraf ../../docs/utils && mv  docs ../../docs/utils"
+    "postbuild": "pnpm run doc",
+    "doc": "typedoc",
+    "postdoc": "rimraf ../../docs/utils && mv  docs ../../docs/utils"
   },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {
-    "@liutsing/types-utils":"workspace:*"
+    "@liutsing/types-utils": "workspace:*",
+    "@types/js-md5": "^0.7.0"
   },
   "dependencies": {
+    "js-md5": "^0.7.3",
     "lodash-es": "^4.17.21"
   },
   "publishConfig": {
