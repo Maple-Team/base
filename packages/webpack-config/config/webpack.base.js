@@ -14,7 +14,7 @@ const envKeys = require('../plugins/env.js')(root)
 const config = {
   entry: path.resolve(root, './src/main.tsx'),
   resolve: {
-    extensions: ['.js', '.ts', '.tsx'],
+    extensions: ['.js', '.ts', '.tsx', '.jsx', '.node', '.wasm'],
     mainFiles: ['index'],
     alias: {
       '@': path.resolve(root, './src'),

@@ -76,9 +76,15 @@ const Drawer = ({
   )
 
   return (
-    <div className={horizontalDrawerClass} data-testid="drawerWrap">
+    <div
+      className={horizontalDrawerClass}
+      data-testid="drawerWrap"
+    >
       {/* 内容区域 */}
-      <div className={`${contentWidth ? `w-[${contentWidth}px]` : ''} h-full rounded`} data-testid="drawerContentWrap">
+      <div
+        className={`${contentWidth ? `w-[${contentWidth}px]` : ''} h-full rounded`}
+        data-testid="drawerContentWrap"
+      >
         {children}
       </div>
       {/* 折叠抓手  */}

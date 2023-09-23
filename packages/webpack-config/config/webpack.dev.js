@@ -6,7 +6,7 @@ const base = require('./webpack.base')
  * @type {import("webpack-dev-server").Configuration}
  */
 const devServer = {
-  headers: { 'X-Upstream': process.env.API_URL },
+  headers: { 'X-Upstream': process.env.API_URL, 'Access-Control-Allow-Origin': '*' },
   compress: false,
   port: process.env.PORT,
   // host: '',
