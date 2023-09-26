@@ -40,4 +40,29 @@ const { merge } = require('webpack-merge')
 module.exports = merge(base, {
   // your custom config
 })
+// 可以console输出合并后的配置信息
 ```
+
+## 关键点
+
+### 内置 plugins
+
+- ContextReplacementPlugin
+- DefinePlugin
+- OptimizeCSSAssetsPlugin
+
+### tree-shake
+
+### optimization
+
+### assets handle
+
+#### svg 的处理方式
+
+### 可拓展
+
+#### babel 拓展
+
+#### postcss-loader
+
+### dll

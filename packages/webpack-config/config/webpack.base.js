@@ -29,7 +29,6 @@ const config = {
         exclude: /node_modules/,
         include: [path.resolve(root, './src')],
         use: ['babel-loader'],
-        sideEffects: true,
       },
       {
         test: /\.(j|t)sx?$/,
@@ -84,6 +83,11 @@ const config = {
       plainSprite: true,
     }),
   ],
+  output: {
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].js',
+    publicPath: '/',
+  },
 }
 
 module.exports = config
