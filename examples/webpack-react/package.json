@@ -24,7 +24,7 @@
     "@babel/runtime-corejs3": "^7.20.13",
     "@liutsing/rc-components": "workspace:*",
     "@liutsing/rc-hooks": "workspace:*",
-    "@liutsing/utils": "workspace:*",
+    "@liutsing/utils": "0.1.0",
     "@pansy/react-amap": "^2.15.5",
     "ahooks": "^3.7.5",
     "antd": "^5.3.3",

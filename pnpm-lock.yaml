@@ -297,7 +297,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/react-hooks
       '@liutsing/utils':
-        specifier: workspace:*
+        specifier: 0.1.0
         version: link:../../packages/utils
       '@pansy/react-amap':
         specifier: ^2.15.5
@@ -898,6 +898,12 @@ importers:
       css-loader:
         specifier: ^6.7.3
         version: 6.7.3(webpack@5.82.1)
+      dotenv:
+        specifier: 16.3.1
+        version: registry.npmjs.org/dotenv@16.3.1
+      dotenv-expand:
+        specifier: 10.0.0
+        version: registry.npmjs.org/dotenv-expand@10.0.0
       fork-ts-checker-webpack-plugin:
         specifier: ^8.0.0
         version: 8.0.0(typescript@4.9.5)(webpack@5.82.1)
@@ -7002,11 +7008,6 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /dotenv@10.0.0:
-    resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
-    engines: {node: '>=10'}
-    dev: true
-
   /dotenv@16.0.3:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
@@ -10959,7 +10960,7 @@ packages:
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
       cliui: 7.0.4
-      dotenv: 10.0.0
+      dotenv: registry.npmjs.org/dotenv@10.0.0
       enquirer: 2.3.6
       fast-glob: 3.2.7
       figures: 3.2.0
@@ -19587,6 +19588,27 @@ packages:
       dom-serializer: registry.npmjs.org/dom-serializer@1.4.1
       domelementtype: registry.npmjs.org/domelementtype@2.3.0
       domhandler: registry.npmjs.org/domhandler@4.3.1
+    dev: false
+
+  registry.npmjs.org/dotenv-expand@10.0.0:
+    resolution: {integrity: sha512-GopVGCpVS1UKH75VKHGuQFqS1Gusej0z4FyQkPdwjil2gNIv+LNsqBlboOzpJFZKVT95GkCyWJbBSdFEFUWI2A==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/dotenv-expand/-/dotenv-expand-10.0.0.tgz}
+    name: dotenv-expand
+    version: 10.0.0
+    engines: {node: '>=12'}
+    dev: false
+
+  registry.npmjs.org/dotenv@10.0.0:
+    resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/dotenv/-/dotenv-10.0.0.tgz}
+    name: dotenv
+    version: 10.0.0
+    engines: {node: '>=10'}
+    dev: true
+
+  registry.npmjs.org/dotenv@16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/dotenv/-/dotenv-16.3.1.tgz}
+    name: dotenv
+    version: 16.3.1
+    engines: {node: '>=12'}
     dev: false
 
   registry.npmjs.org/duplexer@0.1.1:

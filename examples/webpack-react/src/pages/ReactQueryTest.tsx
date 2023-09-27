@@ -10,9 +10,8 @@ export const Example2 = () => {
 export const Example1 = () => {
   const { isLoading, data } = useCustomHook()
   useEffect(() => {
-    getIps().then(console.log)
+    getIps().then(console.log).catch(console.error)
   }, [])
   if (isLoading) return <div>Loading...</div>
-  return <div data-testid="test-id">{data?.info.seed}</div>
+  return <div data-testid="test-id">{data?.info.seed}222</div>
 }
-export { useFetchInfo }

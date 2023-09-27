@@ -53,6 +53,8 @@ module.exports = merge(base, {
 
 ### tree-shake
 
+### HMR
+
 ### optimization
 
 ### assets handle

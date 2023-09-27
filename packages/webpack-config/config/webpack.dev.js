@@ -9,7 +9,7 @@ const devServer = {
   headers: { 'X-Upstream': process.env.API_URL, 'Access-Control-Allow-Origin': '*' },
   compress: false,
   port: process.env.PORT,
-  // host: '',
+  host: process.env.HOST,
   hot: true,
   open: false,
   setupExitSignals: true,
@@ -17,7 +17,6 @@ const devServer = {
   proxy: {
     '/api': {
       target: process.env.API_URL,
-      // pathRewrite: { '^/api': '' },
     },
     '/ws/': {
       target: process.env.WS_URL,

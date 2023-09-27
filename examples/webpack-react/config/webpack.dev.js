@@ -10,4 +10,9 @@ module.exports = merge(dev, {
       'react-dom': path.resolve(__dirname, '../../../node_modules/react-dom'),
     },
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 })

@@ -1,4 +1,4 @@
-import { Accessory } from './accessory'
+import type { Accessory } from './accessory'
 
 export enum OperationType {
   STOCK_IN = 'Stock In',

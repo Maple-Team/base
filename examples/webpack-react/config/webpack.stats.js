@@ -1,3 +1,11 @@
 const { stats } = require('@liutsing/webpack-config')
+const { merge } = require('webpack-merge')
 
-module.exports = stats
+module.exports = merge(stats, {
+  mode: 'production',
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
+})

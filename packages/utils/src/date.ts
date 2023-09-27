@@ -40,7 +40,44 @@ export const progressOfDay = () => {
   const total = 24 * 60 * 60
   return passedSecondsOfCurrentDay(now) / total
 }
-
+/**
+ * 是否闰年
+ * @param year
+ * @returns
+ */
+export const isLeap = (year: number) => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
+/**
+ * 月份的秒数
+ * @param month
+ * @param year
+ * @returns
+ */
+const getMonthTotalTime = (month: number, year: number) => {
+  let days = 0
+  switch (month) {
+    case 0:
+    case 2:
+    case 4:
+    case 6:
+    case 7:
+    case 9:
+    case 11:
+      days = 31
+      break
+    case 3:
+    case 5:
+    case 8:
+    case 10:
+      days = 30
+      break
+    case 1:
+      days = isLeap(year) ? 29 : 28
+      break
+    default:
+      break
+  }
+  return days * 24 * 60 * 60
+}
 export const progressOfMonth = () => {
   const now = new Date()
   const year = now.getFullYear()
@@ -80,45 +117,6 @@ export const progressOfYear = () => {
   const total = (isLeap(year) ? 366 : 365) * 24 * 60 * 60
   return passed / total
 }
-/**
- * 月份的秒数
- * @param month
- * @param year
- * @returns
- */
-const getMonthTotalTime = (month: number, year: number) => {
-  let days = 0
-  switch (month) {
-    case 0:
-    case 2:
-    case 4:
-    case 6:
-    case 7:
-    case 9:
-    case 11:
-      days = 31
-      break
-    case 3:
-    case 5:
-    case 8:
-    case 10:
-      days = 30
-      break
-    case 1:
-      days = isLeap(year) ? 29 : 28
-      break
-    default:
-      break
-  }
-  return days * 24 * 60 * 60
-}
-
-/**
- * 是否闰年
- * @param year
- * @returns
- */
-export const isLeap = (year: number) => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 
 /**
  * 时间格式化(简单处理)

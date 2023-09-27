@@ -1,11 +1,12 @@
-import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { AxiosResponse } from 'axios'
 import axios from 'axios'
 
 const instance = axios.create({})
 
 instance.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config) => {
     if (config.headers) {
+      // @ts-expect-error: xx
       config.headers = {
         ...config.headers,
         'X-API-VERSION': 'v1',

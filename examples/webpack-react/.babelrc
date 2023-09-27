@@ -13,21 +13,21 @@
   "plugins": [
     "@babel/plugin-transform-runtime",
     // "@liutsing/babel-plugin-react-data-testid",
-    // "react-refresh/babel",
+    "react-refresh/babel",
     [
       "@liutsing/babel-plugin-remove-console",
       {
         "exclude": ["debug", "error", "warn"]
       }
-    ],
-    [
-      "import",
-      {
-        "libraryName": "lodash",
-        "libraryDirectory": "",
-        "camel2DashComponentName": false // default: true
-      }
     ]
+    // [
+    //   "import",
+    //   {
+    //     "libraryName": "lodash",
+    //     "libraryDirectory": "",
+    //     "camel2DashComponentName": false // default: true
+    //   }
+    // ]
   ],
   "env": {
     "test": {
