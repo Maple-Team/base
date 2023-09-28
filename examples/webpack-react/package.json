@@ -9,6 +9,7 @@
     "build": "webpack --config config/webpack.prod.js",
     "stats": "webpack --config config/webpack.stats.js",
     "serve": "webpack serve  --config config/webpack.dev.js",
+    "dev": "webpack serve  --config config/webpack.dev.js",
     "lint": "eslint .",
     "lint:debug": "eslint . --debug",
     "test": "jest",

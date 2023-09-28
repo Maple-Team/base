@@ -1,5 +1,6 @@
-import type { ColorValue } from '@liutsing/types-utils'
+import type { ColorNumber } from '@liutsing/types-utils'
 import { padEnd } from './help'
+
 /**
  * Convert RGB to Hex
  * @param r
@@ -7,8 +8,11 @@ import { padEnd } from './help'
  * @param b
  * @returns
  */
-export const rgbToHex = (r: ColorValue, g: ColorValue, b: ColorValue) => {
-  const num = (1 << 24) + (r << 16) + (g << 8) + b
+export const rgbToHex = (r: ColorNumber, g: ColorNumber, b: ColorNumber) => {
+  const num1 = 1 << 24
+  const _r = r << 16
+  const _g = g << 8
+  const num = num1 + _r + _g + b
   return `#${num.toString(16).slice(1).toLowerCase()}`
 }
 

@@ -13,5 +13,5 @@ export const Example1 = () => {
     getIps().then(console.log).catch(console.error)
   }, [])
   if (isLoading) return <div>Loading...</div>
-  return <div data-testid="test-id">{data?.info.seed}222</div>
+  return <div data-testid="test-id">{data?.info.seed}</div>
 }

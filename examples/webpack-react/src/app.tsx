@@ -1,8 +1,8 @@
-import React, { StrictMode } from 'react'
+import React, { StrictMode, useCallback, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { Example1, Example2 } from './pages/ReactQueryTest'
+import { Button } from 'antd'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,11 +16,33 @@ const queryClient = new QueryClient({
 const rootElement = document.getElementById('app')
 const root = createRoot(rootElement!)
 
+const Example3 = () => {
+  const [num, setNum] = useState<number>(0)
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      console.debug(num)
+    }, 1000)
+    return () => {
+      intervalId && clearInterval(intervalId)
+    }
+  }, [num])
+
+  const onIncrease = useCallback(() => setNum((num) => num + 1), [])
+
+  return (
+    <div>
+      {num}
+      <Button onClick={onIncrease}>+</Button>
+    </div>
+  )
+}
 root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <Example1 />
-      <Example2 />
+      {/* <Example1 />
+      <Example2 /> */}
+      <Example3 />
       <ReactQueryDevtools initialIsOpen />
     </QueryClientProvider>
   </StrictMode>
