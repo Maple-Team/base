@@ -849,6 +849,12 @@ importers:
 
   packages/utils:
     dependencies:
+      '@liutsing/regexp-utils':
+        specifier: workspace:*
+        version: link:../regexp-utils
+      '@liutsing/types-utils':
+        specifier: workspace:*
+        version: link:../types-utils
       js-md5:
         specifier: ^0.7.3
         version: registry.npmjs.org/js-md5@0.7.3
@@ -883,9 +889,6 @@ importers:
       '@babel/runtime':
         specifier: ^7.23.1
         version: registry.npmjs.org/@babel/runtime@7.23.1
-      '@liutsing/types-utils':
-        specifier: workspace:*
-        version: link:../types-utils
       '@types/js-md5':
         specifier: ^0.7.0
         version: registry.npmjs.org/@types/js-md5@0.7.0

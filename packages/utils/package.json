@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/utils",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "",
   "sideEffects": false,
   "keywords": [],
@@ -56,6 +56,7 @@
   "dependencies": {
     "js-md5": "^0.7.3",
     "@liutsing/types-utils": "workspace:*",
+    "@liutsing/regexp-utils": "workspace:*",
     "lodash-es": "^4.17.21"
   },
   "publishConfig": {
