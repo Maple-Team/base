@@ -1,0 +1,22 @@
+{
+  "name": "@liutsing/npmmirror-sync",
+  "version": "1.0.0",
+  "description": "A CLI tool to make Taobao's npm mirror manual sync your package.",
+  "bin": "./bin/cli.js",
+  "scripts": {
+		"postpublish": "npx @liutsing/npmmirror-sync"
+	},
+  "author": "liutsing <liutsingluo@gmail.com>",
+  "files": [
+		"*.js",
+		"lib/",
+		"bin/"
+	],
+  "keywords": [
+		"npm-mirror"
+	],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}
