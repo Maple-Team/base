@@ -1,8 +1,8 @@
 {
   "name": "@liutsing/utils",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
-  "sideEffect": false,
+  "sideEffects": false,
   "keywords": [],
   "license": "ISC",
   "author": "",
@@ -30,7 +30,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "new:patch": "npm version patch",
-    "postbuild": "pnpm run doc",
+    "postpublish": "node ../../bin/cli.js",
     "doc": "typedoc",
     "postdoc": "rimraf ../../docs/utils && mv  docs ../../docs/utils"
   },
