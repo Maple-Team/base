@@ -44,7 +44,7 @@
     "@babel/runtime": "^7.20.6",
     "@babel/types": "^7.20.7",
     "@liutsing/eslint-config": "workspace:*",
-    "@liutsing/npmmirror-sync": "workspace:^",
+    "@liutsing/npmmirror-sync": "1.0.0",
     "@liutsing/prettier-config": "workspace:*",
     "@liutsing/regexp-utils": "workspace:*",
     "@liutsing/tsconfig": "^0.0.6",

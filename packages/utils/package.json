@@ -30,8 +30,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "new:patch": "npm version patch",
-    "postpublish": "node ../../bin/cli.js",
-    "postpublish1": "pnpx @liutsing/npmmirror-sync",
+    "postpublish1": "node ../../bin/cli.js",
+    "postpublish": "npx @liutsing/npmmirror-sync",
     "doc": "typedoc",
     "postdoc": "rimraf ../../docs/utils && mv  docs ../../docs/utils"
   },
