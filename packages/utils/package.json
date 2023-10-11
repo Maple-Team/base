@@ -1,47 +1,61 @@
 {
   "name": "@liutsing/utils",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "description": "",
   "sideEffects": false,
   "keywords": [],
   "license": "ISC",
   "author": "",
-  "main": "dist/index.js",
-  "umd:main": "dist/index.umd.js",
-  "module": "dist/index.mjs",
+  "main": "lib/index.js",
+  "module": "es/index.js",
   "source": "src/index.ts",
-  "jsnext:main": "dist/index.mjs",
+  "jsnext:main": "es/index.js",
   "typings": "types/index.d.ts",
   "files": [
-    "dist",
+    "lib",
+    "es",
     "types"
   ],
   "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.js",
-    "default": "./dist/index.mjs",
+    "import": "./es/index.js",
+    "require": "./lib/index.js",
+    "default": "./es/index.js",
     "types": "./types/index.d.ts"
   },
   "scripts": {
-    "prebuild": "npx rimraf types dist",
+    "prebuild": "npx rimraf es lib",
     "prepublish": "pnpm run build",
-    "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
     "build:watch": "tsc -w",
+    "build": "npm run build:es & npm run build:commonjs",
+    "postbuild": "npm run build:types",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src -d lib --extensions .ts --delete-dir-on-start",
+    "build:es": "babel src -d es --extensions .ts --delete-dir-on-start",
+    "build:types": "tsc --project tsconfig.build.json",
     "test": "jest",
     "test:watch": "jest --watch",
     "new:patch": "npm version patch",
-    "postpublish1": "node ../../bin/cli.js",
-    "postpublish": "npx @liutsing/npmmirror-sync",
+    "postpublish1": "pnpm run doc",
+    "postpublish": "pnpx @liutsing/npmmirror-sync",
     "doc": "typedoc",
-    "postdoc": "rimraf ../../docs/utils && mv  docs ../../docs/utils"
+    "postdoc": "rimraf ../../docs/utils && mv docs ../../docs/utils"
   },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {
-    "@liutsing/types-utils": "workspace:*",
-    "@types/js-md5": "^0.7.0"
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.0",
+    "@babel/helper-plugin-utils": "^7.22.5",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-transform-runtime": "^7.22.15",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
+    "@babel/preset-typescript": "^7.23.0",
+    "@babel/runtime": "^7.23.1",
+    "@types/js-md5": "^0.7.0",
+    "cross-env": "^7.0.3"
   },
   "dependencies": {
     "js-md5": "^0.7.3",
+    "@liutsing/types-utils": "workspace:*",
     "lodash-es": "^4.17.21"
   },
   "publishConfig": {

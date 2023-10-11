@@ -28,10 +28,8 @@ export function generateArray(num: number): Array<number> {
  * @returns
  */
 export function removeItem<T>(array: T[], item: T, cb?: (arr: T[], item: T) => number) {
-  if (cb) {
-    array.splice(cb(array, item) >>> 0, 1)
-  } else {
-    array.splice(array.indexOf(item) >>> 0, 1)
-  }
+  if (cb) array.splice(cb(array, item) >>> 0, 1)
+  else array.splice(array.indexOf(item) >>> 0, 1)
+
   return array
 }
