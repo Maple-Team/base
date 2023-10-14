@@ -4,5 +4,6 @@ module.exports = {
   ignorePatterns: ['**/public/*.js', '*.json'],
   rules: {
     '@typescript-eslint/await-thenable': 'off',
+    'brace-style': 'off',
   },
 }

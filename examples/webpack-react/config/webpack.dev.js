@@ -1,6 +1,7 @@
 const path = require('path')
 const { dev } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
+const ErrorOverlayPlugin = require('../plugins/errorOverlayMiddleware.js')
 
 module.exports = merge(dev, {
   entry: path.resolve(__dirname, '../src/app.tsx'),
@@ -15,4 +16,5 @@ module.exports = merge(dev, {
       chunks: 'all',
     },
   },
+  plugins: [new ErrorOverlayPlugin()],
 })
