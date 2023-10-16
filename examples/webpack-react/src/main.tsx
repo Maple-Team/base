@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import './main.css'
-import './assets/svg-icons'
+// import './assets/svg-icons'
 import Root from './routes/root'
 import ErrorPage from './error-page'
 

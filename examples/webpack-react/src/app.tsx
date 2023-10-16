@@ -34,6 +34,7 @@ const Example3 = () => {
     <div>
       {num}
       <Button onClick={onIncrease}>+</Button>
+      测试-测试HMR国人测试
     </div>
   )
 }

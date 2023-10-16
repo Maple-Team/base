@@ -63,15 +63,15 @@ const config = {
       template: path.resolve(root, './public/index.html'),
       title: 'webpack config demo',
     }),
-    new MapleHtmlWebpackPlugin({ tagName: 'link', rel: 'stylesheet', href: './fonts/index.css' }, 'body'),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: path.resolve(root, './public/fonts'),
-          to: 'fonts',
-        },
-      ],
-    }),
+    new MapleHtmlWebpackPlugin({ tagName: 'link', rel: 'stylesheet', href: './fonts/index.css' }, 'head'),
+    // new CopyPlugin({
+    //   patterns: [
+    //     {
+    //       from: path.resolve(root, './public/fonts'),
+    //       to: 'fonts',
+    //     },
+    //   ],
+    // }),
     new ProvidePlugin({
       React: 'react',
       process: 'process/browser',

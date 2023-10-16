@@ -1,5 +1,5 @@
 {
-  "name": "@example/webpack-react",
+  "name": "example-webpack-react",
   "version": "1.0.0",
   "description": "",
   "sideEffects": false,
@@ -42,13 +42,14 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.38.4",
     "@babel/plugin-transform-runtime": "^7.19.6",
+    "@liutsing/babel-plugin-extract-used-chinese": "workspace:*",
     "@liutsing/babel-plugin-remove-console": "workspace:*",
     "@liutsing/eslint-config": "workspace:*",
     "@liutsing/html-webpack-plugin": "workspace:*",
     "@liutsing/pattern-logger-loader": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
     "@liutsing/types-utils": "workspace:*",
-    "@liutsing/webpack-config": "workspace:*",
+    "@liutsing/webpack-config": "link:..\\..\\packages\\webpack-config",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/lodash": "^4.14.191",
