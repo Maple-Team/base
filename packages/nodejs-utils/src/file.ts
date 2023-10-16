@@ -3,7 +3,8 @@
  * @Author: Liutsing
  */
 import * as fs from 'fs'
-import { MakeDirectoryOptions } from 'fs'
+import type { MakeDirectoryOptions } from 'fs'
+
 type MkdirOptions = fs.MakeDirectoryOptions & {
   recursive: true
 }
@@ -21,9 +22,8 @@ export const mkdirSafeSync = (dirname: string, option?: MakeDirectoryOptions) =>
   //   fs.mkdirSync(dirname, options)
   // }
   const exists = fs.existsSync(dirname)
-  if (!exists) {
-    fs.mkdirSync(dirname, option)
-  }
+  if (!exists) fs.mkdirSync(dirname, option)
+
   return fs.existsSync(dirname)
 }
 /**
@@ -34,13 +34,10 @@ export const mkdirSafeSync = (dirname: string, option?: MakeDirectoryOptions) =>
 export const mkdirSafe = async (dirname: string, options?: MkdirOptions) => {
   const exists = fs.existsSync(dirname)
   if (exists) return true
-  return new Promise<boolean>(function (resolve, reject) {
+  return new Promise<boolean>((resolve, reject) => {
     fs.mkdir(dirname, options, (e) => {
-      if (e) {
-        reject(e)
-      } else {
-        resolve(true)
-      }
+      if (e) reject(e)
+      else resolve(true)
     })
   })
 }
@@ -60,9 +57,8 @@ export const find = (entry: string, target: string, excludes: string[]) => {
     process.exit(0)
   } else {
     const dirs = files.reduce((p: string[], file) => {
-      if (fs.statSync(`${entry}/${file}`).isDirectory()) {
-        p.push(`${entry}/${file}`)
-      }
+      if (fs.statSync(`${entry}/${file}`).isDirectory()) p.push(`${entry}/${file}`)
+
       return p
     }, [])
     if (dirs.length !== 0) {

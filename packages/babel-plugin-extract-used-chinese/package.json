@@ -1,0 +1,38 @@
+{
+  "name": "@liutsing/babel-plugin-extract-used-chinese",
+  "version": "0.0.1",
+  "description": "提取待渲染为DOM节点中的中文文字，用于减少字体文件的大小",
+  "keywords": [
+    "babel plugin"
+  ],
+  "license": "ISC",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js",
+    "default": "./dist/index.mjs",
+    "types": "./types/index.d.ts"
+  },
+  "main": "dist/index.js",
+  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "source": "src/index.ts",
+  "jsnext:main": "dist/index.mjs",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "prebuild": "rimraf types && rimraf lib",
+    "build": "microbundle -f es,cjs,umd --target node --tsconfig tsconfig.build.json",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier . --ext .ts -w",
+    "prepublish": "pnpm run build",
+    "test": "jest"
+  },
+  "prettier": "@ecar/prettier-config",
+  "devDependencies": {
+    "@types/babel-plugin-tester": "^9.0.5",
+    "babel-plugin-tester": "^10.1.0"
+  }
+}
