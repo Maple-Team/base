@@ -5,5 +5,8 @@ module.exports = {
   rules: {
     '@typescript-eslint/await-thenable': 'off',
     'brace-style': 'off',
+    indent: 'off',
+    'multiline-ternary': 'off',
+    'operator-linebreak': 'off',
   },
 }

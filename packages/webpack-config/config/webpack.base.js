@@ -3,11 +3,13 @@ const { ProvidePlugin, DefinePlugin } = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
 const root = process.cwd()
+const mode = process.env.NODE_ENV
+const isDev = mode === 'production'
 const envKeys = require('../plugins/env.js')(root)
-
 /**
  * @type {import('webpack').Configuration}
  */
@@ -19,7 +21,6 @@ const config = {
     alias: {
       '@': path.resolve(root, './src'),
     },
-    cacheWithContext: false,
   },
   target: 'web',
   module: {
@@ -31,23 +32,29 @@ const config = {
         use: ['babel-loader'],
       },
       {
-        test: /\.(j|t)sx?$/,
-        exclude: /node_modules/,
-        include: [path.resolve(root, './src/assets/svg-icons')],
-        use: ['babel-loader'],
-        sideEffects: true,
-      },
-      {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
         sideEffects: true,
       },
       {
+        // FIXME
         test: /\.less$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'],
+        use: [
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: false,
+            },
+          },
+          'postcss-loader',
+          'less-loader',
+        ],
         sideEffects: true,
       },
       {
+        // FIXME
         test: /\.svg$/,
         exclude: /node_modules/,
         use: [
@@ -64,14 +71,14 @@ const config = {
       title: 'webpack config demo',
     }),
     new MapleHtmlWebpackPlugin({ tagName: 'link', rel: 'stylesheet', href: './fonts/index.css' }, 'head'),
-    // new CopyPlugin({
-    //   patterns: [
-    //     {
-    //       from: path.resolve(root, './public/fonts'),
-    //       to: 'fonts',
-    //     },
-    //   ],
-    // }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(root, './public/fonts'),
+          to: 'fonts',
+        },
+      ],
+    }),
     new ProvidePlugin({
       React: 'react',
       process: 'process/browser',
@@ -82,11 +89,13 @@ const config = {
     new SpriteLoaderPlugin({
       plainSprite: true,
     }),
-  ],
+    !isDev ? new MiniCssExtractPlugin() : null,
+  ].filter(Boolean),
   output: {
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[contenthash].js',
     publicPath: '/',
+    clean: true,
   },
 }
 

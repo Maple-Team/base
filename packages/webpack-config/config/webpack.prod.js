@@ -20,16 +20,6 @@ const prod = {
     hints: 'warning',
   },
   plugins: [new ForkTsCheckerWebpackPlugin()],
-  module: {
-    rules: [
-      {
-        test: /\.(j|t)sx?$/,
-        exclude: /node_modules/,
-        include: [path.resolve(root, './src')],
-        use: ['babel-loader'],
-      },
-    ],
-  },
   optimization: {
     // runtimeChunk: true,
     splitChunks: {

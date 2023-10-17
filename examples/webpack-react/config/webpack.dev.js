@@ -1,11 +1,11 @@
 const path = require('path')
 const { dev } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
-const base = require('./webpack.base')
-// const ErrorOverlayPlugin = require('../plugins/errorOverlayMiddleware.js')
+const TestPlugin = require('../plugins/testPlugin')
 
-module.exports = merge(base, dev, {
-  entry: path.resolve(__dirname, '../src/app.tsx'),
+const config = merge(dev, {
+  entry: path.resolve(__dirname, '../src/main.tsx'),
+  mode: 'development',
   resolve: {
     alias: {
       react: path.resolve(__dirname, '../../../node_modules/react'),
@@ -20,4 +20,17 @@ module.exports = merge(base, dev, {
   watchOptions: {
     ignored: ['**/public/fonts', '**/public/fonts/mini', '**/node_modules'],
   },
+  plugins: [new TestPlugin()],
+  module: {
+    rules: [
+      {
+        test: /\.(j|t)sx?$/,
+        exclude: /node_modules/,
+        include: [path.resolve(__dirname, './src/assets/svg-icons')],
+        use: ['babel-loader'],
+      },
+    ],
+  },
 })
+
+module.exports = config

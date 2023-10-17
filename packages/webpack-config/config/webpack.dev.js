@@ -7,10 +7,10 @@ const base = require('./webpack.base')
  */
 const devServer = {
   headers: { 'X-Upstream': process.env.API_URL, 'Access-Control-Allow-Origin': '*' },
-  compress: false,
   port: process.env.PORT,
   host: process.env.HOST,
   hot: true,
+  liveReload: false,
   open: false,
   setupExitSignals: true,
   historyApiFallback: true,
@@ -44,19 +44,11 @@ const dev = {
     splitChunks: false,
     runtimeChunk: true,
   },
-  resolveLoader: {
-    alias: {
-      // 'maple-pattern-loader': path.resolve(__dirname, '../plugins/maple-pattern-loader.js'),
-    },
-  },
   devServer,
   infrastructureLogging: {
     appendOnly: true,
     level: 'verbose',
     debug: true,
-  },
-  experiments: {
-    lazyCompilation: true,
   },
 }
 const config = merge(base, dev)

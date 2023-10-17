@@ -1,5 +1,4 @@
 import React, { StrictMode, useCallback, useEffect, useState } from 'react'
-import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Button } from 'antd'
@@ -12,16 +11,13 @@ const queryClient = new QueryClient({
     },
   },
 })
-
-const rootElement = document.getElementById('app')
-const root = createRoot(rootElement!)
-
+// NOTE 热加载不能是入口模块!!!!
 const Example3 = () => {
   const [num, setNum] = useState<number>(0)
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      console.debug(num)
+      console.log(num)
     }, 1000)
     return () => {
       intervalId && clearInterval(intervalId)
@@ -34,17 +30,19 @@ const Example3 = () => {
     <div>
       {num}
       <Button onClick={onIncrease}>+</Button>
-      测试-测试HMR国人测试
+      测试
     </div>
   )
 }
-root.render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      {/* <Example1 />
-      <Example2 /> */}
-      <Example3 />
-      <ReactQueryDevtools initialIsOpen />
-    </QueryClientProvider>
-  </StrictMode>
-)
+export const App = () => {
+  return (
+    <StrictMode>
+      <QueryClientProvider client={queryClient}>
+        {/* <Example1 />
+    <Example2 /> */}
+        <Example3 />
+        <ReactQueryDevtools initialIsOpen />
+      </QueryClientProvider>
+    </StrictMode>
+  )
+}
