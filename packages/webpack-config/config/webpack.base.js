@@ -40,7 +40,7 @@ const config = {
         sideEffects: true,
       },
       {
-        // FIXME
+        // FIXME module.css
         test: /\.less$/,
         use: [
           isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -70,15 +70,15 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(root, './public/index.html'),
+      template: 'config/index.html',
       title: 'webpack config demo',
     }),
-    new MapleHtmlWebpackPlugin({ tagName: 'link', rel: 'stylesheet', href: './fonts/index.css' }, 'head'),
+    new MapleHtmlWebpackPlugin({ tagName: 'link', rel: 'stylesheet', href: '/fonts.css' }, 'head'),
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(root, './public/fonts'),
-          to: 'fonts',
+          from: path.resolve(root, './public'),
+          to: './',
         },
       ],
     }),

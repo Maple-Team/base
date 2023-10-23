@@ -1,20 +1,12 @@
-const path = require('path')
 const { merge } = require('webpack-merge')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const base = require('./webpack.base')
 
-const root = process.cwd()
 /**
  * @type {import("webpack").Configuration}
  */
 const prod = {
   mode: 'production',
-  output: {
-    path: path.resolve(root, './dist'),
-    filename: '[name].[contenthash].js',
-    chunkFilename: '[name].[contenthash].js',
-    clean: true,
-  },
   devtool: 'hidden-source-map',
   performance: {
     hints: 'warning',

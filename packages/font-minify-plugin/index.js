@@ -1,13 +1,29 @@
 const os = require('os')
 const path = require('path')
 const fs = require('fs')
-const { generatePuhui: generatePuhuiMini } = require('./fontmin')
+const { validate } = require('schema-utils')
+const { generatePuhui } = require('./fontmin')
 
-const cwd = process.cwd()
+const schema = {
+  type: 'object',
+  properties: {
+    test: {
+      type: 'string',
+      // 字体地址/待简化的字体/字体写入路径
+    },
+  },
+}
 
-const { name } = require(`${cwd}/package.json`)
+const name = ''
 
 class FontMinifyPlugin {
+  constructor(options = {}) {
+    validate(schema, options, {
+      name: 'Hello World Plugin',
+      baseDataPath: 'options',
+    })
+  }
+
   /**
    *
    * @param {import('webpack').Compiler} compiler
@@ -29,7 +45,7 @@ class FontMinifyPlugin {
 
     compiler.hooks.thisCompilation.tap(className, (compilation) => {
       compilation.hooks.additionalAssets.tapPromise(className, () => {
-        return generatePuhuiMini(mode).then((fonts) => {
+        return generatePuhui(mode).then((fonts) => {
           console.log(`添加字体资源, 字体数:`, fonts.length)
           Array.prototype.concat.apply([], fonts).forEach((font) => {
             compilation.assets[font.filename] = {
