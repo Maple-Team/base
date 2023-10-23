@@ -1,0 +1,9 @@
+[submodule "awaresome/create-react-app"]
+	path = awaresome/create-react-app
+	url = https://github.com/facebook/create-react-app.git
+[submodule "awaresome/vue-cli"]
+	path = awaresome/vue-cli
+	url = https://github.com/vuejs/vue-cli.git
+[submodule "awaresome/react-starter-kit"]
+	path = awaresome/react-starter-kit
+	url = https://github.com/kriasoft/react-starter-kit.git

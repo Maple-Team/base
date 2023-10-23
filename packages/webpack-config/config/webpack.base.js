@@ -6,10 +6,13 @@ const SpriteLoaderPlugin = require('svg-sprite-loader/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
+// TODO 参考vue-cli/cra/其他开源社区分享
+
 const root = process.cwd()
 const mode = process.env.NODE_ENV
 const isDev = mode === 'production'
 const envKeys = require('../plugins/env.js')(root)
+
 /**
  * @type {import('webpack').Configuration}
  */
