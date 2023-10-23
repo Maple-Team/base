@@ -30,7 +30,7 @@ const Example3 = () => {
     <div>
       {num}
       <Button onClick={onIncrease}>+</Button>
-      测试
+      测试 准备一下 哈哈
     </div>
   )
 }

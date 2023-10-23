@@ -30,10 +30,10 @@ const extract = async (texts, distPath, sourcePath) => {
   })
 }
 
-const generatePuhuiMini = async (mode) => {
+const generatePuhui = async (mode) => {
   let loaderTextPath
   try {
-    const miniDistPath = path.resolve(cwd, './public/fonts/mini')
+    const miniDistPath = path.resolve(cwd, './public/fonts')
     const miniFonts = [
       'AlibabaPuHuiTi_2_55_Regular.woff',
       'AlibabaPuHuiTi_2_55_Regular.woff2',
@@ -47,14 +47,16 @@ const generatePuhuiMini = async (mode) => {
     const tempTexts = fs.readFileSync(loaderTextPath).toString().split('')
     const symbols = ['℃']
     const uniqueText = Array.from(new Set([...tempTexts, ...symbols])).join('')
+
     console.log(`读取: ${loaderTextPath} 中的文字进行精简字体, 字数: ${uniqueText.length}`)
+
     await extract(uniqueText, miniDistPath, './puhui')
 
     const result = []
-    const miniFiles = fs.readdirSync(miniDistPath).filter((file) => file.endsWith('.ttf'))
+    const miniFiles = fs.readdirSync(miniDistPath).filter((file) => !file.endsWith('.ttf'))
     miniFiles.forEach((file) => {
       const content = fs.readFileSync(`${miniDistPath}/${file}`)
-      result.push({ filename: `public/fonts/mini/${file}`, content, size: content.length })
+      result.push({ filename: `fonts/${file}`, content, size: content.length })
     })
     return result
   } catch (err) {
@@ -104,4 +106,4 @@ const generateLato = async () => {
   }
 }
 
-module.exports = { generatePuhuiMini, generateLato, generatePuhui3500 }
+module.exports = { generatePuhui, generateLato, generatePuhui3500 }

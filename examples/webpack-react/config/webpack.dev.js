@@ -1,7 +1,7 @@
 const path = require('path')
 const { dev } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
-const TestPlugin = require('../plugins/testPlugin')
+const FontMinifyPlugin = require('../plugins/fontMinifyPlugin')
 
 const config = merge(dev, {
   entry: path.resolve(__dirname, '../src/main.tsx'),
@@ -18,9 +18,9 @@ const config = merge(dev, {
     },
   },
   watchOptions: {
-    ignored: ['**/public/fonts', '**/public/fonts/mini', '**/node_modules'],
+    ignored: ['**/public/fonts', '**/node_modules'],
   },
-  plugins: [new TestPlugin()],
+  plugins: [new FontMinifyPlugin()],
   module: {
     rules: [
       {

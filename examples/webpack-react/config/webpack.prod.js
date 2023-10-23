@@ -1,9 +1,11 @@
 const path = require('path')
 const { prod } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
+const FontMinifyPlugin = require('../plugins/fontMinifyPlugin')
 
 module.exports = merge(
   {
+    entry: path.resolve(__dirname, '../src/main.tsx'),
     module: {
       rules: [
         {
@@ -14,6 +16,7 @@ module.exports = merge(
         },
       ],
     },
+    plugins: [new FontMinifyPlugin()],
   },
   prod
 )
