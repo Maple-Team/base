@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/babel-plugin-extract-used-chinese",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "提取待渲染为DOM节点中的中文文字，用于减少字体文件的大小",
   "keywords": [
     "babel plugin"
@@ -30,7 +30,7 @@
     "prepublish": "pnpm run build",
     "test": "jest"
   },
-  "prettier": "@ecar/prettier-config",
+  "prettier": "@liutsing/prettier-config",
   "devDependencies": {
     "@types/babel-plugin-tester": "^9.0.5",
     "babel-plugin-tester": "^10.1.0"
