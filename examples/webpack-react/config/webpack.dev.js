@@ -3,6 +3,7 @@ const os = require('os')
 const { dev } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
 const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
+const LifeCycleWebpackPlugin = require('@liutsing/lifecycle-webpack-plugin')
 
 const config = merge(dev, {
   entry: path.resolve(__dirname, '../src/main.tsx'),
@@ -30,6 +31,14 @@ const config = merge(dev, {
     new FontMinifyPlugin({
       words: '魑魅魍魉',
       isFilePath: false,
+    }),
+    new LifeCycleWebpackPlugin({
+      compile: () => {
+        console.log('\n compile \n', new Date())
+      },
+      done: () => {
+        console.log('\n done \n', new Date())
+      },
     }),
   ],
 })

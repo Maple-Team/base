@@ -510,6 +510,9 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
+      lifecycle-webpack-plugin:
+        specifier: ^1.0.13
+        version: 1.0.13
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -550,6 +553,9 @@ importers:
       '@liutsing/html-webpack-plugin':
         specifier: workspace:*
         version: link:../../packages/html-webpack-plugin
+      '@liutsing/lifecycle-webpack-plugin':
+        specifier: workspace:*
+        version: link:../../packages/lifecycle-webpack-plugin
       '@liutsing/pattern-logger-loader':
         specifier: workspace:*
         version: link:../../packages/pattern-logger-loader
@@ -821,6 +827,8 @@ importers:
       webpack:
         specifier: ^5.75.0
         version: 5.82.1(webpack-cli@5.1.1)
+
+  packages/lifecycle-webpack-plugin: {}
 
   packages/nodejs-utils:
     dependencies:
@@ -16815,6 +16823,10 @@ packages:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
+
+  /lifecycle-webpack-plugin@1.0.13:
+    resolution: {integrity: sha512-+y8GppxD4NN/VMmbNtdmRNTRHBBMZ5tDf5iWdCOicRTsnFQ9gRskV82JNX24hL4tJFbSjCNrqHyqNNOZCPya0g==}
+    dev: false
 
   /lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
