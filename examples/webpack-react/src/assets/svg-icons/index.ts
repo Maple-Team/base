@@ -1,6 +1,3 @@
-const cache: { [key: string]: unknown } = {}
-
-function importAll(r: __WebpackModuleApi.RequireContext) {
-  r.keys().forEach((key: string) => (cache[key] = r(key)))
-}
-importAll(require.context('.', true, /\.svg$/, 'lazy'))
+export { default as IconParking } from './icon-parking.svg'
+export { default as IconRcStorageOn } from './icon-rc-storage-on.svg'
+export { default as IconRcStorageOff } from './icon-rc-storage-off.svg'
