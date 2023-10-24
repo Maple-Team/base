@@ -1,25 +1,18 @@
-const os = require('os')
 const path = require('path')
 const fs = require('fs')
 const Fontmin = require('fontmin')
 
 const cwd = process.cwd()
-const { name } = require(`${cwd}/package.json`)
 
-const extract = async (texts, distPath, sourcePath) => {
+const _generateFonts = async (texts, distPath, fontSource, fontExts) => {
   return new Promise((resolve) => {
-    const sourceTTF = path.resolve(__dirname, sourcePath)
+    const fontmin = new Fontmin().src(fontSource).use(Fontmin.glyph({ text: texts, hinting: false }))
 
-    const fontmin = new Fontmin()
-      .src(`${sourceTTF}/*.ttf`)
-      .use(Fontmin.glyph({ text: texts, hinting: false }))
-      .use(Fontmin.ttf2woff())
-      .use(Fontmin.ttf2woff2())
-      .dest(distPath)
+    if (fontExts.includes('woff')) fontmin.use(Fontmin.ttf2woff())
+    if (fontExts.includes('woff2')) fontmin.use(Fontmin.ttf2woff2())
 
-    fontmin.run((err) => {
+    fontmin.dest(distPath).run((err) => {
       if (err) throw err
-
       // 清除不必要的ttf文件
       const ttfFiles = fs.readdirSync(distPath)
       ttfFiles.forEach((file) => {
@@ -30,39 +23,43 @@ const extract = async (texts, distPath, sourcePath) => {
   })
 }
 
-const generatePuhui = async (mode) => {
-  let loaderTextPath
-  try {
-    const miniDistPath = path.resolve(cwd, './public/fonts')
-    const miniFonts = [
-      'AlibabaPuHuiTi_2_55_Regular.woff',
-      'AlibabaPuHuiTi_2_55_Regular.woff2',
-      'AlibabaPuHuiTi_2_65_Medium.woff',
-      'AlibabaPuHuiTi_2_65_Medium.woff2',
-    ]
-    const fonts = fs.readdirSync(miniDistPath).filter((file) => file.startsWith('Alibaba'))
-    if (miniFonts.every((font) => fonts.includes(font)) && mode === 'development') return
+const generateFont = async (mode, options, logger) => {
+  const {
+    additionalSymbols,
+    fontDistDirectory: minifyFontDir,
+    fontExts,
+    fontDistFilename,
+    isFilePath,
+    words,
+    fontSource,
+  } = options
 
-    loaderTextPath = path.resolve(os.tmpdir(), `chinese-extract-loader-${name}.txt`)
-    const tempTexts = fs.readFileSync(loaderTextPath).toString().split('')
-    const symbols = ['℃']
-    const uniqueText = Array.from(new Set([...tempTexts, ...symbols])).join('')
+  const minifyFonts = fontExts.map((ext) => `${fontDistFilename}.${ext}`)
 
-    console.log(`读取: ${loaderTextPath} 中的文字进行精简字体, 字数: ${uniqueText.length}`)
-
-    await extract(uniqueText, miniDistPath, './puhui')
-
-    const result = []
-    const miniFiles = fs.readdirSync(miniDistPath).filter((file) => !file.endsWith('.ttf'))
-    miniFiles.forEach((file) => {
-      const content = fs.readFileSync(`${miniDistPath}/${file}`)
-      result.push({ filename: `fonts/${file}`, content, size: content.length })
-    })
-    return result
-  } catch (err) {
-    console.error(err)
-    // console.warn(`注: ${loaderTextPath}, 还未存在，需要先运行一次项目后才生成精简字体`)
+  const fonts = fs.readdirSync(minifyFontDir).filter((file) => file.startsWith(fontDistFilename))
+  if (minifyFonts.every((font) => fonts.includes(font)) && mode === 'development') {
+    logger.info('开发模式下存在简化字体文件，不再生成新的简化字体文件')
+    return
   }
+  let uniqueText
+  if (isFilePath) {
+    const tempTexts = fs.readFileSync(words).toString().split('')
+    uniqueText = Array.from(new Set([...tempTexts, ...additionalSymbols])).join('')
+  } else {
+    uniqueText = Array.from(new Set([...words, ...additionalSymbols])).join('')
+  }
+
+  logger.info(`精简字体的字数: ${uniqueText.length}个`)
+
+  await _generateFonts(uniqueText, minifyFontDir, fontSource, fontExts)
+
+  const result = []
+  const miniFiles = fs.readdirSync(minifyFontDir).filter((file) => !file.endsWith('.ttf'))
+  miniFiles.forEach((file) => {
+    const content = fs.readFileSync(`${minifyFontDir}/${file}`)
+    result.push({ filename: `fonts/${file}`, content, size: content.length })
+  })
+  return result
 }
 const generatePuhui3500 = async () => {
   const puhui3500Fonts = [
@@ -82,7 +79,7 @@ const generatePuhui3500 = async () => {
       .filter(Boolean)
       .join('')
 
-    await extract(word3500, word3500Path, './puhui')
+    await _generateFonts(word3500, word3500Path, './puhui')
   } catch (err) {
     console.error(err)
   }
@@ -100,10 +97,10 @@ const generateLato = async () => {
 
     asciWords.push('°') // 添加°
 
-    await extract(asciWords, miniDistPath, './lato')
+    await _generateFonts(asciWords, miniDistPath, './lato')
   } catch (err) {
     console.error(err)
   }
 }
 
-module.exports = { generatePuhui, generateLato, generatePuhui3500 }
+module.exports = { generateFont, generateLato, generatePuhui3500 }

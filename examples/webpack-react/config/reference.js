@@ -9,7 +9,7 @@ const appRootPath = path.join(__dirname, '..')
 const envKeys = require('../../../plugins/env.js')(appRootPath)
 const base = require('./webpack.base')
 
-const host = 'dev.patrol.etlink.ecar.com'
+const host = ''
 const port = '6971'
 
 const babelLoaderRuleItems = [
@@ -90,11 +90,7 @@ const dev = {
       {
         exclude: /node_modules/,
         test: /\.(j|t)sx?$/,
-        include: [
-          path.resolve(__dirname, '../src'),
-          path.resolve(__dirname, '../../../packages'),
-          /node_modules\/@ecar/,
-        ],
+        include: [path.resolve(__dirname, '../src'), path.resolve(__dirname, '../../../packages')],
         use: babelLoaderRuleItems,
       },
       {
@@ -105,10 +101,7 @@ const dev = {
       {
         test: /\.svg$/,
         exclude: /node_modules/,
-        use: [
-          'svg-sprite-loader',
-          // 'svgo-loader',  Node.js tool for optimizing SVG files @https://github.com/svg/svgo
-        ],
+        use: ['svg-sprite-loader', 'svgo-loader'],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/, // 字体
