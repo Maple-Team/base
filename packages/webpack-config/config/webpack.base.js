@@ -1,7 +1,6 @@
 const path = require('path')
 const child = require('child_process')
 const { ProvidePlugin, DefinePlugin } = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const dayjs = require('dayjs')
@@ -76,46 +75,6 @@ const config = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      inject: true,
-      hash: true,
-      cache: false,
-      templateContent: () => `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <title>webpack example</title> 
-      </head>
-      <body>
-        <!-- // TODO LOADING 主题变量-->
-        <div id="app"></div>
-      </body> 
-    </html>
-      `,
-      meta: {
-        viewport: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no',
-        a: {
-          'http-Equiv': 'Content-Type',
-          content: 'text/html; charset=utf-8',
-        },
-        b: {
-          'http-equiv': 'X-UA-Compatible',
-          content: 'IE=edge',
-        },
-        c: {
-          'http-equiv': 'expires',
-          content: 'Wed, 26 Feb 1997 08:21:57 GMT',
-        },
-        d: {
-          'http-equiv': 'pragma',
-          content: 'no-cache',
-        },
-        e: {
-          'http-equiv': 'Cache-Control',
-          content: 'no-store, must-revalidate',
-        },
-      },
-    }),
     new MapleHtmlWebpackPlugin(
       [
         {
