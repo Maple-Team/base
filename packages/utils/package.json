@@ -23,7 +23,7 @@
     "types": "./types/index.d.ts"
   },
   "scripts": {
-    "prebuild": "npx rimraf es lib",
+    "prebuild": "npx rimraf es lib types",
     "prepublish": "pnpm run build",
     "build:watch": "tsc -w",
     "build": "npm run build:es & npm run build:commonjs",

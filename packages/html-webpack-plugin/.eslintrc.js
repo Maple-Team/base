@@ -4,5 +4,7 @@ module.exports = {
     'multiline-ternary': 'off',
     'operator-linebreak': 'off',
     '@typescript-eslint/indent': 'off',
+    indent: 'off',
+    'brace-style': 'off',
   },
 }

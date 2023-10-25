@@ -1,28 +1,17 @@
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import type * as webpack from 'webpack'
-import type { OptionalPick } from '@liutsing/types-utils'
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-type LinkAttribute = OptionalPick<HTMLLinkElement, 'rel' | 'href'>
-type ScriptAttribute = OptionalPick<HTMLScriptElement, 'src' | 'defer' | 'async'>
-
-// TODO 支持更多注入的
-export type Options = {
-  content?: string
-  tagName: 'script' | 'link'
-} & LinkAttribute &
-  ScriptAttribute
-export default class MapleHtmlWebpackPlugin {
-  /**
-   * @type {Options}
-   */
-  private options
-  private position
-  constructor(options: Options | Options[], position?: 'head' | 'body') {
+class MapleHtmlWebpackPlugin {
+  constructor(options, position) {
     this.options = options
     this.position = position || 'body'
   }
 
-  apply(compiler: webpack.Compiler) {
+  /**
+   *
+   * @param {import('webpack').Compiler} compiler
+   * @returns
+   */
+  apply(compiler) {
     const className = this.constructor.name
     const logger = compiler.getInfrastructureLogger(className)
     return compiler.hooks.compilation.tap(className, (compilation) => {
@@ -30,7 +19,6 @@ export default class MapleHtmlWebpackPlugin {
         logger.info('HtmlWebpackPlugin自定义插件执行...')
         if (this.options) {
           if (!Array.isArray(this.options)) this.options = [this.options]
-
           const tags = this.options.map(({ tagName, src, content, rel, href, ...rest }) => {
             return tagName === 'script'
               ? {
@@ -65,3 +53,4 @@ export default class MapleHtmlWebpackPlugin {
     })
   }
 }
+module.exports = MapleHtmlWebpackPlugin

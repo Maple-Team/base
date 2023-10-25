@@ -103,3 +103,11 @@ const configs = {
       plugin: HtmlWebpackPlugin
     }>
 ```
+
+## TODO
+
+nodejs 库打包产物问题
+
+- https://www.npmjs.com/package/babel-plugin-add-module-exports
+- https://babeljs.io/docs/babel-preset-env
+- https://github.com/open-data-plan/pangu
