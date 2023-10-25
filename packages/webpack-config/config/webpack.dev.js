@@ -36,7 +36,6 @@ const devServer = {
 const dev = {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
-  cache: true,
   plugins: [new ReactRefreshWebpackPlugin()],
   optimization: {
     removeAvailableModules: true,

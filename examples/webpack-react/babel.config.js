@@ -14,7 +14,7 @@ module.exports = (api) => {
       '@babel/preset-typescript',
     ],
     plugins: [
-      // '@babel/plugin-transform-runtime',
+      '@babel/plugin-transform-runtime',
       ['@liutsing/babel-plugin-extract-used-chinese', { filename: 'example-webpack-react.txt' }],
       !api.env('production') ? 'react-refresh/babel' : null,
       api.env('production')

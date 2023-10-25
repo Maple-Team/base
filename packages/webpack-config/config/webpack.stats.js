@@ -6,12 +6,12 @@ const prod = require('./webpack.prod')
  * @type {import("webpack").Configuration}
  */
 const stats = {
-  mode: 'development',
-  // mode: 'production',
+  mode: 'production',
   plugins: [
     new BundleAnalyzerPlugin({
       open: false,
       openAnalyzer: false,
+      analyzerPort: 8888,
     }),
   ],
 }

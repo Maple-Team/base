@@ -1,9 +1,9 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import * as webpack from 'webpack'
-import { OptionalPick } from '@liutsing/types-utils'
+import type * as webpack from 'webpack'
+import type { OptionalPick } from '@liutsing/types-utils'
 
 type LinkAttribute = OptionalPick<HTMLLinkElement, 'rel' | 'href'>
-type ScriptAttribute = OptionalPick<HTMLScriptElement, 'src'>
+type ScriptAttribute = OptionalPick<HTMLScriptElement, 'src' | 'defer' | 'async'>
 
 // TODO 支持更多注入的
 export type Options = {
@@ -17,25 +17,28 @@ export default class MapleHtmlWebpackPlugin {
    */
   private options
   private position
-  constructor(options: Options | Options[], position?: 'header' | 'body') {
+  constructor(options: Options | Options[], position?: 'head' | 'body') {
     this.options = options
     this.position = position || 'body'
   }
 
   apply(compiler: webpack.Compiler) {
-    return compiler.hooks.compilation.tap('MapleHtmlWebpackPlugin', (compilation) => {
-      HtmlWebpackPlugin.getHooks(compilation).alterAssetTagGroups.tapAsync('MapleHtmlWebpackPlugin', (data, cb) => {
+    const className = 'MapleHtmlWebpackPlugin'
+    const logger = compiler.getInfrastructureLogger(className)
+    return compiler.hooks.compilation.tap(className, (compilation) => {
+      HtmlWebpackPlugin.getHooks(compilation).alterAssetTagGroups.tapAsync(className, (data, cb) => {
+        logger.info('HtmlWebpackPlugin自定义插件执行...')
         if (this.options) {
-          if (!Array.isArray(this.options)) {
-            this.options = [this.options]
-          }
-          const tags = this.options.map(({ tagName, src, content, rel, href }) => {
+          if (!Array.isArray(this.options)) this.options = [this.options]
+
+          const tags = this.options.map(({ tagName, src, content, rel, href, ...rest }) => {
             return tagName === 'script'
               ? {
                   tagName,
                   voidTag: false,
                   attributes: {
                     src,
+                    ...rest,
                   },
                   innerHTML: content,
                   meta: {},
@@ -50,10 +53,11 @@ export default class MapleHtmlWebpackPlugin {
                   meta: {},
                 }
           })
-          if (this.position === 'header') {
-            data.headTags.push(...tags)
+          if (this.position === 'head') {
+            const scriptIndex = data.headTags.findIndex((i) => i.tagName === 'script')
+            data.headTags.splice(scriptIndex, 0, ...tags)
           } else {
-            data.bodyTags.push(...tags)
+            data.bodyTags.unshift(...tags)
           }
         }
         cb(null, data)

@@ -68,7 +68,6 @@ class FontMinifyPlugin {
     const logger = compiler.getInfrastructureLogger(className)
     const options = this.options
     compiler.hooks.initialize.tap(className, () => {
-      logger.info(`initialize...`)
       const { isFilePath, words } = options
       // 重新执行webpack时，将之前的文件删除，避免因版本变更导致字体文件越来越大
       if (!isFilePath) return

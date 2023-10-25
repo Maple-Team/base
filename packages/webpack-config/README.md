@@ -51,7 +51,7 @@ module.exports = merge(base, {
 - DefinePlugin
 - OptimizeCSSAssetsPlugin
 
-### tree-shake
+### tree-shaking
 
 ### HMR
 
@@ -59,7 +59,23 @@ module.exports = merge(base, {
 
 ### assets handle
 
+#### css
+
+#### less
+
 #### svg 的处理方式
+
+```tsx
+import IconParking from './icon-parking.svg'
+
+export const IconWrap = () => {
+  return (
+    <div>
+      <IconParking />
+    </div>
+  )
+}
+```
 
 ### 可拓展
 
@@ -68,3 +84,14 @@ module.exports = merge(base, {
 #### postcss-loader
 
 ### dll
+
+## Reference
+
+- [create-react-app](https://www.npmjs.com/package/create-react-app)
+- [vue-cli](https://www.npmjs.com/package/@vue/cli-service)
+- [How To Integrate SVG For Website And React App With Webpack](https://dev.to/antoineamara/how-to-integrate-svg-for-website-and-react-app-with-webpack-3bfb)
+- [How to use SVGs in React](https://blog.logrocket.com/how-to-use-svgs-react/#use-svgs-react)
+- [How to Use the SVG Symbol and React to Create Custom Icons](https://javascript.plainenglish.io/using-svg-symbol-to-custom-react-icon-cacf8c41af1)
+- [svgo-loader](https://github.com/svg/svgo-loader)
+- [svgr](https://github.com/gregberge/svgr)
+- [webpack-merge](https://github.com/survivejs/webpack-merge)

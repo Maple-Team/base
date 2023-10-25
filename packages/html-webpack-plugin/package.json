@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/html-webpack-plugin",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A plugin to inject addition tag to fullfill html-webpack-plugin",
   "keywords": [
     "webpack",
@@ -29,6 +29,7 @@
   "source": "src/index.ts",
   "jsnext:main": "dist/index.mjs",
   "typings": "types/index.d.ts",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
     "types"
@@ -37,8 +38,8 @@
     "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
-    "prebuild": "rimraf types && rimraf lib",
-    "prepublish": "rimraf types && rimraf lib",
+    "prebuild": "rimraf types dist",
+    "prepublish": "rimraf types dist",
     "test": "jest"
   },
   "prettier": "@liutsing/prettier-config",

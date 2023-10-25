@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 
 import './main.css'
 import './assets/svg-icons'
-
 import { App } from './app'
 
 // const router = createBrowserRouter([

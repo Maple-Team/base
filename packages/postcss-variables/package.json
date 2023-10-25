@@ -17,10 +17,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@192.168.110.136:etlink/frontend/ecar-base.git"
+    "url": ""
   },
   "license": "ISC",
-  "author": "walle <luo.liuqing@ecar.com>",
+  "authors": [
+    "liutsing <liutsingluo@gmail.com>"
+  ],
   "exports": {
     "import": "./dist/index.mjs",
     "require": "./dist/index.js",
@@ -54,8 +56,5 @@
   },
   "peerDependencies": {
     "postcss": "^8.0.0"
-  },
-  "authors": [
-    "walle <liutsingluo@gmail.com>"
-  ]
+  }
 }
