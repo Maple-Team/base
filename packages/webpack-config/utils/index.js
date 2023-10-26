@@ -23,7 +23,10 @@ const getHtmWebpackPlugin = () =>
   </html>
     `,
     meta: {
-      viewport: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no',
+      _: {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+      },
       a: {
         'http-Equiv': 'Content-Type',
         content: 'text/html; charset=utf-8',

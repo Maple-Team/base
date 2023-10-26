@@ -22,28 +22,61 @@ const { version } = require(path.resolve(root, 'package.json'))
  */
 const config = {
   entry: path.resolve(root, './src/main.tsx'),
-  output: {
-    path: path.resolve(root, './dist'),
-    filename: '[name].[contenthash].js',
-    chunkFilename: '[name].[contenthash].js',
-    publicPath: '/',
-    clean: true,
-  },
+
   resolve: {
-    extensions: ['.js', '.ts', '.tsx', '.jsx', '.node', '.wasm', '.css', '.less', '.scss', '.styl'],
+    // 尽可能少
+    extensions: ['.js', '.ts', '.tsx', '.css', '.less'], // extensions: ['.js', '.ts', '.tsx', '.jsx', '.node', '.wasm', '.css', '.less', '.scss', '.styl'],
     alias: {
       '@': path.resolve(root, './src'),
     },
+    mainFiles: ['index'],
+    cacheWithContext: false,
   },
   target: 'web',
-  cache: isDev,
   module: {
     rules: [
       {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
         include: [path.resolve(root, './src')],
-        use: ['babel-loader'],
+        use: [
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: require('os').cpus().length,
+            },
+          },
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    useBuiltIns: 'usage',
+                    corejs: '3.26.1',
+                  },
+                ],
+                ['@babel/preset-react', { development: isDev, runtime: 'automatic' }],
+                '@babel/preset-typescript',
+              ],
+              plugins: [
+                '@babel/plugin-transform-runtime',
+                ['@liutsing/babel-plugin-extract-used-chinese', { filename: 'example-webpack-react.txt' }],
+                isDev ? 'react-refresh/babel' : null,
+                !isDev
+                  ? [
+                      '@liutsing/babel-plugin-remove-console',
+                      {
+                        exclude: ['debug', 'error', 'warn'],
+                      },
+                    ]
+                  : null,
+              ].filter(Boolean),
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,

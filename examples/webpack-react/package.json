@@ -5,7 +5,7 @@
   "sideEffects": false,
   "main": "index.js",
   "scripts": {
-    "temp": "webpack --config config/webpack.temp.js ",
+    "temp": "webpack --config config/webpack.temp.js",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
     "dev:dll": "cross-env NODE_ENV=development webpack --config config/webpack.vendor.js",
     "preserve":"pnpm run dev:dll",
@@ -15,7 +15,8 @@
     "lint:debug": "eslint . --debug",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "postinstall": "pnpx rimraf node_modules/.cache"
   },
   "keywords": [],
   "author": "",
@@ -31,6 +32,8 @@
     "ahooks": "^3.7.8",
     "antd": "^5.10.2",
     "axios": "1.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "lodash-es": "^4.17.21",
     "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^6.17.0"
