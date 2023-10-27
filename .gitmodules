@@ -7,3 +7,6 @@
 [submodule "awaresome/react-starter-kit"]
 	path = awaresome/react-starter-kit
 	url = https://github.com/kriasoft/react-starter-kit.git
+[submodule "awaresome/preload-webpack-plugin"]
+	path = awaresome/preload-webpack-plugin
+	url = https://github.com/vuejs/preload-webpack-plugin.git

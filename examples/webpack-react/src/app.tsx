@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Button } from 'antd'
 import { IconParking } from '@/assets/svg-icons'
+import MarkerCluster from '@/markerCluster'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,7 +44,9 @@ export const App = () => {
       <QueryClientProvider client={queryClient}>
         {/* <Example1 />
     <Example2 /> */}
-        <Example3 />
+        {/* <Example3 />
+         */}
+        <MarkerCluster />
         <ReactQueryDevtools initialIsOpen />
       </QueryClientProvider>
     </StrictMode>

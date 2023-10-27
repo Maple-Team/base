@@ -8,7 +8,7 @@
     "temp": "webpack --config config/webpack.temp.js",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
     "dev:dll": "cross-env NODE_ENV=development webpack --config config/webpack.vendor.js",
-    "preserve":"pnpm run dev:dll",
+    "preserve": "pnpm run dev:dll",
     "stats": "webpack --config config/webpack.stats.js",
     "serve": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
     "lint": "eslint .",
@@ -22,6 +22,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
+    "@ant-design/icons": "^5.2.6",
     "@antv/g2plot": "^2.4.22",
     "@babel/runtime": "^7.23.2",
     "@babel/runtime-corejs3": "^7.23.2",
@@ -32,9 +34,9 @@
     "ahooks": "^3.7.8",
     "antd": "^5.10.2",
     "axios": "1.5.1",
+    "lodash-es": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "lodash-es": "^4.17.21",
     "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^6.17.0"
   },
