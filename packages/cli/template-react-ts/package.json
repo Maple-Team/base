@@ -28,7 +28,7 @@
     "@liutsing/eslint-config": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
     "@liutsing/types-utils": "workspace:*",
-    "@liutsing/tsconfig": "workspace:*",
+    "@liutsing/tsconfig": "0.0.6",
     "@liutsing/webpack-config": "workspace:*",
     "cross-env": "^7.0.3",
     "@testing-library/react-hooks": "^8.0.1"
