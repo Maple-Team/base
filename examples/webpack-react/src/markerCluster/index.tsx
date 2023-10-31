@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import AMapLoader from '@amap/amap-jsapi-loader'
 import { Button, Space } from 'antd'
 import styles from './style.module.css'
+// import './style.module.css' // will be trimed
 import _points from './points.json'
 
 const gridSize = 60
@@ -75,7 +76,7 @@ export default function MapContainer() {
     [points]
   )
   // FIXME point类型变更了
-  console.log(points)
+  // console.log(points)
 
   useEffect(() => {
     AMapLoader.load({

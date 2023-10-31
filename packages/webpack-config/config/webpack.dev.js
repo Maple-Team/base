@@ -52,6 +52,7 @@ const dev = {
   },
   output: {
     pathinfo: false,
+    clean: true,
   },
   watchOptions: {
     aggregateTimeout: 600, // 在第一个文件更改后，添加一个延迟再进行重新构建。这样可以让webpack在此期间聚合其他任何更改，并进行一次重新构建。单位：ms

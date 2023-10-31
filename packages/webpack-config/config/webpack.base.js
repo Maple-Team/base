@@ -17,6 +17,23 @@ const isDev = mode === 'development'
 const envKeys = require('../plugins/env.js')(root)
 
 const { version } = require(path.resolve(root, 'package.json'))
+
+const cssLoaders = [
+  isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+  {
+    loader: 'css-loader',
+    options: {
+      modules: {
+        localIdentName: isDev ? '[name]__[local]' : '[hash:base64]',
+        mode: 'local',
+        auto: true,
+        exportGlobals: true,
+        localIdentContext: path.resolve(__dirname, 'src'),
+      },
+    },
+  },
+  'postcss-loader',
+]
 /**
  * @type {import('webpack').Configuration}
  */
@@ -80,25 +97,11 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
-        sideEffects: true,
+        use: cssLoaders,
       },
       {
-        // FIXME module.css
         test: /\.less$/,
-        use: [
-          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: false,
-            },
-          },
-          'postcss-loader',
-          'less-loader',
-        ],
-        sideEffects: true,
+        use: [...cssLoaders, 'less-loader'],
       },
       {
         test: /\.svg$/,

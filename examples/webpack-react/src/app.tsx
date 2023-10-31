@@ -14,7 +14,7 @@ const queryClient = new QueryClient({
   },
 })
 // NOTE 热加载不能是入口模块!!!!
-const Example3 = () => {
+const _Example3 = () => {
   const [num, setNum] = useState<number>(0)
 
   useEffect(() => {

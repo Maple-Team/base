@@ -5,10 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
  * TODO 传入参数
  * @returns
  */
-const getHtmWebpackPlugin = () =>
+const getHtmWebpackPlugin = (hash = true) =>
   new HtmlWebpackPlugin({
     inject: true,
-    hash: true,
+    hash, // 文件连接hash值
     cache: false,
     templateContent: () => `
     <!DOCTYPE html>

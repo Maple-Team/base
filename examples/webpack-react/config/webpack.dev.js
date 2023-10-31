@@ -19,9 +19,10 @@ const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 // const smp = new SpeedMeasurePlugin()
 
 const config = merge(dev, {
-  entry: path.resolve(__dirname, '../src/main.tsx'),
+  // entry: path.resolve(__dirname, '../src/main.tsx'),
+  entry: path.resolve(__dirname, '../src/test/index.js'),
   plugins: [
-    getHtmWebpackPlugin(),
+    getHtmWebpackPlugin(false),
     new webpack.DllReferencePlugin({
       context: process.cwd(),
       manifest: require(path.join(__dirname, '../public', 'vendor-manifest.json')),
@@ -37,6 +38,16 @@ const config = merge(dev, {
       isFilePath: false,
     }),
   ],
+  devtool: false,
+  optimization: {
+    usedExports: true, // 使用分析报告
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
+  experiments: {
+    lazyCompilation: false,
+  },
 })
 // FIXME speed-measure-webpack-plugin与@liutsing/html-webpack-plugin不兼容
 // module.exports = smp.wrap(config)
