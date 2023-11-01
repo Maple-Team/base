@@ -228,6 +228,9 @@ importers:
       webpack:
         specifier: ^5.89.0
         version: registry.npmjs.org/webpack@5.89.0
+      webpack-dev-middleware:
+        specifier: ^6.1.1
+        version: 6.1.1(webpack@5.89.0)
 
   examples/cra-demo:
     dependencies:
@@ -519,6 +522,9 @@ importers:
       axios:
         specifier: 1.5.1
         version: 1.5.1
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -607,6 +613,9 @@ importers:
       css-loader:
         specifier: ^6.8.1
         version: 6.8.1(webpack@5.89.0)
+      express:
+        specifier: ^4.18.2
+        version: 4.18.2(supports-color@6.1.0)
       html-webpack-plugin:
         specifier: ^5.5.3
         version: 5.5.3(webpack@5.89.0)
@@ -9680,7 +9689,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.22.1
-      caniuse-lite: 1.0.30001547
+      caniuse-lite: 1.0.30001486
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -24233,7 +24242,7 @@ packages:
       eslint-visitor-keys: 3.4.1
       espree: 9.5.2
       esquery: 1.5.0
-      lodash: registry.npmjs.org/lodash@4.17.21
+      lodash: 4.17.21
       semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
@@ -24594,6 +24603,23 @@ packages:
       range-parser: 1.2.1
       schema-utils: 4.2.0
       webpack: 5.76.0
+    dev: true
+
+  /webpack-dev-middleware@6.1.1(webpack@5.89.0):
+    resolution: {integrity: sha512-y51HrHaFeeWir0YO4f0g+9GwZawuigzcAdRNon6jErXy/SqV/+O6eaVAzDqE6t3e3NpGeR5CS+cCDaTC+V3yEQ==}
+    engines: {node: '>= 14.15.0'}
+    peerDependencies:
+      webpack: ^5.0.0
+    peerDependenciesMeta:
+      webpack:
+        optional: true
+    dependencies:
+      colorette: 2.0.20
+      memfs: 3.5.1
+      mime-types: 2.1.35
+      range-parser: 1.2.1
+      schema-utils: 4.2.0
+      webpack: registry.npmjs.org/webpack@5.89.0
     dev: true
 
   /webpack-dev-server@3.11.3(webpack-cli@4.10.0)(webpack@5.82.1):
@@ -28475,7 +28501,7 @@ packages:
       is-otf: registry.npmjs.org/is-otf@0.1.2
       is-svg: registry.npmjs.org/is-svg@4.4.0
       is-ttf: registry.npmjs.org/is-ttf@0.2.2
-      lodash: registry.npmjs.org/lodash@4.17.21
+      lodash: 4.17.21
       meow: registry.npmjs.org/meow@10.1.5
       pako: registry.npmjs.org/pako@2.1.0
       replace-ext: registry.npmjs.org/replace-ext@2.0.0
@@ -28995,11 +29021,6 @@ packages:
     name: lodash.mergewith
     version: 4.6.2
     dev: true
-
-  registry.npmjs.org/lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==, registry: https://registry.npmmirror.com/, tarball: https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz}
-    name: lodash
-    version: 4.17.21
 
   registry.npmjs.org/loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==, registry: https://registry.npmmirror.com/, tarball: https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz}
