@@ -9689,7 +9689,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.22.1
-      caniuse-lite: 1.0.30001486
+      caniuse-lite: 1.0.30001547
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0

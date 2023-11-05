@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import AMapLoader from '@amap/amap-jsapi-loader'
 import { Button, Space } from 'antd'
-import styles from './style.module.css'
 // import './style.module.css' // will be trimed
+import styles from './style.modules.css'
 import _points from './points.json'
 
 const gridSize = 60
