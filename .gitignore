@@ -6,3 +6,4 @@ dist
 .rollup.cache
 coverage
 *.log
+.npmrc

@@ -1,0 +1,43 @@
+{
+  "name": "react-ts-starter",
+  "private": true,
+  "version": "1.0.0",
+  "sideEffects": false,
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
+    "serve": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
+    "lint": "eslint .",
+    "lint:debug": "eslint . --debug",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.23.2",
+    "core-js": "^3.33.1",
+    "@babel/runtime-corejs3": "^7.23.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.1",
+    "typescript": "^5.0.4",
+    "tailwindcss": "^3.3.4",
+    "@liutsing/babel-plugin-remove-console": "workspace:*",
+    "@liutsing/eslint-config": "workspace:*",
+    "@liutsing/prettier-config": "workspace:*",
+    "@liutsing/types-utils": "workspace:*",
+    "@liutsing/tsconfig": "0.0.6",
+    "@liutsing/webpack-config": "workspace:*",
+    "cross-env": "^7.0.3",
+    "@testing-library/react-hooks": "^8.0.1"
+  },
+  "prettier": "@liutsing/prettier-config",
+  "simple-git-hooks": {
+    "pre-commit": "pnpx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
