@@ -8,31 +8,24 @@ const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 
 // const LifeCycleWebpackPlugin = require('@liutsing/lifecycle-webpack-plugin')
 // const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
-
+// new LifeCycleWebpackPlugin({
+//   compile: () => {
+//     console.log('\n compile \n', new Date())
+//   },
+//   done: () => {
+//     console.log('\n done \n', new Date())
+//   },
+// }),
 // const smp = new SpeedMeasurePlugin()
 
 const config = merge(dev, {
-  entry: path.resolve(__dirname, '../src/main.tsx'),
-  mode: 'development',
-  resolve: {
-    alias: {
-      react: path.resolve(__dirname, '../../../node_modules/react'),
-      'react-dom': path.resolve(__dirname, '../../../node_modules/react-dom'),
-    },
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
-  watchOptions: {
-    ignored: ['**/public/fonts', '**/node_modules'],
-  },
+  // entry: path.resolve(__dirname, '../src/main.tsx'),
+  entry: path.resolve(__dirname, '../src/test/index.js'),
   plugins: [
-    getHtmWebpackPlugin(),
+    getHtmWebpackPlugin(false),
     new webpack.DllReferencePlugin({
-      context: path.resolve(__dirname, '../'),
-      manifest: path.join(__dirname, '../public', 'vendor-manifest.json'),
+      context: process.cwd(),
+      manifest: require(path.join(__dirname, '../public', 'vendor-manifest.json')),
     }),
     new MapleHtmlWebpackPlugin([{ tagName: 'script', src: 'vendor.bundle.js', defer: true }], 'head'),
     new FontMinifyPlugin({
@@ -44,15 +37,17 @@ const config = merge(dev, {
       words: '魑魅魍魉',
       isFilePath: false,
     }),
-    // new LifeCycleWebpackPlugin({
-    //   compile: () => {
-    //     console.log('\n compile \n', new Date())
-    //   },
-    //   done: () => {
-    //     console.log('\n done \n', new Date())
-    //   },
-    // }),
   ],
+  devtool: false,
+  optimization: {
+    usedExports: true, // 使用分析报告
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
+  experiments: {
+    lazyCompilation: false,
+  },
 })
 // FIXME speed-measure-webpack-plugin与@liutsing/html-webpack-plugin不兼容
 // module.exports = smp.wrap(config)

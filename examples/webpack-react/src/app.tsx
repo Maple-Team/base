@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Button } from 'antd'
 import { IconParking } from '@/assets/svg-icons'
+import MarkerCluster from '@/markerCluster'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -13,7 +14,7 @@ const queryClient = new QueryClient({
   },
 })
 // NOTE 热加载不能是入口模块!!!!
-const Example3 = () => {
+const _Example3 = () => {
   const [num, setNum] = useState<number>(0)
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const Example3 = () => {
       <Button onClick={onIncrease}>+</Button>
       测试 准备一下
       <IconParking />
-      哈哈 123
+      哈哈
     </div>
   )
 }
@@ -43,7 +44,9 @@ export const App = () => {
       <QueryClientProvider client={queryClient}>
         {/* <Example1 />
     <Example2 /> */}
-        <Example3 />
+        {/* <Example3 />
+         */}
+        <MarkerCluster />
         <ReactQueryDevtools initialIsOpen />
       </QueryClientProvider>
     </StrictMode>

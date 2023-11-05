@@ -9,7 +9,11 @@ module.exports = {
       'react-dom',
       'axios',
       // 'dayjs',
+      '@tanstack/react-query',
       'react-router-dom',
+      'antd',
+      'ahooks',
+      'lodash-es',
     ],
   },
   output: {

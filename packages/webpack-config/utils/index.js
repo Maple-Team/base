@@ -5,10 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
  * TODO 传入参数
  * @returns
  */
-const getHtmWebpackPlugin = () =>
+const getHtmWebpackPlugin = (hash = true) =>
   new HtmlWebpackPlugin({
     inject: true,
-    hash: true,
+    hash, // 文件连接hash值
     cache: false,
     templateContent: () => `
     <!DOCTYPE html>
@@ -23,7 +23,10 @@ const getHtmWebpackPlugin = () =>
   </html>
     `,
     meta: {
-      viewport: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no',
+      _: {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+      },
       a: {
         'http-Equiv': 'Content-Type',
         content: 'text/html; charset=utf-8',

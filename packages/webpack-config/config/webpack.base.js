@@ -17,55 +17,91 @@ const isDev = mode === 'development'
 const envKeys = require('../plugins/env.js')(root)
 
 const { version } = require(path.resolve(root, 'package.json'))
+
+const cssLoaders = [
+  isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+  {
+    loader: 'css-loader',
+    options: {
+      modules: {
+        localIdentName: isDev ? '[name]__[local]' : '[hash:base64]',
+        mode: 'local',
+        auto: true,
+        exportGlobals: true,
+        localIdentContext: path.resolve(__dirname, 'src'),
+      },
+    },
+  },
+  'postcss-loader',
+]
 /**
  * @type {import('webpack').Configuration}
  */
 const config = {
   entry: path.resolve(root, './src/main.tsx'),
-  output: {
-    path: path.resolve(root, './dist'),
-    filename: '[name].[contenthash].js',
-    chunkFilename: '[name].[contenthash].js',
-    publicPath: '/',
-    clean: true,
-  },
+
   resolve: {
-    extensions: ['.js', '.ts', '.tsx', '.jsx', '.node', '.wasm', '.css', '.less', '.scss', '.styl'],
+    // 尽可能少
+    extensions: ['.js', '.ts', '.tsx', '.css', '.less'], // extensions: ['.js', '.ts', '.tsx', '.jsx', '.node', '.wasm', '.css', '.less', '.scss', '.styl'],
     alias: {
       '@': path.resolve(root, './src'),
     },
+    mainFiles: ['index'],
+    cacheWithContext: false,
   },
   target: 'web',
-  cache: isDev,
   module: {
     rules: [
       {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
         include: [path.resolve(root, './src')],
-        use: ['babel-loader'],
+        use: [
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: require('os').cpus().length,
+            },
+          },
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    useBuiltIns: 'usage',
+                    corejs: '3.26.1',
+                  },
+                ],
+                ['@babel/preset-react', { development: isDev, runtime: 'automatic' }],
+                '@babel/preset-typescript',
+              ],
+              plugins: [
+                '@babel/plugin-transform-runtime',
+                ['@liutsing/babel-plugin-extract-used-chinese', { filename: 'example-webpack-react.txt' }],
+                isDev ? 'react-refresh/babel' : null,
+                !isDev
+                  ? [
+                      '@liutsing/babel-plugin-remove-console',
+                      {
+                        exclude: ['debug', 'error', 'warn'],
+                      },
+                    ]
+                  : null,
+              ].filter(Boolean),
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
-        use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
-        sideEffects: true,
+        use: cssLoaders,
       },
       {
-        // FIXME module.css
         test: /\.less$/,
-        use: [
-          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: false,
-            },
-          },
-          'postcss-loader',
-          'less-loader',
-        ],
-        sideEffects: true,
+        use: [...cssLoaders, 'less-loader'],
       },
       {
         test: /\.svg$/,

@@ -1,9 +1,52 @@
 declare type AnyToFix = any
 
+// CSS modules
+type CSSModuleClasses = { readonly [key: string]: string }
+
+declare module '*.module.css' {
+  const classes: CSSModuleClasses
+  export default classes
+}
+declare module '*.module.scss' {
+  const classes: CSSModuleClasses
+  export default classes
+}
+declare module '*.module.sass' {
+  const classes: CSSModuleClasses
+  export default classes
+}
+declare module '*.module.less' {
+  const classes: CSSModuleClasses
+  export default classes
+}
+declare module '*.module.styl' {
+  const classes: CSSModuleClasses
+  export default classes
+}
+declare module '*.module.stylus' {
+  const classes: CSSModuleClasses
+  export default classes
+}
+
+// css
 declare module '*.less' {
-  const css: AnyToFix
+  const css: string
   export default css
 }
+
+declare module '*.css' {
+  const css: string
+  export default css
+}
+declare module '*.scss' {
+  const css: string
+  export default css
+}
+declare module '*.styl' {
+  const css: string
+  export default css
+}
+// image
 declare module '*.png' {
   const src: string
   export default src
@@ -22,8 +65,11 @@ declare module '*.gif' {
 }
 
 declare module '*.svg' {
-  const src: string
-  export default src
+  const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>
+  const content: string
+
+  export { ReactComponent }
+  export default content
 }
 
 // fonts
@@ -40,8 +86,8 @@ declare module 'process' {
   global {
     namespace NodeJS {
       export interface ProcessEnv {
-        tag: 'dev' | 'test' | 'pro' | 'loc' | 'sit'
-        mode: 'dev' | 'test' | 'pro' | 'sit'
+        tag: 'dev' | 'test' | 'pro'
+        mode: 'dev' | 'test' | 'pro'
         version: string
       }
     }

@@ -11,5 +11,7 @@ module.exports = {
       },
     ],
     'brace-style': 'off',
+    'operator-linebreak': 'off',
+    indent: 'off',
   },
 }
