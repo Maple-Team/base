@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
-import * as d3 from 'd3'
+import { select } from 'd3'
 import '../App.css'
 
 const AppOther2 = () => {
   useEffect(() => {
-    const svg = d3.select('#area')
+    const svg = select('#area')
     svg.selectAll('*').remove()
-
     svg.append('circle').attr('cx', 40).attr('cy', 40).attr('r', 40).style('fill', 'yellow')
     svg.append('circle').attr('cx', 120).attr('cy', 40).attr('r', 40).style('fill', 'purple')
     svg.append('circle').attr('cx', 80).attr('cy', 110).attr('r', 40).style('fill', 'green')

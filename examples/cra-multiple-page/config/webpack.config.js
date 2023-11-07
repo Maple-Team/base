@@ -174,6 +174,24 @@ module.exports = function (webpackEnv) {
     return loaders
   }
 
+  const entry = Object.assign(
+    {
+      'react-vendors': ['react', 'react-dom'],
+      d3: {
+        import: ['d3'],
+        dependOn: 'react-vendors',
+      },
+    },
+    ...paths.getEntryPoints().map((m) => {
+      return {
+        [m[0]]: {
+          import: [Object.entries(m[1]).find((e) => e[0] === 'js')[1]],
+          dependOn: m[0].startsWith('other') ? ['react-vendors', 'd3'] : 'react-vendors',
+        },
+      }
+    })
+  )
+
   return {
     target: ['browserslist'],
     // Webpack noise constrained to errors and warnings
@@ -188,12 +206,7 @@ module.exports = function (webpackEnv) {
       : isEnvDevelopment && 'cheap-module-source-map',
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
-    entry: Object.assign(
-      {},
-      ...paths.getEntryPoints().map((m) => {
-        return { [m[0]]: [Object.entries(m[1]).find((e) => e[0] === 'js')[1]] }
-      })
-    ),
+    entry,
     output: {
       // The build folder.
       path: paths.appBuild,
@@ -536,7 +549,9 @@ module.exports = function (webpackEnv) {
             {},
             {
               inject: true,
-              chunks: [m.chunkname],
+              chunks: (m.filename.startsWith('other') ? ['react-vendors', 'd3'] : ['react-vendors']).concat([
+                m.chunkname,
+              ]),
               template: m.template,
               filename: m.filename,
             },

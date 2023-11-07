@@ -562,6 +562,9 @@ importers:
       '@types/d3':
         specifier: ^7.4.2
         version: 7.4.2
+      webpack-bundle-analyzer:
+        specifier: ^4.9.1
+        version: 4.9.1
 
   examples/rspack-react:
     dependencies:
@@ -6111,7 +6114,7 @@ packages:
     resolution: {integrity: sha512-wLvjwdOQVd1NL1IcW90CCt1VtpeZ3V20p/OTXlkT8uAiprrJnq2PNNnRNe1QCez4U9aMU29Z14zpJQVLW1+Lcg==}
     dependencies:
       '@types/d3-array': 3.2.0
-      '@types/geojson': 7946.0.12
+      '@types/geojson': 7946.0.13
     dev: true
 
   /@types/d3-delaunay@6.0.3:
@@ -6153,7 +6156,7 @@ packages:
   /@types/d3-geo@3.0.7:
     resolution: {integrity: sha512-j5I/HcDPe0z8AjUnjpweKtzjx+aTGU8Q6R6jnR4jqVlhHBp82hedaT31HVCEsIatacNtSe12XuibJDCQAP0zRg==}
     dependencies:
-      '@types/geojson': 7946.0.12
+      '@types/geojson': 7946.0.13
     dev: true
 
   /@types/d3-hierarchy@3.1.5:
@@ -6299,8 +6302,8 @@ packages:
       '@types/qs': 6.9.9
       '@types/serve-static': 1.15.4
 
-  /@types/geojson@7946.0.12:
-    resolution: {integrity: sha512-uK2z1ZHJyC0nQRbuovXFt4mzXDwf27vQeUWNhfKGwRcWW429GOhP8HxUHlM6TLH4bzmlv/HlEjpvJh3JfmGsAA==}
+  /@types/geojson@7946.0.13:
+    resolution: {integrity: sha512-bmrNrgKMOhM3WsafmbGmC+6dsF2Z308vLFsQ3a/bT8X8Sv5clVYpPars/UPq+sAaJP+5OoLAYgwbkS5QEJdLUQ==}
     dev: true
 
   /@types/glob@7.2.0:

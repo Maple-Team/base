@@ -1,6 +1,6 @@
 # 建立一个新的镜像文件，配置模板：新建立的镜像是以adoptopenjdk/openjdk11:jre-nightly为基础模板
 # FROM nginx:stable
-FROM nginx:1.23
+FROM nginx:1.25.3
 
 # 维护者
 MAINTAINER author <shi.gangyuan@ecar.com>
