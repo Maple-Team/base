@@ -188,7 +188,12 @@ module.exports = function (webpackEnv) {
       : isEnvDevelopment && 'cheap-module-source-map',
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
-    entry: paths.appIndexJs,
+    entry: Object.assign(
+      {},
+      ...paths.getEntryPoints().map((m) => {
+        return { [m[0]]: [Object.entries(m[1]).find((e) => e[0] === 'js')[1]] }
+      })
+    ),
     output: {
       // The build folder.
       path: paths.appBuild,
@@ -196,7 +201,7 @@ module.exports = function (webpackEnv) {
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
-      filename: isEnvProduction ? 'static/js/[name].[contenthash:8].js' : isEnvDevelopment && 'static/js/bundle.js',
+      filename: isEnvProduction ? 'static/js/[name].[contenthash:8].js' : isEnvDevelopment && 'static/[name]/bundle.js',
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction
         ? 'static/js/[name].[contenthash:8].chunk.js'
@@ -525,31 +530,35 @@ module.exports = function (webpackEnv) {
     },
     plugins: [
       // Generates an `index.html` file with the <script> injected.
-      new HtmlWebpackPlugin(
-        Object.assign(
-          {},
-          {
-            inject: true,
-            template: paths.appHtml,
-          },
-          isEnvProduction
-            ? {
-                minify: {
-                  removeComments: true,
-                  collapseWhitespace: true,
-                  removeRedundantAttributes: true,
-                  useShortDoctype: true,
-                  removeEmptyAttributes: true,
-                  removeStyleLinkTypeAttributes: true,
-                  keepClosingSlash: true,
-                  minifyJS: true,
-                  minifyCSS: true,
-                  minifyURLs: true,
-                },
-              }
-            : undefined
+      ...paths.getWebPackPlugins().map((m) => {
+        return new HtmlWebpackPlugin(
+          Object.assign(
+            {},
+            {
+              inject: true,
+              chunks: [m.chunkname],
+              template: m.template,
+              filename: m.filename,
+            },
+            isEnvProduction
+              ? {
+                  minify: {
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    removeRedundantAttributes: true,
+                    useShortDoctype: true,
+                    removeEmptyAttributes: true,
+                    removeStyleLinkTypeAttributes: true,
+                    keepClosingSlash: true,
+                    minifyJS: true,
+                    minifyCSS: true,
+                    minifyURLs: true,
+                  },
+                }
+              : undefined
+          )
         )
-      ),
+      }),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       // https://github.com/facebook/create-react-app/issues/5358
@@ -593,21 +602,24 @@ module.exports = function (webpackEnv) {
       //   `index.html`
       // - "entrypoints" key: Array of files which are included in `index.html`,
       //   can be used to reconstruct the HTML if necessary
-      new WebpackManifestPlugin({
-        fileName: 'asset-manifest.json',
-        publicPath: paths.publicUrlOrPath,
-        generate: (seed, files, entrypoints) => {
-          const manifestFiles = files.reduce((manifest, file) => {
-            manifest[file.name] = file.path
-            return manifest
-          }, seed)
-          const entrypointFiles = entrypoints.main.filter((fileName) => !fileName.endsWith('.map'))
-
-          return {
-            files: manifestFiles,
-            entrypoints: entrypointFiles,
-          }
-        },
+      ...paths.getEntryPoints().map((m) => {
+        return new WebpackManifestPlugin({
+          fileName: `${m[0]}_asset_manifest.json`,
+          publicPath: paths.publicUrlOrPath,
+          generate: (seed, files, entrypoints) => {
+            const manifestFiles = files.reduce((manifest, file) => {
+              manifest[file.name] = file.path
+              return manifest
+            }, seed)
+            const entrypointFiles = Object.entries(entrypoints)
+              .find((f) => f[0] === m[0])[1]
+              .filter((fileName) => !fileName.endsWith('.map'))
+            return {
+              files: manifestFiles,
+              entrypoints: entrypointFiles,
+            }
+          },
+        })
       }),
       // Moment.js is an extremely popular library that bundles large locale files
       // by default due to how webpack interprets its code. This is a practical

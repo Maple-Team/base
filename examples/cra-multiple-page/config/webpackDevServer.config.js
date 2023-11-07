@@ -94,6 +94,15 @@ module.exports = function (proxy, allowedHost) {
       // Paths with dots should still use the history fallback.
       // See https://github.com/facebook/create-react-app/issues/387.
       disableDotRule: true,
+      rewrites: paths
+        .getEntryPoints()
+        .filter((f) => f[1].folder !== '/')
+        .map((m) => {
+          return {
+            from: RegExp(`^${m[1].folder}`),
+            to: `/${m[1].htmlname}`,
+          }
+        }),
       index: paths.publicUrlOrPath,
     },
     // `proxy` is run between `before` and `after` `webpack-dev-server` hooks

@@ -43,7 +43,7 @@ const resolveModule = (resolveFn, filePath) => {
     return resolveFn(`${filePath}.${extension}`)
   }
 
-  return resolveFn(`${filePath}.js`)
+  return resolveFn(`${filePath}.tsx`)
 }
 
 // config after eject: we're in ./config/
@@ -67,5 +67,18 @@ module.exports = {
   swSrc: resolveModule(resolveApp, 'src/service-worker'),
   publicUrlOrPath,
 }
+
+const {
+  getEntryPointPaths,
+  getRequiredFilesList,
+  getBrowserFolder,
+  getWebPackPlugins,
+  getEntryPoints,
+} = require('./entrypaths')
+const entrypoints = getEntryPointPaths(resolveApp, resolveModule)
+module.exports.getEntryPoints = () => getEntryPoints(entrypoints)
+module.exports.getRequiredFiles = () => getRequiredFilesList(getEntryPoints(entrypoints))
+module.exports.getBrowserFolder = () => getBrowserFolder(getEntryPoints(entrypoints))
+module.exports.getWebPackPlugins = () => getWebPackPlugins(getEntryPoints(entrypoints))
 
 module.exports.moduleFileExtensions = moduleFileExtensions
