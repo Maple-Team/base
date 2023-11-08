@@ -5,6 +5,7 @@ const { merge } = require('webpack-merge')
 const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
 const webpack = require('webpack')
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
+const DashboardPlugin = require('webpack-dashboard/plugin')
 
 // const LifeCycleWebpackPlugin = require('@liutsing/lifecycle-webpack-plugin')
 // const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
@@ -19,8 +20,7 @@ const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 // const smp = new SpeedMeasurePlugin()
 
 const config = merge(dev, {
-  // entry: path.resolve(__dirname, '../src/main.tsx'),
-  entry: path.resolve(__dirname, '../src/test/index.js'),
+  entry: [path.resolve(__dirname, '../src/main.tsx'), path.resolve(__dirname, '../src/test/index.js')],
   plugins: [
     getHtmWebpackPlugin(false),
     new webpack.DllReferencePlugin({
@@ -37,6 +37,7 @@ const config = merge(dev, {
       words: '魑魅魍魉',
       isFilePath: false,
     }),
+    new DashboardPlugin(),
   ],
   devtool: false,
   optimization: {
@@ -48,6 +49,18 @@ const config = merge(dev, {
   experiments: {
     lazyCompilation: false,
   },
+  // parallelism: 3000,
+  externalsType: 'script',
+  externals: {
+    lodash: ['https://cdn.jsdelivr.net/npm/lodash@4.17.19/lodash.min.js', '_'],
+    // FIXME not working 顺序问题
+    // react: ['https://static.etlink.ecar.com/js/react_18.2.0_umd_react.development.js', 'React'],
+    // 'react-dom/client': ['https://static.etlink.ecar.com/js/react-dom_18.2.0_umd_react-dom.development.js', 'ReactDom'],
+  },
+  externalsPresets: {
+    web: true,
+  },
+  recordsPath: path.join(__dirname, 'records.json'), // FIXME not working for dev ?
 })
 // FIXME speed-measure-webpack-plugin与@liutsing/html-webpack-plugin不兼容
 // module.exports = smp.wrap(config)

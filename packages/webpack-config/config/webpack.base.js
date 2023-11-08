@@ -5,12 +5,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const dayjs = require('dayjs')
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 
 const currentGitBranch = child.execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
 const hash = child.execSync('git rev-parse HEAD').toString().trim().substring(0, 8)
 
 // TODO 参考vue-cli/cra/其他开源社区分享
-
+// https://github.com/TypeStrong/fork-ts-checker-webpack-plugin
+// https://github.com/webpack-contrib/eslint-webpack-plugin
+// https://github.com/seek-oss/css-modules-typescript-loader
 const root = process.cwd()
 const mode = process.env.NODE_ENV
 const isDev = mode === 'development'
@@ -20,6 +23,12 @@ const { version } = require(path.resolve(root, 'package.json'))
 
 const cssLoaders = [
   isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+  {
+    loader: 'css-modules-typescript-loader',
+    options: {
+      mode: process.env.CI ? 'verify' : 'emit',
+    },
+  },
   {
     loader: 'css-loader',
     options: {
@@ -195,6 +204,7 @@ const config = {
       ...envKeys,
     }),
 
+    new ESLintPlugin(),
     !isDev ? new MiniCssExtractPlugin() : null,
   ].filter(Boolean),
 }

@@ -11,4 +11,6 @@ module.exports = merge(prod, {
     //   words: path.resolve(os.tmpdir(), 'example-webpack-react.txt'),
     // }),
   ],
+  recordsPath: path.join(__dirname, 'records.json'),
+
 })
