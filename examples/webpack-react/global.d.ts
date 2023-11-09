@@ -5,3 +5,5 @@ declare interface BaseResponse<T> {
   message: string
   data: T
 }
+
+declare module 'module_federation/*'
