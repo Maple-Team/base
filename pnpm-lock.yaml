@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@liutsing/enums':
+        specifier: workspace:*
+        version: link:packages/enums
       '@liutsing/rc-components':
         specifier: workspace:*
         version: link:packages/react-components
@@ -405,7 +408,7 @@ importers:
     devDependencies:
       '@rspack/cli':
         specifier: latest
-        version: 0.3.10(react-refresh@0.14.0)
+        version: 0.3.10(react-refresh@0.11.0)
       '@types/react':
         specifier: 18.2.0
         version: 18.2.0
@@ -4601,7 +4604,7 @@ packages:
       node-gyp-build: 4.6.1
     dev: true
 
-  /@pmmmwh/react-refresh-webpack-plugin@0.5.10(react-refresh@0.14.0)(webpack-dev-server@4.13.1)(webpack@5.76.0):
+  /@pmmmwh/react-refresh-webpack-plugin@0.5.10(react-refresh@0.11.0)(webpack-dev-server@4.13.1)(webpack@5.76.0):
     resolution: {integrity: sha512-j0Ya0hCFZPd4x40qLzbhGsh9TMtdb+CJQiso+WxLOPNasohq9cc5SNUcwsZaRH6++Xh91Xkm/xHCkuIiIu0LUA==}
     engines: {node: '>= 10.13'}
     peerDependencies:
@@ -4634,7 +4637,7 @@ packages:
       find-up: 5.0.0
       html-entities: 2.4.0
       loader-utils: 2.0.4
-      react-refresh: 0.14.0
+      react-refresh: 0.11.0
       schema-utils: 3.3.0
       source-map: 0.7.4
       webpack: 5.76.0
@@ -5106,13 +5109,13 @@ packages:
       '@rspack/binding-win32-x64-msvc': 0.3.10
     dev: true
 
-  /@rspack/cli@0.3.10(react-refresh@0.14.0):
+  /@rspack/cli@0.3.10(react-refresh@0.11.0):
     resolution: {integrity: sha512-8GFYSMXU7SWHiYp1CMdRbeDbOBw/Hjd4Q43oDWnHCLlSnKikxC+nLZ0AkOQBTzg6PL2kwwpLDBeZMiUgJ1Qzbw==}
     hasBin: true
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
       '@rspack/core': 0.3.10
-      '@rspack/dev-server': 0.3.10(@rspack/core@0.3.10)(react-refresh@0.14.0)
+      '@rspack/dev-server': 0.3.10(@rspack/core@0.3.10)(react-refresh@0.11.0)
       colorette: 2.0.19
       exit-hook: 3.2.0
       interpret: 3.1.1
@@ -5161,13 +5164,13 @@ packages:
       zod-validation-error: 1.2.0(zod@3.22.4)
     dev: true
 
-  /@rspack/dev-server@0.3.10(@rspack/core@0.3.10)(react-refresh@0.14.0):
+  /@rspack/dev-server@0.3.10(@rspack/core@0.3.10)(react-refresh@0.11.0):
     resolution: {integrity: sha512-u7fgFN7HedxrsNTHu6l0lJjajVeJAKtJ+xdLbMRIo26pa45PRWqOihcK09aYoJriSk8OjolqD+4dRGHfWRMLHg==}
     peerDependencies:
       '@rspack/core': '*'
     dependencies:
       '@rspack/core': 0.3.10
-      '@rspack/plugin-react-refresh': 0.3.10(react-refresh@0.14.0)(webpack-dev-server@4.13.1)(webpack@5.76.0)
+      '@rspack/plugin-react-refresh': 0.3.10(react-refresh@0.11.0)(webpack-dev-server@4.13.1)(webpack@5.76.0)
       chokidar: 3.5.3
       connect-history-api-fallback: 2.0.0
       express: 4.18.1
@@ -5195,7 +5198,7 @@ packages:
       - webpack-plugin-serve
     dev: true
 
-  /@rspack/plugin-react-refresh@0.3.10(react-refresh@0.14.0)(webpack-dev-server@4.13.1)(webpack@5.76.0):
+  /@rspack/plugin-react-refresh@0.3.10(react-refresh@0.11.0)(webpack-dev-server@4.13.1)(webpack@5.76.0):
     resolution: {integrity: sha512-oeCsfEXRguZox5rNyV3ifbyk3G578YZ+5l0ZNCk/tDF5xQnMeJ9vRJ7iFYcHVcuZhZQhuxCwLzeXJ5RNWleqig==}
     peerDependencies:
       react-refresh: '>=0.10.0 <1.0.0'
@@ -5203,8 +5206,8 @@ packages:
       react-refresh:
         optional: true
     dependencies:
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.10(react-refresh@0.14.0)(webpack-dev-server@4.13.1)(webpack@5.76.0)
-      react-refresh: 0.14.0
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.10(react-refresh@0.11.0)(webpack-dev-server@4.13.1)(webpack@5.76.0)
+      react-refresh: 0.11.0
       schema-utils: 4.2.0
     transitivePeerDependencies:
       - '@types/webpack'
@@ -12141,7 +12144,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.5
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
@@ -18118,7 +18121,6 @@ packages:
   /react-refresh@0.11.0:
     resolution: {integrity: sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==}
     engines: {node: '>=0.10.0'}
-    dev: false
 
   /react-refresh@0.14.0:
     resolution: {integrity: sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==}

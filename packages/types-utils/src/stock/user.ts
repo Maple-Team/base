@@ -1,8 +1,4 @@
-export enum UserRole {
-  ADMIN = 'admin',
-  USER = 'user',
-  GUEST = 'guest',
-}
+import type { UserRole } from '@liutsing/enums'
 
 export interface UserInfo {
   role: UserRole
@@ -14,6 +10,7 @@ export interface UserInfo {
   createdAt: string
   updatedAt: string
   password?: string
+  feature: string
 }
 
 export type UserAccount = Pick<UserInfo, 'phone'> & {
