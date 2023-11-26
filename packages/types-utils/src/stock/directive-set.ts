@@ -1,3 +1,4 @@
+import type { Directive } from './directive'
 import type { Exhibits } from './exhibits'
 
 export interface DirectiveSet {
@@ -6,4 +7,5 @@ export interface DirectiveSet {
   id: number
   opacity: number
   isCycle: boolean
+  directives: Directive[]
 }
