@@ -19,8 +19,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "server": "node config/server.js",
-    "lint:fix": "eslint . --fix",
-    "postinstall": "pnpx rimraf node_modules/.cache"
+    "lint:fix": "eslint . --fix"
   },
   "keywords": [],
   "author": "",
