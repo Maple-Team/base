@@ -19,8 +19,8 @@ const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 // const smp = new SpeedMeasurePlugin()
 
 const config = merge(dev, {
-  // entry: path.resolve(__dirname, '../src/main.tsx'),
-  entry: path.resolve(__dirname, '../src/test/index.js'),
+  entry: path.resolve(__dirname, '../src/main.tsx'),
+  // entry: path.resolve(__dirname, '../src/test/index.js'),
   plugins: [
     getHtmWebpackPlugin(false),
     new webpack.DllReferencePlugin({
@@ -28,11 +28,11 @@ const config = merge(dev, {
       manifest: require(path.join(__dirname, '../public', 'vendor-manifest.json')),
     }),
     new MapleHtmlWebpackPlugin([{ tagName: 'script', src: 'vendor.bundle.js', defer: true }], 'head'),
-    new FontMinifyPlugin({
-      words: path.resolve(os.tmpdir(), 'example-webpack-react.txt'),
-      fontSource: path.resolve(__dirname, '../../../packages/font-minify-plugin/puhui2/AlibabaPuHuiTi_2_65_Medium.ttf'),
-      fontDistFilename: 'AlibabaPuHuiTi_2_65_Medium',
-    }),
+    // new FontMinifyPlugin({
+    //   words: path.resolve(os.tmpdir(), 'example-webpack-react.txt'),
+    //   fontSource: path.resolve(__dirname, '../../../packages/font-minify-plugin/puhui2/AlibabaPuHuiTi_2_65_Medium.ttf'),
+    //   fontDistFilename: 'AlibabaPuHuiTi_2_65_Medium',
+    // }),
     new FontMinifyPlugin({
       words: '魑魅魍魉',
       isFilePath: false,

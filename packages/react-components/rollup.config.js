@@ -1,5 +1,4 @@
 import path from 'node:path'
-import fs from 'node:fs'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import babel from '@rollup/plugin-babel'
@@ -13,7 +12,8 @@ import extractCss from '@liutsing/rollup-plugin-extract-style'
 
 const projectRootDir = path.resolve(__dirname)
 const packageJson = require('./package.json')
-const outputDir = 'dist/css'
+
+// const outputDir = 'dist/css'
 const customResolver = resolve({
   extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.sass', '.scss'],
 })
@@ -75,7 +75,7 @@ const config = [
       }),
       extractCss(),
     ],
-    external: ['react'],
+    external: ['react', 'react-dom'],
   },
   {
     input: 'dist/esm/index.d.ts',

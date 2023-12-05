@@ -5,7 +5,6 @@
   "keywords": [],
   "license": "ISC",
   "author": "liutsing<liutsingluo@gmail.com>",
-  "sideEffects": false,
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
@@ -42,6 +41,15 @@
     "rollup-plugin-terser": "^7.0.2"
   },
   "peerDependencies": {
-    "react": "^18.2.0"
-  }
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "resolutions": {
+    "@types/react": "18",
+    "@types/react-dom": "18"
+  },
+  "sideEffects": [
+    "**/*.css",
+    "**/*.less"
+  ]
 }
