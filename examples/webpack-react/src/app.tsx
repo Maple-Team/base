@@ -2,7 +2,8 @@ import React, { StrictMode, useCallback, useEffect, useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Button } from 'antd'
-import { show } from '@liutsing/rc-components'
+import { Dialog } from '@liutsing/rc-components'
+import '@liutsing/rc-components/dist/index.css'
 import { IconParking } from '@/assets/svg-icons'
 
 const queryClient = new QueryClient({
@@ -27,21 +28,17 @@ const Example3 = () => {
   }, [num])
 
   const onIncrease = useCallback(() => setNum((num) => num + 1), [])
+  const onShowDialog = useCallback(() => {
+    Dialog.show({ title: '这是一个标题', content: '一大段的文本内容' })
+  }, [])
 
   return (
     <div>
       {num}
       <Button onClick={onIncrease}>+</Button>
-      测试 准备一下
+      测试字体文本
       <IconParking />
-      哈哈
-      <div
-        onClick={() => {
-          show('show')
-        }}
-      >
-        动态挂载组件
-      </div>
+      <div onClick={onShowDialog}>显示弹窗</div>
     </div>
   )
 }
