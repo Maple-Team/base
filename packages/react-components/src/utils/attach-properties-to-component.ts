@@ -1,5 +1,6 @@
 /**
  * react组件对象拓展属性
+ * 相当于组件添加静态属性
  * @param el
  * @param properties
  * @returns

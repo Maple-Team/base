@@ -10,11 +10,14 @@ interface ImperativeProps {
 
 type TargetElement = ReactElement<ImperativeProps>
 
+/**
+ * 命令式handler
+ */
 export interface ImperativeHandler {
   close: () => void
   replace: (element: TargetElement) => void
 }
-
+// FIXME 理解
 export function renderImperatively(element: TargetElement) {
   const Wrapper = React.forwardRef<ImperativeHandler>((_, ref) => {
     const [visible, setVisible] = useState(false)
