@@ -57,12 +57,12 @@ const config = {
         exclude: /node_modules/,
         include: [path.resolve(root, './src')],
         use: [
-          {
-            loader: 'thread-loader',
-            options: {
-              workers: require('os').cpus().length,
-            },
-          },
+          //   {
+          //     loader: 'thread-loader',
+          //     options: {
+          //       workers: require('os').cpus().length,
+          //     },
+          //   },
           {
             loader: 'babel-loader',
             options: {
