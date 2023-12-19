@@ -1,0 +1,40 @@
+import { Dialog, Message } from '@liutsing/rc-components'
+import { Button } from 'antd'
+import React, { useCallback, useEffect, useState } from 'react'
+import { IconParking } from '@/assets/svg-icons'
+import '@liutsing/rc-components/dist/index.css'
+
+const Example3 = () => {
+  const [num, setNum] = useState<number>(0)
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      console.log(num)
+    }, 1000)
+    return () => {
+      intervalId && clearInterval(intervalId)
+    }
+  }, [num])
+
+  const onIncrease = useCallback(() => setNum((num) => num + 1), [])
+  const onShowDialog = useCallback(() => {
+    Dialog.show({ title: '这是一个标题', content: '一大段的文本内容' })
+  }, [])
+  const onShowMessage = useCallback(() => {
+    Message.success('测试下')
+  }, [])
+
+  return (
+    <div>
+      {num}
+      <Button onClick={onIncrease}>+</Button>
+      <div>触发chunk content-hash change</div>
+      <div>触发chunk content-hash change</div>
+      <IconParking />
+      <div onClick={onShowDialog}>显示Dialog</div>
+      <div onClick={onShowMessage}>显示Message</div>
+    </div>
+  )
+}
+
+export default Example3

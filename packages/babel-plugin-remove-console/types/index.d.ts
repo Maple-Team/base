@@ -1,4 +1,4 @@
-import { PluginObj } from '@babel/core';
+import type { PluginObj } from '@babel/core';
 export interface Option {
     /**
      * 排除的项，如debug、error、warn等
