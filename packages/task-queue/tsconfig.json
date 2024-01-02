@@ -1,0 +1,5 @@
+{
+  "extends": "@liutsing/tsconfig",
+  "exclude": ["jest.config.ts", "types"],
+  "include": ["src", "global.d.ts"]
+}
