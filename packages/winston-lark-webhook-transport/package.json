@@ -1,0 +1,50 @@
+{
+  "name": "@liutsing/winston-lark-webhook-transport",
+  "version": "0.0.4",
+  "main": "index.js",
+  "typings": "./index.d.ts",
+  "scripts": {
+    "prettier": "prettier --write \"{,!(node_modules)/**/}*.{js,ts}\"",
+    "test": "jest",
+    "postpublish": "pnpx @liutsing/npmmirror-sync"
+  },
+  "description": "A Lark transport for Winston 3 that logs to a channel via webhooks.",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "liutsingluo <liutsingluo@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "winston",
+    "transport",
+    "lark",
+    "log",
+    "logger",
+    "logging",
+    "webhook"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "#readme",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "README.md"
+  ],
+  "dependencies": {
+    "axios": "^1.6.2",
+    "winston-transport": "^4.6.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "@liutsing/prettier-config": "workspace:*",
+    "@liutsing/eslint-config": "workspace:*",
+    "winston": "^3.11.0"
+  },
+  "prettier": "@liutsing/prettier-config"
+}
