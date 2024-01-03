@@ -9,7 +9,6 @@ export interface Option<T, R> {
    * 在非初始化后修改，需要调用restart才会生效
    */
   interval?: number
-  key?: string
   /**
    * 是否自动开始
    */

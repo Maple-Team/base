@@ -5,7 +5,6 @@ import type { EventCB, ITaskQueue, Option, Task } from './type'
 
 const defaultOption: Option<AnyToFix, AnyToFix> = {
   interval: 1000,
-  key: 'taskQueue',
   autoStart: true,
   wait: false,
   ignoreError: true,
@@ -39,7 +38,7 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
   private executing: Task<T>[] = []
   /** 已执行的任务 */
   private executed: Task<T>[] = []
-  /** 执行任务的方式 */
+  /** 执行任务的方式，这个任务的执行可能是异步的 */
   private taskCommand: ((task: Task<T>) => Promise<R>) | undefined
   private max: undefined
   private eventEmitter: undefined | EventEmitter
@@ -50,16 +49,22 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
 
   constructor(option?: Option<T, R>) {
     Object.assign(this, defaultOption, option)
+    this.executed = []
+    this.executing = []
+    this.queue = []
   }
 
   /**
    * 手动启动任务，如果autoStart=true，在第一条任务添加进队列后，会自动运行
    */
   start() {
-    this.stopSign = false
-    // 取出queue里面的任务进行分异步/同步执行
-    if (this.wait) this.syncRun()
-    else this.asyncRun()
+    return new Promise((resolve) => {
+      this.stopSign = false
+
+      // 取出 queue 里面的任务进行分异步/同步执行
+      if (this.wait) this.syncRun(resolve)
+      else this.asyncRun(resolve)
+    })
   }
 
   /**
@@ -68,7 +73,7 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
   restart() {
     // 进行重启操作，重启后使用新的配置
     this.stop()
-    this.start()
+    this.start().catch(console.error)
   }
 
   /**
@@ -125,7 +130,7 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
       console.warn('task-queue-node Warning: task queue limit %s ', this.max)
     } else if (this.queue.length === 0 && this.autoStart) {
       this.queue.push({ task, no })
-      this.start()
+      this.start().catch(console.error)
     } else {
       this.queue.push({ task, no })
     }
@@ -145,11 +150,13 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
   /**
    * 同步执行任务
    */
-  private syncRun(): void {
+  private syncRun(resolve: (v: void) => void): void {
+    // 引入setTimeout，避免栈溢出
     this.timeoutId = setTimeout(() => {
       if (this.queue.length === 0) {
         this.executed = []
         this.executing = []
+        resolve()
         return
       }
       const job = this.queue.shift()
@@ -157,15 +164,16 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
       this.executing.push(job)
       this.taskCommand?.(job)
         .then((res) => {
-          console.log(`job ${job.task} executed!`)
+          console.log(`${job.task} executed!`)
           // 抛出事件
           this.eventEmitter?.emit('success_event', null, res)
           // 更新已完成的任务队列
           this.executed.push(job)
+          console.log(this.executed)
           // 删除正在执行的队列中的这个已完成的任务
           this.removeTask(job)
           // 下一个任务
-          if (!this.stopSign) this.syncRun()
+          if (!this.stopSign) this.syncRun(resolve)
         })
         .catch((e: Error) => {
           console.error(e)
@@ -181,17 +189,16 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
             return
           }
           // 下一个任务
-          !this.stopSign && this.syncRun()
+          !this.stopSign && this.syncRun(resolve)
         })
       //
     }, this.interval)
-    console.log({ timeoutId: +this.timeoutId })
   }
 
   /**
    * 异步执行任务
    */
-  private asyncRun(): void {
+  private asyncRun(resolve: (v: void) => void): void {
     // 利用定时器执行下一个任务
     this.intervalId = setInterval(() => {
       if (this.queue.length === 0) {
@@ -199,6 +206,7 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
         this.executing = []
         // FIXME  如何确保执行完了呢?
         this.stop()
+        resolve()
         return
       }
       const task = this.queue.shift()

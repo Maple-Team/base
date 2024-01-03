@@ -1,40 +1,56 @@
 import TaskQueue from '../src'
 
-jest.useFakeTimers()
-jest.spyOn(global, 'setTimeout')
-jest.spyOn(global, 'setInterval')
+jest.setTimeout(10 * 1000)
 describe('task queue test cases', () => {
-  beforeEach(() => {
+  afterEach(() => {
     jest.clearAllTimers()
   })
-  it('case 1', () => {
-    const callback = jest.fn()
+  it('case 1', async () => {
+    const TIMEOUT = 1000
+    const cb = jest.fn(() => {
+      console.log('Executing task...')
+      return Promise.resolve('success')
+    })
     const taskQueue = new TaskQueue<string, string>({
-      async taskCommand() {
-        return Promise.resolve(callback())
-      },
+      taskCommand: cb,
       autoStart: false,
       wait: true,
-      interval: 100,
+      interval: TIMEOUT,
     })
 
-    taskQueue.addQueue('1')
-    taskQueue.addQueue('2')
-    taskQueue.addQueue('3')
-    taskQueue.start()
+    taskQueue.addQueue('Task 1')
+    taskQueue.addQueue('Task 2')
+    taskQueue.addQueue('Task 3')
 
     expect(taskQueue.info().waitExecute.length).toEqual(3)
-    expect(taskQueue.info().executed.length).toEqual(0)
-    expect(taskQueue.info().executing.length).toEqual(0)
-    jest.advanceTimersByTime(1000 * 10)
-    jest.runOnlyPendingTimers()
-    expect(setTimeout).toHaveBeenCalledTimes(3)
-    expect(callback).toHaveBeenCalledTimes(1)
-    expect(taskQueue.info().executing.length).toEqual(1)
-    expect(taskQueue.info().waitExecute.length).toEqual(2)
-    jest.advanceTimersByTime(1000)
-    expect(taskQueue.info().waitExecute.length).toEqual(1)
-    // jest.advanceTimersByTime(1000)
-    // expect(taskQueue.info().waitExecute.length).toEqual(0)
+    await taskQueue.start()
+
+    expect(taskQueue.info().waitExecute.length).toEqual(0)
+    expect(cb).toHaveBeenCalled()
+    expect(cb).toHaveBeenCalledTimes(3)
+  })
+  it('case 2', async () => {
+    const TIMEOUT = 1000
+    const cb = jest.fn(() => {
+      console.log('Executing task...')
+      return Promise.resolve('success')
+    })
+    const taskQueue = new TaskQueue<string, string>({
+      taskCommand: cb,
+      autoStart: true,
+      wait: true,
+      interval: TIMEOUT,
+    })
+
+    taskQueue.addQueue('Task 1')
+    taskQueue.addQueue('Task 2')
+    taskQueue.addQueue('Task 3')
+
+    expect(taskQueue.info().waitExecute.length).toEqual(3)
+    await taskQueue.start()
+
+    expect(taskQueue.info().waitExecute.length).toEqual(0)
+    expect(cb).toHaveBeenCalled()
+    expect(cb).toHaveBeenCalledTimes(3)
   })
 })
