@@ -102,6 +102,14 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
     this.eventEmitter?.off('success_event', event)
   }
 
+  on(eventName: string, handler: (...args: AnyToFix[]) => void) {
+    this.eventEmitter?.on(eventName, handler)
+  }
+
+  off(eventName: string, handler: (...args: AnyToFix[]) => void) {
+    this.eventEmitter?.off(eventName, handler)
+  }
+
   info() {
     const executed = this.executed.length
     const queueLength = this.queue.length
@@ -149,6 +157,7 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
       if (this.queue.length === 0) {
         this.executed = []
         this.executing = []
+        this.eventEmitter?.emit('completed_event', null)
         return
       }
       const job = this.queue.shift()
@@ -156,7 +165,6 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
       this.executing.push(job)
       this.taskCommand?.(job)
         .then((res) => {
-          console.log(`job ${job.task} executed!`)
           // 抛出事件
           this.eventEmitter?.emit('success_event', null, res)
           // 更新已完成的任务队列
@@ -197,6 +205,7 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
         this.executing = []
         // FIXME  如何确保执行完了呢?
         this.stop()
+        this.eventEmitter?.emit('completed_event', null)
         return
       }
       const task = this.queue.shift()

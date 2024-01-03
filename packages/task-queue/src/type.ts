@@ -84,6 +84,8 @@ export interface ITaskQueue<T, R> {
    * @returns
    */
   removeSubscribe: (event: EventCB<R>) => void
+  on: (eventName: string, cb: (...args: AnyToFix[]) => void) => void
+  off: (eventName: string, cb: (...args: AnyToFix[]) => void) => void
   /**
    * 任务进度
    * @returns
