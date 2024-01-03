@@ -1,4 +1,4 @@
-import TaskQueue from '../src'
+import TaskQueue from '../src/index2'
 
 jest.setTimeout(10 * 1000)
 describe('task queue test cases', () => {
@@ -45,12 +45,16 @@ describe('task queue test cases', () => {
     taskQueue.addQueue('Task 1')
     taskQueue.addQueue('Task 2')
     taskQueue.addQueue('Task 3')
+    taskQueue.addQueue('Task 4')
+    taskQueue.addQueue('Task 5')
 
-    expect(taskQueue.info().waitExecute.length).toEqual(3)
+    expect(taskQueue.info().waitExecute.length).toEqual(5)
     await taskQueue.start()
+    taskQueue.addQueue('Task 6')
+    taskQueue.addQueue('Task 7')
 
-    expect(taskQueue.info().waitExecute.length).toEqual(0)
+    expect(taskQueue.info().waitExecute.length).toEqual(2)
     expect(cb).toHaveBeenCalled()
-    expect(cb).toHaveBeenCalledTimes(3)
+    expect(cb).toHaveBeenCalledTimes(5)
   })
 })
