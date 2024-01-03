@@ -1,7 +1,15 @@
 import type { EventCB, ITaskQueue, Option, Task } from './type';
+/**
+ * 任务队列
+ *
+ * 类似job的概念
+ *
+ * 微任务/宏任务思想
+ *
+ * TODO 优先级？
+ */
 export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
     private interval;
-    private key;
     private autoStart;
     /**
      * @type {boolean} 是否同步执行任务
@@ -38,7 +46,7 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
     clear(): void;
     subscribe(event: EventCB<R>): void;
     removeSubscribe(event: EventCB<R>): void;
-    progress(): {
+    info(): {
         progress: number;
         executed: Task<T>[];
         executing: Task<T>[];
@@ -53,9 +61,9 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
     /**
      * 同步执行任务
      */
-    private syncMode;
+    private syncRun;
     /**
      * 异步执行任务
      */
-    private asyncMode;
+    private asyncRun;
 }

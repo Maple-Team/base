@@ -4,19 +4,27 @@ import { uuid } from '@liutsing/utils'
 import type { EventCB, ITaskQueue, Option, Task } from './type'
 
 const defaultOption: Option<AnyToFix, AnyToFix> = {
-  interval: 1000, // 时间间隔 在非初始化后修改，需要调用restart才会生效
+  interval: 1000,
   key: 'taskQueue',
   autoStart: true,
-  wait: false, // 是否启用等待执行（上一个任务执行完毕，下一个才开始）  在非初始化后修改，需要调用restart才会生效
-  ignoreError: true, // 是否忽略任务对队列中的错误
+  wait: false,
+  ignoreError: true,
   queue: [],
-  executing: [], // 所有任务执行完成后清除
-  executed: [], // 所有任务执行完成后清除
+  executing: [],
+  executed: [],
   taskCommand: undefined,
-  max: 0, // 队列最大长度 0为不限制
+  max: 0,
   eventEmitter: new events.EventEmitter(),
 }
-
+/**
+ * 任务队列
+ *
+ * 类似job的概念
+ *
+ * 微任务/宏任务思想
+ *
+ * TODO 优先级？
+ */
 export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
   private interval: undefined
   private autoStart: undefined
@@ -50,8 +58,8 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
   start() {
     this.stopSign = false
     // 取出queue里面的任务进行分异步/同步执行
-    if (this.wait) this.syncMode()
-    else this.asyncMode()
+    if (this.wait) this.syncRun()
+    else this.asyncRun()
   }
 
   /**
@@ -95,7 +103,7 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
     this.eventEmitter?.off('success_event', event)
   }
 
-  progress() {
+  info() {
     const executed = this.executed.length
     const queueLength = this.queue.length
     const executing = this.executing.length
@@ -137,50 +145,53 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
   /**
    * 同步执行任务
    */
-  private syncMode(): void {
+  private syncRun(): void {
     this.timeoutId = setTimeout(() => {
       if (this.queue.length === 0) {
         this.executed = []
         this.executing = []
         return
       }
-      const task = this.queue.shift()
-      if (!task) return
-      this.executing.push(task)
-      this.taskCommand?.(task)
+      const job = this.queue.shift()
+      if (!job) return
+      this.executing.push(job)
+      this.taskCommand?.(job)
         .then((res) => {
+          console.log(`job ${job.task} executed!`)
           // 抛出事件
           this.eventEmitter?.emit('success_event', null, res)
           // 更新已完成的任务队列
-          this.executed.push(task)
+          this.executed.push(job)
           // 删除正在执行的队列中的这个已完成的任务
-          this.removeTask(task)
+          this.removeTask(job)
           // 下一个任务
-          !this.stopSign && this.syncMode()
+          if (!this.stopSign) this.syncRun()
         })
         .catch((e: Error) => {
+          console.error(e)
           // 抛出事件
           this.eventEmitter?.emit('success_event', e)
           // 更新已完成的任务队列
-          this.executed.push(task)
+          this.executed.push(job)
           // 删除正在执行的队列中的这个已完成的任务
-          this.removeTask(task)
+          this.removeTask(job)
           if (!this.ignoreError) {
             // 退出程序
             this.stop()
             return
           }
           // 下一个任务
-          !this.stopSign && this.syncMode()
+          !this.stopSign && this.syncRun()
         })
       //
     }, this.interval)
+    console.log({ timeoutId: +this.timeoutId })
   }
 
   /**
    * 异步执行任务
    */
-  private asyncMode(): void {
+  private asyncRun(): void {
     // 利用定时器执行下一个任务
     this.intervalId = setInterval(() => {
       if (this.queue.length === 0) {

@@ -1,5 +1,7 @@
 import type EventEmitter from 'events'
-
+/**
+ * 队列配置项
+ */
 export interface Option<T, R> {
   /**
    * 时间间隔
@@ -22,9 +24,17 @@ export interface Option<T, R> {
    * 是否忽略任务对队列中的错误
    */
   ignoreError?: boolean
-
+  /**
+   * 所有待执行任务
+   */
   queue?: Task<T>[]
+  /**
+   * 所有正在执行的任务
+   */
   executing?: Task<T>[]
+  /**
+   * 所有已执行的任务
+   */
   executed?: Task<T>[]
   /**
    * 具体的执行命令
@@ -33,26 +43,33 @@ export interface Option<T, R> {
    */
   taskCommand?: (task: Task<T>) => Promise<R | void>
   /**
-   * 队列最大长度
+   * 队列最大长度，0为不限制
    */
   max?: number
   /**
-   * 事件定义
+   * 事件模块
    */
   eventEmitter?: EventEmitter
 }
+/**
+ * 进度管理类
+ */
 export interface Progress<T> {
   progress: number
   executing: Task<T>[]
   executed: Task<T>[]
   waitExecute: Task<T>[]
 }
-
+/**
+ * 任务实体
+ */
 export interface Task<T> {
   task: T
   no: string
 }
-
+/**
+ * 事件回调
+ */
 export type EventCB<R> = (e: Error | null, result: R) => void
 
 export interface ITaskQueue<T, R> {
@@ -72,7 +89,7 @@ export interface ITaskQueue<T, R> {
    * 任务进度
    * @returns
    */
-  progress: () => Progress<T>
+  info: () => Progress<T>
   /**
    * 添加任务到队列中
    * @returns
