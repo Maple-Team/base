@@ -105,11 +105,11 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
   }
 
   subscribe(event: EventCB<R>) {
-    this.eventEmitter?.on('success_event', event)
+    this.eventEmitter?.on('success', event)
   }
 
   removeSubscribe(event: EventCB<R>) {
-    this.eventEmitter?.off('success_event', event)
+    this.eventEmitter?.off('success', event)
   }
 
   info() {
@@ -169,7 +169,7 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
         .then((res) => {
           console.log(`${job.task} executed!`)
           // 抛出事件
-          this.eventEmitter?.emit('success_event', null, res)
+          this.eventEmitter?.emit('success', null, res)
           // 更新已完成的任务队列
           this.executed.push(job)
           console.log(this.executed)
@@ -181,7 +181,7 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
         .catch((e: Error) => {
           console.error(e)
           // 抛出事件
-          this.eventEmitter?.emit('success_event', e)
+          this.eventEmitter?.emit('success', e)
           // 更新已完成的任务队列
           this.executed.push(job)
           // 删除正在执行的队列中的这个已完成的任务
@@ -217,12 +217,12 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
       this.executing.push(task)
       this.taskCommand?.(task)
         .then((res) => {
-          this.eventEmitter?.emit('success_event', null, res)
+          this.eventEmitter?.emit('success', null, res)
           this.executed.push(task)
           this.removeTask(task)
         })
         .catch((e: Error) => {
-          this.eventEmitter?.emit('success_event', e)
+          this.eventEmitter?.emit('success', e)
           this.executed.push(task)
           this.removeTask(task)
           if (!this.ignoreError) this.stop()

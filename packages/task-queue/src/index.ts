@@ -1,6 +1,6 @@
 import type { EventEmitter } from 'events'
 import events from 'events'
-import { uuid } from '@liutsing/utils'
+import { sleep, uuid } from '@liutsing/utils'
 import type { EventCB, ITaskQueue, Option, Task } from './type'
 
 const defaultOption: Option<AnyToFix, AnyToFix> = {
@@ -95,11 +95,11 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
   }
 
   subscribe(event: EventCB<R>) {
-    this.eventEmitter?.on('success_event', event)
+    this.eventEmitter?.on('success', event)
   }
 
   removeSubscribe(event: EventCB<R>) {
-    this.eventEmitter?.off('success_event', event)
+    this.eventEmitter?.off('success', event)
   }
 
   on(eventName: string, handler: (...args: AnyToFix[]) => void) {
@@ -152,45 +152,49 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
   /**
    * 同步执行任务
    */
-  private syncRun(): void {
+  private syncRun() {
     this.timeoutId = setTimeout(() => {
-      if (this.queue.length === 0) {
-        this.executed = []
-        this.executing = []
-        this.eventEmitter?.emit('completed_event', null)
-        return
+      const cb = async () => {
+        if (this.queue.length === 0) {
+          this.executed = []
+          this.executing = []
+          await sleep(5 * 1000)
+          // 延迟退出?
+          this.eventEmitter?.emit('completed', null)
+          return
+        }
+        const job = this.queue.shift()
+        if (!job) return
+        this.executing.push(job)
+        this.taskCommand?.(job)
+          .then((res) => {
+            // 抛出事件
+            this.eventEmitter?.emit('success', null, res)
+            // 更新已完成的任务队列
+            this.executed.push(job)
+            // 删除正在执行的队列中的这个已完成的任务
+            this.removeTask(job)
+            // 下一个任务
+            if (!this.stopSign) this.syncRun()
+          })
+          .catch((e: Error) => {
+            console.error(e)
+            // 抛出事件
+            this.eventEmitter?.emit('success', e)
+            // 更新已完成的任务队列
+            this.executed.push(job)
+            // 删除正在执行的队列中的这个已完成的任务
+            this.removeTask(job)
+            if (!this.ignoreError) {
+              // 退出程序
+              this.stop()
+              return
+            }
+            // 下一个任务
+            !this.stopSign && this.syncRun()
+          })
       }
-      const job = this.queue.shift()
-      if (!job) return
-      this.executing.push(job)
-      this.taskCommand?.(job)
-        .then((res) => {
-          // 抛出事件
-          this.eventEmitter?.emit('success_event', null, res)
-          // 更新已完成的任务队列
-          this.executed.push(job)
-          // 删除正在执行的队列中的这个已完成的任务
-          this.removeTask(job)
-          // 下一个任务
-          if (!this.stopSign) this.syncRun()
-        })
-        .catch((e: Error) => {
-          console.error(e)
-          // 抛出事件
-          this.eventEmitter?.emit('success_event', e)
-          // 更新已完成的任务队列
-          this.executed.push(job)
-          // 删除正在执行的队列中的这个已完成的任务
-          this.removeTask(job)
-          if (!this.ignoreError) {
-            // 退出程序
-            this.stop()
-            return
-          }
-          // 下一个任务
-          !this.stopSign && this.syncRun()
-        })
-      //
+      cb().catch(console.error)
     }, this.interval)
   }
 
@@ -203,9 +207,8 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
       if (this.queue.length === 0) {
         this.executed = []
         this.executing = []
-        // FIXME  如何确保执行完了呢?
         this.stop()
-        this.eventEmitter?.emit('completed_event', null)
+        this.eventEmitter?.emit('completed', null)
         return
       }
       const task = this.queue.shift()
@@ -213,12 +216,12 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
       this.executing.push(task)
       this.taskCommand?.(task)
         .then((res) => {
-          this.eventEmitter?.emit('success_event', null, res)
+          this.eventEmitter?.emit('success', null, res)
           this.executed.push(task)
           this.removeTask(task)
         })
         .catch((e: Error) => {
-          this.eventEmitter?.emit('success_event', e)
+          this.eventEmitter?.emit('success', e)
           this.executed.push(task)
           this.removeTask(task)
           if (!this.ignoreError) this.stop()

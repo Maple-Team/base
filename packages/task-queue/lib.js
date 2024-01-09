@@ -22,7 +22,7 @@ const taskQueue = function (options) {
 
 // 订阅执行结果
 taskQueue.prototype.subscribe = function (event) {
-  this.eventEmitter.on('success_event', event)
+  this.eventEmitter.on('success', event)
 }
 
 // 获取当前队列的执行进度（所有任务执行完成，会清除进度）
@@ -40,7 +40,7 @@ taskQueue.prototype.progress = function () {
 
 // 订阅订阅执行
 taskQueue.prototype.removeSubscribe = function (event) {
-  this.eventEmitter.removeListener('success_event', event)
+  this.eventEmitter.removeListener('success', event)
 }
 
 // 将任务添加至队列
@@ -85,7 +85,7 @@ taskQueue.prototype._syncMode = function () {
       this.taskCommand(task.task)
         .then((result) => {
           // 执行完成，通知外部订阅
-          this.eventEmitter.emit('success_event', null, result)
+          this.eventEmitter.emit('success', null, result)
           // 将任务放入执行完成队列
           this.executed.push(task)
           this._removeTask(task)
@@ -93,7 +93,7 @@ taskQueue.prototype._syncMode = function () {
           !this.stopSign && this._syncMode()
         })
         .catch((err) => {
-          this.eventEmitter.emit('success_event', err)
+          this.eventEmitter.emit('success', err)
           this.executed.push(task)
           this._removeTask(task)
           if (!this.ignoreError) {
@@ -123,13 +123,13 @@ taskQueue.prototype._asyncMode = function () {
       this.taskCommand(task.task)
         .then((result) => {
           // 执行完成，通知外部订阅
-          this.eventEmitter.emit('success_event', null, result)
+          this.eventEmitter.emit('success', null, result)
           // 将任务放入执行完成队列
           this.executed.push(task)
           this._removeTask(task)
         })
         .catch((err) => {
-          this.eventEmitter.emit('success_event', err)
+          this.eventEmitter.emit('success', err)
           this.executed.push(task)
           this._removeTask(task)
           if (!this.ignoreError) this.stop()

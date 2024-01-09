@@ -1,4 +1,3 @@
-/// <reference types="@liutsing/types-utils/global" />
 import type { EventCB, ITaskQueue, Option, Task } from './type';
 /**
  * 任务队列
@@ -35,7 +34,7 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
     /**
      * 手动启动任务，如果autoStart=true，在第一条任务添加进队列后，会自动运行
      */
-    start(): void;
+    start(): Promise<unknown>;
     /**
      * 重启队列中的任务，并使用新的配置处理未执行任务
      */
@@ -47,8 +46,6 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
     clear(): void;
     subscribe(event: EventCB<R>): void;
     removeSubscribe(event: EventCB<R>): void;
-    on(eventName: string, handler: (...args: AnyToFix[]) => void): void;
-    off(eventName: string, handler: (...args: AnyToFix[]) => void): void;
     info(): {
         progress: number;
         executed: Task<T>[];

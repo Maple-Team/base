@@ -1,4 +1,5 @@
 /// <reference types="node" />
+/// <reference types="@liutsing/types-utils/global" />
 import type EventEmitter from 'events';
 /**
  * 队列配置项
@@ -84,6 +85,8 @@ export interface ITaskQueue<T, R> {
      * @returns
      */
     removeSubscribe: (event: EventCB<R>) => void;
+    on: (eventName: string, cb: (...args: AnyToFix[]) => void) => void;
+    off: (eventName: string, cb: (...args: AnyToFix[]) => void) => void;
     /**
      * 任务进度
      * @returns
