@@ -1,0 +1,51 @@
+{
+  "name": "@liutsing/task-queue",
+  "version": "0.0.2",
+  "private": false,
+  "description": "",
+  "keywords": [],
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js",
+    "default": "./dist/index.mjs",
+    "types": "./types/index.d.ts"
+  },
+  "main": "dist/index.js",
+  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "source": "src/index.ts",
+  "jsnext:main": "dist/index.mjs",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "prebuild": "npx rimraf types",
+    "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier . --ext .ts -w",
+    "new:patch": "npm version patch",
+    "prepublish": "pnpm run build",
+    "postpublish": "pnpx @liutsing/npmmirror-sync"
+  },
+  "prettier": "@liutsing/prettier-config",
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": [
+    "liutsing <liutsingluo@gmail.com>"
+  ],
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "peerDependencies": {
+    "ioredis": "^5.3.2"
+  }
+}
