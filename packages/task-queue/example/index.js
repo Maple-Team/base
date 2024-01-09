@@ -16,17 +16,17 @@ const TaskQueue = require('../')
     interval: 1000,
   })
 
-  taskQueue.addQueue('1')
-  taskQueue.addQueue('2')
-  taskQueue.addQueue('3')
+  taskQueue.addTask('1')
+  taskQueue.addTask('2')
+  taskQueue.addTask('3')
   console.log(new Date())
 
   taskQueue.start()
   await sleep(1 * 1000)
 
-  taskQueue.addQueue('4')
-  taskQueue.addQueue('5')
-  taskQueue.addQueue('6')
+  taskQueue.addTask('4')
+  taskQueue.addTask('5')
+  taskQueue.addTask('6')
   // 判断此时是否还有需要执行的任务
   if (taskQueue.info().waitExecute !== 0) taskQueue.start()
 

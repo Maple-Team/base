@@ -1,5 +1,14 @@
 {
   "extends": "@liutsing/tsconfig",
-  "exclude": ["jest.config.ts", "types", "src/index2.ts"],
-  "include": ["src", "global.d.ts"]
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "CommonJS"
+  },
+  "exclude": [
+    "types",
+  ],
+  "include": [
+    "src",
+    "global.d.ts"
+  ]
 }

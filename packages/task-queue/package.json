@@ -11,16 +11,10 @@
     },
     "license": "MIT",
     "exports": {
-      "import": "./dist/index.mjs",
       "require": "./dist/index.js",
-      "default": "./dist/index.mjs",
       "types": "./types/index.d.ts"
     },
     "main": "dist/index.js",
-    "umd:main": "dist/index.umd.js",
-    "module": "dist/index.mjs",
-    "source": "src/index.ts",
-    "jsnext:main": "dist/index.mjs",
     "typings": "types/index.d.ts",
     "files": [
       "dist",
@@ -28,7 +22,7 @@
     ],
     "scripts": {
       "prebuild": "npx rimraf types",
-      "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
+      "build": "microbundle -f cjs --target node --tsconfig tsconfig.build.json",
       "lint": "eslint . --ext .ts",
       "prettier": "prettier . --ext .ts -w",
       "test": "jest",
@@ -46,5 +40,8 @@
     ],
     "engines": {
       "node": ">=10.0.0"
+    },
+    "devDependencies": {
+      "@types/node":"20.10.7"
     }
   }

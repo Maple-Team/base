@@ -1,9 +1,9 @@
-const { uuid } = require('@liutsing/utils')
-const Redis = require('ioredis')
-const { taskExecutor, taskPublisher } = require('../')
+import { uuid } from '@liutsing/utils'
+import Redis from 'ioredis'
+import { taskExecutor, taskPublisher } from '../'
 
 // eslint-disable-next-line import/newline-after-import
-;(async () => {
+;(() => {
   const channel = 'task_demo'
   const publisher = taskPublisher(new Redis(), channel)
   const executor = taskExecutor(
@@ -11,6 +11,7 @@ const { taskExecutor, taskPublisher } = require('../')
       db: 3,
     }),
     channel,
+    // eslint-disable-next-line @typescript-eslint/require-await
     async (t) => {
       console.log(t)
     },
@@ -24,6 +25,7 @@ const { taskExecutor, taskPublisher } = require('../')
     })
   }, 2000)
 
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   process.on('SIGINT', async () => {
     await executor.onExit()
     process.exit(0)

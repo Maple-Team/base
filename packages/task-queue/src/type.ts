@@ -95,7 +95,7 @@ export interface ITaskQueue<T, R> {
    * 添加任务到队列中
    * @returns
    */
-  addQueue: (task: T) => void
+  addTask: (task: T) => void
   /**
    * 启动任务
    * @returns

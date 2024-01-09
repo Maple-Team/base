@@ -1,5 +1,6 @@
 /// <reference types="@liutsing/types-utils/global" />
 import type { EventCB, ITaskQueue, Option, Task } from './type';
+export * from './type';
 /**
  * 任务队列
  *
@@ -45,6 +46,7 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
      */
     stop(): void;
     clear(): void;
+    updateQueue(tasks: Task<T>[]): void;
     subscribe(event: EventCB<R>): void;
     removeSubscribe(event: EventCB<R>): void;
     on(eventName: string, handler: (...args: AnyToFix[]) => void): void;
@@ -55,7 +57,7 @@ export default class TaskQueue<T, R> implements ITaskQueue<T, R> {
         executing: Task<T>[];
         waitExecute: Task<T>[];
     };
-    addQueue(task: T): void;
+    addTask(task: T): void;
     /**
      * 移除任务
      * @param task
