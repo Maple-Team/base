@@ -11,6 +11,7 @@ module.exports = {
       },
     ],
     '@typescript-eslint/indent': 'off',
+    '@typescript-eslint/comma-dangle': 'off',
     'brace-style': 'off',
     'operator-linebreak': 'off',
     indent: 'off',

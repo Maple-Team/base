@@ -1,8 +1,11 @@
-import { hide, ModalType, show } from './modalSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import React, { ElementType, useCallback } from 'react'
-import { Modal, ModalProps } from 'antd'
-import { RootState } from './store'
+import type { ElementType } from 'react'
+import React, { useCallback } from 'react'
+import type { ModalProps } from 'antd'
+import { Modal } from 'antd'
+import { hide, show } from './modalSlice'
+import type { ModalType } from './modalSlice'
+import type { RootState } from './store'
 
 const modalCallbacks: {
   [key in ModalType]?: <T>(value: T) => void
@@ -36,7 +39,7 @@ export const useNiceModal = <T,>(modalId: ModalType) => {
   const show = useCallback(
     (args?: ExtraModalProps<T>) => {
       return new Promise<T>((resolve) => {
-        // @ts-ignore
+        // @ts-expect-error: xx
         modalCallbacks[modalId] = resolve
         dispatch(showModal(modalId, args))
       })
@@ -94,6 +97,7 @@ export interface ExtraModalProps<T> extends ModalProps {
  * @param Comp 要渲染展示的组件
  * @returns
  */
+
 export const createNiceModal = <T,>(modalId: ModalType, Comp: ElementType<ExtraModalProps<T>>) => {
   return (props?: JSX.IntrinsicAttributes & ExtraModalProps<T>) => {
     const { visible, ...args } = useNiceModal(modalId)
