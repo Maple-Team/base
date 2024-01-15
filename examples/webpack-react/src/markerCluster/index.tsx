@@ -119,11 +119,7 @@ export default function MapContainer() {
         <Button onClick={onHide}>hide</Button>
         <Button onClick={onShow}>show</Button>
       </Space>
-      <div
-        id="container"
-        className={styles.container}
-        style={{ height: '800px' }}
-      />
+      <div id="container" className={styles.container} style={{ height: '800px' }} />
     </>
   )
 }

@@ -169,7 +169,7 @@ const config = {
           content: `
         window.addEventListener('error', function handleError(e) {
           // prompt user to confirm refresh
-          console.debug(e)
+          console.log('error', e.message)
           if (/Loading (?:CSS\\s)?chunk \\d+ failed/.test(e.message)) {
             window.location.reload();
           }
