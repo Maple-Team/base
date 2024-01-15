@@ -37,4 +37,6 @@ module.exports = merge(prod, {
       },
     },
   },
+  recordsPath: path.join(__dirname, 'records.json'),
+
 })

@@ -1,8 +1,10 @@
-import React, { StrictMode, Suspense, lazy } from 'react'
+import React, { StrictMode, Suspense, lazy, useCallback, useEffect, useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { BrowserRouter, Link, Outlet, Route, Routes, createBrowserRouter } from 'react-router-dom'
+import { Button, Spin } from 'antd'
 import { ErrorBoundary } from './ErrorBoundary'
+import { IconParking } from '@/assets/svg-icons'
 
 const MarkerCluster = lazy(() => import(/* webpackChunkName: "markerCluster" */ './markerCluster'))
 const Example3 = lazy(() => import(/* webpackChunkName: "example3" */ './Components/example3'))
@@ -61,6 +63,32 @@ const _router = createBrowserRouter([
     ],
   },
 ])
+const Example4 = () => {
+  const [num, setNum] = useState<number>(0)
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      console.log(num)
+    }, 1000)
+    return () => {
+      intervalId && clearInterval(intervalId)
+    }
+  }, [num])
+
+  const onIncrease = useCallback(() => setNum((num) => num + 1), [])
+
+  return (
+    <div>
+      {num}
+      <Button onClick={onIncrease}>+</Button>
+      测试 准备一下1
+      <IconParking />
+      哈哈
+    </div>
+  )
+}
+const RemoteApp = React.lazy(() => import('module_federation/App'))
+
 export const App = () => {
   return (
     <StrictMode>
@@ -89,6 +117,10 @@ export const App = () => {
               </Route>
             </Routes>
           </BrowserRouter>
+          <Example4 />
+          <Suspense fallback={<Spin spinning />}>
+            <RemoteApp />
+          </Suspense>
           <ReactQueryDevtools initialIsOpen />
         </QueryClientProvider>
       </ErrorBoundary>

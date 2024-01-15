@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import AMapLoader from '@amap/amap-jsapi-loader'
 import { Button, Space } from 'antd'
-// import './style.module.css' // will be trimed
+// import './style.module.css' // NOTE will be trimed
 import styles from './style.modules.css'
+
 import _points from './points.json'
 
 const gridSize = 60
@@ -53,7 +54,7 @@ const _renderMarker = function (context: AnyToFix) {
 export default function MapContainer() {
   const map = useRef<AnyToFix>()
   const cluster = useRef<AnyToFix>()
-  const [points, setPoints] = useState([])
+  const [points, setPoints] = useState<AnyToFix[]>([])
   useEffect(() => {
     setTimeout(() => {
       setPoints(_points)

@@ -1,6 +1,5 @@
 import React from 'react'
-import { createRoot } from 'react-dom/client'
-
+import ReactDom from 'react-dom/client'
 import './main.css'
 // import './assets/svg-icons'
 import { App } from './app'
@@ -47,6 +46,6 @@ import { App } from './app'
 //   })
 
 const rootElement = document.getElementById('app')
-const root = createRoot(rootElement!)
+const root = ReactDom.createRoot(rootElement!)
 
 root.render(<App />)

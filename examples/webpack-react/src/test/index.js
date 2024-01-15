@@ -1,4 +1,5 @@
 import { cube } from './math.js'
+import _ from 'lodash'
 
 function component() {
   const element = document.createElement('pre')
