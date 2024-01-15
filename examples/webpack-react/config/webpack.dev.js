@@ -23,41 +23,42 @@ const smp = new SpeedMeasurePlugin()
 
 const config = merge(dev, {
   // entry: [path.resolve(__dirname, '../src/index.ts'), path.resolve(__dirname, '../src/test/index.js')],
-  entry: path.resolve(__dirname, '../src/index.ts'),
+  // entry: path.resolve(__dirname, '../src/index.ts'),
+  entry: path.resolve(__dirname, '../src/app.tsx'),
   plugins: [
     getHtmWebpackPlugin(false),
-    new webpack.DllReferencePlugin({
-      context: process.cwd(),
-      manifest: require(path.join(__dirname, '../public', 'vendor-manifest.json')),
-    }),
-    new MapleHtmlWebpackPlugin(
-      [
-        {
-          tagName: 'script',
-          src: 'http://localhost:3002/runtime.js',
-        },
-        { tagName: 'script', src: 'vendor.bundle.js', defer: true },
-      ],
-      'head'
-    ),
-    new FontMinifyPlugin({
-      words: path.resolve(os.tmpdir(), 'example-webpack-react.txt'),
-      fontSource: path.resolve(__dirname, '../../../packages/font-minify-plugin/puhui2/AlibabaPuHuiTi_2_65_Medium.ttf'),
-      fontDistFilename: 'AlibabaPuHuiTi_2_65_Medium',
-    }),
+    // new webpack.DllReferencePlugin({
+    //   context: process.cwd(),
+    //   manifest: require(path.join(__dirname, '../public', 'vendor-manifest.json')),
+    // }),
+    // new MapleHtmlWebpackPlugin(
+    //   [
+    //     {
+    //       tagName: 'script',
+    //       src: 'http://localhost:3002/runtime.js',
+    //     },
+    //     { tagName: 'script', src: 'vendor.bundle.js', defer: true },
+    //   ],
+    //   'head'
+    // ),
+    // new FontMinifyPlugin({
+    //   words: path.resolve(os.tmpdir(), 'example-webpack-react.txt'),
+    //   fontSource: path.resolve(__dirname, '../../../packages/font-minify-plugin/puhui2/AlibabaPuHuiTi_2_65_Medium.ttf'),
+    //   fontDistFilename: 'AlibabaPuHuiTi_2_65_Medium',
+    // }),
     new FontMinifyPlugin({
       words: '魑魅魍魉',
       isFilePath: false,
     }),
     new DashboardPlugin(),
-    new ModuleFederationPlugin({
-      name: 'webpack-example-app',
-      remotes: {
-        module_federation: 'module_federation@[module_federationUrl]/remoteEntry.js',
-      },
-      shared: { react: { singleton: true }, 'react-dom': { singleton: true } },
-    }),
-    new ExternalTemplateRemotesPlugin(),
+    // new ModuleFederationPlugin({
+    //   name: 'webpack-example-app',
+    //   remotes: {
+    //     module_federation: 'module_federation@[module_federationUrl]/remoteEntry.js',
+    //   },
+    //   shared: { react: { singleton: true }, 'react-dom': { singleton: true } },
+    // }),
+    // new ExternalTemplateRemotesPlugin(),
   ],
   devtool: false,
   optimization: {
@@ -85,6 +86,6 @@ const config = merge(dev, {
   recordsPath: path.join(__dirname, 'records.json'), // FIXME not working for dev ?
 })
 // FIXME speed-measure-webpack-plugin与@liutsing/html-webpack-plugin不兼容
-module.exports = smp.wrap(config)
+// module.exports = smp.wrap(config)
 
-// module.exports = config
+module.exports = config

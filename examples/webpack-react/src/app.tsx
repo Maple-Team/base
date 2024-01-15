@@ -2,7 +2,8 @@ import React, { StrictMode, Suspense, lazy, useCallback, useEffect, useState } f
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { BrowserRouter, Link, Outlet, Route, Routes, createBrowserRouter } from 'react-router-dom'
-import { Button, Spin } from 'antd'
+import { Button } from 'antd'
+import ReactDOM from 'react-dom/client'
 import { ErrorBoundary } from './ErrorBoundary'
 import { IconParking } from '@/assets/svg-icons'
 
@@ -81,13 +82,15 @@ const Example4 = () => {
     <div>
       {num}
       <Button onClick={onIncrease}>+</Button>
-      测试 准备一下1
       <IconParking />
-      哈哈
+      <div>
+        <header>字体测试</header>
+        <div className="font-ph55">魑魅魍魉</div>
+      </div>
     </div>
   )
 }
-const RemoteApp = React.lazy(() => import('module_federation/App'))
+// const RemoteApp = React.lazy(() => import('module_federation/App'))
 
 export const App = () => {
   return (
@@ -118,12 +121,13 @@ export const App = () => {
             </Routes>
           </BrowserRouter>
           <Example4 />
-          <Suspense fallback={<Spin spinning />}>
+          {/* <Suspense fallback={<Spin spinning />}>
             <RemoteApp />
-          </Suspense>
+          </Suspense> */}
           <ReactQueryDevtools initialIsOpen />
         </QueryClientProvider>
       </ErrorBoundary>
     </StrictMode>
   )
 }
+ReactDOM.createRoot(document.getElementById('app') as HTMLElement).render(<App />)

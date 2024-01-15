@@ -8,7 +8,7 @@ const { BannerPlugin } = require('webpack')
  * @type {import('webpack').Configuration}
  */
 module.exports = {
-  entry: path.resolve(__dirname, '../src/index.tsx'),
+  entry: path.resolve(__dirname, '../src/app.tsx'),
   mode: 'development',
   output: {
     path: path.resolve(__dirname, 'dist'),

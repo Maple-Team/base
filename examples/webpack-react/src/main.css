@@ -11,3 +11,16 @@ html,
 body {
   margin: 0;
 }
+
+@font-face {
+  font-family: 'Alibaba PuHuiTi 2.0 55';
+  src: url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff2') format('woff2'),
+    url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+#root {
+  font-family: 'Lato Regular', 'Alibaba PuHuiTi 2.0 65';
+}
