@@ -1,0 +1,46 @@
+{
+  "name": "@liutsing/task-queue",
+  "version": "0.0.2",
+  "private": false,
+  "description": "",
+  "keywords": [],
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "exports": {
+    "require": "./dist/index.js",
+    "types": "./types/index.d.ts"
+  },
+  "main": "dist/index.js",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "prebuild": "npx rimraf types",
+    "build": "microbundle -f es,cjs,umd --target node --tsconfig tsconfig.build.json",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier . --ext .ts -w",
+    "new:patch": "npm version patch",
+    "prepublish": "pnpm run build",
+    "postpublish": "pnpx @liutsing/npmmirror-sync"
+  },
+  "prettier": "@liutsing/prettier-config",
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": [
+    "liutsing <liutsingluo@gmail.com>"
+  ],
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "peerDependencies": {
+    "ioredis": "^5.3.2",
+    "@liutsing/task-queue":"workspace:*"
+  }
+}

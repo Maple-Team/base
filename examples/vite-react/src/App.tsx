@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from 'react'
 // import '@liutsing/rc-components/dist/esm/index.css'
 // import { Step } from './Step'
-import NiceModal, { useNiceModal } from './stores/NiceModal'
 import { Button } from 'antd'
+import NiceModal, { useNiceModal } from './stores/NiceModal'
+import { RefExample } from './refExample'
 
 export const UseCount = () => {
   const [num, setNum] = useState<number>(0)
@@ -31,21 +32,24 @@ const App = () => {
   // const { num, increase, decrease } = UseCount()
   // const [_data, _setData] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9])
 
-  const ModalExample = NiceModal.create<{ a: string }>('modal1', (props) => (
-    <NiceModal
-      id="modal1"
-      title="Nice Modal"
-      {...props}
-    >
+  const ModalExample = NiceModal.create<{ a: string }>('modal1', (props: AnyToFix) => (
+    <NiceModal id="modal1" title="Nice Modal" {...props}>
       Hello NiceModal!
     </NiceModal>
   ))
   const { show, hide } = useNiceModal('modal1')
+  const _hide = useCallback(() => {
+    hide()
+  }, [hide])
+
+  const _show = useCallback(() => {
+    show().catch(console.log)
+  }, [show])
 
   return (
     <>
-      <Button onClick={() => show()}>show</Button>
-      <Button onClick={() => hide()}>hide</Button>
+      <Button onClick={_show}>show</Button>
+      <Button onClick={_hide}>hide</Button>
       <ModalExample />
       {/* <Step /> */}
       {/* <ListWithMore
@@ -74,6 +78,7 @@ const App = () => {
       {/* <footer>
         <a href="https://skk.moe/">Sukka</a>
       </footer> */}
+      <RefExample />
     </>
   )
 }

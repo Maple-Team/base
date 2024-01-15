@@ -1,0 +1,14 @@
+{
+  "extends": "@liutsing/tsconfig",
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "CommonJS"
+  },
+  "exclude": [
+    "types",
+  ],
+  "include": [
+    "src",
+    "global.d.ts"
+  ]
+}
