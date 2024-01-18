@@ -8,7 +8,7 @@ type ScriptAttribute = OptionalPick<HTMLScriptElement, 'src' | 'defer' | 'async'
 // TODO 支持更多注入的
 export type Options = {
   content?: string
-  tagName: 'script' | 'link'
+  tagName: 'script' | 'link' | 'style'
 } & LinkAttribute &
   ScriptAttribute
 export default class MapleHtmlWebpackPlugin {
@@ -38,6 +38,16 @@ export default class MapleHtmlWebpackPlugin {
                   voidTag: false,
                   attributes: {
                     src,
+                    ...rest,
+                  },
+                  innerHTML: content,
+                  meta: {},
+                }
+              : tagName === 'style'
+              ? {
+                  tagName,
+                  voidTag: false,
+                  attributes: {
                     ...rest,
                   },
                   innerHTML: content,

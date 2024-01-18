@@ -31,6 +31,16 @@ class MapleHtmlWebpackPlugin {
                   innerHTML: content,
                   meta: {},
                 }
+              : tagName === 'style'
+              ? {
+                  tagName,
+                  voidTag: false,
+                  attributes: {
+                    ...rest,
+                  },
+                  innerHTML: content,
+                  meta: {},
+                }
               : {
                   tagName,
                   voidTag: true,
