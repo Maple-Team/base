@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fonteditor-core": "^2.3.2",
     "fontmin": "^1.0.1",
     "schema-utils": "^4.2.0"
   }
