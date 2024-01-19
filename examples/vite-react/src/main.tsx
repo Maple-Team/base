@@ -12,14 +12,13 @@ import App from './App'
 const client = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  // <React.StrictMode>
-  <ConfigProvider prefixCls="tee">
-    <Provider store={store}>
-      {/* <AnAPP /> */}
-      <QueryClientProvider client={client}>
-        <App />
-      </QueryClientProvider>
-    </Provider>
-  </ConfigProvider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <ConfigProvider prefixCls="tee">
+      <Provider store={store}>
+        <QueryClientProvider client={client}>
+          <App />
+        </QueryClientProvider>
+      </Provider>
+    </ConfigProvider>
+  </React.StrictMode>
 )

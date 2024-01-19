@@ -31,25 +31,43 @@ const config = merge(dev, {
     //   context: process.cwd(),
     //   manifest: require(path.join(__dirname, '../public', 'vendor-manifest.json')),
     // }),
-    // new MapleHtmlWebpackPlugin(
-    //   [
-    //     {
-    //       tagName: 'script',
-    //       src: 'http://localhost:3002/runtime.js',
-    //     },
-    //     { tagName: 'script', src: 'vendor.bundle.js', defer: true },
-    //   ],
-    //   'head'
-    // ),
-    // new FontMinifyPlugin({
-    //   words: path.resolve(os.tmpdir(), 'example-webpack-react.txt'),
-    //   fontSource: path.resolve(__dirname, '../../../packages/font-minify-plugin/puhui2/AlibabaPuHuiTi_2_65_Medium.ttf'),
-    //   fontDistFilename: 'AlibabaPuHuiTi_2_65_Medium',
-    // }),
+    new MapleHtmlWebpackPlugin(
+      [
+        // {
+        //   tagName: 'script',
+        //   src: 'http://localhost:3002/runtime.js',
+        // },
+        // { tagName: 'script', src: 'vendor.bundle.js', defer: true },
+        {
+          tagName: 'style',
+          content: `
+          @font-face {
+            font-family: 'Alibaba PuHuiTi 2.0 55';
+            src: url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff2') format('woff2'),
+              url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+          }
+          `,
+        },
+      ],
+      'head'
+    ),
+    // 动态扫描 -> babel缓存了导致这个文字文件不存在
     new FontMinifyPlugin({
-      words: '魑魅魍魉',
-      isFilePath: false,
+      words: path.resolve(os.tmpdir(), 'example-webpack-react.txt'),
+      fontSource: path.resolve(
+        __dirname,
+        '../../../packages/font-minify-plugin/puhui2/AlibabaPuHuiTi_2_55_Regular.ttf'
+      ),
+      fontDistFilename: 'AlibabaPuHuiTi_2_55_Regular',
     }),
+    // 静态传入
+    // new FontMinifyPlugin({
+    //   words: '文言文字形对比',
+    //   isFilePath: false,
+    // }),
     new DashboardPlugin(),
     // new ModuleFederationPlugin({
     //   name: 'webpack-example-app',

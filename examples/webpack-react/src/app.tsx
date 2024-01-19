@@ -6,6 +6,7 @@ import { Button } from 'antd'
 import ReactDOM from 'react-dom/client'
 import { ErrorBoundary } from './ErrorBoundary'
 import { IconParking } from '@/assets/svg-icons'
+import './main.css'
 
 const MarkerCluster = lazy(() => import(/* webpackChunkName: "markerCluster" */ './markerCluster'))
 const Example3 = lazy(() => import(/* webpackChunkName: "example3" */ './Components/example3'))
@@ -85,7 +86,15 @@ const Example4 = () => {
       <IconParking />
       <div>
         <header>字体测试</header>
-        <div className="font-ph55">魑魅魍魉</div>
+        <hr />
+        <div className="local-ttf w-fit bg-green-500">
+          {/* 魑魅魍魉 */}
+          文言文字形对比
+        </div>
+        <div className="font-ph55  w-fit bg-red-500">
+          {/* 魑魅魍魉 */}
+          文言文字形对比
+        </div>
       </div>
     </div>
   )

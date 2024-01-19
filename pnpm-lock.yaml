@@ -831,6 +831,9 @@ importers:
       clean-webpack-plugin:
         specifier: ^4.0.0
         version: 4.0.0(webpack@5.89.0)
+      copy-webpack-plugin:
+        specifier: ^11.0.0
+        version: 11.0.0(webpack@5.89.0)
       core-js:
         specifier: ^3.33.1
         version: 3.33.2
@@ -1135,6 +1138,9 @@ importers:
 
   packages/font-minify-plugin:
     dependencies:
+      fonteditor-core:
+        specifier: ^2.3.2
+        version: 2.3.2
       fontmin:
         specifier: ^1.0.1
         version: 1.0.1
@@ -8197,7 +8203,7 @@ packages:
       webpack-dev-server: 4.15.1(webpack-cli@5.1.4)(webpack@5.89.0)
 
   /@xmldom/xmldom@0.8.10:
-    resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
+    resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==, tarball: https://registry.npmjs.org/@xmldom/xmldom/-/xmldom-0.8.10.tgz}
     engines: {node: '>=10.0.0'}
 
   /@xtuc/ieee754@1.2.0:
@@ -13486,8 +13492,8 @@ packages:
     dependencies:
       debug: 4.3.4(supports-color@6.1.0)
 
-  /fonteditor-core@2.3.1:
-    resolution: {integrity: sha512-I0s+7Y6Dawpt6LCP/i1eC4ZexYmLaFAMm8CBMkEU/5mDTj15jLqSJ3GfM1rKCow2hc+JgPdaiiWarHlq8+ZVuQ==}
+  /fonteditor-core@2.3.2:
+    resolution: {integrity: sha512-WiyuiE1sshZStLC3yRqIgh9LqMX0T6G1NSFm1I7IXsiHlVlOA1sKQaZCuMW/Kmi4GfJQ/3QaClpaPuw14VyttA==, tarball: https://registry.npmjs.org/fonteditor-core/-/fonteditor-core-2.3.2.tgz}
     dependencies:
       '@xmldom/xmldom': 0.8.10
 
@@ -13502,7 +13508,7 @@ packages:
       buffer-to-vinyl: 1.1.0
       code-points: 2.0.0-1
       concat-stream: 2.0.0
-      fonteditor-core: 2.3.1
+      fonteditor-core: 2.3.2
       get-stdin: 9.0.0
       is-otf: 0.1.2
       is-svg: 4.4.0
@@ -13911,7 +13917,7 @@ packages:
       get-intrinsic: 1.2.2
 
   /get-tsconfig@4.7.2:
-    resolution: {integrity: sha512-wuMsz4leaj5hbGgg4IvDU0bqJagpftG5l5cXIAvo8uZrqn0NJqwtfupTN00VnkQJPcIRrxYrm1Ue24btpCha2A==}
+    resolution: {integrity: sha512-wuMsz4leaj5hbGgg4IvDU0bqJagpftG5l5cXIAvo8uZrqn0NJqwtfupTN00VnkQJPcIRrxYrm1Ue24btpCha2A==, tarball: https://registry.npmjs.org/get-tsconfig/-/get-tsconfig-4.7.2.tgz}
     dependencies:
       resolve-pkg-maps: 1.0.0
     dev: true
@@ -13926,7 +13932,7 @@ packages:
     dev: false
 
   /glob-parent@3.1.0:
-    resolution: {integrity: sha512-E8Ak/2+dZY6fnzlR7+ueWvhsH1SjHr4jjss4YS/h4py44jY9MhK/VFdaZJAWDz6BbL21KeteKxFSFpq8OS5gVA==}
+    resolution: {integrity: sha512-E8Ak/2+dZY6fnzlR7+ueWvhsH1SjHr4jjss4YS/h4py44jY9MhK/VFdaZJAWDz6BbL21KeteKxFSFpq8OS5gVA==, tarball: https://registry.npmjs.org/glob-parent/-/glob-parent-3.1.0.tgz}
     dependencies:
       is-glob: 3.1.0
       path-dirname: 1.0.2
@@ -18363,7 +18369,7 @@ packages:
       validate-npm-package-license: 3.0.4
 
   /normalize-path@2.1.1:
-    resolution: {integrity: sha512-3pKJwH184Xo/lnH6oyP1q2pMd7HcypqqmRs91/6/i2CGtWwIKGCkOOMTm/zXbgTEWHw1uNpNi/igc3ePOYHb6w==}
+    resolution: {integrity: sha512-3pKJwH184Xo/lnH6oyP1q2pMd7HcypqqmRs91/6/i2CGtWwIKGCkOOMTm/zXbgTEWHw1uNpNi/igc3ePOYHb6w==, tarball: https://registry.npmjs.org/normalize-path/-/normalize-path-2.1.1.tgz}
     engines: {node: '>=0.10.0'}
     dependencies:
       remove-trailing-separator: 1.1.0
@@ -21296,7 +21302,7 @@ packages:
       value-or-function: 3.0.0
 
   /resolve-pkg-maps@1.0.0:
-    resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
+    resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==, tarball: https://registry.npmjs.org/resolve-pkg-maps/-/resolve-pkg-maps-1.0.0.tgz}
     dev: true
 
   /resolve-url-loader@4.0.0:

@@ -75,7 +75,7 @@ const config = {
           {
             loader: 'babel-loader',
             options: {
-              cacheDirectory: true,
+              cacheDirectory: true, // 缓存
               presets: [
                 [
                   '@babel/preset-env',
