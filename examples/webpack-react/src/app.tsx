@@ -1,11 +1,13 @@
-import React, { StrictMode, Suspense, lazy, useCallback, useEffect, useState } from 'react'
+import React, { StrictMode, Suspense, lazy, useCallback, useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { BrowserRouter, Link, Outlet, Route, Routes, createBrowserRouter } from 'react-router-dom'
 import { Button } from 'antd'
 import ReactDOM from 'react-dom/client'
+import { debounce } from 'lodash-es'
 import { ErrorBoundary } from './ErrorBoundary'
 import { IconParking } from '@/assets/svg-icons'
+import './main.css'
 
 const MarkerCluster = lazy(() => import(/* webpackChunkName: "markerCluster" */ './markerCluster'))
 const Example3 = lazy(() => import(/* webpackChunkName: "example3" */ './Components/example3'))
@@ -67,25 +69,37 @@ const _router = createBrowserRouter([
 const Example4 = () => {
   const [num, setNum] = useState<number>(0)
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      console.log(num)
-    }, 1000)
-    return () => {
-      intervalId && clearInterval(intervalId)
-    }
-  }, [num])
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     console.log(num)
+  //   }, 1000)
+  //   return () => {
+  //     intervalId && clearInterval(intervalId)
+  //   }
+  // }, [num])
 
-  const onIncrease = useCallback(() => setNum((num) => num + 1), [])
+  const onIncrease = debounce(
+    useCallback(() => setNum((num) => num + 1), []),
+    500 * 10,
+    { leading: true }
+  )
 
   return (
     <div>
-      {num}
+      当前状态：{num}
       <Button onClick={onIncrease}>+</Button>
       <IconParking />
       <div>
         <header>字体测试</header>
-        <div className="font-ph55">魑魅魍魉</div>
+        <hr />
+        <div className="local-ttf w-fit bg-green-500">
+          {/* 魑魅魍魉 */}
+          文言文字形对比
+        </div>
+        <div className="font-ph55  w-fit bg-red-500">
+          {/* 魑魅魍魉 */}
+          文言文字形对比
+        </div>
       </div>
     </div>
   )
