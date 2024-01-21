@@ -1,10 +1,11 @@
-import React, { StrictMode, Suspense, lazy, useCallback, useState } from 'react'
+import React, { StrictMode, Suspense, lazy, useCallback, useMemo, useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { BrowserRouter, Link, Outlet, Route, Routes, createBrowserRouter } from 'react-router-dom'
 import { Button } from 'antd'
 import ReactDOM from 'react-dom/client'
 import { debounce } from 'lodash-es'
+import type { DebouncedFuncLeading } from 'lodash'
 import { ErrorBoundary } from './ErrorBoundary'
 import { IconParking } from '@/assets/svg-icons'
 import './main.css'
@@ -78,12 +79,16 @@ const Example4 = () => {
   //   }
   // }, [num])
 
-  const onIncrease = debounce(
-    useCallback(() => setNum((num) => num + 1), []),
-    500 * 10,
-    { leading: true }
+  const onIncrease = useMemo<DebouncedFuncLeading<() => void>>(
+    () => debounce(() => setNum((num) => num + 1), 500, { leading: true, trailing: false }),
+    []
   )
-
+  // React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const _onIncrease2 = useCallback<DebouncedFuncLeading<() => void>>(
+    debounce(() => setNum((num) => num + 1), 500, { leading: true, trailing: false }),
+    []
+  )
   return (
     <div>
       当前状态：{num}
