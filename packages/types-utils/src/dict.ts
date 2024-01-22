@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/indent */
 // 参考来源：@https://juejin.cn/post/7187963986875252795
 /**
  * 基础属性
