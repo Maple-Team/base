@@ -1,15 +1,15 @@
-FROM nginx:1.25
+FROM nginx:1.25.2
 # 设置时区
 RUN rm -f /etc/localtime && ln -sv /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
 
-RUN mkdir -p /app/app
+RUN mkdir -p /app
 
 WORKDIR /app
 
 # 复制文件到容器内
 COPY ./app.conf /etc/nginx/conf.d/default.conf
 COPY ./nginx.conf /etc/nginx/nginx
-COPY ./dist /app/app
+COPY ./dist /app
 
 EXPOSE 80
 
