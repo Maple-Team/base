@@ -11,7 +11,7 @@ module.exports = merge(prod, {
   entry: path.resolve(__dirname, '../src/app.tsx'),
   output: {
     ...prod.output,
-    publicPath: 'http://localhost:8080/',
+    publicPath: '/app/',
   },
   plugins: [
     getHtmWebpackPlugin(false),
