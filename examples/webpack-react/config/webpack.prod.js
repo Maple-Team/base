@@ -7,7 +7,12 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 module.exports = merge(prod, {
   // entry: path.resolve(__dirname, '../src/test/index.js'),
-  entry: path.resolve(__dirname, '../src/main.tsx'),
+  // entry: path.resolve(__dirname, '../src/main.tsx'),
+  entry: path.resolve(__dirname, '../src/app.tsx'),
+  output: {
+    ...prod.output,
+    publicPath: 'http://localhost:8080/',
+  },
   plugins: [
     getHtmWebpackPlugin(false),
     // new FontMinifyPlugin({
@@ -38,5 +43,4 @@ module.exports = merge(prod, {
     },
   },
   recordsPath: path.join(__dirname, 'records.json'),
-
 })

@@ -7,9 +7,9 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # 复制文件到容器内
-COPY ./default.conf /etc/nginx/conf.d/default.conf
+COPY ./app.conf /etc/nginx/conf.d/default.conf
 COPY ./nginx.conf /etc/nginx/nginx
-COPY ./index.html /app/
+COPY ./dist /app/
 
 EXPOSE 80
 
