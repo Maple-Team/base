@@ -83,6 +83,7 @@ const Example4 = () => {
     () => debounce(() => setNum((num) => num + 1), 500, { leading: true, trailing: false }),
     []
   )
+  // working but with eslint error
   // React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const _onIncrease2 = useCallback<DebouncedFuncLeading<() => void>>(
