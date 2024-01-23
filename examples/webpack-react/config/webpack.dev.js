@@ -102,6 +102,18 @@ const config = merge(dev, {
     web: true,
   },
   recordsPath: path.join(__dirname, 'records.json'), // FIXME not working for dev ?
+  devServer: {
+    ...dev.devServer,
+    headers: { 'X-Upstream': process.env.API_URL, 'Access-Control-Allow-Origin': '*' },
+    proxy: {
+      '/api': {
+        target: process.env.API_URL,
+        pathRewrite: { '^/api': '' },
+        secure: false,
+        changeOrigin: true,
+      },
+    },
+  },
 })
 // FIXME speed-measure-webpack-plugin与@liutsing/html-webpack-plugin不兼容
 // module.exports = smp.wrap(config)

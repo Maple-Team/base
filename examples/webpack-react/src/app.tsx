@@ -1,14 +1,16 @@
 import React, { StrictMode, Suspense, lazy, useCallback, useMemo, useState } from 'react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { BrowserRouter, Link, Outlet, Route, Routes, createBrowserRouter } from 'react-router-dom'
 import { Button } from 'antd'
 import ReactDOM from 'react-dom/client'
 import { debounce } from 'lodash-es'
 import type { DebouncedFuncLeading } from 'lodash'
+import axios from 'axios'
 import { ErrorBoundary } from './ErrorBoundary'
 import { IconParking } from '@/assets/svg-icons'
 import './main.css'
+// const RemoteApp = React.lazy(() => import('module_federation/App'))
 
 const MarkerCluster = lazy(() => import(/* webpackChunkName: "markerCluster" */ './markerCluster'))
 const Example3 = lazy(() => import(/* webpackChunkName: "example3" */ './Components/example3'))
@@ -21,6 +23,7 @@ const queryClient = new QueryClient({
     },
   },
 })
+
 const Root = () => {
   return (
     <div className="flex w-full" style={{ display: 'flex' }}>
@@ -67,9 +70,13 @@ const _router = createBrowserRouter([
     ],
   },
 ])
+// https://hacker-news.firebaseio.com/v0/item/8863.json?print=pretty
+// https://api.publicapis.org/entries
+
 const Example4 = () => {
   const [num, setNum] = useState<number>(0)
-
+  const { data } = useQuery(['fetchInfo'], () => axios.get('/api/entries'))
+  console.log('接口请求', data)
   // useEffect(() => {
   //   const intervalId = setInterval(() => {
   //     console.log(num)
@@ -110,7 +117,35 @@ const Example4 = () => {
     </div>
   )
 }
-// const RemoteApp = React.lazy(() => import('module_federation/App'))
+
+const fetchData = async () => {
+  // 模拟异步请求
+  await new Promise((resolve) => setTimeout(resolve, 1000))
+  return { message: 'Hello, React Query!' }
+}
+const Example5 = () => {
+  const queryClient = useQueryClient()
+
+  const { data, isLoading } = useQuery(['exampleQueryKey'], fetchData)
+
+  const handleUpdateData = () => {
+    const newData = { message: 'Updated Data!' }
+    queryClient.setQueryData(['exampleQueryKey'], newData)
+  }
+
+  return (
+    <div>
+      {isLoading ? (
+        'Loading...'
+      ) : (
+        <div>
+          <p>{data?.message}</p>
+          <button onClick={handleUpdateData}>Update Data</button>
+        </div>
+      )}
+    </div>
+  )
+}
 
 export const App = () => {
   return (
@@ -140,6 +175,7 @@ export const App = () => {
               </Route>
             </Routes>
           </BrowserRouter>
+          <Example5 />
           <Example4 />
           {/* <Suspense fallback={<Spin spinning />}>
             <RemoteApp />
