@@ -11,6 +11,16 @@ services:
     #   - 8080:80
     networks:
       - example-network
+  app2:
+    build:
+      context: .
+      dockerfile: app2.Dockerfile
+    image: app2:1.0.0
+    container_name: app2
+    # ports:
+    #   - 8080:80
+    networks:
+      - example-network
   example:
     build:
       context: .
