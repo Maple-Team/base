@@ -46,11 +46,11 @@ const prod = {
   //     },
   //   },
   plugins: [
-    new ForkTsCheckerWebpackPlugin({
-      typescript: {
-        configFile: path.resolve(root, 'tsconfig.build.json'),
-      },
-    }),
+    // new ForkTsCheckerWebpackPlugin({
+    //   typescript: {
+    //     configFile: path.resolve(root, 'tsconfig.build.json'),
+    //   },
+    // }),
   ],
   optimization: {
     runtimeChunk: true,

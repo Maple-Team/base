@@ -4,8 +4,33 @@ services:
   studying:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: app.Dockerfile
     image: studying:1.0.0
     container_name: studying
+    # ports:
+    #   - 8080:80
+    networks:
+      - example-network
+  app2:
+    build:
+      context: .
+      dockerfile: app2.Dockerfile
+    image: app2:1.0.0
+    container_name: app2
+    # ports:
+    #   - 8080:80
+    networks:
+      - example-network
+  example:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: example:1.0.0
+    container_name: example
     ports:
-      - 8080:80
+      - 8081:80
+    networks:
+      - example-network
+networks:
+  example-network:
+    driver: bridge
