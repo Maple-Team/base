@@ -1,7 +1,7 @@
 {
   "name": "@liutsing/babel-plugin-extract-used-chinese",
-  "version": "0.0.2",
-  "description": "提取待渲染为DOM节点中的中文文字，用于减少字体文件的大小",
+  "version": "0.0.3",
+  "description": "Extract Chinese text from DOM nodes for backup.",
   "keywords": [
     "babel plugin"
   ],
@@ -28,11 +28,15 @@
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "prepublish": "pnpm run build",
+    "postpublish": "pnpx @liutsing/npmmirror-sync",
     "test": "jest"
   },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {
     "@types/babel-plugin-tester": "^9.0.5",
     "babel-plugin-tester": "^10.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
