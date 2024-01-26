@@ -75,8 +75,21 @@ const _router = createBrowserRouter([
 
 const Example4 = () => {
   const [num, setNum] = useState<number>(0)
-  const { data } = useQuery(['fetchInfo'], () => axios.get('/api/entries'))
+  // const { data } = useQuery(['fetchInfo'], () => axios.get('/api/auth/profile'))
+  const { data } = useQuery(['fetchInfo'], () => axios.get('/api/lzz/all'))
   console.log('接口请求', data)
+  // const { mutate } = useMutation(['directives'], (data) => axios.post('/api/directives', data))
+  // useEffect(() => {
+  //   mutate(
+  //     // @ts-expect-error: xx
+  //     { message: '', address: '' },
+  //     {
+  //       onSuccess(data) {
+  //         console.log(data)
+  //       },
+  //     }
+  //   )
+  // }, [mutate])
   // useEffect(() => {
   //   const intervalId = setInterval(() => {
   //     console.log(num)

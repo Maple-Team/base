@@ -28,7 +28,7 @@ services:
     image: example:1.0.0
     container_name: example
     ports:
-      - 8081:80
+      - 7081:80
     networks:
       - example-network
 networks:
