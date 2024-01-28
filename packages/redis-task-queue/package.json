@@ -1,6 +1,6 @@
 {
-  "name": "@liutsing/task-queue",
-  "version": "0.0.2",
+  "name": "@liutsing/redis-task-queue",
+  "version": "0.0.3",
   "private": false,
   "description": "",
   "keywords": [],

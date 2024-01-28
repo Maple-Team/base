@@ -29,11 +29,12 @@ class TaskExecutor<T, R> {
     this.redisClient = client
     const { channels, subscribeCB, redisKey, ...rest } = option
     Object.assign(this, { channels, subscribeCB, redisKey })
-    this.taskQueue = new TaskQueue<T, R>({ ...rest })
+    this.taskQueue = new TaskQueue<T, R>({ ...rest, autoStart:true })
     this.start().catch(console.error)
   }
 
   private async start() {
+    console.log('redis sub process listening...')
     // 订阅任务频道
     this.redisClient.subscribe(...this.channels, this.subscribeCB).catch(console.error)
 

@@ -9,7 +9,7 @@ class TaskPublisher<T> {
     this.channel = channel
   }
 
-  publishTask(task: Task<T>) {
+  publishTask(task: Task<T>['task']) {
     this.redisClient.publish(this.channel, JSON.stringify(task)).catch(console.error)
   }
 }
