@@ -4,3 +4,5 @@ export enum UserRole {
   DEVICE = 'device',
   GUEST = 'guest',
 }
+
+export type RoleTypes = keyof typeof UserRole

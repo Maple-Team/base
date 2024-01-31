@@ -4,6 +4,7 @@
  */
 import React, { useReducer, useState } from 'react'
 import { RippleButton } from '@liutsing/rc-components'
+
 const ComponentWithUseState = () => {
   const [count, setCount] = useState(0)
   console.count('ComponentWithUseState render')
