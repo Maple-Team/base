@@ -17,6 +17,8 @@ const devServer = {
   proxy: {
     '/api': {
       target: process.env.API_URL,
+      secure: false,
+      changeOrigin: true, // NOTE 很重要
     },
     '/ws/': {
       target: process.env.WS_URL,
