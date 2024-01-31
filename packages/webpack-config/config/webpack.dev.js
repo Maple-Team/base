@@ -38,7 +38,11 @@ const devServer = {
 const dev = {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
-  plugins: [new ReactRefreshWebpackPlugin()],
+  plugins: [
+    new ReactRefreshWebpackPlugin({
+      overlay: false, // NOTE 是否以遮挡的形式展示错误
+    }),
+  ],
   cache: true,
   optimization: {
     runtimeChunk: true,

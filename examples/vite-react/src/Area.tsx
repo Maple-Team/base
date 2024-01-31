@@ -35,10 +35,5 @@ export const AreaChart = () => {
       })
   }, [])
 
-  return (
-    <div
-      id="container"
-      style={{ width: 150, height: 180 }}
-    ></div>
-  )
+  return <div id="container" style={{ width: 150, height: 180 }} />
 }

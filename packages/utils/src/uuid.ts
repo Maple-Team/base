@@ -1,3 +1,5 @@
+// @https://github.com/ai/nanoid
+
 /**
  * 生成uuid
  * @param len 指定长度

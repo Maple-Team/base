@@ -1,4 +1,5 @@
 import React from 'react'
+
 export interface Props<T> {
   data: T[]
   renderItem: (item: T, index: number, data: T[]) => JSX.Element
