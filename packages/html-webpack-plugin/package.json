@@ -33,7 +33,8 @@
     "postbuild": "npm run build:types",
     "build:commonjs": "babel src -d lib --extensions .ts --delete-dir-on-start",
     "build:types": "tsc --project tsconfig.build.json",
-    "test": "jest"
+    "test": "jest",
+    "postpublish": "npx @liutsing/npmmirror-sync"
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {
