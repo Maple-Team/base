@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/webpack-config",
-  "version": "0.0.7",
+  "version": "0.1.0-alpha.1",
   "private": false,
   "description": "common webpack config",
   "keywords": [
@@ -12,7 +12,8 @@
   "files": [
     "index.js",
     "config",
-    "plugins"
+    "plugins",
+    "utils"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
