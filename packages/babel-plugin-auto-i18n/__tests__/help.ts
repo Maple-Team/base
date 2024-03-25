@@ -23,17 +23,17 @@ export function preset() {
  * @param sourceCode
  * @returns
  */
-export const getTransformCode = (sourceCode: string) => {
+export const getTransformCode = (sourceCode: string, filename: string) => {
   // @https://babeljs.io/docs/babel-parser
   const ast = parser.parse(sourceCode, {
     sourceType: 'module',
     plugins: ['jsx', 'typescript'],
-    sourceFilename: 'test.tsx',
+    sourceFilename: filename,
   })
 
   // @https://babeljs.io/docs/babel-core
   const result = transformFromAstSync(ast, sourceCode, {
-    filename: 'test.tsx',
+    filename,
     presets: [
       // '@babel/preset-react', -> 保留了 jsx
       preset,
