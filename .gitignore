@@ -8,3 +8,4 @@ coverage
 *.log
 .npmrc
 dependencies.json
+.DS_Store
