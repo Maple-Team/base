@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`auto i18n plugin handle JSXAttribute 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div name={t(\\"7d3c35c2\\")}>{t(\\"df484e72\\")}</div>;
+};"
+`;
+
+exports[`auto i18n plugin handle JSXText 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>{t(\\"440ee085\\")}</div>;
+};"
+`;

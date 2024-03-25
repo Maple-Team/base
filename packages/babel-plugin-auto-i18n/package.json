@@ -1,0 +1,54 @@
+{
+  "name": "@liutsing/babel-plugin-auto-i18n",
+  "version": "0.0.1",
+  "description": "A babel plugin to inject react component render debug console.count('xxx')",
+  "keywords": [
+    "babel plugin"
+  ],
+  "license": "ISC",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js",
+    "default": "./dist/index.mjs",
+    "types": "./types/index.d.ts"
+  },
+  "main": "dist/index.js",
+  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "source": "src/index.ts",
+  "jsnext:main": "dist/index.mjs",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "prebuild": "rimraf types && rimraf lib",
+    "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier . --ext .ts -w",
+    "prepublish": "rimraf types && rimraf lib",
+    "test": "jest"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  },
+  "prettier": "@liutsing/prettier-config",
+  "devDependencies": {
+    "@babel/parser": "^7.24.1",
+    "@types/babel-plugin-tester": "^9.0.5",
+    "babel-plugin-tester": "^10.1.0",
+    "lint-staged": "^13.0.3",
+    "simple-git-hooks": "^2.8.1",
+    "@liutsing/prettier-config":"workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": [
+    "liutsing <liutsingluo@gmail.com>"
+  ]
+}
