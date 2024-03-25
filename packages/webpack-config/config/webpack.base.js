@@ -89,7 +89,7 @@ const config = {
               ],
               plugins: [
                 '@babel/plugin-transform-runtime',
-                ['@liutsing/babel-plugin-extract-used-chinese', { filename: 'example-webpack-react.txt' }],
+                // ['@liutsing/babel-plugin-extract-used-chinese', { filename: 'example-webpack-react.txt' }],
                 isDev ? 'react-refresh/babel' : null,
                 !isDev
                   ? [

@@ -1720,6 +1720,9 @@ importers:
       terser-webpack-plugin:
         specifier: ^5.2.5
         version: 5.3.9(webpack@5.89.0)
+      thread-loader:
+        specifier: ^4.0.2
+        version: 4.0.2(webpack@5.89.0)
       ts-loader:
         specifier: ^9.4.1
         version: 9.5.0(typescript@5.2.2)(webpack@5.89.0)
@@ -17046,8 +17049,7 @@ packages:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
 
   /json-parse-better-errors@1.0.2:
-    resolution: {integrity: sha512-mrqyZKfX5EhL7hvqcV6WG1yYjnjeuYDzDhhcAAUrq8Po85NBQBJP+ZDUT75qZQ98IkUoBqdkExkukOU7Ts2wrw==}
-    dev: true
+    resolution: {integrity: sha512-mrqyZKfX5EhL7hvqcV6WG1yYjnjeuYDzDhhcAAUrq8Po85NBQBJP+ZDUT75qZQ98IkUoBqdkExkukOU7Ts2wrw==, tarball: https://registry.npmjs.org/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz}
 
   /json-parse-even-better-errors@2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
@@ -23487,7 +23489,6 @@ packages:
       neo-async: 2.6.2
       schema-utils: 4.2.0
       webpack: 5.89.0(webpack-cli@5.1.4)
-    dev: true
 
   /throat@6.0.2:
     resolution: {integrity: sha512-WKexMoJj3vEuK0yFEapj8y64V0A6xcuPuK9Gt1d0R+dzCSJc0lHqQytAbSB4cDAK0dWh4T0E2ETkoLE2WZ41OQ==}

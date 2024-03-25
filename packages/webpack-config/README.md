@@ -7,6 +7,17 @@
 
 ## 使用
 
+### setup
+
+`.env`文件
+
+```log
+API_URL=
+PORT=4000
+HOST=localhost
+WS_URL=
+```
+
 ### dev
 
 ```js

@@ -141,3 +141,25 @@ export type ToValueKey<T> = T extends readonly [infer A, ...infer B]
     ? ToSingleValueKey<A>
     : MergeIntersection<ToSingleValueKey<A> & ToValueKey<B>>
   : []
+
+function _defineConstants<T extends readonly IBaseDef[], N extends string>(defs: T, namespace?: N) {
+  const prefix = namespace ? `${namespace}_` : ''
+  return {
+    [`${prefix}LIST`]: defs,
+    [`${prefix}KV`]: defs.reduce(
+      (map, item) => ({
+        ...map,
+        [item.key]: item.value,
+      }),
+      {}
+    ),
+  } as MergeIntersection<
+    {
+      [Key in ToProperty<'LIST', N>]: T
+    } & {
+      [Key in ToProperty<'KV', N>]: {
+        [Key in ToProperty<'KV', N>]: ToKeyValue<T>
+      }
+    }
+  >
+}
