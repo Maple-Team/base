@@ -28,6 +28,7 @@
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "prepublish": "rimraf types && rimraf lib",
+    "postinstall": "npm run build",
     "test": "jest"
   },
   "simple-git-hooks": {
@@ -50,5 +51,10 @@
   },
   "authors": [
     "liutsing <liutsingluo@gmail.com>"
-  ]
+  ],
+  "jest":{
+    "testMatch": [
+      "<rootDir>/__tests__/**/*.test.ts"
+    ]
+  }
 }
