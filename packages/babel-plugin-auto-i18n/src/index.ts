@@ -288,17 +288,17 @@ export default function (
         }
       },
       CallExpression(path) {
-        // 将t添加进钩子的依赖数组中
+        // 将t添加进hooks的依赖数组中
         const calleeName = (path.node.callee as V8IntrinsicIdentifier).name
-        // 检查是否是指定的 React 钩子之一
+        // 检查是否是指定的 React hooks之一
         if (['useEffect', 'useCallback', 'useMemo'].includes(calleeName)) {
-          // 获取钩子的第一个参数，它应该是一个函数
+          // 获取hooks的第一个参数，它应该是一个函数
           const hookFunction = path.node.arguments[0] as FunctionExpression | ArrowFunctionExpression
 
           // 确保第一个参数是一个函数体
           if (t.isFunctionExpression(hookFunction) || t.isArrowFunctionExpression(hookFunction)) {
             // FIXME 更有效的方法
-            // 检查钩子函数体中是否包含符合条件(暂时的方法)的中文使用场景
+            // 检查hooks函数体中是否包含符合条件(暂时的方法)的中文使用场景
             let hasChineseUsage = false
             path.traverse({
               StringLiteral(stringLiteralPath) {
@@ -307,18 +307,22 @@ export default function (
               },
             })
 
+            // hooks函数参数的作用域中无中文
             if (!hasChineseUsage) return
             if (
               t.isBlockStatement(hookFunction.body) ||
               (calleeName === 'useMemo' && t.isArrayExpression(hookFunction.body))
             ) {
               // 获取或创建依赖数组
-              let dependencies = path.node.arguments[1] as ArrayExpression | null // path.node.arguments: [ArrowFunctionExpression, ArrayExpression|null]
+              // path.node.arguments: [ArrowFunctionExpression, ArrayExpression|null]
+              const dependencies = path.node.arguments[1] as ArrayExpression | null
               if (!dependencies) {
-                dependencies = t.arrayExpression([])
-                if (t.isCallExpression(path.parent) && path.parent.arguments.length > 1)
-                  path.parent.arguments.push(dependencies)
-                else path.insertAfter(t.arrayExpression([dependencies]))
+                // NOTE 当前hooks无依赖数组项，默认每次都重新执行，不添加t函数进依赖数组
+                return
+                // dependencies = t.arrayExpression([])
+                // if (t.isCallExpression(path.parent) && path.parent.arguments.length > 1)
+                //   path.parent.arguments.push(dependencies)
+                // else path.insertAfter(t.arrayExpression([dependencies]))
               }
               // 将 t 添加到依赖数组中，如果尚未存在
               if (!dependencies.elements.some((element) => t.isIdentifier(element, { name: 't' })))
