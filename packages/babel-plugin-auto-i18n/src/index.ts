@@ -116,7 +116,7 @@ export default function ({ types: t, template }: AnyToFix, options: Option): Plu
             if (
               t.isIdentifier(object) &&
               t.isIdentifier(property) &&
-              (object as Identifier).name === 'message' &&
+              (object as Identifier).name === 'console' &&
               ['log', 'debug', 'error', 'warn', 'info'].includes((property as Identifier).name)
             )
               return // 忽略message.xxx('<中文>')
