@@ -1,7 +1,5 @@
 import crypto from 'crypto'
-import type { PluginPass } from '@babel/core'
 
-// pnpx rimraf .\node_modules\.cache\babel-loader;pnpm run dev
 /**
  * 是否为汉字
  * @param {*} text
@@ -16,7 +14,7 @@ export function isHans(text: string) {
  * @param {*} value
  * @returns
  */
-export function save(file: PluginPass, key: string, value: string) {
+export function save(file: AnyToFix, key: string, value: string) {
   const allText = file.get('allText')
   allText.push({
     key,
@@ -25,6 +23,11 @@ export function save(file: PluginPass, key: string, value: string) {
 
   file.set('allText', allText)
 }
+/**
+ * hash处理字符串
+ * @param key
+ * @returns
+ */
 export function hash(key: string) {
   return crypto.createHash('sha1').update(`${key}`).digest('hex')
 }

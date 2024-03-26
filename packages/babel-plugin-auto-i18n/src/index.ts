@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs'
-import type { PluginObj, PluginPass } from '@babel/core'
+import type { NodePath, PluginObj, PluginPass } from '@babel/core'
 import type {
   ArrayExpression,
   ArrowFunctionExpression,
@@ -8,11 +8,8 @@ import type {
   CallExpression,
   FunctionExpression,
   Identifier,
-  ImportDeclaration,
   ImportSpecifier,
-  JSXAttribute,
   MemberExpression,
-  ObjectProperty,
   V8IntrinsicIdentifier,
   VariableDeclarator,
 } from '@babel/types'
@@ -20,17 +17,35 @@ import { hash, isHans, save, transformKey } from './helper'
 
 export interface Option {
   outputDir: string
+  debug?: boolean
 }
-
+// FIXME  template: typeof import('@babel/template')
 /**
  * react组件注入t('xxx')
  * @param param0
  * @returns
  */
-export default function ({ types: t, template }: AnyToFix, options: Option): PluginObj {
+export default function (
+  { types: t, template }: { types: typeof import('@babel/types'); template: AnyToFix },
+  options: Option
+): PluginObj {
+  /**
+   * 节点替换
+   * @param i18nKey
+   * @param path
+   * @param state
+   */
+  function replaceWithCallExpression(i18nKey: string, path: NodePath, state: PluginPass) {
+    const transformedKey = transformKey(i18nKey)
+    const identifier = t.identifier(`"${transformedKey}"`)
+    const expressionContainer = t.callExpression(t.identifier('t'), [identifier])
+    path.replaceWith(expressionContainer)
+    path.skip()
+    save(state.file, transformedKey, i18nKey)
+  }
+
   return {
     name: '@liutsing/babel-plugin-auto-i18n',
-
     pre(file: AnyToFix) {
       file.set('allText', [])
     },
@@ -59,8 +74,8 @@ export default function ({ types: t, template }: AnyToFix, options: Option): Plu
           state.hasUseTranslationImport = false
           // 检查是否已经导入了 react-i18next 中的 useTranslation
           path.node.body.forEach((node) => {
-            if (t.isImportDeclaration(node) && (node as ImportDeclaration).source.value === 'react-i18next') {
-              const specifiers = (node as ImportDeclaration).specifiers
+            if (t.isImportDeclaration(node) && node.source.value === 'react-i18next') {
+              const specifiers = node.specifiers
               specifiers.forEach((specifier) => {
                 const importSpecifier = specifier as ImportSpecifier
                 if (importSpecifier.imported && (importSpecifier.imported as Identifier).name === 'useTranslation')
@@ -95,7 +110,7 @@ export default function ({ types: t, template }: AnyToFix, options: Option): Plu
         const expressionContainer = t.jsxExpressionContainer(t.callExpression(t.identifier('t'), [identifier]))
         // 替换文本节点为JSXExpressionContainer节点
         path.replaceWith(expressionContainer)
-        save(state.file as unknown as PluginPass, transformedKey, i18nKey)
+        save(state.file, transformedKey, i18nKey)
         path.skip()
       },
       StringLiteral(path, state) {
@@ -116,41 +131,38 @@ export default function ({ types: t, template }: AnyToFix, options: Option): Plu
             if (
               t.isIdentifier(object) &&
               t.isIdentifier(property) &&
-              (object as Identifier).name === 'console' &&
-              ['log', 'debug', 'error', 'warn', 'info'].includes((property as Identifier).name)
+              object.name === 'console' &&
+              ['log', 'debug', 'error', 'warn', 'info'].includes(property.name)
             )
-              return // 忽略message.xxx('<中文>')
+              return // 忽略console.xxx('<中文>')
           }
         }
 
         if (t.isCallExpression(parent)) {
-          const callExpressionPath = parent as CallExpression
+          const callExpressionPath = parent
           // 处理类似message.info('<中文>')
           if (
             t.isMemberExpression(callExpressionPath.callee) &&
-            ((callExpressionPath.callee as MemberExpression).object as Identifier).name
+            (callExpressionPath.callee.object as Identifier).name
           ) {
-            const transformedKey = transformKey(i18nKey)
-            const identifier = t.identifier(`"${transformedKey}"`)
-            const expressionContainer = t.callExpression(t.identifier('t'), [identifier])
-            path.replaceWith(expressionContainer)
-            save(state.file as unknown as PluginPass, transformedKey, i18nKey)
-            path.skip()
-          } else if (
-            t.isIdentifier(callExpressionPath.callee) &&
-            (callExpressionPath.callee as Identifier).name === 't'
-          ) {
+            replaceWithCallExpression(i18nKey, path, state)
+          } else if (t.isIdentifier(callExpressionPath.callee) && callExpressionPath.callee.name === 't') {
             // 已存在的t('xx')，忽略
           } else {
-            console.debug('i18n忽略字段: ', i18nKey)
+            if (options.debug) {
+              console.log('the unhandle chinese text of callExpression condition: ', {
+                key: i18nKey,
+                type: parent.type,
+                absolutePath,
+              })
+            }
           }
         } else if (t.isJSXAttribute(parent)) {
           // jsx属性中的汉字
-          if ((parent as JSXAttribute).name.name === 'id') {
+          if (parent.name.name === 'id') {
             // 忽略svg中id中的中文
             return
           }
-
           const transformedKey = transformKey(i18nKey)
           const identifier = t.identifier(`"${transformedKey}"`)
           const expressionContainer = t.jsxExpressionContainer(t.callExpression(t.identifier('t'), [identifier]))
@@ -162,15 +174,11 @@ export default function ({ types: t, template }: AnyToFix, options: Option): Plu
           const jSXAttributePath = path.findParent((p) => p.isJSXAttribute())
           if (jSXAttributePath) {
             // jsx属性中的三目运算符中的StringLiteral
-            const transformedKey = transformKey(i18nKey)
-            const identifier = t.identifier(`"${transformedKey}"`)
-            const expressionContainer = t.callExpression(t.identifier('t'), [identifier])
-            path.replaceWith(expressionContainer)
-            path.skip()
-            save(state.file as unknown as PluginPass, transformedKey, i18nKey)
+            replaceWithCallExpression(i18nKey, path, state)
           }
         } else if (t.isObjectProperty(parent)) {
-          const objectPropertyPath = parent as ObjectProperty
+          const objectPropertyPath = parent
+          console.log('ObjectProperty', i18nKey)
           /**
           忽略模块作用域中的
            const a = {xx:'中文'}
@@ -182,36 +190,31 @@ export default function ({ types: t, template }: AnyToFix, options: Option): Plu
           // NOTE 排除不在函数作用域中的中文: 其他字典类的定义按手动处理
           if (!blockPath) return
 
-          if ((objectPropertyPath.key as Identifier).name === 'id') {
-            const transformedKey = transformKey(i18nKey)
-            const identifier = t.identifier(`"${transformedKey}"`)
-            const expressionContainer = t.callExpression(t.identifier('t'), [identifier])
-            path.replaceWith(expressionContainer)
-            path.skip()
-            save(state.file as unknown as PluginPass, transformedKey, i18nKey)
-          } else if (t.isAssignmentExpression(parent) || t.isArrayExpression(parent)) {
-            // 处理数组中的中文
-            const transformedKey = transformKey(i18nKey)
-            const identifier = t.identifier(`"${transformedKey}"`)
-            const expressionContainer = t.callExpression(t.identifier('t'), [identifier])
-            path.replaceWith(expressionContainer)
-            path.skip()
-            save(state.file as unknown as PluginPass, transformedKey, i18nKey)
+          if (
+            (objectPropertyPath.key as Identifier).name === 'id' ||
+            t.isAssignmentExpression(parent) ||
+            t.isArrayExpression(parent)
+          ) {
+            // 赋值表达式/数组中的中文
+            replaceWithCallExpression(i18nKey, path, state)
           } else {
-            // console.log({ key: i18nKey, type: parent.type }, '===未提取===')
-            fs.writeFile(
-              './no.log',
-              `${JSON.stringify({
+            if (options.debug) {
+              console.log('the unhandle chinese text of ObjectProperty condition: ', {
                 key: i18nKey,
-                parentType: parent.type,
-                type: path.node.type,
-                path: absolutePath,
-              })}\r\n`,
-              { flag: 'a+' },
-              (e) => {
-                if (e) console.error(e)
-              }
-            )
+                type: parent.type,
+                absolutePath,
+              })
+            }
+          }
+        } else if (t.isVariableDeclarator(parent)) {
+          replaceWithCallExpression(i18nKey, path, state)
+        } else {
+          if (options.debug) {
+            console.log('unmatched condition: ', {
+              key: i18nKey,
+              type: parent.type,
+              absolutePath,
+            })
           }
         }
       },
@@ -252,8 +255,8 @@ export default function ({ types: t, template }: AnyToFix, options: Option): Plu
 
         if (
           !t.isCallExpression(parent) &&
-          (parent as CallExpression).callee &&
-          ((parent as CallExpression).callee as Identifier).name !== 'forwardRef'
+          (parent as unknown as CallExpression).callee &&
+          ((parent as unknown as CallExpression).callee as Identifier).name !== 'forwardRef'
         )
           return
 
@@ -325,9 +328,9 @@ export default function ({ types: t, template }: AnyToFix, options: Option): Plu
               // 获取或创建依赖数组
               let dependencies = path.node.arguments[1] as ArrayExpression | null // path.node.arguments: [ArrowFunctionExpression, ArrayExpression|null]
               if (!dependencies) {
-                dependencies = t.arrayExpression([]) as ArrayExpression
-                if (t.isCallExpression(path.parent) && (path.parent as CallExpression).arguments.length > 1)
-                  (path.parent as CallExpression).arguments.push(dependencies)
+                dependencies = t.arrayExpression([])
+                if (t.isCallExpression(path.parent) && path.parent.arguments.length > 1)
+                  path.parent.arguments.push(dependencies)
                 else path.insertAfter(t.arrayExpression([dependencies]))
               }
               // 将 t 添加到依赖数组中，如果尚未存在
