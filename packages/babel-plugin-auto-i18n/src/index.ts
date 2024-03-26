@@ -99,8 +99,10 @@ export default function (
         const file = state.file
         // 获取文件的绝对路径
         const absolutePath = file.opts.filename
-        if (absolutePath?.endsWith('.svg')) return
-
+        if (absolutePath?.endsWith('.svg')) {
+          // 使用webpack require context导入的svg文件，需要忽略其内部的中文的处理
+          return
+        }
         const i18nKey = path.node.value.trim()
 
         if (!isHans(i18nKey)) return
@@ -147,6 +149,7 @@ export default function (
           ) {
             replaceWithCallExpression(i18nKey, path, state)
           } else if (t.isIdentifier(callExpressionPath.callee) && callExpressionPath.callee.name === 't') {
+            // TODO 测试
             // 已存在的t('xx')，忽略
           } else {
             if (options.debug) {
@@ -160,7 +163,10 @@ export default function (
         } else if (t.isJSXAttribute(parent)) {
           // jsx属性中的汉字
           if (parent.name.name === 'id') {
-            // 忽略svg中id中的中文
+            if (options.debug) {
+              // 忽略svg中id中的中文
+              console.log('ignore the text of svg dom', i18nKey)
+            }
             return
           }
           const transformedKey = transformKey(i18nKey)
@@ -177,36 +183,17 @@ export default function (
             replaceWithCallExpression(i18nKey, path, state)
           }
         } else if (t.isObjectProperty(parent)) {
-          const objectPropertyPath = parent
-          console.log('ObjectProperty', i18nKey)
           /**
           忽略模块作用域中的
            const a = {xx:'中文'}
            export const a = {xx:'中文'}
           保留函数作用域内的(react函数组件)
            */
-
           const blockPath = path.findParent((path) => path.isBlockStatement())
           // NOTE 排除不在函数作用域中的中文: 其他字典类的定义按手动处理
           if (!blockPath) return
-
-          if (
-            (objectPropertyPath.key as Identifier).name === 'id' ||
-            t.isAssignmentExpression(parent) ||
-            t.isArrayExpression(parent)
-          ) {
-            // 赋值表达式/数组中的中文
-            replaceWithCallExpression(i18nKey, path, state)
-          } else {
-            if (options.debug) {
-              console.log('the unhandle chinese text of ObjectProperty condition: ', {
-                key: i18nKey,
-                type: parent.type,
-                absolutePath,
-              })
-            }
-          }
-        } else if (t.isVariableDeclarator(parent)) {
+          replaceWithCallExpression(i18nKey, path, state)
+        } else if (t.isVariableDeclarator(parent) || t.isAssignmentExpression(parent) || t.isArrayExpression(parent)) {
           replaceWithCallExpression(i18nKey, path, state)
         } else {
           if (options.debug) {

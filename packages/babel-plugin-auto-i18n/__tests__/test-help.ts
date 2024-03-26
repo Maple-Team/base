@@ -1,6 +1,6 @@
 import * as parser from '@babel/parser'
 import { transformFromAstSync } from '@babel/core'
-import autoI18nPlugin from '../'
+import autoI18nPlugin from '../types'
 
 /**
  * 构建preset
@@ -13,6 +13,7 @@ export function preset() {
         autoI18nPlugin,
         {
           outputDir: 'output',
+          debug: false,
         },
       ],
     ],
