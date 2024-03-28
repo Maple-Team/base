@@ -23,6 +23,36 @@ describe('auto i18n plugin unit tests', () => {
       expect(result?.code).toMatchSnapshot()
     })
 
+    it('handle templateElement text', () => {
+      const sourceCode = `
+        export const Component = () => {
+          return (
+            <div>
+              {\`外层文本\`}
+              <div>{\`嵌套文本\`}</div>
+            </div>
+          )
+        }
+      `
+      const result = getTransformCode(sourceCode, 'templateElement.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+
+    it('handle nested JSXText', () => {
+      const sourceCode = `
+        export const Component = () => {
+          return (
+            <div>
+              {'外层文本'}
+              <div>{'嵌套文本'}</div>
+            </div>
+          )
+        }
+      `
+      const result = getTransformCode(sourceCode, 'nestedJSXText.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+
     it('handle JSXAttribute', () => {
       const sourceCode = `
       export const Component = () => {
@@ -101,6 +131,80 @@ describe('auto i18n plugin unit tests', () => {
       }
       `
       const result = getTransformCode(sourceCode, 'arrayExpression.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('handle message object', () => {
+      const sourceCode = `
+      export const Component = () => {
+        useEffect(()=>{
+          message.info({
+            content: "内容值"
+          })
+        },[])
+        return <div name="属性">站位文本</div>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'handle-message-obj.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('handle modal object', () => {
+      const sourceCode = `
+      export const Component = () => {
+       const cb = useCallback(()=>{
+          modal.info({
+            content: <div>内容值</div>,
+            footer: (
+              <>
+              <Space>
+              <Button>取消</Button>
+              <Button>确认</Button>
+              </Space>
+              </>
+            )
+          })
+        },[])
+        return <div name="属性" onClick={cb} >站位文本</div>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'handle-modal-obj.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('handle string literals combined with variables', () => {
+      const sourceCode = `
+        const text = "前缀";
+        export const Component = () => {
+          return <div>{text}{'后缀'}</div>;
+        }
+      `
+      const result = getTransformCode(sourceCode, 'stringLiteralsWithVariables.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('handle conditional rendering', () => {
+      const sourceCode = `
+        const showText = true;
+        export const Component = () => {
+          return (
+            <div>
+              {showText && '显示中文'}
+            </div>
+          )
+        }
+      `
+      const result = getTransformCode(sourceCode, 'conditionalRendering.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('handle binary expression rendering', () => {
+      const sourceCode = `
+        const showText = true;
+        export const Component = () => {
+          return (
+            <div>
+              {showText & '显示中文'}
+            </div>
+          )
+        }
+      `
+      const result = getTransformCode(sourceCode, 'binaryExpressionRendering.tsx')
       expect(result?.code).toMatchSnapshot()
     })
   })

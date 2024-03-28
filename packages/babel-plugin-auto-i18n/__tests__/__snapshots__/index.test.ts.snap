@@ -274,6 +274,44 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
+exports[`auto i18n plugin unit tests stringLiteral cases handle binary expression rendering 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var showText = true;
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>
+              {showText & t(\\"63e700c1\\")}
+            </div>;
+};"
+`;
+
+exports[`auto i18n plugin unit tests stringLiteral cases handle conditional rendering 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var showText = true;
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>
+              {showText && t(\\"63e700c1\\")}
+            </div>;
+};"
+`;
+
 exports[`auto i18n plugin unit tests stringLiteral cases handle console 1`] = `
 "\\"use strict\\";
 
@@ -288,6 +326,54 @@ var Component = exports.Component = function Component() {
     i18n = _useTranslation.i18n;
   console.log('输出值');
   return <div name={t(\\"7d3c35c2\\")}>{t(\\"df484e72\\")}</div>;
+};"
+`;
+
+exports[`auto i18n plugin unit tests stringLiteral cases handle message object 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  useEffect(function () {
+    message.info({
+      content: t(\\"d44d48e7\\")
+    });
+  }, [t]);
+  return <div name={t(\\"7d3c35c2\\")}>{t(\\"e2fd33fa\\")}</div>;
+};"
+`;
+
+exports[`auto i18n plugin unit tests stringLiteral cases handle modal object 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  var cb = useCallback(function () {
+    modal.info({
+      content: <div>{t(\\"d44d48e7\\")}</div>,
+      footer: <>
+              <Space>
+              <Button>{t(\\"4d0b4688\\")}</Button>
+              <Button>{t(\\"b56d9ac6\\")}</Button>
+              </Space>
+              </>
+    });
+  }, [t]);
+  return <div name={t(\\"7d3c35c2\\")} onClick={cb}>{t(\\"e2fd33fa\\")}</div>;
 };"
 `;
 
@@ -311,6 +397,25 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
+exports[`auto i18n plugin unit tests stringLiteral cases handle nested JSXText 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>
+              {t(\\"cd713656\\")}
+              <div>{t(\\"7eaacb74\\")}</div>
+            </div>;
+};"
+`;
+
 exports[`auto i18n plugin unit tests stringLiteral cases handle objectProperty 1`] = `
 "\\"use strict\\";
 
@@ -331,6 +436,23 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
+exports[`auto i18n plugin unit tests stringLiteral cases handle string literals combined with variables 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var text = \\"前缀\\";
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>{text}{t(\\"c4899352\\")}</div>;
+};"
+`;
+
 exports[`auto i18n plugin unit tests stringLiteral cases handle svg react component 1`] = `
 "\\"use strict\\";
 
@@ -346,5 +468,24 @@ var Component = exports.Component = function Component() {
   return <svg t=\\"1711425339799\\" className=\\"icon\\" viewBox=\\"0 0 1024 1024\\" version=\\"1.1\\" xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"200\\" height=\\"200\\">
         <path id=\\"svg中的中文\\" d=\\"M448 672c-6.4 0-19.2 0-25.6-6.4-12.8-12.8-12.8-32 0-44.8L531.2 512 422.4 409.6c-12.8-12.8-12.8-32 0-44.8s32-12.8 44.8 0l128 128c12.8 12.8 12.8 32 0 44.8l-128 128C467.2 672 454.4 672 448 672z\\" fill=\\"#272636\\" />
       </svg>;
+};"
+`;
+
+exports[`auto i18n plugin unit tests stringLiteral cases handle templateElement text 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>
+              {t(\\"cd713656\\")}
+              <div>{t(\\"7eaacb74\\")}</div>
+            </div>;
 };"
 `;

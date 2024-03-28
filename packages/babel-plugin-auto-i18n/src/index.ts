@@ -118,11 +118,12 @@ export default function (
       StringLiteral(path, state) {
         const i18nKey = path.node.value.trim()
         if (!isHans(i18nKey)) return
-
+        // i18nKey.includes('文本') && console.log(i18nKey, '==StringLiteral==')
         const file = state.file
         // 获取文件的绝对路径
         const absolutePath = file.opts.filename
         const parent = path.parent
+        // console.log(i18nKey, absolutePath, parent.type)
 
         // 排除console.xx中的中文
         const callExpressionPath = path.findParent((p) => p.isCallExpression())
@@ -193,7 +194,14 @@ export default function (
           // NOTE 排除不在函数作用域中的中文: 其他字典类的定义按手动处理
           if (!blockPath) return
           replaceWithCallExpression(i18nKey, path, state)
-        } else if (t.isVariableDeclarator(parent) || t.isAssignmentExpression(parent) || t.isArrayExpression(parent)) {
+        } else if (
+          t.isVariableDeclarator(parent) ||
+          t.isAssignmentExpression(parent) ||
+          t.isArrayExpression(parent) ||
+          t.isJSXExpressionContainer(parent) ||
+          t.isLogicalExpression(parent) ||
+          t.isBinaryExpression(parent)
+        ) {
           replaceWithCallExpression(i18nKey, path, state)
         } else {
           if (options.debug) {
@@ -204,6 +212,11 @@ export default function (
             })
           }
         }
+      },
+      TemplateElement(path, state) {
+        const i18nKey = path.node.value.raw.trim()
+        if (!isHans(i18nKey)) return
+        replaceWithCallExpression(i18nKey, path, state)
       },
       FunctionDeclaration(path) {
         // 获取文件的绝对路径
@@ -291,44 +304,45 @@ export default function (
         // 将t添加进hooks的依赖数组中
         const calleeName = (path.node.callee as V8IntrinsicIdentifier).name
         // 检查是否是指定的 React hooks之一
-        if (['useEffect', 'useCallback', 'useMemo'].includes(calleeName)) {
-          // 获取hooks的第一个参数，它应该是一个函数
-          const hookFunction = path.node.arguments[0] as FunctionExpression | ArrowFunctionExpression
+        if (!['useEffect', 'useCallback', 'useMemo'].includes(calleeName)) return
+        // 获取hooks的第一个参数，它应该是一个函数
+        const hookFunction = path.node.arguments[0] as FunctionExpression | ArrowFunctionExpression
 
-          // 确保第一个参数是一个函数体
-          if (t.isFunctionExpression(hookFunction) || t.isArrowFunctionExpression(hookFunction)) {
-            // FIXME 更有效的方法
-            // 检查hooks函数体中是否包含符合条件(暂时的方法)的中文使用场景
-            let hasChineseUsage = false
-            path.traverse({
-              StringLiteral(stringLiteralPath) {
-                const value = stringLiteralPath.node.value
-                if (isHans(value)) hasChineseUsage = true
-              },
-            })
-
-            // hooks函数参数的作用域中无中文
-            if (!hasChineseUsage) return
-            if (
-              t.isBlockStatement(hookFunction.body) ||
-              (calleeName === 'useMemo' && t.isArrayExpression(hookFunction.body))
-            ) {
-              // 获取或创建依赖数组
-              // path.node.arguments: [ArrowFunctionExpression, ArrayExpression|null]
-              const dependencies = path.node.arguments[1] as ArrayExpression | null
-              if (!dependencies) {
-                // NOTE 当前hooks无依赖数组项，默认每次都重新执行，不添加t函数进依赖数组
-                return
-                // dependencies = t.arrayExpression([])
-                // if (t.isCallExpression(path.parent) && path.parent.arguments.length > 1)
-                //   path.parent.arguments.push(dependencies)
-                // else path.insertAfter(t.arrayExpression([dependencies]))
-              }
-              // 将 t 添加到依赖数组中，如果尚未存在
-              if (!dependencies.elements.some((element) => t.isIdentifier(element, { name: 't' })))
-                dependencies.elements.push(t.identifier('t'))
-            }
+        // 确保第一个参数是一个函数体
+        if (!(t.isFunctionExpression(hookFunction) || t.isArrowFunctionExpression(hookFunction))) return
+        // FIXME 更有效的方法
+        // 检查hooks函数体中是否包含符合条件(暂时的方法)的中文使用场景
+        let hasChineseUsage = false
+        path.traverse({
+          StringLiteral(stringLiteralPath) {
+            const value = stringLiteralPath.node.value.trim()
+            if (isHans(value)) hasChineseUsage = true
+          },
+          JSXText(jsxTextPath) {
+            const value = jsxTextPath.node.value.trim()
+            if (isHans(value)) hasChineseUsage = true
+          },
+        })
+        // hooks函数参数的作用域中无中文
+        if (!hasChineseUsage) return
+        if (
+          t.isBlockStatement(hookFunction.body) ||
+          (calleeName === 'useMemo' && t.isArrayExpression(hookFunction.body))
+        ) {
+          // 获取或创建依赖数组
+          // path.node.arguments: [ArrowFunctionExpression, ArrayExpression|null]
+          const dependencies = path.node.arguments[1] as ArrayExpression | null
+          if (!dependencies) {
+            // NOTE 当前hooks无依赖数组项，默认每次都重新执行，不添加t函数进依赖数组
+            return
+            // dependencies = t.arrayExpression([])
+            // if (t.isCallExpression(path.parent) && path.parent.arguments.length > 1)
+            //   path.parent.arguments.push(dependencies)
+            // else path.insertAfter(t.arrayExpression([dependencies]))
           }
+          // 将 t 添加到依赖数组中，如果尚未存在
+          if (!dependencies.elements.some((element) => t.isIdentifier(element, { name: 't' })))
+            dependencies.elements.push(t.identifier('t'))
         }
       },
     },
