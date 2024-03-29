@@ -12,7 +12,7 @@ describe('auto i18n plugin unit tests', () => {
   })
 
   describe('stringLiteral cases', () => {
-    it('handle console', () => {
+    it('handle jsx attribute', () => {
       const sourceCode = `
       export const Component = () => {
         console.log('输出值')
@@ -20,6 +20,17 @@ describe('auto i18n plugin unit tests', () => {
       }
       `
       const result = getTransformCode(sourceCode, 'jsxattribute.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('handle conditional jsx attribute', () => {
+      const sourceCode = `
+      export const Component = () => {
+        console.log('输出值')
+        const var1 = true
+        return <div name={var1 ? "条件1": "条件2"}>jsx文本</div>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'conditional-jsxattribute.tsx')
       expect(result?.code).toMatchSnapshot()
     })
 
@@ -171,7 +182,7 @@ describe('auto i18n plugin unit tests', () => {
     })
     it('handle string literals combined with variables', () => {
       const sourceCode = `
-        const text = "前缀";
+        const text = "模块作用域文案";
         export const Component = () => {
           return <div>{text}{'后缀'}</div>;
         }
@@ -184,9 +195,10 @@ describe('auto i18n plugin unit tests', () => {
         const showText = true;
         export const Component = () => {
           return (
-            <div>
-              {showText && '显示中文'}
-            </div>
+            <>
+            <div>{showText && '显示中文'}</div>
+            <span>{showText ? '条件1': '条件2' }</span>
+            </>
           )
         }
       `

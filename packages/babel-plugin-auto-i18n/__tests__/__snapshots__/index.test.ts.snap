@@ -293,6 +293,24 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
+exports[`auto i18n plugin unit tests stringLiteral cases handle conditional jsx attribute 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  console.log('输出值');
+  var var1 = true;
+  return <div name={var1 ? t(\\"d610f7ab\\") : t(\\"d41501c8\\")}>{t(\\"df484e72\\")}</div>;
+};"
+`;
+
 exports[`auto i18n plugin unit tests stringLiteral cases handle conditional rendering 1`] = `
 "\\"use strict\\";
 
@@ -306,13 +324,14 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
-  return <div>
-              {showText && t(\\"63e700c1\\")}
-            </div>;
+  return <>
+            <div>{showText && t(\\"63e700c1\\")}</div>
+            <span>{showText ? t(\\"d610f7ab\\") : t(\\"d41501c8\\")}</span>
+            </>;
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle console 1`] = `
+exports[`auto i18n plugin unit tests stringLiteral cases handle jsx attribute 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -444,7 +463,7 @@ Object.defineProperty(exports, \\"__esModule\\", {
 });
 exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
-var text = \\"前缀\\";
+var text = \\"模块作用域文案\\";
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t,

@@ -104,9 +104,7 @@ export default function (
           return
         }
         const i18nKey = path.node.value.trim()
-
         if (!isHans(i18nKey)) return
-
         const transformedKey = transformKey(i18nKey)
         const identifier = t.identifier(`"${transformedKey}"`)
         const expressionContainer = t.jsxExpressionContainer(t.callExpression(t.identifier('t'), [identifier]))
@@ -176,13 +174,6 @@ export default function (
           path.replaceWith(expressionContainer)
           path.skip()
           save(state.file as unknown as PluginPass, transformedKey, i18nKey)
-        } else if (t.isConditionalExpression(parent)) {
-          // 三目运算符下的StringLiteral
-          const jSXAttributePath = path.findParent((p) => p.isJSXAttribute())
-          if (jSXAttributePath) {
-            // jsx属性中的三目运算符中的StringLiteral
-            replaceWithCallExpression(i18nKey, path, state)
-          }
         } else if (t.isObjectProperty(parent)) {
           /**
           忽略模块作用域中的
@@ -195,13 +186,17 @@ export default function (
           if (!blockPath) return
           replaceWithCallExpression(i18nKey, path, state)
         } else if (
-          t.isVariableDeclarator(parent) ||
           t.isAssignmentExpression(parent) ||
           t.isArrayExpression(parent) ||
           t.isJSXExpressionContainer(parent) ||
           t.isLogicalExpression(parent) ||
-          t.isBinaryExpression(parent)
+          t.isBinaryExpression(parent) ||
+          t.isConditionalExpression(parent)
         ) {
+          replaceWithCallExpression(i18nKey, path, state)
+        } else if (t.isVariableDeclarator(parent)) {
+          const blockPath = path.findParent((path) => path.isBlockStatement())
+          if (!blockPath) return
           replaceWithCallExpression(i18nKey, path, state)
         } else {
           if (options.debug) {
