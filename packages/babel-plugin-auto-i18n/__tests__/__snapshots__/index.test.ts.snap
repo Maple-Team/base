@@ -12,7 +12,7 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
-  return <div>{t(\\"440ee085\\")}</div>;
+  return <div>{t(\\"key_你好\\")}</div>;
 };"
 `;
 
@@ -39,10 +39,10 @@ var Component = exports.Component = function Component() {
     v = _useState2[0],
     setV = _useState2[1];
   var cb1 = useCallback(function () {
-    var text = t(\\"c056fb8f\\");
+    var text = t(\\"key_useCallback作用域中的文案0\\");
     console.log(v);
   }, [v, t]);
-  return <div name={t(\\"7d3c35c2\\")} onClick={cb1}>{t(\\"e2fd33fa\\")}</div>;
+  return <div name={t(\\"key_属性\\")} onClick={cb1}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -59,9 +59,9 @@ var Component = exports.Component = function Component() {
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
   var cb1 = useCallback(function () {
-    var text = t(\\"6a7ba358\\");
+    var text = t(\\"key_useCallback作用域中的文案1\\");
   }, [t]);
-  return <div name={t(\\"7d3c35c2\\")} onClick={cb1}>{t(\\"e2fd33fa\\")}</div>;
+  return <div name={t(\\"key_属性\\")} onClick={cb1}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -88,10 +88,10 @@ var Component = exports.Component = function Component() {
     v = _useState2[0],
     setV = _useState2[1];
   useEffect(function () {
-    var text = t(\\"b3105269\\");
+    var text = t(\\"key_effect作用域中的文案1\\");
     console.log(v);
   }, [v, t]);
-  return <div name={t(\\"7d3c35c2\\")}>{t(\\"e2fd33fa\\")}</div>;
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -108,9 +108,9 @@ var Component = exports.Component = function Component() {
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
   useEffect(function () {
-    var text = t(\\"b3105269\\");
+    var text = t(\\"key_effect作用域中的文案1\\");
   }, [t]);
-  return <div name={t(\\"7d3c35c2\\")}>{t(\\"e2fd33fa\\")}</div>;
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -127,9 +127,9 @@ var Component = exports.Component = function Component() {
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
   useEffect(function () {
-    var text = t(\\"0bda56d6\\");
+    var text = t(\\"key_effect作用域中的文案2\\");
   });
-  return <div name={t(\\"7d3c35c2\\")}>{t(\\"e2fd33fa\\")}</div>;
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -146,12 +146,12 @@ var Component = exports.Component = function Component() {
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
   var cb1 = useMemo(function () {
-    var text = t(\\"d1e010b9\\");
+    var text = t(\\"key_useMemo作用域中的文案1\\");
     return function () {
       console.log(text);
     };
   }, [t]);
-  return <div name={t(\\"7d3c35c2\\")} onClick={cb1}>{t(\\"e2fd33fa\\")}</div>;
+  return <div name={t(\\"key_属性\\")} onClick={cb1}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -168,10 +168,10 @@ var Component = exports.Component = function Component() {
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
   var text = useMemo(function () {
-    var text = t(\\"d1e010b9\\");
+    var text = t(\\"key_useMemo作用域中的文案1\\");
     return text;
   }, [t]);
-  return <div name={t(\\"7d3c35c2\\")}>{text}</div>;
+  return <div name={t(\\"key_属性\\")}>{text}</div>;
 };"
 `;
 
@@ -187,12 +187,12 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
-  var var1 = t(\\"94fb4488\\");
+  var var1 = t(\\"key_外部变量1\\");
   var var2 = useMemo(function () {
     var text = \\"text\\" + var1;
     return text;
   }, [var1]);
-  return <div name={t(\\"7d3c35c2\\")}>{var2}</div>;
+  return <div name={t(\\"key_属性\\")}>{var2}</div>;
 };"
 `;
 
@@ -210,17 +210,17 @@ var Component = exports.Component = function Component() {
     i18n = _useTranslation.i18n;
   var data = useMemo(function () {
     return [{
-      name: t(\\"39899bf2\\"),
-      label: t(\\"87d45b4f\\")
+      name: t(\\"key_值1\\"),
+      label: t(\\"key_标签1\\")
     }, {
-      name: t(\\"1af30f22\\"),
-      label: t(\\"e5850bd3\\")
+      name: t(\\"key_值2\\"),
+      label: t(\\"key_标签2\\")
     }, {
-      name: t(\\"fa6f1284\\"),
-      label: t(\\"244347a9\\")
+      name: t(\\"key_值3\\"),
+      label: t(\\"key_标签3\\")
     }];
   }, [t]);
-  return <CustomComponent name={t(\\"7d3c35c2\\")} data={data}></CustomComponent>;
+  return <CustomComponent name={t(\\"key_属性\\")} data={data}></CustomComponent>;
 };"
 `;
 
@@ -236,8 +236,8 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
-  var var1 = t(\\"9e898cce\\");
-  return <div name={t(\\"7d3c35c2\\")}>{t(\\"e2fd33fa\\")}</div>;
+  var var1 = t(\\"key_变量1\\");
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -253,7 +253,7 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
-  return <div name={t(\\"7d3c35c2\\")}>{t(\\"df484e72\\")}</div>;
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_jsx文本\\")}</div>;
 };"
 `;
 
@@ -269,8 +269,8 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
-  var obj1 = [t(\\"e86e487c\\"), t(\\"3c3e23ee\\")];
-  return <div name={t(\\"7d3c35c2\\")}>{t(\\"e2fd33fa\\")}</div>;
+  var obj1 = [t(\\"key_属性值1\\"), t(\\"key_属性值2\\")];
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -288,7 +288,7 @@ var Component = exports.Component = function Component() {
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
   return <div>
-              {showText & t(\\"63e700c1\\")}
+              {showText & t(\\"key_显示中文\\")}
             </div>;
 };"
 `;
@@ -307,7 +307,7 @@ var Component = exports.Component = function Component() {
     i18n = _useTranslation.i18n;
   console.log('输出值');
   var var1 = true;
-  return <div name={var1 ? t(\\"d610f7ab\\") : t(\\"d41501c8\\")}>{t(\\"df484e72\\")}</div>;
+  return <div name={var1 ? t(\\"key_条件1\\") : t(\\"key_条件2\\")}>{t(\\"key_jsx文本\\")}</div>;
 };"
 `;
 
@@ -325,8 +325,8 @@ var Component = exports.Component = function Component() {
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
   return <>
-            <div>{showText && t(\\"63e700c1\\")}</div>
-            <span>{showText ? t(\\"d610f7ab\\") : t(\\"d41501c8\\")}</span>
+            <div>{showText && t(\\"key_显示中文\\")}</div>
+            <span>{showText ? t(\\"key_条件1\\") : t(\\"key_条件2\\")}</span>
             </>;
 };"
 `;
@@ -344,7 +344,7 @@ var Component = exports.Component = function Component() {
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
   console.log('输出值');
-  return <div name={t(\\"7d3c35c2\\")}>{t(\\"df484e72\\")}</div>;
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_jsx文本\\")}</div>;
 };"
 `;
 
@@ -362,10 +362,10 @@ var Component = exports.Component = function Component() {
     i18n = _useTranslation.i18n;
   useEffect(function () {
     message.info({
-      content: t(\\"d44d48e7\\")
+      content: t(\\"key_内容值\\")
     });
   }, [t]);
-  return <div name={t(\\"7d3c35c2\\")}>{t(\\"e2fd33fa\\")}</div>;
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -383,16 +383,16 @@ var Component = exports.Component = function Component() {
     i18n = _useTranslation.i18n;
   var cb = useCallback(function () {
     modal.info({
-      content: <div>{t(\\"d44d48e7\\")}</div>,
+      content: <div>{t(\\"key_内容值\\")}</div>,
       footer: <>
               <Space>
-              <Button>{t(\\"4d0b4688\\")}</Button>
-              <Button>{t(\\"b56d9ac6\\")}</Button>
+              <Button>{t(\\"key_取消\\")}</Button>
+              <Button>{t(\\"key_确认\\")}</Button>
               </Space>
               </>
     });
   }, [t]);
-  return <div name={t(\\"7d3c35c2\\")} onClick={cb}>{t(\\"e2fd33fa\\")}</div>;
+  return <div name={t(\\"key_属性\\")} onClick={cb}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -412,7 +412,7 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
-  return <div name={t(\\"7d3c35c2\\")}>{t(\\"e2fd33fa\\")}</div>;
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -429,8 +429,8 @@ var Component = exports.Component = function Component() {
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
   return <div>
-              {t(\\"cd713656\\")}
-              <div>{t(\\"7eaacb74\\")}</div>
+              {t(\\"key_外层文本\\")}
+              <div>{t(\\"key_嵌套文本\\")}</div>
             </div>;
 };"
 `;
@@ -448,10 +448,10 @@ var Component = exports.Component = function Component() {
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
   var obj1 = {
-    name: t(\\"e86e487c\\"),
-    key: t(\\"3c3e23ee\\")
+    name: t(\\"key_属性值1\\"),
+    key: t(\\"key_属性值2\\")
   };
-  return <div name={t(\\"7d3c35c2\\")}>{t(\\"e2fd33fa\\")}</div>;
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -468,7 +468,7 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
-  return <div>{text}{t(\\"c4899352\\")}</div>;
+  return <div>{text}{t(\\"key_后缀\\")}</div>;
 };"
 `;
 
@@ -503,8 +503,8 @@ var Component = exports.Component = function Component() {
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
   return <div>
-              {t(\\"cd713656\\")}
-              <div>{t(\\"7eaacb74\\")}</div>
+              {t(\\"key_外层文本\\")}
+              <div>{t(\\"key_嵌套文本\\")}</div>
             </div>;
 };"
 `;

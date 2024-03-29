@@ -39,3 +39,12 @@ export function hash(key: string) {
 export function transformKey(key: string) {
   return hash(key).substring(0, 8)
 }
+
+/**
+ * 转换key
+ * @param {string} key
+ * @returns
+ */
+export function transformKeyWithOutHash(key: string) {
+  return `key_${key}`
+}

@@ -13,7 +13,7 @@ import type {
   V8IntrinsicIdentifier,
   VariableDeclarator,
 } from '@babel/types'
-import { hash, isHans, save, transformKey } from './helper'
+import { hash, isHans, save, transformKeyWithOutHash } from './helper'
 
 export interface Option {
   outputDir: string
@@ -36,7 +36,7 @@ export default function (
    * @param state
    */
   function replaceWithCallExpression(i18nKey: string, path: NodePath, state: PluginPass) {
-    const transformedKey = transformKey(i18nKey)
+    const transformedKey = transformKeyWithOutHash(i18nKey)
     const identifier = t.identifier(`"${transformedKey}"`)
     const expressionContainer = t.callExpression(t.identifier('t'), [identifier])
     path.replaceWith(expressionContainer)
@@ -105,7 +105,7 @@ export default function (
         }
         const i18nKey = path.node.value.trim()
         if (!isHans(i18nKey)) return
-        const transformedKey = transformKey(i18nKey)
+        const transformedKey = transformKeyWithOutHash(i18nKey)
         const identifier = t.identifier(`"${transformedKey}"`)
         const expressionContainer = t.jsxExpressionContainer(t.callExpression(t.identifier('t'), [identifier]))
         // 替换文本节点为JSXExpressionContainer节点
@@ -168,7 +168,7 @@ export default function (
             }
             return
           }
-          const transformedKey = transformKey(i18nKey)
+          const transformedKey = transformKeyWithOutHash(i18nKey)
           const identifier = t.identifier(`"${transformedKey}"`)
           const expressionContainer = t.jsxExpressionContainer(t.callExpression(t.identifier('t'), [identifier]))
           path.replaceWith(expressionContainer)
