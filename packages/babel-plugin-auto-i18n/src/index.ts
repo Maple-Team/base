@@ -10,6 +10,7 @@ import type {
   Identifier,
   ImportSpecifier,
   MemberExpression,
+  ObjectProperty,
   V8IntrinsicIdentifier,
   VariableDeclarator,
 } from '@babel/types'
@@ -214,31 +215,53 @@ export default function (
         replaceWithCallExpression(i18nKey, path, state)
       },
       FunctionDeclaration(path) {
-        // 获取文件的绝对路径
         const hasBindingT = path.scope.hasBinding('t')
         const hasBindingI18n = path.scope.hasBinding('i18n')
+
         let isValidJSXElement = false
+        let useTranslationVariableDeclarator: NodePath<VariableDeclarator> | undefined
         path.traverse({
           // 针对FunctionDeclaration下的 ReturnStatement
           ReturnStatement(declaratorPath) {
             const argument = declaratorPath.node.argument
-            if (argument && t.isJSXElement(argument)) isValidJSXElement = true
+            if (argument && (t.isJSXElement(argument) || t.isJSXFragment(argument))) isValidJSXElement = true
+          },
+          VariableDeclarator(declaratorPath) {
+            // 找到useTranslation的VariableDeclarator
+            if (t.isCallExpression(declaratorPath.node.init)) {
+              if (
+                t.isIdentifier(declaratorPath.node.init.callee) &&
+                declaratorPath.node.init.callee.name === 'useTranslation'
+              )
+                useTranslationVariableDeclarator = declaratorPath
+            }
           },
         })
         // 如果没有找到声明，我们添加一个新的声明
-        if (!hasBindingT && !hasBindingI18n && isValidJSXElement) {
-          const useTranslationStatement = t.variableDeclaration('const', [
-            t.variableDeclarator(
-              t.objectPattern([
-                t.objectProperty(t.identifier('t'), t.identifier('t')),
-                t.objectProperty(t.identifier('i18n'), t.identifier('i18n')),
-              ]),
-              t.callExpression(t.identifier('useTranslation'), [])
-            ),
-          ])
+        if ((!hasBindingT || !hasBindingI18n) && isValidJSXElement) {
+          const objectPropertyT = !hasBindingT ? t.objectProperty(t.identifier('t'), t.identifier('t')) : null
+          const objectPropertyI18n = !hasBindingI18n
+            ? t.objectProperty(t.identifier('i18n'), t.identifier('i18n'))
+            : null
 
-          // 将声明添加到函数体的顶部
-          path.node.body.body.unshift(useTranslationStatement)
+          const objectProperties = [objectPropertyT, objectPropertyI18n].filter(Boolean) as ObjectProperty[]
+          if (!useTranslationVariableDeclarator) {
+            const useTranslationStatement = t.variableDeclaration('const', [
+              t.variableDeclarator(
+                t.objectPattern(objectProperties),
+                t.callExpression(t.identifier('useTranslation'), [])
+              ),
+            ])
+            // 将声明添加到函数体的顶部 -> 避免重复调用
+            path.node.body.body.unshift(useTranslationStatement)
+          } else {
+            const id = useTranslationVariableDeclarator.node.id
+            if (t.isObjectPattern(id)) {
+              const properties = id.properties as ObjectProperty[]
+              if (!hasBindingT) properties.push(t.objectProperty(t.identifier('t'), t.identifier('t')))
+              if (!hasBindingI18n) properties.push(t.objectProperty(t.identifier('i18n'), t.identifier('i18n')))
+            }
+          }
         }
       },
       ArrowFunctionExpression(path) {
@@ -269,6 +292,7 @@ export default function (
 
         const hasBindingT = path.scope.hasBinding('t')
         const hasBindingI18n = path.scope.hasBinding('i18n')
+        let useTranslationVariableDeclarator: NodePath<VariableDeclarator> | undefined
 
         let isValidJSXElement = false
         path.traverse({
@@ -277,22 +301,43 @@ export default function (
             const argument = declaratorPath.node.argument
             if (argument && (t.isJSXElement(argument) || t.isJSXFragment(argument))) isValidJSXElement = true
           },
+          VariableDeclarator(declaratorPath) {
+            // 找到useTranslation的VariableDeclarator
+            if (t.isCallExpression(declaratorPath.node.init)) {
+              if (
+                t.isIdentifier(declaratorPath.node.init.callee) &&
+                declaratorPath.node.init.callee.name === 'useTranslation'
+              )
+                useTranslationVariableDeclarator = declaratorPath
+            }
+          },
         })
         // 如果没有找到声明，我们添加一个新的声明
         // 返回正确的jsxElement或useXX钩子
-        if (!hasBindingT && !hasBindingI18n && (isValidJSXElement || (parentId && parentId.name.startsWith('use')))) {
-          const useTranslationStatement = t.variableDeclaration('const', [
-            t.variableDeclarator(
-              t.objectPattern([
-                t.objectProperty(t.identifier('t'), t.identifier('t')),
-                t.objectProperty(t.identifier('i18n'), t.identifier('i18n')),
-              ]),
-              t.callExpression(t.identifier('useTranslation'), [])
-            ),
-          ])
+        if ((!hasBindingT || !hasBindingI18n) && (isValidJSXElement || (parentId && parentId.name.startsWith('use')))) {
+          const objectPropertyT = !hasBindingT ? t.objectProperty(t.identifier('t'), t.identifier('t')) : null
+          const objectPropertyI18n = !hasBindingI18n
+            ? t.objectProperty(t.identifier('i18n'), t.identifier('i18n'))
+            : null
 
-          // 将声明添加到函数体的顶部
-          blockStatement.body.unshift(useTranslationStatement)
+          const objectProperties = [objectPropertyT, objectPropertyI18n].filter(Boolean) as ObjectProperty[]
+          if (!useTranslationVariableDeclarator) {
+            const useTranslationStatement = t.variableDeclaration('const', [
+              t.variableDeclarator(
+                t.objectPattern(objectProperties),
+                t.callExpression(t.identifier('useTranslation'), [])
+              ),
+            ])
+            // 将声明添加到函数体的顶部
+            blockStatement.body.unshift(useTranslationStatement)
+          } else {
+            const id = useTranslationVariableDeclarator.node.id
+            if (t.isObjectPattern(id)) {
+              const properties = id.properties as ObjectProperty[]
+              if (!hasBindingT) properties.push(t.objectProperty(t.identifier('t'), t.identifier('t')))
+              if (!hasBindingI18n) properties.push(t.objectProperty(t.identifier('i18n'), t.identifier('i18n')))
+            }
+          }
         }
       },
       CallExpression(path) {
