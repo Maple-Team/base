@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrow function declaration scenarios - JSXText cases exported arrow function cases handle JSXText1 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>{t(\\"key_你好\\")}</div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios - JSXText cases exported arrow function cases handle JSXText2 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>{t(\\"key_你好\\")}<span>{t(\\"key_嵌套文本\\")}</span></div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios - JSXText cases exported arrow function cases handle JSXText3 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <>
+      <div>{t(\\"key_你好\\")}</div>
+      <span>{t(\\"key_嵌套文本\\")}</span>
+      </>;
+};"
+`;
+
+exports[`arrow function declaration scenarios - JSXText cases exported default arrow function cases handle JSXText1 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports[\\"default\\"] = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var _default = exports[\\"default\\"] = function _default() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>{t(\\"key_你好\\")}</div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios - JSXText cases exported default arrow function cases handle JSXText2 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports[\\"default\\"] = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var _default = exports[\\"default\\"] = function _default() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>{t(\\"key_你好\\")}<span>{t(\\"key_嵌套文本\\")}</span></div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios - JSXText cases exported default arrow function cases handle JSXText3 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports[\\"default\\"] = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var _default = exports[\\"default\\"] = function _default() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <>
+      <div>{t(\\"key_你好\\")}</div>
+      <span>{t(\\"key_嵌套文本\\")}</span>
+      </>;
+};"
+`;
+
+exports[`function declaration scenarios - JSXText cases exported default function cases handle JSXText1 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports[\\"default\\"] = Component;
+var _reactI18next = require(\\"react-i18next\\");
+function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>{t(\\"key_你好\\")}</div>;
+}"
+`;
+
+exports[`function declaration scenarios - JSXText cases exported default function cases handle JSXText2 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports[\\"default\\"] = Component;
+var _reactI18next = require(\\"react-i18next\\");
+function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>{t(\\"key_你好\\")}<span>{t(\\"key_嵌套文本\\")}</span></div>;
+}"
+`;
+
+exports[`function declaration scenarios - JSXText cases exported default function cases handle JSXText3 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports[\\"default\\"] = Component;
+var _reactI18next = require(\\"react-i18next\\");
+function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <>
+        <div>{t(\\"key_你好\\")}</div>
+        <span>{t(\\"key_嵌套文本\\")}</span>
+        </>;
+}"
+`;
+
+exports[`function declaration scenarios - JSXText cases exported function cases handle JSXText1 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = Component;
+var _reactI18next = require(\\"react-i18next\\");
+function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>{t(\\"key_你好\\")}</div>;
+}"
+`;
+
+exports[`function declaration scenarios - JSXText cases exported function cases handle JSXText2 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = Component;
+var _reactI18next = require(\\"react-i18next\\");
+function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div>{t(\\"key_你好\\")}<span>{t(\\"key_嵌套文本\\")}</span></div>;
+}"
+`;
+
+exports[`function declaration scenarios - JSXText cases exported function cases handle JSXText3 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = Component;
+var _reactI18next = require(\\"react-i18next\\");
+function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <>
+      <div>{t(\\"key_你好\\")}</div>
+      <span>{t(\\"key_嵌套文本\\")}</span>
+      </>;
+}"
+`;

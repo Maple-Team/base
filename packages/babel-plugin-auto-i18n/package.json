@@ -1,7 +1,7 @@
 {
   "name": "@liutsing/babel-plugin-auto-i18n",
-  "version": "0.0.1",
-  "description": "A babel plugin to inject react component render debug console.count('xxx')",
+  "version": "0.0.1.beta1",
+  "description": "A babel plugin to transform source language to 't' invoke expression",
   "keywords": [
     "babel plugin"
   ],

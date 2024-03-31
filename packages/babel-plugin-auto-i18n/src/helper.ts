@@ -6,7 +6,7 @@ import crypto from 'crypto'
  * @returns
  */
 export function isHans(text: string) {
-  return text && /\p{Script=Han}/u.test(text)
+  return text ? /\p{Script=Han}/u.test(text) : false
 }
 /**
  * 收集存在的key

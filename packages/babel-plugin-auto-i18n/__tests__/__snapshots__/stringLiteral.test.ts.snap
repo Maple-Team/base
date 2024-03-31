@@ -1,103 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`auto i18n plugin unit tests detect has import react-i18n case 1 1`] = `
-"\\"use strict\\";
-
-Object.defineProperty(exports, \\"__esModule\\", {
-  value: true
-});
-exports.Component = void 0;
-var _reactI18next = require(\\"react-i18next\\");
-var Component = exports.Component = function Component() {
-  var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
-  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
-};"
-`;
-
-exports[`auto i18n plugin unit tests detect has import react-i18n case 2 1`] = `
-"\\"use strict\\";
-
-Object.defineProperty(exports, \\"__esModule\\", {
-  value: true
-});
-exports.Component = void 0;
-var _reactI18next = require(\\"react-i18next\\");
-var Component = exports.Component = function Component() {
-  var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
-  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
-};"
-`;
-
-exports[`auto i18n plugin unit tests detect has import react-i18n case 3 1`] = `
-"\\"use strict\\";
-
-Object.defineProperty(exports, \\"__esModule\\", {
-  value: true
-});
-exports.Component = void 0;
-var _reactI18next = require(\\"react-i18next\\");
-var Component = exports.Component = function Component() {
-  var _useTranslation = (0, _reactI18next.useTranslation)(),
-    i18n = _useTranslation.i18n,
-    t = _useTranslation.t;
-  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
-};"
-`;
-
-exports[`auto i18n plugin unit tests detect has import react-i18n case 4 1`] = `
-"\\"use strict\\";
-
-Object.defineProperty(exports, \\"__esModule\\", {
-  value: true
-});
-exports.Component = Component;
-var _reactI18next = require(\\"react-i18next\\");
-function Component() {
-  var _useTranslation = (0, _reactI18next.useTranslation)(),
-    i18n = _useTranslation.i18n,
-    t = _useTranslation.t;
-  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
-}"
-`;
-
-exports[`auto i18n plugin unit tests function declaration - useHooks 1`] = `
-"\\"use strict\\";
-
-Object.defineProperty(exports, \\"__esModule\\", {
-  value: true
-});
-exports.useComponent = useComponent;
-var _reactI18next = require(\\"react-i18next\\");
-function useComponent() {
-  var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
-  var var1 = t(\\"key_变量1\\");
-  return [var1];
-}"
-`;
-
-exports[`auto i18n plugin unit tests handle JSXText 1`] = `
-"\\"use strict\\";
-
-Object.defineProperty(exports, \\"__esModule\\", {
-  value: true
-});
-exports.Component = void 0;
-var _reactI18next = require(\\"react-i18next\\");
-var Component = exports.Component = function Component() {
-  var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
-  return <div>{t(\\"key_你好\\")}</div>;
-};"
-`;
-
-exports[`auto i18n plugin unit tests handle useCallback hooks add t as dependences exported function case 0 1`] = `
+exports[`arrow function declaration scenarios handle useCallback hooks add t as dependences exported function case 0 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -127,7 +30,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests handle useCallback hooks add t as dependences exported function case 1 1`] = `
+exports[`arrow function declaration scenarios handle useCallback hooks add t as dependences exported function case 1 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -146,7 +49,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests handle useEffect hooks add t as dependences exported function case 0 1`] = `
+exports[`arrow function declaration scenarios handle useEffect hooks add t as dependences exported function case 0 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -176,7 +79,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests handle useEffect hooks add t as dependences exported function case 1 1`] = `
+exports[`arrow function declaration scenarios handle useEffect hooks add t as dependences exported function case 1 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -195,7 +98,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests handle useEffect hooks add t as dependences exported function case 2 1`] = `
+exports[`arrow function declaration scenarios handle useEffect hooks add t as dependences exported function case 2 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -214,7 +117,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests handle useMemo hooks add t as dependences exported function case 0 1`] = `
+exports[`arrow function declaration scenarios handle useMemo hooks add t as dependences exported function case 0 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -236,7 +139,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests handle useMemo hooks add t as dependences exported function case 1 1`] = `
+exports[`arrow function declaration scenarios handle useMemo hooks add t as dependences exported function case 1 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -256,7 +159,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests handle useMemo hooks add t as dependences exported function case 2 1`] = `
+exports[`arrow function declaration scenarios handle useMemo hooks add t as dependences exported function case 2 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -277,7 +180,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests handle useMemo hooks add t as dependences exported function case 3 1`] = `
+exports[`arrow function declaration scenarios handle useMemo hooks add t as dependences exported function case 3 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -305,7 +208,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle Assignment 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle Assignment 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -322,7 +225,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle JSXAttribute 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle JSXAttribute 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -338,7 +241,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle arrayExpression 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle arrayExpression 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -355,7 +258,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle binary expression rendering 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle binary expression rendering 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -374,7 +277,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle conditional jsx attribute 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle conditional jsx attribute 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -392,7 +295,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle conditional rendering 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle conditional rendering 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -412,7 +315,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle jsx attribute 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle jsx attribute 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -429,7 +332,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle message object 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle message object 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -450,7 +353,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle modal object 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle modal object 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -477,7 +380,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle module scope objectProperty 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle module scope objectProperty 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -497,7 +400,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle nested JSXText 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle nested JSXText 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -516,7 +419,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle objectProperty 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle objectProperty 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -536,7 +439,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle string literals combined with variables 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle string literals combined with variables 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -553,7 +456,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle svg react component 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle svg react component 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -571,7 +474,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`auto i18n plugin unit tests stringLiteral cases handle templateElement text 1`] = `
+exports[`arrow function declaration scenarios stringLiteral cases handle templateElement text 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {

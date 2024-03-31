@@ -1,8 +1,8 @@
-# @liutsing/babel-plugin-remove-console
+# @liutsing/babel-plugin-auto-i18n
 
 ## function
 
-remove the `console code` of source code, and support option to exclude some sub property for production debug, for example: `console.debug`, `console.warn`
+auto transform chinese string to `t` invoke expression
 
 ## usge
 
@@ -10,18 +10,11 @@ in babel config file like `.babelrc`,
 
 ```json
 {
-  "plugins": [
-    [
-      "@liutsing/babel-plugin-remove-console",
-      {
-        "exclude": ["debug", "error", "warn"]
-      }
-    ]
-  ]
+  "plugins": [["@liutsing/babel-plugin-auto-i18n"]]
 }
 ```
 
-## more
+## Misc
 
 ### [Plugin Ordering](https://babeljs.io/docs/en/plugins#plugin-ordering)
 
@@ -32,3 +25,15 @@ This means if two transforms both visit the "Program" node, the transforms will 
 - **Plugins run before Presets**.
 - **Plugin ordering is first to last**.
 - **Preset ordering is reversed** (last to first).
+
+## TODO
+
+### 1.0
+
+- [ ] Avoid unnecessary calls to the `useTranslation` function.
+- [ ] unnecessary import will be tree-shaking by webpack -> need test
+- [ ] bench the performance of this plugin
+
+### 2.0
+
+- [ ] support option source language

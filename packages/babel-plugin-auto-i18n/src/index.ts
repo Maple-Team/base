@@ -17,8 +17,19 @@ import type {
 import { hash, isHans, save, transformKeyWithoutHash } from './helper'
 
 export interface Option {
-  outputDir: string
+  /**
+   * 中文文案输出目录
+   * @default string path.join(process.cwd(), 'src','i18n','zh_CN')
+   */
+  outputDir?: string
   debug?: boolean
+  /**
+   * 提取/转化符合条件的语言文案
+   * @param text
+   * @default {import('./helper').isHans}
+   * @returns
+   */
+  conditionalLanguage?: (text: string) => boolean
 }
 // FIXME  template: typeof import('@babel/template')
 /**
@@ -45,6 +56,9 @@ export default function (
     save(state.file, transformedKey, i18nKey)
   }
 
+  const conditionalLanguage = options.conditionalLanguage || isHans
+  const outputDir = options.outputDir || path.join(process.cwd(), 'src', 'i18n', 'zh_CN')
+
   return {
     name: '@liutsing/babel-plugin-auto-i18n',
     pre(file: AnyToFix) {
@@ -65,7 +79,7 @@ export default function (
         const absolutePath = f.opts.filename
         // TODO 字段重复处理策略
         const content = JSON.stringify(intlData, null, 4)
-        fs.writeFileSync(path.join(options.outputDir, `${hash(absolutePath)}.json`), content)
+        fs.writeFileSync(path.join(outputDir, `${hash(absolutePath)}.json`), content)
       }
     },
     visitor: {
@@ -105,7 +119,7 @@ export default function (
           return
         }
         const i18nKey = path.node.value.trim()
-        if (!isHans(i18nKey)) return
+        if (!conditionalLanguage(i18nKey)) return
         const transformedKey = transformKeyWithoutHash(i18nKey)
         const identifier = t.identifier(`"${transformedKey}"`)
         const expressionContainer = t.jsxExpressionContainer(t.callExpression(t.identifier('t'), [identifier]))
@@ -116,7 +130,7 @@ export default function (
       },
       StringLiteral(path, state) {
         const i18nKey = path.node.value.trim()
-        if (!isHans(i18nKey)) return
+        if (!conditionalLanguage(i18nKey)) return
         // i18nKey.includes('文本') && console.log(i18nKey, '==StringLiteral==')
         const file = state.file
         // 获取文件的绝对路径
@@ -211,7 +225,7 @@ export default function (
       },
       TemplateElement(path, state) {
         const i18nKey = path.node.value.raw.trim()
-        if (!isHans(i18nKey)) return
+        if (!conditionalLanguage(i18nKey)) return
         replaceWithCallExpression(i18nKey, path, state)
       },
       FunctionDeclaration(path) {
@@ -356,11 +370,11 @@ export default function (
         path.traverse({
           StringLiteral(stringLiteralPath) {
             const value = stringLiteralPath.node.value.trim()
-            if (isHans(value)) hasChineseUsage = true
+            if (conditionalLanguage(value)) hasChineseUsage = true
           },
           JSXText(jsxTextPath) {
             const value = jsxTextPath.node.value.trim()
-            if (isHans(value)) hasChineseUsage = true
+            if (conditionalLanguage(value)) hasChineseUsage = true
           },
         })
         // hooks函数参数的作用域中无中文
