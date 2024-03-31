@@ -4,5 +4,5 @@
     "outDir": "lib",
     "rootDir": "."
   },
-  "include": ["src/**/*", "global.d.ts", "__tests__"]
+  "include": ["src/**/*", "global.d.ts", "__tests__", "jest.config.ts"]
 }

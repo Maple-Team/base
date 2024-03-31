@@ -1,6 +1,6 @@
 import * as parser from '@babel/parser'
 import { transformFromAstSync } from '@babel/core'
-import autoI18nPlugin from '..'
+import autoI18nPlugin from '../src/index'
 
 /**
  * 构建preset

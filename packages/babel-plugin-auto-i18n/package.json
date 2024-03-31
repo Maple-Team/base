@@ -54,10 +54,5 @@
   },
   "authors": [
     "liutsing <liutsingluo@gmail.com>"
-  ],
-  "jest": {
-    "testMatch": [
-      "<rootDir>/__tests__/**/*.test.ts"
-    ]
-  }
+  ]
 }
