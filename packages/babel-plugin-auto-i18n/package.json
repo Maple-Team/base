@@ -43,9 +43,7 @@
     "@babel/parser": "^7.24.1",
     "@babel/template": "^7.24.0",
     "@liutsing/prettier-config": "workspace:*",
-    "@types/babel-plugin-tester": "^9.0.5",
     "@types/babel__template": "^7.4.4",
-    "babel-plugin-tester": "^10.1.0",
     "lint-staged": "^13.0.3",
     "simple-git-hooks": "^2.8.1"
   },

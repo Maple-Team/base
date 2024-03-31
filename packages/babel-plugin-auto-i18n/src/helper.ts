@@ -14,6 +14,7 @@ export function isHans(text: string) {
  * @param {*} value
  * @returns
  */
+/* istanbul ignore next */
 export function save(file: AnyToFix, key: string, value: string) {
   const allText = file.get('allText')
   allText.push({
@@ -45,6 +46,6 @@ export function transformKey(key: string) {
  * @param {string} key
  * @returns
  */
-export function transformKeyWithOutHash(key: string) {
+export function transformKeyWithoutHash(key: string) {
   return `key_${key}`
 }
