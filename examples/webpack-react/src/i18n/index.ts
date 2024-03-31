@@ -1,9 +1,9 @@
 import i18n from 'i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
-import HttpApi from 'i18next-http-backend'
 import type { HttpBackendOptions } from 'i18next-http-backend'
+import HttpApi from 'i18next-http-backend'
+import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
-// import enTranslation from './en/translation.json'
+import enTranslation from './en/translation.json'
 // import twTranslation from './zh_tw/translation.json'
 import cnTranslation from './zh_CN'
 
@@ -24,9 +24,9 @@ const resources = {
     // translation 命名空间
     translation: cnTranslation,
   },
-  // en: {
-  //   translation: enTranslation,
-  // },
+  en: {
+    translation: enTranslation,
+  },
   // 'zh-TW': {
   //   translation: twTranslation,
   // },
@@ -42,23 +42,19 @@ i18n
   .use(initReactI18next)
   // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
-  .init<HttpBackendOptions>(
-    {
-      fallbackLng: 'zh-CN', // 回退语言，默认显示的语言
-      debug: process.env.NODE_ENV === 'development',
-      // supportedLngs: ['en', 'zh'],
-      // load: 'all', // FIXME 加速语言切换后快速渲染
-      partialBundledLanguages: true,
-      resources,
-      backend: {},
-
-      interpolation: {
-        escapeValue: false, // not needed for react as it escapes by default
-      },
+  .init<HttpBackendOptions>({
+    // fallbackLng: 'zh-CN', // 回退语言，默认显示的语言
+    debug: process.env.NODE_ENV === 'development',
+    lng: 'zh-CN',
+    // supportedLngs: ['en', 'zh'],
+    load: 'all', // FIXME 加速语言切换后快速渲染
+    partialBundledLanguages: true,
+    resources,
+    backend: {},
+    interpolation: {
+      escapeValue: false, // not needed for react as it escapes by default
     },
-    (e: AnyToFix) => {
-      if (e) console.log('i18next init error', e)
-    }
-  )
+  })
+  .catch(console.error)
 
 export default i18n

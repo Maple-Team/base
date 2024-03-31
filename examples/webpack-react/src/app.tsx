@@ -2,15 +2,15 @@ import React, { StrictMode, Suspense, lazy, useCallback, useMemo, useState } fro
 import { QueryClient, QueryClientProvider, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { BrowserRouter, Link, Outlet, Route, Routes, createBrowserRouter } from 'react-router-dom'
-import { Button } from 'antd'
-import ReactDOM from 'react-dom/client'
+import type { MenuProps } from 'antd'
+import { Button, Dropdown, Space } from 'antd'
 import { debounce } from 'lodash-es'
 import type { DebouncedFuncLeading } from 'lodash'
 import axios from 'axios'
+import { GlobalOutlined } from '@ant-design/icons'
 import { ErrorBoundary } from './ErrorBoundary'
 import { IconParking } from '@/assets/svg-icons'
-import './main.css'
-import '@/i18n'
+import i18n from '@/i18n'
 
 // const RemoteApp = React.lazy(() => import('module_federation/App'))
 
@@ -25,8 +25,33 @@ const queryClient = new QueryClient({
     },
   },
 })
-
+const Language = {
+  en: 'English',
+  'zh-CN': '简体中文',
+}
+type LanguageKey = keyof typeof Language
 const Root = () => {
+  const [lng, setLng] = useState<LanguageKey>('zh-CN')
+
+  const items: MenuProps['items'] = [
+    {
+      label: 'English',
+      key: 'en',
+      onClick: () => {
+        i18n.changeLanguage('en')
+        setLng('en')
+      },
+    },
+    {
+      label: '中文',
+      key: 'zh-CN',
+      onClick: () => {
+        i18n.changeLanguage('zh-CN')
+        setLng('zh-CN')
+      },
+    },
+  ]
+
   return (
     <div className="flex w-full" style={{ display: 'flex' }}>
       <aside className="w-[240px]" style={{ width: 240 }}>
@@ -35,11 +60,28 @@ const Root = () => {
             <Link to="/example">example3</Link>
           </li>
           <li>
+            <Link to="/example4">example4</Link>
+          </li>
+          <li>
+            <Link to="/example5">example5</Link>
+          </li>
+          <li>
             <Link to="/mc">MarkerCluster</Link>
           </li>
         </ul>
       </aside>
-      <main className="flex-1" style={{ paddingLeft: 24, paddingTop: 24, flex: 1 }}>
+      <main className="flex-1" style={{ paddingLeft: 24, paddingTop: 0, flex: 1 }}>
+        <div className="h-12 flex justify-between items-center px-5">
+          <i />
+          <Dropdown menu={{ items }}>
+            <a onClick={(e) => e.preventDefault()}>
+              <Space>
+                <GlobalOutlined />
+                {Language[lng]}
+              </Space>
+            </a>
+          </Dropdown>
+        </div>
         <Outlet />
       </main>
     </div>
@@ -187,11 +229,25 @@ export const App = () => {
                     </Suspense>
                   }
                 />
+                <Route
+                  path="example4"
+                  element={
+                    <Suspense fallback={<div>loading...</div>}>
+                      <Example4 />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="example5"
+                  element={
+                    <Suspense fallback={<div>loading...</div>}>
+                      <Example5 />
+                    </Suspense>
+                  }
+                />
               </Route>
             </Routes>
           </BrowserRouter>
-          <Example5 />
-          <Example4 />
           {/* <Suspense fallback={<Spin spinning />}>
             <RemoteApp />
           </Suspense> */}
@@ -201,4 +257,3 @@ export const App = () => {
     </StrictMode>
   )
 }
-ReactDOM.createRoot(document.getElementById('app') as HTMLElement).render(<App />)

@@ -25,7 +25,7 @@ const smp = new SpeedMeasurePlugin()
 const config = merge(dev, {
   // entry: [path.resolve(__dirname, '../src/index.ts'), path.resolve(__dirname, '../src/test/index.js')],
   // entry: path.resolve(__dirname, '../src/index.ts'),
-  entry: path.resolve(__dirname, '../src/app.tsx'),
+  entry: path.resolve(__dirname, '../src/main.tsx'),
   plugins: [
     getHtmWebpackPlugin(false),
     // new webpack.DllReferencePlugin({
@@ -79,7 +79,6 @@ const config = merge(dev, {
     // }),
     // new ExternalTemplateRemotesPlugin(),
   ],
-  devtool: false,
   optimization: {
     usedExports: true, // 使用分析报告
     runtimeChunk: 'single',
@@ -109,7 +108,6 @@ const config = merge(dev, {
     proxy: {
       '/api': {
         target: process.env.API_URL,
-        pathRewrite: { '^/api': '' },
         secure: false,
         changeOrigin: true,
       },
