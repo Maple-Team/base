@@ -155,13 +155,10 @@ export default function (
       StringLiteral(path, state) {
         const i18nKey = path.node.value.trim()
         if (!conditionalLanguage(i18nKey)) return
-        // i18nKey.includes('文本') && console.log(i18nKey, '==StringLiteral==')
         const file = state.file
         // 获取文件的绝对路径
         const absolutePath = file.opts.filename
         const parent = path.parent
-        // console.log(i18nKey, absolutePath, parent.type)
-
         // NOTE 忽略console.xxx('<中文>')
         if (isConsoleCallExpression(path)) return
         // TODO console.xxx({pro:'<中文>'})
@@ -242,7 +239,7 @@ export default function (
       FunctionDeclaration(path) {
         let isValidJSXElement = false
         let hasUseTranslationVariableDeclarator: NodePath<VariableDeclarator> | undefined
-        let hasConditionalLaunguageText
+        let hasConditionalLaunguageText = false
         path.traverse({
           // 针对FunctionDeclaration下的 ReturnStatement
           ReturnStatement(declaratorPath) {
@@ -259,15 +256,20 @@ export default function (
                 hasUseTranslationVariableDeclarator = declaratorPath
             }
           },
+          TemplateElement(declaratorPath) {
+            const value = declaratorPath.node.value.raw.trim()
+            if (!hasConditionalLaunguageText) hasConditionalLaunguageText = conditionalLanguage(value)
+          },
           JSXText(declaratorPath) {
             const value = declaratorPath.node.value.trim()
-            hasConditionalLaunguageText = conditionalLanguage(value)
+            // jsxFragment返回的多个子节点，考虑到会重复执行，如果有一次遍历到就ok
+            if (!hasConditionalLaunguageText) hasConditionalLaunguageText = conditionalLanguage(value)
           },
           StringLiteral(declaratorPath) {
             const value = declaratorPath.node.value.trim()
             // TODO 很多需要排除的
             if (isConsoleCallExpression(declaratorPath)) hasConditionalLaunguageText = false
-            else hasConditionalLaunguageText = conditionalLanguage(value)
+            else if (!hasConditionalLaunguageText) hasConditionalLaunguageText = conditionalLanguage(value)
           },
         })
 
@@ -321,7 +323,7 @@ export default function (
           return
 
         const parentId = (parent as VariableDeclarator).id as Identifier
-        let hasConditionalLaunguageText
+        let hasConditionalLaunguageText = false
         // 确保在组件根目录下的ArrowFunctionExpression 内部的箭头函数都是大写开头
         // 或者useXXX钩子
         // forwardRef定义的组件
@@ -354,15 +356,19 @@ export default function (
                 useTranslationVariableDeclarator = declaratorPath
             }
           },
+          TemplateElement(declaratorPath) {
+            const value = declaratorPath.node.value.raw.trim()
+            if (!hasConditionalLaunguageText) hasConditionalLaunguageText = conditionalLanguage(value)
+          },
           JSXText(declaratorPath) {
             const value = declaratorPath.node.value.trim()
-            hasConditionalLaunguageText = conditionalLanguage(value)
+            if (!hasConditionalLaunguageText) hasConditionalLaunguageText = conditionalLanguage(value)
           },
           StringLiteral(declaratorPath) {
             const value = declaratorPath.node.value.trim()
             // TODO 很多需要排除的
             if (isConsoleCallExpression(declaratorPath)) hasConditionalLaunguageText = false
-            else hasConditionalLaunguageText = conditionalLanguage(value)
+            else if (!hasConditionalLaunguageText) hasConditionalLaunguageText = conditionalLanguage(value)
           },
         })
         // NOTE 不是是返回一个jsxelement或函数名以use开头，则不需要注入
