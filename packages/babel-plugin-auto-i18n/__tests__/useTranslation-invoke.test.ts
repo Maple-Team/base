@@ -2,62 +2,147 @@ import { getTransformCode } from './test-help'
 // pnpm run test .\__tests__\useTranslation-invoke.test.ts --coverage
 
 describe('function declaration scenario', () => {
-  it('function declaration - useHooks', () => {
-    const sourceCode = `
+  describe('hooks scenarios', () => {
+    it('case1', () => {
+      const sourceCode = `
       import {useTranslation} from 'react-i18next'
       export function useComponent(){
         const var1 = "变量1"
         return [var1]
       }
       `
-    const result = getTransformCode(sourceCode, 'function-declaration-hooks.tsx')
-    expect(result?.code).toMatchSnapshot()
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('case2', () => {
+      const sourceCode = `
+      import {useTranslation} from 'react-i18next'
+      export function useComponent(){
+        const {i18n} = useTranslation()
+        const var1 = "变量1"
+        return [var1]
+      }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('case3', () => {
+      const sourceCode = `
+      export function useComponent(){
+        const {t} = useTranslation()
+        const var1 = t("key1")
+        return [var1]
+      }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
   })
-  describe('detect has import react-i18n', () => {
+  describe('detect useTranslation invoke times', () => {
+    it('case 1', () => {
+      const sourceCode = `
+      import {useTranslation} from 'react-i18next'
+      export function useComponent(){
+        return <div name="属性">站位文本</div>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'useTranslation-invoke1.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('case 2', () => {
+      const sourceCode = `
+      import {useTranslation} from 'react-i18next'
+      export function useComponent(){
+        const {t, i18n} = useTranslation()
+        return <div name="属性">站位文本</div>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'useTranslation-invoke2.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('case 3', () => {
+      const sourceCode = `
+      import {useTranslation} from 'react-i18next'
+      export function useComponent(){
+        const {i18n} = useTranslation()
+        return <div name="属性">站位文本</div>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'useTranslation-invoke3.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
     it('case 4', () => {
       const sourceCode = `
-        import {useTranslation} from 'react-i18next'
-        export function Component(){
-          const {i18n} = useTranslation()
-          return <div name="属性">站位文本</div>
-        }
-        `
-      const result = getTransformCode(sourceCode, 'imported-i18n4.tsx')
+      import {useTranslation} from 'react-i18next'
+      export function useComponent(){
+        const {t} = useTranslation()
+        return <div name="属性">{t('key')}</div>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'useTranslation-invoke4.tsx')
       expect(result?.code).toMatchSnapshot()
     })
   })
 })
-describe('detect has import react-i18n', () => {
-  it('case 1', () => {
-    const sourceCode = `
-    import {useTranslation} from 'react-i18next'
-    export const Component = () => {
-      return <div name="属性">站位文本</div>
-    }
-    `
-    const result = getTransformCode(sourceCode, 'imported-i18n.tsx')
-    expect(result?.code).toMatchSnapshot()
+
+describe('arrow function scenario', () => {
+  describe('hooks scenarios', () => {
+    it('case1', () => {
+      const sourceCode = `
+      import {useTranslation} from 'react-i18next'
+      export const useHooks1 = () => {
+        const var1 = "变量1"
+        return [var1]
+      }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
   })
-  it('case 2', () => {
-    const sourceCode = `
-    import {useTranslation} from 'react-i18next'
-    export const Component = () => {
-      const {t, i18n} = useTranslation()
-      return <div name="属性">站位文本</div>
-    }
-    `
-    const result = getTransformCode(sourceCode, 'imported-i18n2.tsx')
-    expect(result?.code).toMatchSnapshot()
-  })
-  it('case 3', () => {
-    const sourceCode = `
-    import {useTranslation} from 'react-i18next'
-    export const Component = () => {
-      const {i18n} = useTranslation()
-      return <div name="属性">站位文本</div>
-    }
-    `
-    const result = getTransformCode(sourceCode, 'imported-i18n3.tsx')
-    expect(result?.code).toMatchSnapshot()
+  // 确保useTranslation只调用一次
+  describe('detect useTranslation invoke times', () => {
+    it('case 1', () => {
+      const sourceCode = `
+      import {useTranslation} from 'react-i18next'
+      export const Component = () => {
+        return <div name="属性">站位文本</div>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'useTranslation-invoke1.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('case 2', () => {
+      const sourceCode = `
+      import {useTranslation} from 'react-i18next'
+      export const Component = () => {
+        const {t, i18n} = useTranslation()
+        return <div name="属性">站位文本</div>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'useTranslation-invoke2.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('case 3', () => {
+      const sourceCode = `
+      import {useTranslation} from 'react-i18next'
+      export const Component = () => {
+        const {i18n} = useTranslation()
+        return <div name="属性">站位文本</div>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'useTranslation-invoke3.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('case 4', () => {
+      const sourceCode = `
+      import {useTranslation} from 'react-i18next'
+      export const Component = () => {
+        const {t} = useTranslation()
+        return <div name="属性">{t('key')}</div>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'useTranslation-invoke4.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
   })
 })

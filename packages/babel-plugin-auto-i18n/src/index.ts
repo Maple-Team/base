@@ -229,11 +229,9 @@ export default function (
         replaceWithCallExpression(i18nKey, path, state)
       },
       FunctionDeclaration(path) {
-        const hasBindingT = path.scope.hasBinding('t')
-        const hasBindingI18n = path.scope.hasBinding('i18n')
-
         let isValidJSXElement = false
-        let useTranslationVariableDeclarator: NodePath<VariableDeclarator> | undefined
+        let hasUseTranslationVariableDeclarator: NodePath<VariableDeclarator> | undefined
+
         path.traverse({
           // 针对FunctionDeclaration下的 ReturnStatement
           ReturnStatement(declaratorPath) {
@@ -247,19 +245,25 @@ export default function (
                 t.isIdentifier(declaratorPath.node.init.callee) &&
                 declaratorPath.node.init.callee.name === 'useTranslation'
               )
-                useTranslationVariableDeclarator = declaratorPath
+                hasUseTranslationVariableDeclarator = declaratorPath
             }
           },
         })
-        // 如果没有找到声明，我们添加一个新的声明
-        if ((!hasBindingT || !hasBindingI18n) && isValidJSXElement) {
+
+        const functionNameNode = path.node.id
+        const hasBindingT = path.scope.hasBinding('t')
+        const hasBindingI18n = path.scope.hasBinding('i18n')
+
+        // NOTE 不是是返回一个jsxelement或函数名以use开头，则不需要注入
+        if (isValidJSXElement || functionNameNode?.name.startsWith('use')) {
           const objectPropertyT = !hasBindingT ? t.objectProperty(t.identifier('t'), t.identifier('t')) : null
           const objectPropertyI18n = !hasBindingI18n
             ? t.objectProperty(t.identifier('i18n'), t.identifier('i18n'))
             : null
 
           const objectProperties = [objectPropertyT, objectPropertyI18n].filter(Boolean) as ObjectProperty[]
-          if (!useTranslationVariableDeclarator) {
+
+          if (!hasUseTranslationVariableDeclarator) {
             const useTranslationStatement = t.variableDeclaration('const', [
               t.variableDeclarator(
                 t.objectPattern(objectProperties),
@@ -269,7 +273,7 @@ export default function (
             // 将声明添加到函数体的顶部 -> 避免重复调用
             path.node.body.body.unshift(useTranslationStatement)
           } else {
-            const id = useTranslationVariableDeclarator.node.id
+            const id = hasUseTranslationVariableDeclarator.node.id
             if (t.isObjectPattern(id)) {
               const properties = id.properties as ObjectProperty[]
               if (!hasBindingT) properties.push(t.objectProperty(t.identifier('t'), t.identifier('t')))
@@ -328,7 +332,7 @@ export default function (
         })
         // 如果没有找到声明，我们添加一个新的声明
         // 返回正确的jsxElement或useXX钩子
-        if ((!hasBindingT || !hasBindingI18n) && (isValidJSXElement || (parentId && parentId.name.startsWith('use')))) {
+        if ((!hasBindingT || !hasBindingI18n) && (isValidJSXElement || parentId?.name.startsWith('use'))) {
           const objectPropertyT = !hasBindingT ? t.objectProperty(t.identifier('t'), t.identifier('t')) : null
           const objectPropertyI18n = !hasBindingI18n
             ? t.objectProperty(t.identifier('i18n'), t.identifier('i18n'))

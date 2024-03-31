@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`detect has import react-i18n case 1 1`] = `
+exports[`arrow function scenario detect useTranslation invoke times case 1 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -16,7 +16,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`detect has import react-i18n case 2 1`] = `
+exports[`arrow function scenario detect useTranslation invoke times case 2 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -32,7 +32,7 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`detect has import react-i18n case 3 1`] = `
+exports[`arrow function scenario detect useTranslation invoke times case 3 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -48,23 +48,40 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`function declaration scenario detect has import react-i18n case 4 1`] = `
+exports[`arrow function scenario detect useTranslation invoke times case 4 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
   value: true
 });
-exports.Component = Component;
+exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
-function Component() {
+var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    i18n = _useTranslation.i18n,
-    t = _useTranslation.t;
-  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
-}"
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div name={t(\\"key_属性\\")}>{t('key')}</div>;
+};"
 `;
 
-exports[`function declaration scenario function declaration - useHooks 1`] = `
+exports[`arrow function scenario hooks scenarios case1 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.useHooks1 = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var useHooks1 = exports.useHooks1 = function useHooks1() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  var var1 = t(\\"key_变量1\\");
+  return [var1];
+};"
+`;
+
+exports[`function declaration scenario detect useTranslation invoke times case 1 1`] = `
 "\\"use strict\\";
 
 Object.defineProperty(exports, \\"__esModule\\", {
@@ -73,7 +90,108 @@ Object.defineProperty(exports, \\"__esModule\\", {
 exports.useComponent = useComponent;
 var _reactI18next = require(\\"react-i18next\\");
 function useComponent() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
+}"
+`;
+
+exports[`function declaration scenario detect useTranslation invoke times case 2 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.useComponent = useComponent;
+var _reactI18next = require(\\"react-i18next\\");
+function useComponent() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
+}"
+`;
+
+exports[`function declaration scenario detect useTranslation invoke times case 3 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.useComponent = useComponent;
+var _reactI18next = require(\\"react-i18next\\");
+function useComponent() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    i18n = _useTranslation.i18n,
+    t = _useTranslation.t;
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
+}"
+`;
+
+exports[`function declaration scenario detect useTranslation invoke times case 4 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.useComponent = useComponent;
+var _reactI18next = require(\\"react-i18next\\");
+function useComponent() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  return <div name={t(\\"key_属性\\")}>{t('key')}</div>;
+}"
+`;
+
+exports[`function declaration scenario hooks scenarios case1 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.useComponent = useComponent;
+var _reactI18next = require(\\"react-i18next\\");
+function useComponent() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
   var var1 = t(\\"key_变量1\\");
+  return [var1];
+}"
+`;
+
+exports[`function declaration scenario hooks scenarios case2 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.useComponent = useComponent;
+var _reactI18next = require(\\"react-i18next\\");
+function useComponent() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    i18n = _useTranslation.i18n,
+    t = _useTranslation.t;
+  var var1 = t(\\"key_变量1\\");
+  return [var1];
+}"
+`;
+
+exports[`function declaration scenario hooks scenarios case3 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.useComponent = useComponent;
+var _reactI18next = require(\\"react-i18next\\");
+function useComponent() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
+  var var1 = t(\\"key1\\");
   return [var1];
 }"
 `;
