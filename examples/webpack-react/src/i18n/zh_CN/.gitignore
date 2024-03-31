@@ -1,0 +1,4 @@
+# 忽略locale下的json文件
+*.json
+# 保留手动处理的json文件资源
+!manual.json

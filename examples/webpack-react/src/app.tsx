@@ -10,6 +10,8 @@ import axios from 'axios'
 import { ErrorBoundary } from './ErrorBoundary'
 import { IconParking } from '@/assets/svg-icons'
 import './main.css'
+import '@/i18n'
+
 // const RemoteApp = React.lazy(() => import('module_federation/App'))
 
 const MarkerCluster = lazy(() => import(/* webpackChunkName: "markerCluster" */ './markerCluster'))

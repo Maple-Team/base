@@ -20,7 +20,8 @@ const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 //   },
 // }),
 const smp = new SpeedMeasurePlugin()
-
+// TODO DllReferencePlugin
+// TODO ModuleFederationPlugin
 const config = merge(dev, {
   // entry: [path.resolve(__dirname, '../src/index.ts'), path.resolve(__dirname, '../src/test/index.js')],
   // entry: path.resolve(__dirname, '../src/index.ts'),

@@ -3,6 +3,7 @@ import ReactDom from 'react-dom/client'
 import './main.css'
 // import './assets/svg-icons'
 import { App } from './app'
+import '@/i18n'
 
 // const router = createBrowserRouter([
 //   {

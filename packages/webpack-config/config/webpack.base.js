@@ -85,6 +85,7 @@ const config = {
                   },
                 ],
                 ['@babel/preset-react', { development: isDev, runtime: 'automatic' }],
+                require.resolve('../presets/auto-i18n.js'),
                 '@babel/preset-typescript',
               ],
               plugins: [
