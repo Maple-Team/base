@@ -56,6 +56,30 @@ export default function (
     save(state.file, transformedKey, i18nKey)
   }
 
+  /**
+   * StringLiteral是否处于console.xxx调用的上下文中
+   * @param declarationPath
+   * @returns
+   */
+  function isConsoleCallExpression(declarationPath: NodePath) {
+    const callExpressionPath = declarationPath.findParent((p) => p.isCallExpression())
+    if (callExpressionPath) {
+      const callee = (callExpressionPath.node as CallExpression).callee as MemberExpression
+      if (t.isMemberExpression(callee)) {
+        const { property, object } = callee
+        if (
+          t.isIdentifier(object) &&
+          t.isIdentifier(property) &&
+          object.name === 'console' &&
+          ['log', 'debug', 'error', 'warn', 'info'].includes(property.name)
+        )
+          return true
+      }
+      return false
+    }
+    return false
+  }
+
   const conditionalLanguage = options.conditionalLanguage || isHans
   const outputDir = options.outputDir || path.join(process.cwd(), 'src', 'i18n', 'zh_CN')
 
@@ -138,22 +162,9 @@ export default function (
         const parent = path.parent
         // console.log(i18nKey, absolutePath, parent.type)
 
-        // 排除console.xx中的中文
-        const callExpressionPath = path.findParent((p) => p.isCallExpression())
-        if (callExpressionPath) {
-          const callee = (callExpressionPath.node as CallExpression).callee as MemberExpression
-          if (t.isMemberExpression(callee)) {
-            const { property, object } = callee
-            if (
-              t.isIdentifier(object) &&
-              t.isIdentifier(property) &&
-              object.name === 'console' &&
-              ['log', 'debug', 'error', 'warn', 'info'].includes(property.name)
-            )
-              return // 忽略console.xxx('<中文>')
-          }
-        }
-
+        // NOTE 忽略console.xxx('<中文>')
+        if (isConsoleCallExpression(path)) return
+        // TODO console.xxx({pro:'<中文>'})
         if (t.isCallExpression(parent)) {
           const callExpressionPath = parent
           // 处理类似message.info('<中文>')
@@ -231,7 +242,7 @@ export default function (
       FunctionDeclaration(path) {
         let isValidJSXElement = false
         let hasUseTranslationVariableDeclarator: NodePath<VariableDeclarator> | undefined
-
+        let hasConditionalLaunguageText
         path.traverse({
           // 针对FunctionDeclaration下的 ReturnStatement
           ReturnStatement(declaratorPath) {
@@ -247,6 +258,16 @@ export default function (
               )
                 hasUseTranslationVariableDeclarator = declaratorPath
             }
+          },
+          JSXText(declaratorPath) {
+            const value = declaratorPath.node.value.trim()
+            hasConditionalLaunguageText = conditionalLanguage(value)
+          },
+          StringLiteral(declaratorPath) {
+            const value = declaratorPath.node.value.trim()
+            // TODO 很多需要排除的
+            if (isConsoleCallExpression(declaratorPath)) hasConditionalLaunguageText = false
+            else hasConditionalLaunguageText = conditionalLanguage(value)
           },
         })
 
@@ -264,15 +285,18 @@ export default function (
           const objectProperties = [objectPropertyT, objectPropertyI18n].filter(Boolean) as ObjectProperty[]
 
           if (!hasUseTranslationVariableDeclarator) {
+            // NOTE 没有符合条件的语言文案，则不需要注入
+            if (!hasConditionalLaunguageText) return
             const useTranslationStatement = t.variableDeclaration('const', [
               t.variableDeclarator(
                 t.objectPattern(objectProperties),
                 t.callExpression(t.identifier('useTranslation'), [])
               ),
             ])
-            // 将声明添加到函数体的顶部 -> 避免重复调用
+            // 将声明添加到函数体的顶部
             path.node.body.body.unshift(useTranslationStatement)
           } else {
+            // 源码中已存在useTranslation调用
             const id = hasUseTranslationVariableDeclarator.node.id
             if (t.isObjectPattern(id)) {
               const properties = id.properties as ObjectProperty[]
@@ -297,6 +321,7 @@ export default function (
           return
 
         const parentId = (parent as VariableDeclarator).id as Identifier
+        let hasConditionalLaunguageText
         // 确保在组件根目录下的ArrowFunctionExpression 内部的箭头函数都是大写开头
         // 或者useXXX钩子
         // forwardRef定义的组件
@@ -329,10 +354,19 @@ export default function (
                 useTranslationVariableDeclarator = declaratorPath
             }
           },
+          JSXText(declaratorPath) {
+            const value = declaratorPath.node.value.trim()
+            hasConditionalLaunguageText = conditionalLanguage(value)
+          },
+          StringLiteral(declaratorPath) {
+            const value = declaratorPath.node.value.trim()
+            // TODO 很多需要排除的
+            if (isConsoleCallExpression(declaratorPath)) hasConditionalLaunguageText = false
+            else hasConditionalLaunguageText = conditionalLanguage(value)
+          },
         })
-        // 如果没有找到声明，我们添加一个新的声明
-        // 返回正确的jsxElement或useXX钩子
-        if ((!hasBindingT || !hasBindingI18n) && (isValidJSXElement || parentId?.name.startsWith('use'))) {
+        // NOTE 不是是返回一个jsxelement或函数名以use开头，则不需要注入
+        if (isValidJSXElement || parentId?.name.startsWith('use')) {
           const objectPropertyT = !hasBindingT ? t.objectProperty(t.identifier('t'), t.identifier('t')) : null
           const objectPropertyI18n = !hasBindingI18n
             ? t.objectProperty(t.identifier('i18n'), t.identifier('i18n'))
@@ -340,6 +374,8 @@ export default function (
 
           const objectProperties = [objectPropertyT, objectPropertyI18n].filter(Boolean) as ObjectProperty[]
           if (!useTranslationVariableDeclarator) {
+            // NOTE 没有符合条件的语言文案，则不需要注入
+            if (!hasConditionalLaunguageText) return
             const useTranslationStatement = t.variableDeclaration('const', [
               t.variableDeclarator(
                 t.objectPattern(objectProperties),
@@ -349,6 +385,7 @@ export default function (
             // 将声明添加到函数体的顶部
             blockStatement.body.unshift(useTranslationStatement)
           } else {
+            // 源码中已存在useTranslation调用
             const id = useTranslationVariableDeclarator.node.id
             if (t.isObjectPattern(id)) {
               const properties = id.properties as ObjectProperty[]

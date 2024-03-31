@@ -82,6 +82,52 @@ describe('function declaration scenario', () => {
       const result = getTransformCode(sourceCode, 'useTranslation-invoke4.tsx')
       expect(result?.code).toMatchSnapshot()
     })
+    it('代码组件没有使用到中文则不调用useTranslation1', () => {
+      const sourceCode = `
+      import {useState} from 'react'
+      export function useComponent(){
+        const [v, setV] = useState(0)
+        return {v,setV}
+      }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('代码组件没有使用到中文则不调用useTranslation2', () => {
+      const sourceCode = `
+      import {useState} from 'react'
+      export function Component(){
+        const [v, setV] = useState(0)
+        return <>{v}</>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('代码组件没有使用到中文则不调用useTranslation3', () => {
+      const sourceCode = `
+      import {useState} from 'react'
+      export function Component(){
+        console.log('中文')
+        const [v, setV] = useState(0)
+        return <>{v}</>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('代码组件没有使用到中文则不调用useTranslation4', () => {
+      const sourceCode = `
+      import {useState} from 'react'
+      export function Component(){
+        console.log('中文')
+        const [v, setV] = useState(0)
+        return <div>{v}</div>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
   })
 })
 
@@ -142,6 +188,53 @@ describe('arrow function scenario', () => {
       }
       `
       const result = getTransformCode(sourceCode, 'useTranslation-invoke4.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('代码组件没有使用到中文则不调用useTranslation1', () => {
+      const sourceCode = `
+      import {useState} from 'react'
+      export const Component = () => {
+        const [v, setV] = useState(0)
+        return {v,setV}
+      }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('代码组件没有使用到中文则不调用useTranslation2', () => {
+      const sourceCode = `
+      import {useState} from 'react'
+      export const Component = () => {
+        console.log('中文')
+        const [v, setV] = useState(0)
+        return {v,setV}
+      }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('代码组件没有使用到中文则不调用useTranslation3', () => {
+      const sourceCode = `
+      import {useState} from 'react'
+      export const Component = () => {
+        console.log('中文')
+        const [v, setV] = useState(0)
+        return <>{v}</>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('代码组件没有使用到中文则不调用useTranslation4', () => {
+      const sourceCode = `
+      import {useState} from 'react'
+      export const Component = () => {
+        console.log('中文')
+        const [v, setV] = useState(0)
+        return <div>{v}</div>
+      }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
       expect(result?.code).toMatchSnapshot()
     })
   })
