@@ -9,3 +9,5 @@ coverage
 .npmrc
 dependencies.json
 .DS_Store
+
+.nx/cache

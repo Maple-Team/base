@@ -6,11 +6,11 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
     "serve": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
-    "lint": "eslint .",
-    "lint:debug": "eslint . --debug",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "lint:fix": "eslint . --fix"
+    "lint": "nx lint",
+    "lint:debug": "nx lint --debug",
+    "test": "nx test",
+    "test:watch": "nx test --watch",
+    "lint:fix": "nx lint --fix"
   },
   "dependencies": {
     "@babel/runtime": "^7.23.2",
@@ -39,5 +39,8 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
+  },
+  "nx": {
+    "includedScripts": []
   }
 }

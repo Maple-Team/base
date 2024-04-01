@@ -35,11 +35,14 @@
   ],
   "scripts": {
     "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
-    "lint": "eslint . --ext .ts",
+    "lint": "nx lint --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "prebuild": "rimraf types && rimraf lib",
     "prepublish": "rimraf types && rimraf lib",
-    "test": "jest"
+    "test": "nx test"
   },
-  "prettier": "@liutsing/prettier-config"
+  "prettier": "@liutsing/prettier-config",
+  "nx": {
+    "includedScripts": []
+  }
 }

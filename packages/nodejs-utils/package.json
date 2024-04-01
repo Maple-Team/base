@@ -24,8 +24,8 @@
     "prebuild": "npx rimraf types dist",
     "build": "microbundle -f es,cjs --tsconfig tsconfig.build.json --external crypto,buffer,os",
     "build:watch": "tsc -w",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "nx test",
+    "test:watch": "nx test --watch",
     "new:patch": "npm version patch"
   },
   "prettier": "@liutsing/prettier-config",
@@ -37,5 +37,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "nx": {
+    "includedScripts": []
   }
 }

@@ -41,11 +41,11 @@
   ],
   "scripts": {
     "build": "microbundle -f es,cjs,umd --no-sourcemap --tsconfig tsconfig.build.json",
-    "lint": "eslint . --ext .ts",
+    "lint": "nx lint --ext .ts",
     "patch": "npm version patch",
     "prettier": "prettier . --ext .ts -w",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "nx test",
+    "test:watch": "nx test --watch"
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {
@@ -56,5 +56,8 @@
   },
   "peerDependencies": {
     "postcss": "^8.0.0"
+  },
+  "nx": {
+    "includedScripts": []
   }
 }

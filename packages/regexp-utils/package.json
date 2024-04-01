@@ -31,9 +31,8 @@
     "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
-    "test": "jest",
-    "postinstall": "npm run build",
-    "test:watch": "jest --watch",
+    "test": "nx test",
+    "test:watch": "nx test --watch",
     "new:patch": "npm version patch"
   },
   "prettier": "@liutsing/prettier-config",
@@ -44,5 +43,8 @@
   },
   "authors": [
     "liutsing <liutsingluo@gmail.com>"
-  ]
+  ],
+  "nx": {
+    "includedScripts": []
+  }
 }

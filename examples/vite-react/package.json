@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "report": "tsc --noEmit && vite build --analysis"
+    "build": "tsc --noEmit && nx build",
+    "preview": "nx preview",
+    "report": "tsc --noEmit && nx build --analysis"
   },
   "dependencies": {
     "@antv/g2plot": "^2.4.22",
@@ -26,5 +26,8 @@
     "postcss": "^8.4.20",
     "tailwindcss": "^3.2.4",
     "vite": "^4.0.0"
+  },
+  "nx": {
+    "includedScripts": []
   }
 }

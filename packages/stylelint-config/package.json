@@ -15,7 +15,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs",
+    "build": "nx build -c --bundleConfigAsCjs",
     "new:patch": "npm version patch"
   },
   "devDependencies": {
@@ -32,5 +32,8 @@
   },
   "authors": [
     "liutsing <liutsingluo@gmail.com>"
-  ]
+  ],
+  "nx": {
+    "includedScripts": []
+  }
 }

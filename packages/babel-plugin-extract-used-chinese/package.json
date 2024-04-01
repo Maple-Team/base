@@ -26,7 +26,6 @@
     "prebuild": "rimraf types && rimraf lib",
     "build": "microbundle -f es,cjs,umd --target node --tsconfig tsconfig.build.json",
     "lint": "eslint . --ext .ts",
-    "postinstall": "npm run build",
     "prettier": "prettier . --ext .ts -w",
     "prepublish": "pnpm run build",
     "postpublish": "pnpx @liutsing/npmmirror-sync",

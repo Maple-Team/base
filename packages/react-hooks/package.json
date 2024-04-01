@@ -28,9 +28,9 @@
     "prebuild": "rimraf types dist && pnpm run test",
     "build:watch": "tsc -w",
     "new:patch": "npm version patch",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "lint": "eslint . --ext .ts",
+    "test": "nx test",
+    "test:watch": "nx test --watch",
+    "lint": "nx lint --ext .ts",
     "lint:types": "tsc --noEmit",
     "build:es": "tsc -p tsconfig.build.json",
     "build:cjs": "tsc -p tsconfig.node.json",
@@ -41,12 +41,14 @@
   "devDependencies": {
     "lint-staged": "^13.0.3"
   },
-
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "nx": {
+    "includedScripts": []
   }
 }

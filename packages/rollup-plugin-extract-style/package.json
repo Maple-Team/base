@@ -38,12 +38,14 @@
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "prebuild": "rimraf types && rimraf lib",
-    "postinstall": "npm run build",
     "prepublish": "rimraf types && rimraf lib",
-    "test": "jest"
+    "test": "nx test"
   },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {
     "rollup": "^2.79.1"
+  },
+  "nx": {
+    "includedScripts": []
   }
 }

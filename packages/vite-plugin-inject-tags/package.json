@@ -15,8 +15,7 @@
   },
   "scripts": {
     "build": "microbundle -f es,cjs",
-    "postpublish": "pnpx @liutsing/npmmirror-sync",
-    "prepare": "npm run build"
+    "postpublish": "pnpx @liutsing/npmmirror-sync"
   },
   "repository": "",
   "files": [

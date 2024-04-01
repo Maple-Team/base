@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/Maple-Team/extend-mockjs-random",
   "scripts": {
-    "test": "jest",
+    "test": "nx test",
     "build": "rimraf types && tsc --project tsconfig.build.json",
     "prepublish": "npm run build"
   },
@@ -42,5 +42,8 @@
   "devDependencies": {
     "@types/mockjs": "^1.0.6"
   },
-  "prettier": "@liutsing/prettier-config"
+  "prettier": "@liutsing/prettier-config",
+  "nx": {
+    "includedScripts": []
+  }
 }

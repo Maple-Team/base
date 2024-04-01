@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && pnpm run build:types",
+    "build": "nx build && pnpm run build:types",
     "build:types": "vue-tsc --project tsconfig.types.json --declaration --emitDeclarationOnly --skipLibCheck --outDir dist/types",
     "typescheck": "vue-tsc --project tsconfig.types.json --noEmit",
     "docs:dev": "vitepress dev docs",
@@ -35,5 +35,8 @@
   },
   "peerDependencies": {
     "vue": "^3.2.25"
+  },
+  "nx": {
+    "includedScripts": []
   }
 }

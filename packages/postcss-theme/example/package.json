@@ -18,5 +18,8 @@
   },
   "scripts": {
     "dev": "webpack serve"
+  },
+  "nx": {
+    "includedScripts": []
   }
 }

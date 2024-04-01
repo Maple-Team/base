@@ -13,10 +13,9 @@
   ],
   "scripts": {
     "prebuild": "pnpm run test && rimraf dist",
-    "build": "rollup -c",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch --coverage",
-    "postinstall": "npm run build",
+    "build": "nx build -c",
+    "test": "nx test --coverage",
+    "test:watch": "nx test --watch --coverage",
     "tsc": "tsc"
   },
   "prettier": "@liutsing/prettier-config",
@@ -52,5 +51,8 @@
   "sideEffects": [
     "**/*.css",
     "**/*.less"
-  ]
+  ],
+  "nx": {
+    "includedScripts": []
+  }
 }

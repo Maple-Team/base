@@ -29,16 +29,19 @@
   ],
   "scripts": {
     "build": "tsc",
-    "lint": "eslint . --ext .ts",
+    "lint": "nx lint --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "prebuild": "rimraf types && rimraf lib",
     "prepublish": "rimraf types && rimraf lib",
-    "test": "jest"
+    "test": "nx test"
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {
     "mockjs": "^1.1.0",
     "moment": "^2.29.3"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "nx": {
+    "includedScripts": []
+  }
 }

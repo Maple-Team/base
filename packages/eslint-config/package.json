@@ -15,8 +15,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs",
-    "postinstall": "npm run build",
+    "build": "nx build -c --bundleConfigAsCjs",
     "new:patch": "npm version patch"
   },
   "simple-git-hooks": {
@@ -63,5 +62,8 @@
   },
   "authors": [
     "liutsing <liutsingluo@gmail.com>"
-  ]
+  ],
+  "nx": {
+    "includedScripts": []
+  }
 }

@@ -46,5 +46,8 @@
     "@liutsing/eslint-config": "workspace:*",
     "winston": "^3.11.0"
   },
-  "prettier": "@liutsing/prettier-config"
+  "prettier": "@liutsing/prettier-config",
+  "nx": {
+    "includedScripts": []
+  }
 }

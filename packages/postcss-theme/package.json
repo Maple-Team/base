@@ -37,10 +37,10 @@
   ],
   "scripts": {
     "build": "microbundle -f es,cjs,umd --no-sourcemap --tsconfig tsconfig.build.json",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
+    "lint": "nx lint --ext .ts",
+    "lint:fix": "nx lint --ext .ts --fix",
     "prettier": "prettier . --write",
-    "test": "jest --coverage",
+    "test": "nx test --coverage",
     "release": "bumpp"
   },
   "lint-staged": {
@@ -64,5 +64,8 @@
   "np": {
     "yarn": false,
     "contents": "dist"
+  },
+  "nx": {
+    "includedScripts": []
   }
 }

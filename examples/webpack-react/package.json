@@ -19,12 +19,12 @@
     "build:dev": "cross-env NODE_ENV=development webpack --config config/webpack.dev.js",
     "build:lib": "webpack --config config/webpack.lib.js",
     "build:multiple-entry": "cross-env NODE_ENV=production webpack --config config/webpack.multiple-entry.js",
-    "lint": "eslint .",
-    "lint:debug": "eslint . --debug",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "lint": "nx lint",
+    "lint:debug": "nx lint --debug",
+    "test": "nx test",
+    "test:watch": "nx test --watch",
     "server": "node config/server.js",
-    "lint:fix": "eslint . --fix",
+    "lint:fix": "nx lint --fix",
     "translate": "node scripts/translate.js"
   },
   "keywords": [],
@@ -116,5 +116,8 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
+  },
+  "nx": {
+    "includedScripts": []
   }
 }

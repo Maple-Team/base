@@ -28,8 +28,7 @@
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "prepublish": "rimraf types && rimraf lib",
-    "postinstall": "npm run build",
-    "test": "jest",
+    "test": "nx test",
     "prerelease": "npm version prerelease --preid=beta && git add package.json && git commit -m \"chore: release beta version\""
   },
   "simple-git-hooks": {
@@ -54,5 +53,8 @@
   },
   "authors": [
     "liutsing <liutsingluo@gmail.com>"
-  ]
+  ],
+  "nx": {
+    "includedScripts": []
+  }
 }

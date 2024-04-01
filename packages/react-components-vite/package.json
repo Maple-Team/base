@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "tsc && nx build",
+    "preview": "nx preview"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -29,5 +29,8 @@
       "import": "./dist/@liutsing/rcv-components.es.js",
       "require": "./dist/@liutsing/rcv-components.umd.js"
     }
+  },
+  "nx": {
+    "includedScripts": []
   }
 }
