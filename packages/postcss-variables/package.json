@@ -1,6 +1,7 @@
 {
   "name": "@liutsing/postcss-variable",
   "version": "0.0.1",
+  "type": "module" ,
   "private": false,
   "description": "A consolidated list of PostCSS plugins in an ready-to-use format.",
   "keywords": [
@@ -30,7 +31,6 @@
     "types": "./types/index.d.ts"
   },
   "main": "dist/index.js",
-  "umd:main": "dist/index.umd.js",
   "module": "dist/index.mjs",
   "source": "src/index.ts",
   "jsnext:main": "dist/index.mjs",
@@ -40,7 +40,7 @@
     "types"
   ],
   "scripts": {
-    "build": "microbundle -f es,cjs,umd --no-sourcemap --tsconfig tsconfig.build.json",
+    "build": "microbundle -f es,cjs --no-sourcemap --tsconfig tsconfig.build.json",
     "lint": "nx lint --ext .ts",
     "patch": "npm version patch",
     "prettier": "prettier . --ext .ts -w",
@@ -49,15 +49,13 @@
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {
-    "@liutsing/regexp-utils": "workspace:*"
+    "@liutsing/regexp-utils": "workspace:*",
+    "@rollup/plugin-babel": "^6.0.4"
   },
   "devDependencies": {
     "postcss": "^8.4.17"
   },
   "peerDependencies": {
     "postcss": "^8.0.0"
-  },
-  "nx": {
-    "includedScripts": []
   }
 }

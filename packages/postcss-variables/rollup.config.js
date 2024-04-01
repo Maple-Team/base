@@ -9,9 +9,9 @@ const options = {
       format: 'cjs',
       file: 'lib/bundle.min.js',
       exports: 'auto',
-      globals:{
-        '@liutsing/regexp-utils':'@liutsing/regexp-utils'
-      }
+      globals: {
+        '@liutsing/regexp-utils': '@liutsing/regexp-utils',
+      },
     },
   ],
   input: resolve(__dirname, 'src/index.ts'),

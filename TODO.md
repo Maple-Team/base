@@ -9,5 +9,12 @@
 - [ ] Nx command
 - [ ] 考虑使用`@swc-node/jest`作为测试库
 - [ ] `benny`做`benchmark`
+- [ ] add nx
+- [ ] rollup
+- [ ] microbundle
+- [ ] console.count
 
-  "postinstall": "pnpm run build:all",
+## Resources
+
+- https://nx.dev/recipes/adopting-nx/adding-to-monorepo
+- https://dev.to/nx/setup-a-monorepo-with-pnpm-workspaces-and-speed-it-up-with-nx-1eem

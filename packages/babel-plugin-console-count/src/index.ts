@@ -26,40 +26,40 @@ export default function ({ types: t }: { types: typeof import('@babel/types') })
   return {
     name: '@liutsing/babel-plugin-console-count',
     visitor: {
-      ArrowFunctionExpression(path) {
+      ArrowFunctionExpression(path, state) {
         if (t.isExportDefaultDeclaration(path.parent)) {
-          // @ts-expect-error: xx
-          const componentName = path.hub.file.opts.filename || 'AnonymousComponent'
-          const container = path.get('body')
-          if (t.isBlockStatement(container)) injectNode(t, container, componentName)
+          const file = state.file
+          // FIXME 组件名
+          const componentName = file.opts.filename || 'AnonymousComponent'
+          const container = path.node.body
+          // if (t.isBlockStatement(container)) injectNode(t, container, componentName)
         } else {
-          const parent = path.findParent((p) => {
-            return t.isCallExpression(p.node) && t.isIdentifier(p.node.callee, { name: 'memo' })
-          })
-
-          if (parent) {
-            if (t.isVariableDeclarator(parent.parentPath?.node)) {
-              const id = parent.parentPath?.node?.id
-              if (t.isIdentifier(id)) {
-                const container = path.get('body')
-                if (t.isBlockStatement(container)) injectNode(t, container, id.name)
-              }
-            }
-          }
+          // const parent = path.findParent((p) => {
+          //   return t.isCallExpression(p.node) && t.isIdentifier(p.node.callee, { name: 'memo' })
+          // })
+          // if (parent) {
+          //   if (t.isVariableDeclarator(parent.parentPath?.node)) {
+          //     const id = parent.parentPath?.node?.id
+          //     if (t.isIdentifier(id)) {
+          //       const container = path.get('body')
+          //       if (t.isBlockStatement(container)) injectNode(t, container, id.name)
+          //     }
+          //   }
+          // }
         }
       },
       VariableDeclaration(path: NodePath<t.VariableDeclaration>) {
-        let componentName: string | undefined
-        if (t.isExportNamedDeclaration(path.parent)) {
-          const declaration = path.node.declarations[0]
-          if (t.isVariableDeclarator(declaration)) {
-            if (t.isIdentifier(declaration.id)) {
-              componentName = declaration.id.name
-              const container = path.get('declarations.0.init.body')
-              if (t.isBlockStatement(container)) injectNode(t, container, componentName)
-            }
-          }
-        }
+        // let componentName: string | undefined
+        // if (t.isExportNamedDeclaration(path.parent)) {
+        //   const declaration = path.node.declarations[0]
+        //   if (t.isVariableDeclarator(declaration)) {
+        //     if (t.isIdentifier(declaration.id)) {
+        //       componentName = declaration.id.name
+        //       const container = path.get('declarations.0.init.body')
+        //       if (t.isBlockStatement(container)) injectNode(t, container, componentName)
+        //     }
+        //   }
+        // }
       },
     },
   }

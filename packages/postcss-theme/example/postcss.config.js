@@ -1,4 +1,4 @@
-const postcssThemeColor = require('../dist/index.mjs')
+const postcssThemeColor = require('..')
 const config = {
   groups: {
     G01: ['C01', 'C02'],
