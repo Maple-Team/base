@@ -1,6 +1,6 @@
 import * as parser from '@babel/parser'
 import { transformFromAstSync } from '@babel/core'
-import autoI18nPlugin from '../src/index'
+import autoI18nPlugin, { transformKeyWithoutHash } from '../src/index'
 
 /**
  * 构建preset
@@ -14,6 +14,7 @@ export function preset() {
         {
           outputDir: 'output',
           debug: false,
+          hashFn: transformKeyWithoutHash,
         },
       ],
     ],

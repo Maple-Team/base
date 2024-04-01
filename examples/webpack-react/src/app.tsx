@@ -1,4 +1,4 @@
-import React, { StrictMode, Suspense, lazy, useCallback, useMemo, useState } from 'react'
+import React, { StrictMode, Suspense, lazy, memo, useCallback, useMemo, useState } from 'react'
 import { QueryClient, QueryClientProvider, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { BrowserRouter, Link, Outlet, Route, Routes, createBrowserRouter } from 'react-router-dom'
@@ -34,32 +34,16 @@ type LanguageKey = keyof typeof Language
 const Root = () => {
   const [lng, setLng] = useState<LanguageKey>('zh-CN')
 
-  const items: MenuProps['items'] = [
-    {
-      label: 'English',
-      key: 'en-US',
+  const items: MenuProps['items'] = (Object.keys(Language) as LanguageKey[]).map((key) => {
+    return {
+      label: Language[key],
+      key,
       onClick: () => {
-        i18n.changeLanguage('en-US').catch(console.error)
-        setLng('en-US')
+        i18n.changeLanguage(key).catch(console.error)
+        setLng(key)
       },
-    },
-    {
-      label: '简体中文',
-      key: 'zh-CN',
-      onClick: () => {
-        i18n.changeLanguage('zh-CN').catch(console.error)
-        setLng('zh-CN')
-      },
-    },
-    {
-      label: '繁体中文',
-      key: 'zh-HK',
-      onClick: () => {
-        i18n.changeLanguage('zh-HK').catch(console.error)
-        setLng('zh-HK')
-      },
-    },
-  ]
+    }
+  })
 
   return (
     <div className="flex w-full" style={{ display: 'flex' }}>
@@ -126,11 +110,11 @@ const _router = createBrowserRouter([
 // https://hacker-news.firebaseio.com/v0/item/8863.json?print=pretty
 // https://api.publicapis.org/entries
 
-const Example4 = () => {
+const Example4 = memo(() => {
   const [num, setNum] = useState<number>(0)
   // const { data } = useQuery(['fetchInfo'], () => axios.get('/api/auth/profile'))
   const { data } = useQuery(['fetchInfo'], () => axios.get('/api/lzz/all'))
-  console.log('接口请求', data)
+  console.log('useQuery发起请求', data)
   // const { mutate } = useMutation(['directives'], (data) => axios.post('/api/directives', data))
   // useEffect(() => {
   //   mutate(
@@ -182,7 +166,7 @@ const Example4 = () => {
       </div>
     </div>
   )
-}
+})
 
 const fetchData = async () => {
   // 模拟异步请求

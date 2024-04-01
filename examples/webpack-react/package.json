@@ -24,7 +24,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "server": "node config/server.js",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "translate": "node scripts/translate.js"
   },
   "keywords": [],
   "author": "",
@@ -57,6 +58,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.43.1",
     "@babel/plugin-transform-runtime": "^7.23.2",
+    "@google-cloud/translate": "^8.1.0",
     "@liutsing/babel-plugin-extract-used-chinese": "workspace:*",
     "@liutsing/babel-plugin-remove-console": "workspace:*",
     "@liutsing/eslint-config": "workspace:*",

@@ -23,8 +23,8 @@
   ],
   "scripts": {
     "prebuild": "rimraf types && rimraf lib",
-    "build": "microbundle -f es,cjs --tsconfig tsconfig.build.json --external crypto,path",
-    "dev": "npm run build -- --no-compress --no-sourcemap",
+    "build": "cross-env NODE_ENV=production microbundle -f es,cjs --tsconfig tsconfig.build.json --external crypto,path",
+    "dev": "cross-env NODE_ENV=development npm run build1 -- --no-compress --no-sourcemap",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "prepublish": "rimraf types && rimraf lib",

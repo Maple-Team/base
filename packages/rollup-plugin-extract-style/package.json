@@ -34,7 +34,7 @@
     "types"
   ],
   "scripts": {
-    "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
+    "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json --external node:fs,node:path",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "prebuild": "rimraf types && rimraf lib",

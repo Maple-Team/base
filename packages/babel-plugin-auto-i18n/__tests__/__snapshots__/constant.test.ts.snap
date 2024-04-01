@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`constant test cases 语言切换统一模块测试 1`] = `
+"\\"use strict\\";
+
+var _reactI18next = require(\\"react-i18next\\");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError(\\"Invalid attempt to destructure non-iterable instance.\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\\"); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \\"string\\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \\"Object\\" && o.constructor) n = o.constructor.name; if (n === \\"Map\\" || n === \\"Set\\") return Array.from(o); if (n === \\"Arguments\\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : \\"undefined\\" != typeof Symbol && r[Symbol.iterator] || r[\\"@@iterator\\"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t[\\"return\\"] && (u = t[\\"return\\"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+var Language = {
+  'en-US': 'English',
+  'zh-CN': '简体中文',
+  'zh-HK': '繁体中文'
+};
+var Root = function Root() {
+  var _useState = useState('zh-CN'),
+    _useState2 = _slicedToArray(_useState, 2),
+    lng = _useState2[0],
+    setLng = _useState2[1];
+  var items = Object.keys(Language).map(function (key) {
+    return {
+      label: Language[key],
+      key: key,
+      onClick: function onClick() {
+        i18n.changeLanguage(key)[\\"catch\\"](console.error);
+        setLng(key);
+      }
+    };
+  });
+  return <div className=\\"flex w-full\\" style={{
+    display: 'flex'
+  }}>
+          <main className=\\"flex-1\\" style={{
+      paddingLeft: 24,
+      paddingTop: 0,
+      flex: 1
+    }}>
+            <div className=\\"h-12 flex justify-between items-center px-5\\">
+              <i />
+              <Dropdown menu={{
+          items: items
+        }}>
+                <a onClick={function (e) {
+            return e.preventDefault();
+          }}>
+                  <Space>
+                    <GlobalOutlined />
+                    {Language[lng]}
+                  </Space>
+                </a>
+              </Dropdown>
+            </div>
+            <Outlet />
+          </main>
+        </div>;
+};"
+`;

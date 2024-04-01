@@ -14,7 +14,9 @@ import type {
   V8IntrinsicIdentifier,
   VariableDeclarator,
 } from '@babel/types'
-import { hash, isHans, save, transformKeyWithoutHash } from './helper'
+import { hash, isHans, save, transformKey, transformKeyWithoutHash } from './helper'
+
+export { hash, isHans, save, transformKeyWithoutHash, transformKey } from './helper'
 
 export interface Option {
   /**
@@ -30,6 +32,10 @@ export interface Option {
    * @returns
    */
   conditionalLanguage?: (text: string) => boolean
+  /**
+   * hash函数
+   */
+  hashFn?: (text: string) => string
 }
 // FIXME  template: typeof import('@babel/template')
 /**
@@ -41,6 +47,11 @@ export default function (
   { types: t, template }: { types: typeof import('@babel/types'); template: AnyToFix },
   options: Option
 ): PluginObj {
+  const conditionalLanguage = options.conditionalLanguage || isHans
+  const outputDir = options.outputDir || path.join(process.cwd(), 'src', 'i18n', 'zh_CN')
+  const defaultHashFn = process.env.NODE_ENV === 'development' ? transformKeyWithoutHash : transformKey
+  const hashFn = options.hashFn || defaultHashFn
+
   /**
    * 节点替换
    * @param i18nKey
@@ -48,7 +59,7 @@ export default function (
    * @param state
    */
   function replaceWithCallExpression(i18nKey: string, path: NodePath, state: PluginPass) {
-    const transformedKey = transformKeyWithoutHash(i18nKey)
+    const transformedKey = hashFn(i18nKey)
     const identifier = t.identifier(`"${transformedKey}"`)
     const expressionContainer = t.callExpression(t.identifier('t'), [identifier])
     path.replaceWith(expressionContainer)
@@ -79,9 +90,6 @@ export default function (
     }
     return false
   }
-
-  const conditionalLanguage = options.conditionalLanguage || isHans
-  const outputDir = options.outputDir || path.join(process.cwd(), 'src', 'i18n', 'zh_CN')
 
   return {
     name: '@liutsing/babel-plugin-auto-i18n',
@@ -144,7 +152,7 @@ export default function (
         }
         const i18nKey = path.node.value.trim()
         if (!conditionalLanguage(i18nKey)) return
-        const transformedKey = transformKeyWithoutHash(i18nKey)
+        const transformedKey = hashFn(i18nKey)
         const identifier = t.identifier(`"${transformedKey}"`)
         const expressionContainer = t.jsxExpressionContainer(t.callExpression(t.identifier('t'), [identifier]))
         // 替换文本节点为JSXExpressionContainer节点
@@ -191,7 +199,7 @@ export default function (
             }
             return
           }
-          const transformedKey = transformKeyWithoutHash(i18nKey)
+          const transformedKey = hashFn(i18nKey)
           const identifier = t.identifier(`"${transformedKey}"`)
           const expressionContainer = t.jsxExpressionContainer(t.callExpression(t.identifier('t'), [identifier]))
           path.replaceWith(expressionContainer)

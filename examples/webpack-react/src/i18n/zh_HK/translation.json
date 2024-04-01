@@ -1,14 +1,12 @@
 {
-  "key_这是一个标题": "這是一個標題",
-  "key_一大段的文本内容": "一大段的文字內容",
-  "key_测试下": "測試下",
-  "key_触发chunk content-hash change": "觸發chunk content-hash change",
-  "key_显示Dialog": "顯示Dialog",
-  "key_显示Message": "顯示Message",
-  "key_出错了": "出錯了",
-  "key_简体中文": "簡體中文",
-  "key_繁体中文": "繁體中文",
-  "key_当前状态：": "目前狀態：",
-  "key_字体测试": "字體測試",
-  "key_文言文字形对比": "文言文字形對比"
+  "a9e1a59b": "這是一個標題",
+  "f171210d": "一大段的文字內容",
+  "bff2739d": "測試下",
+  "459a55cd": "觸發chunk content-hash change",
+  "392aacaa": "顯示Dialog",
+  "9b9f2827": "顯示Message",
+  "ad118b22": "出錯了",
+  "70f73798": "目前狀態：",
+  "26c0d845": "字體測試",
+  "9eb1167b": "文言文字形對比"
 }
