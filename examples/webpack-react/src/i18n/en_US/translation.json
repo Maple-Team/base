@@ -1,0 +1,14 @@
+{
+  "key_这是一个标题": "this is a title",
+  "key_一大段的文本内容": "A large paragraph of text content",
+  "key_测试下": "Under test",
+  "key_触发chunk content-hash change": "Trigger chunk content-hash change",
+  "key_显示Dialog": "ShowDialog",
+  "key_显示Message": "Display Message",
+  "key_出错了": "error",
+  "key_简体中文": "Simplified Chinese",
+  "key_繁体中文": "traditional Chinese",
+  "key_当前状态：": "Current status:",
+  "key_字体测试": "Font test",
+  "key_文言文字形对比": "Comparison of classical Chinese characters"
+}

@@ -3,8 +3,8 @@ import type { HttpBackendOptions } from 'i18next-http-backend'
 import HttpApi from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
-import enTranslation from './en/translation.json'
-// import twTranslation from './zh_tw/translation.json'
+import enTranslation from './en_US/translation.json'
+import hkTranslation from './zh_HK/translation.json'
 import cnTranslation from './zh_CN'
 
 const zhCNResources = {
@@ -24,12 +24,12 @@ const resources = {
     // translation 命名空间
     translation: cnTranslation,
   },
-  en: {
+  'en-US': {
     translation: enTranslation,
   },
-  // 'zh-TW': {
-  //   translation: twTranslation,
-  // },
+  'zh-HK': {
+    translation: hkTranslation,
+  },
 }
 i18n
   // load translation using http -> see /public/locales

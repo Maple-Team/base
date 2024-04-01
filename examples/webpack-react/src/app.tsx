@@ -26,8 +26,9 @@ const queryClient = new QueryClient({
   },
 })
 const Language = {
-  en: 'English',
+  'en-US': 'English',
   'zh-CN': '简体中文',
+  'zh-HK': '繁体中文',
 }
 type LanguageKey = keyof typeof Language
 const Root = () => {
@@ -36,18 +37,26 @@ const Root = () => {
   const items: MenuProps['items'] = [
     {
       label: 'English',
-      key: 'en',
+      key: 'en-US',
       onClick: () => {
-        i18n.changeLanguage('en')
-        setLng('en')
+        i18n.changeLanguage('en-US').catch(console.error)
+        setLng('en-US')
       },
     },
     {
-      label: '中文',
+      label: '简体中文',
       key: 'zh-CN',
       onClick: () => {
-        i18n.changeLanguage('zh-CN')
+        i18n.changeLanguage('zh-CN').catch(console.error)
         setLng('zh-CN')
+      },
+    },
+    {
+      label: '繁体中文',
+      key: 'zh-HK',
+      onClick: () => {
+        i18n.changeLanguage('zh-HK').catch(console.error)
+        setLng('zh-HK')
       },
     },
   ]
