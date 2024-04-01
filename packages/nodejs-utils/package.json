@@ -6,7 +6,6 @@
   "license": "ISC",
   "author": "",
   "main": "dist/index.js",
-  "umd:main": "dist/index.umd.js",
   "module": "dist/index.mjs",
   "source": "src/index.ts",
   "jsnext:main": "dist/index.mjs",
@@ -23,7 +22,7 @@
   },
   "scripts": {
     "prebuild": "npx rimraf types dist",
-    "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
+    "build": "microbundle -f es,cjs --tsconfig tsconfig.build.json --external crypto,buffer,os",
     "build:watch": "tsc -w",
     "test": "jest",
     "test:watch": "jest --watch",

@@ -43,6 +43,7 @@
   "devDependencies": {
     "@babel/parser": "^7.24.1",
     "@babel/template": "^7.24.0",
+    "@liutsing/utils": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
     "@types/babel__template": "^7.4.4",
     "lint-staged": "^13.0.3",

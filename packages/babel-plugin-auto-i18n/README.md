@@ -31,7 +31,12 @@ This means if two transforms both visit the "Program" node, the transforms will 
 ### 1.0
 
 - [ ] Avoid unnecessary calls to the `useTranslation` function.
-- [ ] unnecessary import will be tree-shaking by webpack -> need test
+- [x] unnecessary import will be tree-shaking by webpack
+  - ```js
+      optimization: {
+    sideEffects: false,
+    }
+    ```
 - [ ] bench the performance of this plugin
 
 ### 2.0

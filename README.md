@@ -21,3 +21,7 @@ git-checks=false
 enable-pre-post-scripts=true
 strict-peer-dependencies=false
 ```
+
+## TODO
+
+- add nx

@@ -93,7 +93,7 @@ const config = merge(dev, {
   // parallelism: 3000,
   externalsType: 'script',
   externals: {
-    lodash: ['https://cdn.jsdelivr.net/npm/lodash@4.17.19/lodash.min.js', '_'],
+    lodash: ['https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-y/lodash.js/4.17.21/lodash.min.js', '_'],
     // FIXME not working 顺序问题
     // react: ['https://static.etlink.ecar.com/js/react_18.2.0_umd_react.development.js', 'React'],
     // 'react-dom/client': ['https://static.etlink.ecar.com/js/react-dom_18.2.0_umd_react-dom.development.js', 'ReactDom'],

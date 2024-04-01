@@ -23,3 +23,7 @@
 ## 打包
 
 ### 对比使用 vite 构建
+
+## TODO
+
+- tree-shaking

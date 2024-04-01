@@ -14,9 +14,11 @@ import type {
   V8IntrinsicIdentifier,
   VariableDeclarator,
 } from '@babel/types'
-import { hash, isHans, save, transformKey, transformKeyWithoutHash } from './helper'
+import { isChinese } from '@liutsing/utils'
+import { hash } from '@liutsing/node-utils'
+import { save, transformKey, transformKeyWithoutHash } from './helper'
 
-export { hash, isHans, save, transformKeyWithoutHash, transformKey } from './helper'
+export { save, transformKeyWithoutHash, transformKey } from './helper'
 
 export interface Option {
   /**
@@ -47,7 +49,7 @@ export default function (
   { types: t, template }: { types: typeof import('@babel/types'); template: AnyToFix },
   options: Option
 ): PluginObj {
-  const conditionalLanguage = options.conditionalLanguage || isHans
+  const conditionalLanguage = options.conditionalLanguage || isChinese
   const outputDir = options.outputDir || path.join(process.cwd(), 'src', 'i18n', 'zh_CN')
   const defaultHashFn = process.env.NODE_ENV === 'development' ? transformKeyWithoutHash : transformKey
   const hashFn = options.hashFn || defaultHashFn

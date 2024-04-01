@@ -1,13 +1,5 @@
-import crypto from 'crypto'
+import { hash } from '@liutsing/node-utils'
 
-/**
- * 是否为汉字
- * @param {*} text
- * @returns
- */
-export function isHans(text: string) {
-  return text ? /\p{Script=Han}/u.test(text) : false
-}
 /**
  * 收集存在的key
  * @param {*} file
@@ -24,14 +16,7 @@ export function save(file: AnyToFix, key: string, value: string) {
 
   file.set('allText', allText)
 }
-/**
- * hash处理字符串
- * @param key
- * @returns
- */
-export function hash(key: string) {
-  return crypto.createHash('sha1').update(`${key}`).digest('hex')
-}
+
 /**
  * 转换key
  * @param {string} key

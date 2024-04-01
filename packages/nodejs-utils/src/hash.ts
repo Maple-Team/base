@@ -57,3 +57,12 @@ export function hashFileSync(path: fs.PathLike, algo: HashAlgorithm) {
   const content = fs.readFileSync(path)
   return hash(algo).update(content).digest('base64')
 }
+
+/**
+ * hash处理字符串
+ * @param key
+ * @returns
+ */
+export function hash(key: string, algorithm: HashAlgorithm = 'sha1') {
+  return crypto.createHash(algorithm).update(`${key}`).digest('hex')
+}

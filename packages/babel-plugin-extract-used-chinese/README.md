@@ -18,3 +18,7 @@ in babel config file like `.babelrc`,
   ]
 }
 ```
+
+## TODO
+
+- 抽取公共方法
