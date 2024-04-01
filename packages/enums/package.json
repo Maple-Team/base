@@ -23,6 +23,7 @@
   "license": "ISC",
   "scripts": {
     "build": "microbundle -f es,cjs,umd",
+    "postinstall": "npm run build",
     "postpublish": "pnpx @liutsing/npmmirror-sync",
     "tsc": "tsc"
   },

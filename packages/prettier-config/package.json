@@ -16,6 +16,7 @@
   ],
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs",
+    "postinstall": "npm run build",
     "new:patch": "npm version patch"
   },
   "dependencies": {

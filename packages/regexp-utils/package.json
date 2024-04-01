@@ -32,6 +32,7 @@
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "test": "jest",
+    "postinstall": "npm run build",
     "test:watch": "jest --watch",
     "new:patch": "npm version patch"
   },

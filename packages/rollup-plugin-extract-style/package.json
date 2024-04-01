@@ -38,6 +38,7 @@
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "prebuild": "rimraf types && rimraf lib",
+    "postinstall": "npm run build",
     "prepublish": "rimraf types && rimraf lib",
     "test": "jest"
   },

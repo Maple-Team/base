@@ -34,6 +34,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "new:patch": "npm version patch",
+    "postinstall": "npm run build",
     "postpublish1": "pnpm run doc",
     "postpublish": "pnpx @liutsing/npmmirror-sync",
     "doc": "typedoc",
