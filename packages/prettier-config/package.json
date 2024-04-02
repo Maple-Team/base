@@ -4,6 +4,7 @@
   "private": false,
   "description": "",
   "keywords": [],
+  "type": "module",
   "homepage": "",
   "repository": {
     "type": "git",
@@ -15,7 +16,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "nx build -c --bundleConfigAsCjs",
+    "build": "microbundle -f cjs --no-sourcemap --bundleConfigAsCjs",
     "new:patch": "npm version patch"
   },
   "dependencies": {

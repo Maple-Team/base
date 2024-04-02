@@ -1,4 +1,4 @@
-import { PluginCreator } from 'postcss';
+import type { PluginCreator } from 'postcss';
 export interface Options {
     nestingPlugin?: string;
     variables: Record<string, string>;

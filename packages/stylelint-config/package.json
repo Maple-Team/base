@@ -3,6 +3,7 @@
   "version": "0.0.4",
   "private": false,
   "description": "",
+  "type": "module",
   "keywords": [],
   "homepage": "",
   "repository": {
@@ -15,7 +16,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "nx build -c --bundleConfigAsCjs",
+    "build": "microbundle -f cjs --no-sourcemap --bundleConfigAsCjs",
     "new:patch": "npm version patch"
   },
   "devDependencies": {

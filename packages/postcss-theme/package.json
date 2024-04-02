@@ -26,7 +26,6 @@
     "types": "./types/index.d.ts"
   },
   "main": "dist/index.js",
-  "umd:main": "dist/index.umd.js",
   "module": "dist/index.mjs",
   "source": "src/index.ts",
   "jsnext:main": "dist/index.mjs",
@@ -36,7 +35,7 @@
     "types"
   ],
   "scripts": {
-    "build": "microbundle -f es,cjs,umd --no-sourcemap --tsconfig tsconfig.build.json",
+    "build": "microbundle -f es,cjs --no-sourcemap --tsconfig tsconfig.build.json",
     "lint": "nx lint --ext .ts",
     "lint:fix": "nx lint --ext .ts --fix",
     "prettier": "prettier . --write",
