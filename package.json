@@ -18,7 +18,8 @@
     "lint": "eslint ./packages --ext=.js --ext=.ts",
     "lint2": "eslint --ext .js,.ts,.tsx,.vue --fix ./packages/*/src",
     "prettier": "prettier --write --ignore-unknown '**/*'",
-    "tsc": "nx run-many --target=tsc --all"
+    "tsc": "nx run-many --target=tsc --all",
+    "start":"node scripts/while.js"
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {
