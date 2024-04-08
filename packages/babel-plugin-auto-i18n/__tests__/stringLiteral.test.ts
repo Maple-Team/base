@@ -212,7 +212,7 @@ describe('arrow function declaration scenarios', () => {
     })
     it('handle console.log case1', () => {
       const sourceCode = `
-      export const Component = () =>{
+      export const Component = () => {
         const clear = useCallback(() => {
           if (!rtcReady) return
           console.log('执行BRTC停止逻辑')
@@ -240,6 +240,36 @@ describe('arrow function declaration scenarios', () => {
           }
         }, [])
       }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('handle composition condition case', () => {
+      const sourceCode = `
+      export const Component = () => {
+      console.log('干扰文案')
+      useEffect(() => {
+        const handler = (e: KeyboardEvent) => {
+          switch (key) {
+            case 'n':
+              emitter.emit('SHOW_MESSAGE', { level: 'info', msg: '操作异常' })
+              break
+            case 'arrowleft':
+              emitter.emit('SHOW_MESSAGE', { msg: '操作异常', level: 'error' })
+              break
+          }
+        }
+        window.addEventListener('keydown', handler)
+        return () => {
+          window.removeEventListener('keydown', handler)
+        }
+      }, [])
+      return (
+        <>
+        <div>1</div>
+        </>
+      )
+    }
       `
       const result = getTransformCode(sourceCode, 'filename.tsx')
       expect(result?.code).toMatchSnapshot()

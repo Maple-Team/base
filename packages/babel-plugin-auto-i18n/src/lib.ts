@@ -276,8 +276,8 @@ export default function (
           StringLiteral(declaratorPath) {
             const value = declaratorPath.node.value.trim()
             // TODO 很多需要排除的
-            if (isConsoleCallExpression(declaratorPath)) hasConditionalLanguageText = false
-            else if (!hasConditionalLanguageText) hasConditionalLanguageText = conditionalLanguage(value)
+            if (!isConsoleCallExpression(declaratorPath))
+              if (conditionalLanguage(value)) hasConditionalLanguageText = true
           },
         })
 
@@ -373,11 +373,11 @@ export default function (
           StringLiteral(declaratorPath) {
             const value = declaratorPath.node.value.trim()
             // TODO 很多需要排除的
-            if (isConsoleCallExpression(declaratorPath)) hasConditionalLanguageText = false
-            else if (!hasConditionalLanguageText) hasConditionalLanguageText = conditionalLanguage(value)
+            if (!isConsoleCallExpression(declaratorPath))
+              if (conditionalLanguage(value)) hasConditionalLanguageText = true
           },
         })
-        // NOTE 不是是返回一个jsx element或函数名以use开头，则不需要注入
+        // NOTE 不是返回一个jsx element或函数名以use开头，则不需要注入
         if (isValidJSXElement || parentId?.name.startsWith('use')) {
           if (!useTranslationVariableDeclarator) {
             const objectPropertyT = !hasBindingT ? t.objectProperty(t.identifier('t'), t.identifier('t')) : null
