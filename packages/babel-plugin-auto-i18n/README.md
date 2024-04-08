@@ -4,7 +4,7 @@
 
 auto transform chinese string to `t` invoke expression
 
-## usge
+## usage
 
 in babel config file like `.babelrc`,
 
@@ -14,28 +14,19 @@ in babel config file like `.babelrc`,
 }
 ```
 
-## Misc
-
-### [Plugin Ordering](https://babeljs.io/docs/en/plugins#plugin-ordering)
-
-> Ordering matters for each visitor in the plugin.
-
-This means if two transforms both visit the "Program" node, the transforms will run in either plugin or preset order.
-
-- **Plugins run before Presets**.
-- **Plugin ordering is first to last**.
-- **Preset ordering is reversed** (last to first).
-
 ## TODO
 
 ### 1.0
-
-- [ ] Avoid unnecessary calls to the `useTranslation` function.
+- [x] 支持jsxText内的文本转换
+- [x] 支持stringLiteral内的文本转换
+- [x] 支持templateElement内的文本转换
+- [ ] 支持templateLiteral的文本，单复数/文本插槽功能
+- [x] Avoid unnecessary calls to the `useTranslation` function.
 - [x] unnecessary import will be tree-shaking by webpack
   - ```js
       optimization: {
-    sideEffects: false,
-    }
+        sideEffects: false,
+      }
     ```
 - [ ] bench the performance of this plugin
 
