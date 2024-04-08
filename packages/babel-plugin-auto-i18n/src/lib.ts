@@ -287,14 +287,13 @@ export default function (
 
         // NOTE 不是是返回一个jsx element或函数名以use开头，则不需要注入
         if (isValidJSXElement || functionNameNode?.name.startsWith('use')) {
-          const objectPropertyT = !hasBindingT ? t.objectProperty(t.identifier('t'), t.identifier('t')) : null
-          const objectPropertyI18n = !hasBindingI18n
-            ? t.objectProperty(t.identifier('i18n'), t.identifier('i18n'))
-            : null
-
-          const objectProperties = [objectPropertyT, objectPropertyI18n].filter(Boolean) as ObjectProperty[]
-
           if (!hasUseTranslationVariableDeclarator) {
+            const objectPropertyT = !hasBindingT ? t.objectProperty(t.identifier('t'), t.identifier('t')) : null
+            const objectPropertyI18n = hasBindingI18n
+              ? t.objectProperty(t.identifier('i18n'), t.identifier('i18n'))
+              : null
+            const objectProperties = [objectPropertyT, objectPropertyI18n].filter(Boolean) as ObjectProperty[]
+
             // NOTE 没有符合条件的语言文案，则不需要注入
             if (!hasConditionalLanguageText) return
             const useTranslationStatement = t.variableDeclaration('const', [
@@ -311,7 +310,6 @@ export default function (
             if (t.isObjectPattern(id)) {
               const properties = id.properties as ObjectProperty[]
               if (!hasBindingT) properties.push(t.objectProperty(t.identifier('t'), t.identifier('t')))
-              if (!hasBindingI18n) properties.push(t.objectProperty(t.identifier('i18n'), t.identifier('i18n')))
             }
           }
         }
@@ -381,13 +379,12 @@ export default function (
         })
         // NOTE 不是是返回一个jsx element或函数名以use开头，则不需要注入
         if (isValidJSXElement || parentId?.name.startsWith('use')) {
-          const objectPropertyT = !hasBindingT ? t.objectProperty(t.identifier('t'), t.identifier('t')) : null
-          const objectPropertyI18n = !hasBindingI18n
-            ? t.objectProperty(t.identifier('i18n'), t.identifier('i18n'))
-            : null
-
-          const objectProperties = [objectPropertyT, objectPropertyI18n].filter(Boolean) as ObjectProperty[]
           if (!useTranslationVariableDeclarator) {
+            const objectPropertyT = !hasBindingT ? t.objectProperty(t.identifier('t'), t.identifier('t')) : null
+            const objectPropertyI18n = hasBindingI18n
+              ? t.objectProperty(t.identifier('i18n'), t.identifier('i18n'))
+              : null
+            const objectProperties = [objectPropertyT, objectPropertyI18n].filter(Boolean) as ObjectProperty[]
             // NOTE 没有符合条件的语言文案，则不需要注入
             if (!hasConditionalLanguageText) return
             const useTranslationStatement = t.variableDeclaration('const', [
@@ -403,8 +400,7 @@ export default function (
             const id = useTranslationVariableDeclarator.node.id
             if (t.isObjectPattern(id)) {
               const properties = id.properties as ObjectProperty[]
-              if (!hasBindingT) properties.push(t.objectProperty(t.identifier('t'), t.identifier('t')))
-              if (!hasBindingI18n) properties.push(t.objectProperty(t.identifier('i18n'), t.identifier('i18n')))
+              if (!hasBindingT) properties.unshift(t.objectProperty(t.identifier('t'), t.identifier('t')))
             }
           }
         }

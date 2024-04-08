@@ -10,8 +10,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div>{t(\\"key_你好\\")}</div>;
 };"
 `;
@@ -26,8 +25,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div>{t(\\"key_你好\\")}<span>{t(\\"key_嵌套文本\\")}</span></div>;
 };"
 `;
@@ -42,8 +40,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <>
       <div>{t(\\"key_你好\\")}</div>
       <span>{t(\\"key_嵌套文本\\")}</span>
@@ -61,8 +58,7 @@ exports[\\"default\\"] = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var _default = exports[\\"default\\"] = function _default() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div>{t(\\"key_你好\\")}</div>;
 };"
 `;
@@ -77,8 +73,7 @@ exports[\\"default\\"] = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var _default = exports[\\"default\\"] = function _default() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div>{t(\\"key_你好\\")}<span>{t(\\"key_嵌套文本\\")}</span></div>;
 };"
 `;
@@ -93,8 +88,7 @@ exports[\\"default\\"] = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var _default = exports[\\"default\\"] = function _default() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <>
       <div>{t(\\"key_你好\\")}</div>
       <span>{t(\\"key_嵌套文本\\")}</span>
@@ -112,8 +106,7 @@ exports[\\"default\\"] = Component;
 var _reactI18next = require(\\"react-i18next\\");
 function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div>{t(\\"key_你好\\")}</div>;
 }"
 `;
@@ -128,8 +121,7 @@ exports[\\"default\\"] = Component;
 var _reactI18next = require(\\"react-i18next\\");
 function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div>{t(\\"key_你好\\")}<span>{t(\\"key_嵌套文本\\")}</span></div>;
 }"
 `;
@@ -144,8 +136,7 @@ exports[\\"default\\"] = Component;
 var _reactI18next = require(\\"react-i18next\\");
 function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <>
         <div>{t(\\"key_你好\\")}</div>
         <span>{t(\\"key_嵌套文本\\")}</span>
@@ -163,8 +154,7 @@ exports.Component = Component;
 var _reactI18next = require(\\"react-i18next\\");
 function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div>{t(\\"key_你好\\")}</div>;
 }"
 `;
@@ -179,8 +169,7 @@ exports.Component = Component;
 var _reactI18next = require(\\"react-i18next\\");
 function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div>{t(\\"key_你好\\")}<span>{t(\\"key_嵌套文本\\")}</span></div>;
 }"
 `;
@@ -195,8 +184,7 @@ exports.Component = Component;
 var _reactI18next = require(\\"react-i18next\\");
 function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <>
       <div>{t(\\"key_你好\\")}</div>
       <span>{t(\\"key_嵌套文本\\")}</span>

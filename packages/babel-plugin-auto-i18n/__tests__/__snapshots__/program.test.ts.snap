@@ -10,8 +10,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
@@ -26,8 +25,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;

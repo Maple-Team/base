@@ -16,8 +16,7 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : \\"undefined\\
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   var _useState = useState('1'),
     _useState2 = _slicedToArray(_useState, 2),
     v = _useState2[0],
@@ -40,8 +39,54 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
+  var cb1 = useCallback(function () {
+    var text = t(\\"key_useCallback作用域中的文案1\\");
+  }, [t]);
+  return <div name={t(\\"key_属性\\")} onClick={cb1}>{t(\\"key_站位文本\\")}</div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios handle useCallback hooks add t as dependencies exported function case 0 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError(\\"Invalid attempt to destructure non-iterable instance.\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\\"); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \\"string\\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \\"Object\\" && o.constructor) n = o.constructor.name; if (n === \\"Map\\" || n === \\"Set\\") return Array.from(o); if (n === \\"Arguments\\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : \\"undefined\\" != typeof Symbol && r[Symbol.iterator] || r[\\"@@iterator\\"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t[\\"return\\"] && (u = t[\\"return\\"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
+  var _useState = useState('1'),
+    _useState2 = _slicedToArray(_useState, 2),
+    v = _useState2[0],
+    setV = _useState2[1];
+  var cb1 = useCallback(function () {
+    var text = t(\\"key_useCallback作用域中的文案0\\");
+    console.log(v);
+  }, [v, t]);
+  return <div name={t(\\"key_属性\\")} onClick={cb1}>{t(\\"key_站位文本\\")}</div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios handle useCallback hooks add t as dependencies exported function case 1 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
   var cb1 = useCallback(function () {
     var text = t(\\"key_useCallback作用域中的文案1\\");
   }, [t]);
@@ -65,8 +110,7 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : \\"undefined\\
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   var _useState = useState('1'),
     _useState2 = _slicedToArray(_useState, 2),
     v = _useState2[0],
@@ -89,8 +133,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   useEffect(function () {
     var text = t(\\"key_effect作用域中的文案1\\");
   }, [t]);
@@ -108,8 +151,72 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
+  useEffect(function () {
+    var text = t(\\"key_effect作用域中的文案2\\");
+  });
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios handle useEffect hooks add t as dependencies exported function case 0 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError(\\"Invalid attempt to destructure non-iterable instance.\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\\"); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \\"string\\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \\"Object\\" && o.constructor) n = o.constructor.name; if (n === \\"Map\\" || n === \\"Set\\") return Array.from(o); if (n === \\"Arguments\\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : \\"undefined\\" != typeof Symbol && r[Symbol.iterator] || r[\\"@@iterator\\"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t[\\"return\\"] && (u = t[\\"return\\"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
+  var _useState = useState('1'),
+    _useState2 = _slicedToArray(_useState, 2),
+    v = _useState2[0],
+    setV = _useState2[1];
+  useEffect(function () {
+    var text = t(\\"key_effect作用域中的文案1\\");
+    console.log(v);
+  }, [v, t]);
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios handle useEffect hooks add t as dependencies exported function case 1 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
+  useEffect(function () {
+    var text = t(\\"key_effect作用域中的文案1\\");
+  }, [t]);
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios handle useEffect hooks add t as dependencies exported function case 2 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
   useEffect(function () {
     var text = t(\\"key_effect作用域中的文案2\\");
   });
@@ -127,8 +234,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   var cb1 = useMemo(function () {
     var text = t(\\"key_useMemo作用域中的文案1\\");
     return function () {
@@ -149,8 +255,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   var text = useMemo(function () {
     var text = t(\\"key_useMemo作用域中的文案1\\");
     return text;
@@ -169,8 +274,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   var var1 = t(\\"key_外部变量1\\");
   var var2 = useMemo(function () {
     var text = \\"text\\" + var1;
@@ -190,8 +294,94 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
+  var data = useMemo(function () {
+    return [{
+      name: t(\\"key_值1\\"),
+      label: t(\\"key_标签1\\")
+    }, {
+      name: t(\\"key_值2\\"),
+      label: t(\\"key_标签2\\")
+    }, {
+      name: t(\\"key_值3\\"),
+      label: t(\\"key_标签3\\")
+    }];
+  }, [t]);
+  return <CustomComponent name={t(\\"key_属性\\")} data={data}></CustomComponent>;
+};"
+`;
+
+exports[`arrow function declaration scenarios handle useMemo hooks add t as dependencies exported function case 0 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
+  var cb1 = useMemo(function () {
+    var text = t(\\"key_useMemo作用域中的文案1\\");
+    return function () {
+      console.log(text);
+    };
+  }, [t]);
+  return <div name={t(\\"key_属性\\")} onClick={cb1}>{t(\\"key_站位文本\\")}</div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios handle useMemo hooks add t as dependencies exported function case 1 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
+  var text = useMemo(function () {
+    var text = t(\\"key_useMemo作用域中的文案1\\");
+    return text;
+  }, [t]);
+  return <div name={t(\\"key_属性\\")}>{text}</div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios handle useMemo hooks add t as dependencies exported function case 2 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
+  var var1 = t(\\"key_外部变量1\\");
+  var var2 = useMemo(function () {
+    var text = \\"text\\" + var1;
+    return text;
+  }, [var1]);
+  return <div name={t(\\"key_属性\\")}>{var2}</div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios handle useMemo hooks add t as dependencies exported function case 3 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
   var data = useMemo(function () {
     return [{
       name: t(\\"key_值1\\"),
@@ -218,8 +408,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   var var1 = t(\\"key_变量1\\");
   return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
@@ -235,8 +424,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div name={t(\\"key_属性\\")}>{t(\\"key_jsx文本\\")}</div>;
 };"
 `;
@@ -251,8 +439,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   var obj1 = [t(\\"key_属性值1\\"), t(\\"key_属性值2\\")];
   return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
@@ -269,8 +456,7 @@ var _reactI18next = require(\\"react-i18next\\");
 var showText = true;
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div>
               {showText & t(\\"key_显示中文\\")}
             </div>;
@@ -287,8 +473,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   console.log('输出值');
   var var1 = true;
   return <div name={var1 ? t(\\"key_条件1\\") : t(\\"key_条件2\\")}>{t(\\"key_jsx文本\\")}</div>;
@@ -306,8 +491,7 @@ var _reactI18next = require(\\"react-i18next\\");
 var showText = true;
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <>
             <div>{showText && t(\\"key_显示中文\\")}</div>
             <span>{showText ? t(\\"key_条件1\\") : t(\\"key_条件2\\")}</span>
@@ -325,8 +509,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   console.log('输出值');
   return <div name={t(\\"key_属性\\")}>{t(\\"key_jsx文本\\")}</div>;
 };"
@@ -342,8 +525,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   useEffect(function () {
     message.info({
       content: t(\\"key_内容值\\")
@@ -363,8 +545,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   var cb = useCallback(function () {
     modal.info({
       content: <div>{t(\\"key_内容值\\")}</div>,
@@ -394,8 +575,7 @@ var obj1 = {
 };
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
@@ -410,8 +590,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div>
               {t(\\"key_外层文本\\")}
               <div>{t(\\"key_嵌套文本\\")}</div>
@@ -429,8 +608,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   var obj1 = {
     name: t(\\"key_属性值1\\"),
     key: t(\\"key_属性值2\\")
@@ -450,8 +628,7 @@ var _reactI18next = require(\\"react-i18next\\");
 var text = \\"模块作用域文案\\";
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div>{text}{t(\\"key_后缀\\")}</div>;
 };"
 `;
@@ -466,8 +643,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <svg t=\\"1711425339799\\" className=\\"icon\\" viewBox=\\"0 0 1024 1024\\" version=\\"1.1\\" xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"200\\" height=\\"200\\">
         <path id=\\"svg中的中文\\" d=\\"M448 672c-6.4 0-19.2 0-25.6-6.4-12.8-12.8-12.8-32 0-44.8L531.2 512 422.4 409.6c-12.8-12.8-12.8-32 0-44.8s32-12.8 44.8 0l128 128c12.8 12.8 12.8 32 0 44.8l-128 128C467.2 672 454.4 672 448 672z\\" fill=\\"#272636\\" />
       </svg>;
@@ -484,8 +660,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div>
               {t(\\"key_外层文本\\")}
               <div>{t(\\"key_嵌套文本\\")}</div>

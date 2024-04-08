@@ -10,8 +10,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
@@ -28,7 +27,7 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
-  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本-arrow-function-case2\\")}</div>;
 };"
 `;
 
@@ -42,8 +41,8 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    i18n = _useTranslation.i18n,
-    t = _useTranslation.t;
+    t = _useTranslation.t,
+    i18n = _useTranslation.i18n;
   return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 };"
 `;
@@ -58,8 +57,7 @@ exports.Component = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div name={t(\\"key_属性\\")}>{t('key')}</div>;
 };"
 `;
@@ -179,8 +177,7 @@ exports.useHooks1 = void 0;
 var _reactI18next = require(\\"react-i18next\\");
 var useHooks1 = exports.useHooks1 = function useHooks1() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   var var1 = t(\\"key_变量1\\");
   return [var1];
 };"
@@ -196,8 +193,7 @@ exports.useComponent = useComponent;
 var _reactI18next = require(\\"react-i18next\\");
 function useComponent() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
 }"
 `;
@@ -230,7 +226,7 @@ function useComponent() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     i18n = _useTranslation.i18n,
     t = _useTranslation.t;
-  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
+  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本-function-declaration-case2\\")}</div>;
 }"
 `;
 
@@ -244,8 +240,7 @@ exports.useComponent = useComponent;
 var _reactI18next = require(\\"react-i18next\\");
 function useComponent() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   return <div name={t(\\"key_属性\\")}>{t('key')}</div>;
 }"
 `;
@@ -361,8 +356,7 @@ exports.useComponent = useComponent;
 var _reactI18next = require(\\"react-i18next\\");
 function useComponent() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   var var1 = t(\\"key_变量1\\");
   return [var1];
 }"
@@ -395,8 +389,7 @@ exports.useComponent = useComponent;
 var _reactI18next = require(\\"react-i18next\\");
 function useComponent() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t,
-    i18n = _useTranslation.i18n;
+    t = _useTranslation.t;
   var var1 = t(\\"key1\\");
   return [var1];
 }"

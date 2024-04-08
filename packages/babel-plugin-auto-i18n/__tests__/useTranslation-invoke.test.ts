@@ -65,7 +65,7 @@ describe('function declaration scenario', () => {
       import {useTranslation} from 'react-i18next'
       export function useComponent(){
         const {i18n} = useTranslation()
-        return <div name="属性">站位文本</div>
+        return <div name="属性">站位文本-function-declaration-case2</div>
       }
       `
       const result = getTransformCode(sourceCode, 'useTranslation-invoke3.tsx')
@@ -162,7 +162,7 @@ describe('arrow function scenario', () => {
       import {useTranslation} from 'react-i18next'
       export const Component = () => {
         const {t, i18n} = useTranslation()
-        return <div name="属性">站位文本</div>
+        return <div name="属性">站位文本-arrow-function-case2</div>
       }
       `
       const result = getTransformCode(sourceCode, 'useTranslation-invoke2.tsx')
