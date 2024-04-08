@@ -300,6 +300,48 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
+exports[`arrow function declaration scenarios stringLiteral cases handle console.log case1 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var clear = useCallback(function () {
+    if (!rtcReady) return;
+    console.log('执行BRTC停止逻辑');
+    window.BRTC_StopPublish();
+    window.BRTC_Stop();
+    // client.current = null
+    setRTCReady(false);
+  }, [rtcReady]);
+};"
+`;
+
+exports[`arrow function declaration scenarios stringLiteral cases handle console.log case2 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.useShout = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var useShout = exports.useShout = function useShout(isSpeaking) {
+  useEffect(function () {
+    var handler = function handler(devices) {
+      // 音视频设备变化
+      console.log('当前电脑音视频输入设备: ', devices);
+    };
+    navigator.mediaDevices.addEventListener('devicechange', handler);
+    return function () {
+      navigator.mediaDevices.removeEventListener('devicechange', handler);
+    };
+  }, []);
+};"
+`;
+
 exports[`arrow function declaration scenarios stringLiteral cases handle jsx attribute 1`] = `
 "\\"use strict\\";
 

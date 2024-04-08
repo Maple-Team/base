@@ -420,6 +420,11 @@ export default function (
         let hasChineseUsage = false
         path.traverse({
           StringLiteral(stringLiteralPath) {
+            // 排除console.log
+            if (isConsoleCallExpression(stringLiteralPath)) {
+              hasChineseUsage = false
+              return
+            }
             const value = stringLiteralPath.node.value.trim()
             if (conditionalLanguage(value)) hasChineseUsage = true
           },

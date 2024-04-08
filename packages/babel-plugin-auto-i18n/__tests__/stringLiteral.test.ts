@@ -210,6 +210,40 @@ describe('arrow function declaration scenarios', () => {
       const result = getTransformCode(sourceCode, 'binaryExpressionRendering.tsx')
       expect(result?.code).toMatchSnapshot()
     })
+    it('handle console.log case1', () => {
+      const sourceCode = `
+      export const Component = () =>{
+        const clear = useCallback(() => {
+          if (!rtcReady) return
+          console.log('执行BRTC停止逻辑')
+          window.BRTC_StopPublish()
+          window.BRTC_Stop()
+          // client.current = null
+          setRTCReady(false)
+        }, [rtcReady])
+      }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
+    it('handle console.log case2', () => {
+      const sourceCode = `
+      export const useShout = (isSpeaking?: boolean) => {
+        useEffect(() => {
+          const handler = (devices: unknown) => {
+            // 音视频设备变化
+            console.log('当前电脑音视频输入设备: ', devices)
+          }
+          navigator.mediaDevices.addEventListener('devicechange', handler)
+          return () => {
+            navigator.mediaDevices.removeEventListener('devicechange', handler)
+          }
+        }, [])
+      }
+      `
+      const result = getTransformCode(sourceCode, 'filename.tsx')
+      expect(result?.code).toMatchSnapshot()
+    })
   })
   describe('handle useEffect hooks add t as dependencies', () => {
     it('exported function case 0', () => {
