@@ -1,6 +1,6 @@
 import * as parser from '@babel/parser'
 import { transformFromAstSync } from '@babel/core'
-import autoI18nPlugin, { transformKeyWithoutHash } from '../src/index'
+import autoI18nPlugin, { transformKeyWithoutHash } from '../src'
 
 /**
  * 构建preset

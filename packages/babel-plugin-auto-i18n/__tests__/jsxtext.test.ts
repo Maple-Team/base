@@ -8,7 +8,7 @@ describe('arrow function declaration scenarios - JSXText cases', () => {
       return <div>你好</div>
     }
     `
-      const result = getTransformCode(sourceCode, 'jsxtext1.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-text1.tsx')
       expect(result?.code).toMatchSnapshot()
     })
     it('handle JSXText2', () => {
@@ -17,7 +17,7 @@ describe('arrow function declaration scenarios - JSXText cases', () => {
       return <div>你好<span>嵌套文本</span></div>
     }
     `
-      const result = getTransformCode(sourceCode, 'jsxtext2.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-text2.tsx')
       expect(result?.code).toMatchSnapshot()
     })
     it('handle JSXText3', () => {
@@ -29,7 +29,7 @@ describe('arrow function declaration scenarios - JSXText cases', () => {
       </>
     }
     `
-      const result = getTransformCode(sourceCode, 'jsxtext3.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-text3.tsx')
       expect(result?.code).toMatchSnapshot()
     })
   })
@@ -40,7 +40,7 @@ describe('arrow function declaration scenarios - JSXText cases', () => {
       return <div>你好</div>
     }
     `
-      const result = getTransformCode(sourceCode, 'jsxtext1.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-text1.tsx')
       expect(result?.code).toMatchSnapshot()
     })
     it('handle JSXText2', () => {
@@ -49,7 +49,7 @@ describe('arrow function declaration scenarios - JSXText cases', () => {
       return <div>你好<span>嵌套文本</span></div>
     }
     `
-      const result = getTransformCode(sourceCode, 'jsxtext2.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-text2.tsx')
       expect(result?.code).toMatchSnapshot()
     })
     it('handle JSXText3', () => {
@@ -61,7 +61,7 @@ describe('arrow function declaration scenarios - JSXText cases', () => {
       </>
     }
     `
-      const result = getTransformCode(sourceCode, 'jsxtext3.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-text3.tsx')
       expect(result?.code).toMatchSnapshot()
     })
   })
@@ -75,7 +75,7 @@ describe('function declaration scenarios - JSXText cases', () => {
       return <div>你好</div>
     }
     `
-      const result = getTransformCode(sourceCode, 'jsxtext1.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-text1.tsx')
       expect(result?.code).toMatchSnapshot()
     })
     it('handle JSXText2', () => {
@@ -84,7 +84,7 @@ describe('function declaration scenarios - JSXText cases', () => {
       return <div>你好<span>嵌套文本</span></div>
     }
     `
-      const result = getTransformCode(sourceCode, 'jsxtext2.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-text2.tsx')
       expect(result?.code).toMatchSnapshot()
     })
     it('handle JSXText3', () => {
@@ -96,7 +96,7 @@ describe('function declaration scenarios - JSXText cases', () => {
       </>
     }
     `
-      const result = getTransformCode(sourceCode, 'jsxtext3.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-text3.tsx')
       expect(result?.code).toMatchSnapshot()
     })
   })
@@ -108,7 +108,7 @@ describe('function declaration scenarios - JSXText cases', () => {
         return <div>你好</div>
       }
       `
-      const result = getTransformCode(sourceCode, 'jsxtext4.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-text4.tsx')
       expect(result?.code).toMatchSnapshot()
     })
     it('handle JSXText2', () => {
@@ -117,7 +117,7 @@ describe('function declaration scenarios - JSXText cases', () => {
         return <div>你好<span>嵌套文本</span></div>
       }
       `
-      const result = getTransformCode(sourceCode, 'jsxtext2.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-text2.tsx')
       expect(result?.code).toMatchSnapshot()
     })
     it('handle JSXText3', () => {
@@ -129,7 +129,7 @@ describe('function declaration scenarios - JSXText cases', () => {
         </>
       }
       `
-      const result = getTransformCode(sourceCode, 'jsxtext3.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-text3.tsx')
       expect(result?.code).toMatchSnapshot()
     })
   })

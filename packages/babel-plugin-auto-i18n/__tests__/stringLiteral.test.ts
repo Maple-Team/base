@@ -10,7 +10,7 @@ describe('arrow function declaration scenarios', () => {
         return <div name="属性">jsx文本</div>
       }
       `
-      const result = getTransformCode(sourceCode, 'jsxattribute.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-attribute.tsx')
       expect(result?.code).toMatchSnapshot()
     })
     it('handle conditional jsx attribute', () => {
@@ -21,7 +21,7 @@ describe('arrow function declaration scenarios', () => {
         return <div name={var1 ? "条件1": "条件2"}>jsx文本</div>
       }
       `
-      const result = getTransformCode(sourceCode, 'conditional-jsxattribute.tsx')
+      const result = getTransformCode(sourceCode, 'conditional-jsx-attribute.tsx')
       expect(result?.code).toMatchSnapshot()
     })
 
@@ -61,7 +61,7 @@ describe('arrow function declaration scenarios', () => {
         return <div name="属性">jsx文本</div>
       }
       `
-      const result = getTransformCode(sourceCode, 'jsxattribute.tsx')
+      const result = getTransformCode(sourceCode, 'jsx-attribute.tsx')
       expect(result?.code).toMatchSnapshot()
     })
 
@@ -211,7 +211,7 @@ describe('arrow function declaration scenarios', () => {
       expect(result?.code).toMatchSnapshot()
     })
   })
-  describe('handle useEffect hooks add t as dependences', () => {
+  describe('handle useEffect hooks add t as dependencies', () => {
     it('exported function case 0', () => {
       const sourceCode = `
       export const Component = () => {
@@ -251,7 +251,7 @@ describe('arrow function declaration scenarios', () => {
       expect(result?.code).toMatchSnapshot()
     })
   })
-  describe('handle useCallback hooks add t as dependences', () => {
+  describe('handle useCallback hooks add t as dependencies', () => {
     it('exported function case 0', () => {
       const sourceCode = `
       export const Component = () => {
@@ -279,7 +279,7 @@ describe('arrow function declaration scenarios', () => {
       expect(result?.code).toMatchSnapshot()
     })
   })
-  describe('handle useMemo hooks add t as dependences', () => {
+  describe('handle useMemo hooks add t as dependencies', () => {
     it('exported function case 0', () => {
       const sourceCode = `
       export const Component = () => {

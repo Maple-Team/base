@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/babel-plugin-auto-i18n",
-  "version": "0.0.1-beta.2",
+  "version": "0.0.1-beta.3",
   "description": "A babel plugin to transform source language to 't' invoke expression",
   "keywords": [
     "babel plugin"
@@ -28,7 +28,7 @@
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "prepublish": "rimraf types && rimraf lib",
-    "test": "nx test",
+    "test": "jest",
     "prerelease": "npm version prerelease --preid=beta && git add package.json && git commit -m \"chore: release beta version\""
   },
   "simple-git-hooks": {
