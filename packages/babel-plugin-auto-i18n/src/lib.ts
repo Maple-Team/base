@@ -36,6 +36,10 @@ export interface Option {
    * hash函数
    */
   hashFn?: (text: string) => string
+  /**
+   * 父节点信息debug
+   */
+  stringLiteralParentTypeDebug?: boolean
 }
 // FIXME  template: typeof import('@babel/template')
 /**
@@ -51,7 +55,8 @@ export default function (
   const outputDir = options.outputDir || path.join(process.cwd(), 'src', 'i18n', 'zh_CN')
   const defaultHashFn = process.env.NODE_ENV === 'development' ? transformKeyWithoutHash : transformKey
   const hashFn = options.hashFn || defaultHashFn
-
+  const debug = options.debug
+  const stringLiteralParentTypeDebug = options.stringLiteralParentTypeDebug
   /**
    * 节点替换
    * @param i18nKey
@@ -59,6 +64,8 @@ export default function (
    * @param state
    */
   function replaceWithCallExpression(i18nKey: string, path: NodePath, state: PluginPass) {
+    if (stringLiteralParentTypeDebug) console.log(i18nKey, path.parent.type)
+
     const transformedKey = hashFn(i18nKey)
     const identifier = t.identifier(`"${transformedKey}"`)
     const expressionContainer = t.callExpression(t.identifier('t'), [identifier])
@@ -111,7 +118,9 @@ export default function (
         const absolutePath = f.opts.filename
         // TODO 字段重复处理策略
         const content = JSON.stringify(intlData, null, 4)
-        fs.writeFileSync(path.join(outputDir, `${hash(absolutePath)}.json`), content)
+        const outputFilename = debug ? absolutePath.replace(/[:\\\/\.\s]/g, '-') : hash(absolutePath)
+        console.log(outputFilename, absolutePath)
+        fs.writeFileSync(path.join(outputDir, `${outputFilename}.json`), content)
       }
     },
     visitor: {
@@ -152,6 +161,7 @@ export default function (
         }
         const i18nKey = path.node.value.trim()
         if (!conditionalLanguage(i18nKey)) return
+        if (stringLiteralParentTypeDebug) console.log(i18nKey, path.parent.type)
         const transformedKey = hashFn(i18nKey)
         const identifier = t.identifier(`"${transformedKey}"`)
         const expressionContainer = t.jsxExpressionContainer(t.callExpression(t.identifier('t'), [identifier]))
@@ -173,9 +183,11 @@ export default function (
         if (t.isCallExpression(parent)) {
           const callExpressionPath = parent
           // 处理类似message.info('<中文>')
+
           if (
-            t.isMemberExpression(callExpressionPath.callee) &&
-            (callExpressionPath.callee.object as Identifier).name
+            (t.isMemberExpression(callExpressionPath.callee) &&
+              (callExpressionPath.callee.object as Identifier).name) ||
+            (t.isIdentifier(callExpressionPath.callee) && callExpressionPath.callee.name !== 't')
           ) {
             replaceWithCallExpression(i18nKey, path, state)
           } else if (t.isIdentifier(callExpressionPath.callee) && callExpressionPath.callee.name === 't') {
@@ -200,6 +212,7 @@ export default function (
             return
           }
           const transformedKey = hashFn(i18nKey)
+          if (stringLiteralParentTypeDebug) console.log(i18nKey, path.parent.type)
           const identifier = t.identifier(`"${transformedKey}"`)
           const expressionContainer = t.jsxExpressionContainer(t.callExpression(t.identifier('t'), [identifier]))
           path.replaceWith(expressionContainer)
@@ -215,6 +228,8 @@ export default function (
           const blockPath = path.findParent((path) => path.isBlockStatement())
           // NOTE 排除不在函数作用域中的中文: 其他字典类的定义按手动处理
           if (!blockPath) return
+          // NOTE react组件中的svg内的id  插件在webpack中使用，走了两种节点遍历：JSXAttribute/StringLiteral
+          if (t.isIdentifier(parent.key) && parent.key.name === 'id') return
           replaceWithCallExpression(i18nKey, path, state)
         } else if (
           t.isAssignmentExpression(parent) ||

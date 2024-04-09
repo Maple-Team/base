@@ -82,6 +82,7 @@ const config = {
                   {
                     useBuiltIns: 'usage',
                     corejs: '3.26.1',
+                    modules: false,
                   },
                 ],
                 ['@babel/preset-react', { development: isDev, runtime: 'automatic' }],

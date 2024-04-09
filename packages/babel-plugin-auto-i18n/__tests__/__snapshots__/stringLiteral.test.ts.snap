@@ -398,46 +398,6 @@ var Component = exports.Component = function Component() {
 };"
 `;
 
-exports[`arrow function declaration scenarios stringLiteral cases handle member expression 1`] = `
-"\\"use strict\\";
-
-Object.defineProperty(exports, \\"__esModule\\", {
-  value: true
-});
-exports.Component = void 0;
-var _reactI18next = require(\\"react-i18next\\");
-var Component = exports.Component = function Component() {
-  var _useTranslation = (0, _reactI18next.useTranslation)(),
-    t = _useTranslation.t;
-  console.log('干扰文案');
-  useEffect(function () {
-    var handler = function handler(e) {
-      switch (key) {
-        case 'n':
-          emitter.emit('SHOW_MESSAGE', {
-            level: 'info',
-            msg: t(\\"key_操作异常\\")
-          });
-          break;
-        case 'arrowleft':
-          emitter.emit('SHOW_MESSAGE', {
-            msg: t(\\"key_操作异常\\"),
-            level: 'error'
-          });
-          break;
-      }
-    };
-    window.addEventListener('keydown', handler);
-    return function () {
-      window.removeEventListener('keydown', handler);
-    };
-  }, [t]);
-  return <>
-        <div>1</div>
-        </>;
-};"
-`;
-
 exports[`arrow function declaration scenarios stringLiteral cases handle message object 1`] = `
 "\\"use strict\\";
 
