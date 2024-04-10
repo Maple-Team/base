@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cases case1 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.str = void 0;
+var str = exports.str = 'VariableDeclarator测试文案';"
+`;
+
+exports[`cases case2 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var Component = exports.Component = function Component() {
+  return /*#__PURE__*/React.createElement(\\"div\\", null, 'jsxExpressionContainer测试文案');
+};"
+`;
+
+exports[`cases case3 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var Component = exports.Component = function Component() {
+  return /*#__PURE__*/React.createElement(\\"g\\", null);
+};"
+`;
+
+exports[`cases case4 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var Component = exports.Component = function Component() {
+  return /*#__PURE__*/React.createElement(\\"div\\", {
+    \\"class\\": \\"div-\\\\u7C7B\\\\u540D\\"
+  });
+};"
+`;

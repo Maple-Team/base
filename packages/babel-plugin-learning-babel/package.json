@@ -1,0 +1,60 @@
+{
+  "name": "@liutsing/babel-plugin-learning-babel",
+  "version": "1.0.0",
+  "description": "A babel plugin to learning babel",
+  "keywords": [
+    "babel plugin"
+  ],
+  "license": "ISC",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js",
+    "default": "./dist/index.mjs",
+    "types": "./types/index.d.ts"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "source": "src/index.ts",
+  "jsnext:main": "dist/index.mjs",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "prebuild": "rimraf types && rimraf lib",
+    "build": "cross-env NODE_ENV=production microbundle -f es,cjs --tsconfig tsconfig.build.json --external crypto,path",
+    "dev": "cross-env NODE_ENV=development npm run build -- --no-compress --no-sourcemap",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier . --ext .ts -w",
+    "prepublish": "rimraf types && rimraf lib",
+    "test": "jest",
+    "prerelease": "npm version prerelease --preid=beta && git add package.json && git commit -m \"chore: release beta version\""
+  },
+  "simple-git-hooks": {
+    "pre-commit": "lint-staged",
+    "pre-push": "npm run test"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  },
+  "prettier": "@liutsing/prettier-config",
+  "devDependencies": {
+    "@babel/parser": "^7.24.1",
+    "@babel/template": "^7.24.0",
+    "@liutsing/utils": "workspace:*",
+    "@liutsing/prettier-config": "workspace:*",
+    "@types/babel__template": "^7.4.4",
+    "lint-staged": "^13.0.3",
+    "simple-git-hooks": "^2.8.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": [
+    "liutsing <liutsingluo@gmail.com>"
+  ],
+  "nx": {
+    "includedScripts": []
+  }
+}
