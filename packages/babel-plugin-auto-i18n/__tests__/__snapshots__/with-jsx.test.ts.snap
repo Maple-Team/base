@@ -27,17 +27,14 @@ var IconPower = exports.IconPower = /*#__PURE__*/(0, _react.memo)(function (_ref
     id: \\"path-1\\",
     points: \\"0 0 52.832769 0 52.832769 52.5555556 0 52.5555556\\"
   })), /*#__PURE__*/React.createElement(\\"g\\", {
-    id: \\"\\\\u9A7E\\\\u9A76\\\\u8231\\",
     stroke: \\"none\\",
     strokeWidth: \\"1\\",
     fill: \\"none\\",
     fillRule: \\"evenodd\\",
     opacity: opacity
   }, /*#__PURE__*/React.createElement(\\"g\\", {
-    id: \\"\\\\u5C0F\\\\u5C4F\\\\u5207\\\\u56FE-\\\\u9ED1\\",
     transform: \\"translate(-538.000000, -396.000000)\\"
   }, /*#__PURE__*/React.createElement(\\"g\\", {
-    id: \\"\\\\u7F16\\\\u7EC4\\",
     transform: \\"translate(538.000000, 396.000000)\\"
   }, /*#__PURE__*/React.createElement(\\"g\\", {
     transform: \\"translate(8.000000, 8.000000)\\"

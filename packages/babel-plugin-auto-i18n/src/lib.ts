@@ -9,6 +9,7 @@ import type {
   FunctionExpression,
   Identifier,
   ImportSpecifier,
+  JSXOpeningElement,
   MemberExpression,
   ObjectProperty,
   V8IntrinsicIdentifier,
@@ -150,6 +151,20 @@ export default function (
           }
         },
       },
+      JSXAttribute(path) {
+        const JSXOpeningElementPath = path.findParent((p) =>
+          p.isJSXOpeningElement()
+        ) as NodePath<JSXOpeningElement> | null
+        const elementName = t.isJSXIdentifier(JSXOpeningElementPath?.node.name)
+          ? JSXOpeningElementPath?.node.name.name
+          : ''
+        // 检查是否是JSXAttribute节点
+        if (path.node.name.name === 'id' && ['g', 'path'].includes(elementName)) {
+          // 获取字符串字面量的值
+          const stringValue = t.isStringLiteral(path.node?.value) ? path.node.value.value : ''
+          if (conditionalLanguage(stringValue)) path.remove()
+        }
+      },
       JSXText(path, state) {
         const file = state.file
         // 获取文件的绝对路径
@@ -230,7 +245,8 @@ export default function (
           if (!blockPath) return
           // NOTE react组件中的svg内的id  插件在webpack中使用，走了两种节点遍历：JSXAttribute/StringLiteral
           // NOTE 原因：@babel/preset-react处理这个jsx语法，JSXAttribute转变为ObjectExpression
-          if (t.isIdentifier(parent.key) && parent.key.name === 'id') return
+          // NOTE 先走了JSXAttribute遍历，已经删除了id="xxx" 这个节点
+          // if (t.isIdentifier(parent.key) && parent.key.name === 'id') return
           replaceWithCallExpression(i18nKey, path, state)
         } else if (
           t.isAssignmentExpression(parent) ||
