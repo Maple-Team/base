@@ -1,4 +1,5 @@
 import * as parser from '@babel/parser'
+import type { PluginItem } from '@babel/core'
 import { transformFromAstSync } from '@babel/core'
 import autoI18nPlugin, { transformKeyWithoutHash } from '../src'
 
@@ -25,22 +26,21 @@ export function preset() {
  * @param sourceCode
  * @returns
  */
-export const getTransformCode = (sourceCode: string, filename: string) => {
+export const getTransformCode = (sourceCode: string, filename: string, useReactPreset = false) => {
   // @https://babeljs.io/docs/babel-parser
   const ast = parser.parse(sourceCode, {
     sourceType: 'module',
     plugins: ['jsx', 'typescript'],
     sourceFilename: filename,
   })
+  const presets = [useReactPreset ? '@babel/preset-react' : null, preset, '@babel/preset-typescript'].filter(
+    Boolean
+  ) as PluginItem[]
 
   // @https://babeljs.io/docs/babel-core
   const result = transformFromAstSync(ast, sourceCode, {
     filename,
-    presets: [
-      // '@babel/preset-react', -> 保留了 jsx
-      preset,
-      '@babel/preset-typescript',
-    ],
+    presets,
   })
   return result
 }

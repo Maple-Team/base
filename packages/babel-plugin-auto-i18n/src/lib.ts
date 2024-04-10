@@ -119,7 +119,6 @@ export default function (
         // TODO 字段重复处理策略
         const content = JSON.stringify(intlData, null, 4)
         const outputFilename = debug ? absolutePath.replace(/[:\\\/\.\s]/g, '-') : hash(absolutePath)
-        console.log(outputFilename, absolutePath)
         fs.writeFileSync(path.join(outputDir, `${outputFilename}.json`), content)
       }
     },
@@ -177,6 +176,7 @@ export default function (
         // 获取文件的绝对路径
         const absolutePath = file.opts.filename
         const parent = path.parent
+        console.log(i18nKey, parent.type)
         // NOTE 忽略console.xxx('<中文>')
         if (isConsoleCallExpression(path)) return
         // TODO console.xxx({pro:'<中文>'})
@@ -229,6 +229,7 @@ export default function (
           // NOTE 排除不在函数作用域中的中文: 其他字典类的定义按手动处理
           if (!blockPath) return
           // NOTE react组件中的svg内的id  插件在webpack中使用，走了两种节点遍历：JSXAttribute/StringLiteral
+          // NOTE 原因：@babel/preset-react处理这个jsx语法，JSXAttribute转变为ObjectExpression
           if (t.isIdentifier(parent.key) && parent.key.name === 'id') return
           replaceWithCallExpression(i18nKey, path, state)
         } else if (

@@ -65,7 +65,7 @@ describe('temp case', () => {
       )
     })
 `
-    const result = getTransformCode(sourceCode, 'C:\\code\\filename.tsx')
+    const result = getTransformCode(sourceCode, 'C:\\code\\filename.tsx', true)
     expect(result?.code).toMatchSnapshot()
   })
 })
