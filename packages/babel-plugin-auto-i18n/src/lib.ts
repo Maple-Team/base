@@ -1,23 +1,26 @@
 import path from 'path'
 import fs from 'fs'
-import type { NodePath, PluginObj, PluginPass } from '@babel/core'
-import type {
-  ArrayExpression,
-  ArrowFunctionExpression,
-  BlockStatement,
-  CallExpression,
-  FunctionExpression,
-  Identifier,
-  ImportSpecifier,
-  JSXOpeningElement,
-  MemberExpression,
-  ObjectProperty,
-  V8IntrinsicIdentifier,
-  VariableDeclarator,
+import {
+  type ArrayExpression,
+  type ArrowFunctionExpression,
+  type BlockStatement,
+  type CallExpression,
+  type FunctionExpression,
+  type Identifier,
+  type ImportSpecifier,
+  type JSXOpeningElement,
+  type MemberExpression,
+  type ObjectProperty,
+  type Statement,
+  type V8IntrinsicIdentifier,
+  type VariableDeclarator,
 } from '@babel/types'
 import { isChinese } from '@liutsing/utils'
 import { hash } from '@liutsing/node-utils'
+import type * as BabelCoreNamespace from '@babel/core'
 import { save, transformKey, transformKeyWithoutHash } from './helper'
+
+type Babel = typeof BabelCoreNamespace
 
 export interface Option {
   /**
@@ -41,30 +44,35 @@ export interface Option {
    * 父节点信息debug
    */
   stringLiteralParentTypeDebug?: boolean
+  /**
+   * 需要删除id的节点名称
+   */
+  needDeleteAttributeElementNames?: string[]
 }
-// FIXME  template: typeof import('@babel/template')
 /**
  * react组件注入t('xxx')
  * @param param0
  * @returns
  */
-export default function (
-  { types: t, template }: { types: typeof import('@babel/types'); template: AnyToFix },
-  options: Option
-): PluginObj {
+export default function ({ types: t, template }: Babel, options: Option): BabelCoreNamespace.PluginObj {
   const conditionalLanguage = options.conditionalLanguage || isChinese
   const outputDir = options.outputDir || path.join(process.cwd(), 'src', 'i18n', 'zh_CN')
   const defaultHashFn = process.env.NODE_ENV === 'development' ? transformKeyWithoutHash : transformKey
   const hashFn = options.hashFn || defaultHashFn
   const debug = options.debug
   const stringLiteralParentTypeDebug = options.stringLiteralParentTypeDebug
+  const needIgnoreIdAttributeElementNames = options.needDeleteAttributeElementNames || ['g', 'path']
   /**
    * 节点替换
    * @param i18nKey
    * @param path
    * @param state
    */
-  function replaceWithCallExpression(i18nKey: string, path: NodePath, state: PluginPass) {
+  function replaceWithCallExpression(
+    i18nKey: string,
+    path: BabelCoreNamespace.NodePath,
+    state: BabelCoreNamespace.PluginPass
+  ) {
     if (stringLiteralParentTypeDebug) console.log(i18nKey, path.parent.type)
 
     const transformedKey = hashFn(i18nKey)
@@ -72,7 +80,7 @@ export default function (
     const expressionContainer = t.callExpression(t.identifier('t'), [identifier])
     path.replaceWith(expressionContainer)
     path.skip()
-    save(state.file, transformedKey, i18nKey)
+    save(state, transformedKey, i18nKey)
   }
 
   /**
@@ -80,7 +88,7 @@ export default function (
    * @param declarationPath
    * @returns
    */
-  function isConsoleCallExpression(declarationPath: NodePath) {
+  function isConsoleCallExpression(declarationPath: BabelCoreNamespace.NodePath) {
     const callExpressionPath = declarationPath.findParent((p) => p.isCallExpression())
     if (callExpressionPath) {
       const callee = (callExpressionPath.node as CallExpression).callee as MemberExpression
@@ -99,24 +107,21 @@ export default function (
     return false
   }
 
-  return {
+  const obj: BabelCoreNamespace.PluginObj = {
     name: '@liutsing/babel-plugin-auto-i18n',
-    pre(file: AnyToFix) {
-      file.set('allText', [])
+    pre(this) {
+      this.set('allText', [])
     },
-    post(file: AnyToFix) {
-      const allText = file.get('allText') as { key: string; value: string }[]
-
+    post(this, file: BabelCoreNamespace.BabelFile) {
+      const allText = this.get('allText') as { key: string; value: string }[]
       const intlData = allText.reduce((obj: Record<string, string>, item) => {
         obj[item.key] = item.value
         return obj
       }, {})
-
       // 文件内容被覆盖
       if (Object.keys(intlData).length) {
-        const f = file.path.hub.file
         // 获取文件的绝对路径
-        const absolutePath = f.opts.filename
+        const absolutePath = file.opts.filename || ''
         // TODO 字段重复处理策略
         const content = JSON.stringify(intlData, null, 4)
         const outputFilename = debug ? absolutePath.replace(/[:\\\/\.\s]/g, '-') : hash(absolutePath)
@@ -145,8 +150,7 @@ export default function (
             path.scope.hasBinding('useTranslation') || path.scope.hasBinding('initReactI18next')
           // 如果没有导入过，插入新的导入声明
           if (!hasUseTranslationImport) {
-            // eslint-disable-next-line @typescript-eslint/quotes
-            const importAst = template.ast("import { useTranslation } from 'react-i18next'")
+            const importAst = template.ast('import { useTranslation } from "react-i18next"') as Statement
             path.node.body.unshift(importAst)
           }
         },
@@ -154,12 +158,12 @@ export default function (
       JSXAttribute(path) {
         const JSXOpeningElementPath = path.findParent((p) =>
           p.isJSXOpeningElement()
-        ) as NodePath<JSXOpeningElement> | null
+        ) as BabelCoreNamespace.NodePath<JSXOpeningElement> | null
         const elementName = t.isJSXIdentifier(JSXOpeningElementPath?.node.name)
-          ? JSXOpeningElementPath?.node.name.name
+          ? JSXOpeningElementPath?.node.name.name || ''
           : ''
         // 检查是否是JSXAttribute节点
-        if (path.node.name.name === 'id' && ['g', 'path'].includes(elementName)) {
+        if (path.node.name.name === 'id' && needIgnoreIdAttributeElementNames.includes(elementName)) {
           // 获取字符串字面量的值
           const stringValue = t.isStringLiteral(path.node?.value) ? path.node.value.value : ''
           if (conditionalLanguage(stringValue)) path.remove()
@@ -181,7 +185,7 @@ export default function (
         const expressionContainer = t.jsxExpressionContainer(t.callExpression(t.identifier('t'), [identifier]))
         // 替换文本节点为JSXExpressionContainer节点
         path.replaceWith(expressionContainer)
-        save(state.file, transformedKey, i18nKey)
+        save(state, transformedKey, i18nKey)
         path.skip()
       },
       StringLiteral(path, state) {
@@ -191,7 +195,7 @@ export default function (
         // 获取文件的绝对路径
         const absolutePath = file.opts.filename
         const parent = path.parent
-        console.log(i18nKey, parent.type)
+        // console.log(i18nKey, parent.type)
         // NOTE 忽略console.xxx('<中文>')
         if (isConsoleCallExpression(path)) return
         // TODO console.xxx({pro:'<中文>'})
@@ -232,7 +236,7 @@ export default function (
           const expressionContainer = t.jsxExpressionContainer(t.callExpression(t.identifier('t'), [identifier]))
           path.replaceWith(expressionContainer)
           path.skip()
-          save(state.file as unknown as PluginPass, transformedKey, i18nKey)
+          save(state, transformedKey, i18nKey)
         } else if (t.isObjectProperty(parent)) {
           /**
           忽略模块作用域中的
@@ -278,7 +282,7 @@ export default function (
       },
       FunctionDeclaration(path) {
         let isValidJSXElement = false
-        let hasUseTranslationVariableDeclarator: NodePath<VariableDeclarator> | undefined
+        let hasUseTranslationVariableDeclarator: BabelCoreNamespace.NodePath<VariableDeclarator> | undefined
         let hasConditionalLanguageText = false
         path.traverse({
           // 针对FunctionDeclaration下的 ReturnStatement
@@ -375,7 +379,7 @@ export default function (
 
         const hasBindingT = path.scope.hasBinding('t')
         const hasBindingI18n = path.scope.hasBinding('i18n')
-        let useTranslationVariableDeclarator: NodePath<VariableDeclarator> | undefined
+        let useTranslationVariableDeclarator: BabelCoreNamespace.NodePath<VariableDeclarator> | undefined
 
         let isValidJSXElement = false
         path.traverse({
@@ -489,4 +493,5 @@ export default function (
       },
     },
   }
+  return obj
 }

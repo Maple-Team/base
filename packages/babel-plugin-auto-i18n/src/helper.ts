@@ -1,3 +1,4 @@
+import type { PluginPass } from '@babel/core'
 import { hash } from '@liutsing/node-utils'
 
 /**
@@ -7,7 +8,7 @@ import { hash } from '@liutsing/node-utils'
  * @returns
  */
 /* istanbul ignore next */
-export function save(file: AnyToFix, key: string, value: string) {
+export function save(file: PluginPass, key: string, value: string) {
   const allText = file.get('allText')
   allText.push({
     key,

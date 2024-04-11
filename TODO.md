@@ -9,7 +9,7 @@
 - [ ] Nx command
 - [ ] 考虑使用`@swc-node/jest`作为测试库
 - [ ] `benny`做`benchmark`
-- [ ] add nx
+- [x] add nx
 - [ ] rollup
 - [ ] microbundle
 - [ ] console.count

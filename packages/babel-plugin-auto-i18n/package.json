@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/babel-plugin-auto-i18n",
-  "version": "0.0.1-beta.3",
+  "version": "1.0.0",
   "description": "A babel plugin to transform source language to 't' invoke expression",
   "keywords": [
     "babel plugin"
@@ -40,8 +40,7 @@
   },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {
-    "@babel/parser": "^7.24.1",
-    "@babel/template": "^7.24.0",
+
     "@liutsing/utils": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
     "@types/babel__template": "^7.4.4",

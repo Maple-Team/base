@@ -90,7 +90,12 @@ const config = {
                 '@babel/preset-typescript',
               ],
               plugins: [
-                '@babel/plugin-transform-runtime',
+                [
+                  '@babel/plugin-transform-runtime',
+                  {
+                    regenerator: true,
+                  },
+                ],
                 // ['@liutsing/babel-plugin-extract-used-chinese', { filename: 'example-webpack-react.txt' }],
                 isDev ? 'react-refresh/babel' : null,
                 !isDev
