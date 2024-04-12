@@ -545,8 +545,8 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
   return <div>
-              {t(\\"key_外层文本\\")}
-              <div>{t(\\"key_嵌套文本\\")}</div>
+              {t('key_外层文本')}
+              <div>{t('key_嵌套文本')}</div>
             </div>;
 };"
 `;

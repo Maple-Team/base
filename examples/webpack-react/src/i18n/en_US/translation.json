@@ -1,12 +1,13 @@
 {
-  "a9e1a59b": "this is a title",
-  "f171210d": "A large paragraph of text content",
-  "bff2739d": "Under test",
-  "459a55cd": "Trigger chunk content-hash change",
-  "392aacaa": "ShowDialog",
-  "9b9f2827": "Display Message",
-  "ad118b22": "error",
   "70f73798": "Current status:",
-  "26c0d845": "Font test",
-  "9eb1167b": "Comparison of classical Chinese characters"
+  "26c0d845": "Font Test",
+  "9eb1167b": "Comparison of Classical Chinese Characters",
+  "ad118b22": "error",
+  "a9e1a59b": "This is a title",
+  "f171210d": "A large paragraph of text",
+  "bff2739d": "Test",
+  "c80887fd": "License plate number: {{key1}}, {{key2}}",
+  "459a55cd": "Triggering a chunk content-hash change",
+  "392aacaa": "Show Dialog",
+  "9b9f2827": "Display Message"
 }

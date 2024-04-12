@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf types && rimraf lib",
-    "build": "cross-env NODE_ENV=production microbundle -f es,cjs --tsconfig tsconfig.build.json --external crypto,path",
+    "build": "cross-env NODE_ENV=production microbundle -f es,cjs --tsconfig tsconfig.build.json --external crypto,path,@babel/types",
     "dev": "cross-env NODE_ENV=development npm run build -- --no-compress --no-sourcemap",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
@@ -40,11 +40,11 @@
   },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {
-
-    "@liutsing/utils": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
-    "@types/babel__template": "^7.4.4",
+    "@liutsing/utils": "workspace:*",
+    "@types/lodash.zip": "^4.2.9",
     "lint-staged": "^13.0.3",
+    "lodash.zip": "^4.2.0",
     "simple-git-hooks": "^2.8.1"
   },
   "publishConfig": {

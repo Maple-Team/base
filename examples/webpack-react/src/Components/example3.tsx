@@ -23,6 +23,9 @@ const Example3 = () => {
   const onShowMessage = useCallback(() => {
     Message.success('测试下')
   }, [])
+  const plateNo = 'No.123'
+  const price = '￥20W'
+  const var1 = `车牌号: ${plateNo}, ${price}`
 
   return (
     <div>
@@ -33,6 +36,7 @@ const Example3 = () => {
       <IconParking />
       <div onClick={onShowDialog}>显示Dialog</div>
       <div onClick={onShowMessage}>显示Message</div>
+      <div>{var1}</div>
     </div>
   )
 }

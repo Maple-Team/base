@@ -1,5 +1,10 @@
 import path from 'path'
 import fs from 'fs'
+import generate from '@babel/generator'
+import { isChinese } from '@liutsing/utils'
+import { hash } from '@liutsing/node-utils'
+import type * as BabelCoreNamespace from '@babel/core'
+import zip from 'lodash.zip'
 import type {
   ArrayExpression,
   ArrowFunctionExpression,
@@ -15,9 +20,6 @@ import type {
   V8IntrinsicIdentifier,
   VariableDeclarator,
 } from '@babel/types'
-import { isChinese } from '@liutsing/utils'
-import { hash } from '@liutsing/node-utils'
-import type * as BabelCoreNamespace from '@babel/core'
 import { save, transformKey, transformKeyWithoutHash } from './helper'
 
 type Babel = typeof BabelCoreNamespace
@@ -48,7 +50,10 @@ export interface Option {
    * 需要删除id的节点名称
    */
   needDeleteAttributeElementNames?: string[]
-  i18nIgnoreLabel?: string
+  /**
+   * 忽略注释文案
+   */
+  i18nIgnoreCommentsLabel?: string
 }
 /**
  * react组件注入t('xxx')
@@ -63,7 +68,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
   const debug = options.debug
   const stringLiteralParentTypeDebug = options.stringLiteralParentTypeDebug
   const needIgnoreIdAttributeElementNames = options.needDeleteAttributeElementNames || ['g', 'path']
-  const i18nIgnoreLabel = options.i18nIgnoreLabel || '@i18n-ignore'
+  const i18nIgnoreLabel = options.i18nIgnoreCommentsLabel || '@i18n-ignore'
   /**
    * 节点替换
    * @param i18nKey
@@ -207,9 +212,36 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         save(state, transformedKey, i18nKey)
         path.skip()
       },
-      TemplateLiteral(path) {
-        if (path.node.extra?.skipTransform) path.skip()
+      TemplateLiteral(path, state) {
+        if (path.node.extra?.skipTransform) {
+          path.skip()
+          return
+        }
         // 不执行子节点TemplateElement
+        const value = path
+          .get('quasis')
+          .map((item) => item.node.value.raw)
+          .filter(Boolean) // [ '车牌号: ', ', ' ]
+
+        const interpolationLength = value.length
+        // key1 key2 ...
+        const keys = Array.from({ length: interpolationLength }, (_, i) => `{{key${i + 1}}}`)
+        const combineValue = Array.prototype.concat.apply([], zip(value, keys)).join('')
+        if (!conditionalLanguage(combineValue)) return
+        // console.log(combineValue)
+        if (combineValue) {
+          const key = hashFn(value.join(''))
+          save(state, key, combineValue)
+          const expressionParams = path.isTemplateLiteral()
+            ? path.node.expressions.map((item) => generate(item).code)
+            : null
+          // console.log(expressionParams) //    [ 'plateNo', 'price' ]
+          // t('key', {key1: '', key2: '', ...})
+          const params = expressionParams?.map((v, index) => `key${index + 1}: ${v}`)
+          const statement = template.ast(`t('${key}'${params?.length ? `,{${params.join(',')}}` : ''})`) as Statement
+          path.replaceWith(statement)
+          path.skip()
+        }
       },
       StringLiteral(path, state) {
         if (path.node.extra?.skipTransform) return

@@ -11,6 +11,6 @@ var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div>{t(\\"key_你好\\")}</div>;
+  return <div>{t('key_你好')}</div>;
 };"
 `;

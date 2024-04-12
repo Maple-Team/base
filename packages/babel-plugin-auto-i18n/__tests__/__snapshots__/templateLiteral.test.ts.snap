@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrow function declaration scenarios - templateLiteral cases handle templateLiteral case 1 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
+  var plateNo = 'No.123';
+  var var1 = t('key_车牌号: ', {
+    key1: plateNo
+  });
+  return <div>{var1}</div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios - templateLiteral cases handle templateLiteral case 2 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
+  var plateNo = 'No.123';
+  return <div>{t('key_车牌号: ', {
+      key1: plateNo
+    })}</div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios - templateLiteral cases handle templateLiteral case 3 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
+  var plateNo = 'No.123';
+  var price = '￥20W';
+  var var1 = t('key_车牌号: , ', {
+    key1: plateNo,
+    key2: price
+  });
+  return <div>{var1}</div>;
+};"
+`;
+
+exports[`arrow function declaration scenarios - templateLiteral cases handle templateLiteral case 4 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
+  var plateNo = 'No.123';
+  var price = '￥20W' + 'abc';
+  var var1 = t('key_车牌号: , ', {
+    key1: plateNo,
+    key2: price
+  });
+  return <div>{var1}</div>;
+};"
+`;
