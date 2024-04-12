@@ -16,6 +16,7 @@ export function preset() {
           outputDir: 'output',
           debug: false,
           hashFn: transformKeyWithoutHash,
+          // i18nIgnoreLabel: '@i18n-ignore',
         },
       ],
     ],
@@ -29,7 +30,7 @@ export function preset() {
 export const getTransformCode = (sourceCode: string, filename: string, useReactPreset = false) => {
   // @https://babeljs.io/docs/babel-parser
   const ast = parser.parse(sourceCode, {
-    sourceType: 'module',
+    sourceType: 'unambiguous',
     plugins: ['jsx', 'typescript'],
     sourceFilename: filename,
   })

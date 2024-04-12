@@ -4,9 +4,9 @@ describe('arrow function declaration scenarios - JSXText cases', () => {
   describe('exported arrow function cases', () => {
     it('handle JSXText1', () => {
       const sourceCode = `
-    export const Component = () => {
-      return <div>你好</div>
-    }
+      export const Component = () => {
+        return <div>你好</div>
+      }
     `
       const result = getTransformCode(sourceCode, 'jsx-text1.tsx')
       expect(result?.code).toMatchSnapshot()

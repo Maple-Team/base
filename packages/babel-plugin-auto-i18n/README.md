@@ -22,7 +22,6 @@ in babel config file like `.babelrc`,
 - [x] 支持 stringLiteral 内的文本转换
 - [x] 支持 templateElement 内的文本转换
 - [ ] 支持 objectMethod 内的文本转换
-- [ ] 支持 templateLiteral 的文本，单复数/文本插槽功能
 - [x] Avoid unnecessary calls to the `useTranslation` function.
 - [x] unnecessary import will be tree-shaking by webpack
   - ```js
@@ -30,14 +29,13 @@ in babel config file like `.babelrc`,
         sideEffects: false,
       }
     ```
-- [ ] bench the performance of this plugin
 - [x] 多个 plugins，含同样的节点遍历逻辑，测试访问顺序
+- [x] i18n-ignore comments
 
-### 1.1
+### todos
 
-- [ ] i18n-ignore comments
-
-### 1.2
-
+- [ ] bench the performance of this plugin
 - [ ] support class component
 - [ ] support option source language
+- [ ] 删除冗余的导入
+- [ ] 支持 templateLiteral 的文本，单复数/文本插槽功能

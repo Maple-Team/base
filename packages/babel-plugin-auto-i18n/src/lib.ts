@@ -1,19 +1,19 @@
 import path from 'path'
 import fs from 'fs'
-import {
-  type ArrayExpression,
-  type ArrowFunctionExpression,
-  type BlockStatement,
-  type CallExpression,
-  type FunctionExpression,
-  type Identifier,
-  type ImportSpecifier,
-  type JSXOpeningElement,
-  type MemberExpression,
-  type ObjectProperty,
-  type Statement,
-  type V8IntrinsicIdentifier,
-  type VariableDeclarator,
+import type {
+  ArrayExpression,
+  ArrowFunctionExpression,
+  BlockStatement,
+  CallExpression,
+  FunctionExpression,
+  Identifier,
+  ImportSpecifier,
+  JSXOpeningElement,
+  MemberExpression,
+  ObjectProperty,
+  Statement,
+  V8IntrinsicIdentifier,
+  VariableDeclarator,
 } from '@babel/types'
 import { isChinese } from '@liutsing/utils'
 import { hash } from '@liutsing/node-utils'
@@ -48,6 +48,7 @@ export interface Option {
    * 需要删除id的节点名称
    */
   needDeleteAttributeElementNames?: string[]
+  i18nIgnoreLabel?: string
 }
 /**
  * react组件注入t('xxx')
@@ -62,6 +63,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
   const debug = options.debug
   const stringLiteralParentTypeDebug = options.stringLiteralParentTypeDebug
   const needIgnoreIdAttributeElementNames = options.needDeleteAttributeElementNames || ['g', 'path']
+  const i18nIgnoreLabel = options.i18nIgnoreLabel || '@i18n-ignore'
   /**
    * 节点替换
    * @param i18nKey
@@ -144,6 +146,21 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
               })
             }
           })
+          path.traverse({
+            'StringLiteral|TemplateLiteral': function (path) {
+              if (path.node.leadingComments) {
+                // NOTE 顺带删除注释
+                path.node.leadingComments = path.node.leadingComments.filter((comment) => {
+                  if (comment.value.includes(i18nIgnoreLabel)) {
+                    if (!path.node.extra) path.node.extra = {}
+                    path.node.extra.skipTransform = true
+                    return false
+                  }
+                  return true
+                })
+              }
+            },
+          })
         },
         exit(path) {
           const hasUseTranslationImport =
@@ -170,9 +187,11 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         }
       },
       JSXText(path, state) {
+        if (path.node.extra?.skipTransform) return
         const file = state.file
         // 获取文件的绝对路径
         const absolutePath = file.opts.filename
+
         if (absolutePath?.endsWith('.svg')) {
           // 使用webpack require context导入的svg文件，需要忽略其内部的中文的处理
           return
@@ -188,7 +207,12 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         save(state, transformedKey, i18nKey)
         path.skip()
       },
+      TemplateLiteral(path) {
+        if (path.node.extra?.skipTransform) path.skip()
+        // 不执行子节点TemplateElement
+      },
       StringLiteral(path, state) {
+        if (path.node.extra?.skipTransform) return
         const i18nKey = path.node.value.trim()
         if (!conditionalLanguage(i18nKey)) return
         const file = state.file
@@ -276,6 +300,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         }
       },
       TemplateElement(path, state) {
+        if (path.node.extra?.skipTransform) return
         const i18nKey = path.node.value.raw.trim()
         if (!conditionalLanguage(i18nKey)) return
         replaceWithCallExpression(i18nKey, path, state)
@@ -285,6 +310,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         let hasUseTranslationVariableDeclarator: BabelCoreNamespace.NodePath<VariableDeclarator> | undefined
         let hasConditionalLanguageText = false
         path.traverse({
+          // TODO 忽略svg中的id内的中文、@i18n-ignore旁的文本
           // 针对FunctionDeclaration下的 ReturnStatement
           ReturnStatement(declaratorPath) {
             const argument = declaratorPath.node.argument
@@ -383,6 +409,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
 
         let isValidJSXElement = false
         path.traverse({
+          // TODO 忽略svg中的id内的中文、@i18n-ignore旁的文本
           // 针对ArrowFunctionExpression下的 ReturnStatement
           ReturnStatement(declaratorPath) {
             const argument = declaratorPath.node.argument
