@@ -1,14 +1,16 @@
-import type { PluginObj } from '@babel/core'
 import { isChinese } from '@liutsing/utils'
+import type * as BabelCoreNamespace from '@babel/core'
+
+
+type Babel = typeof BabelCoreNamespace
 
 export interface Option {
   name: string
 }
 
 export default function (
-  { types: t, template }: { types: typeof import('@babel/types'); template: AnyToFix },
-  options: Option
-): PluginObj {
+ { types: t, template }: Babel, options: Option
+): BabelCoreNamespace.PluginObj {
   const name = options.name
 
   return {
