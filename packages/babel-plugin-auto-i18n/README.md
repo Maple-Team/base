@@ -31,11 +31,12 @@ in babel config file like `.babelrc`,
     ```
 - [x] 多个 plugins，含同样的节点遍历逻辑，测试访问顺序
 - [x] i18n-ignore comments
+- [x] 支持 templateLiteral 的文本，文本插槽功能
 
 ### todos
-
+- [ ] templateLiterral不影响现有的手动处理的`t('xx', {count;'xxx'})` 之类的
 - [ ] bench the performance of this plugin
 - [ ] support class component
 - [ ] support option source language
 - [ ] 删除冗余的导入
-- [ ] 支持 templateLiteral 的文本，单复数/文本插槽功能
+
