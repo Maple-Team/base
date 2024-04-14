@@ -3,8 +3,6 @@ import type { HttpBackendOptions } from 'i18next-http-backend'
 import HttpApi from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
-import enTranslation from './en_US/translation.json'
-import hkTranslation from './zh_HK/translation.json'
 import cnTranslation from './zh_CN'
 
 const zhCNResources = {
@@ -24,12 +22,12 @@ const resources = {
     // translation 命名空间
     translation: cnTranslation,
   },
-  'en-US': {
-    translation: enTranslation,
-  },
-  'zh-HK': {
-    translation: hkTranslation,
-  },
+  // 'en-US': {
+  //   translation: enTranslation,
+  // },
+  // 'zh-HK': {
+  //   translation: hkTranslation,
+  // },
 }
 i18n
   // load translation using http -> see /public/locales
@@ -45,12 +43,20 @@ i18n
   .init<HttpBackendOptions>({
     // fallbackLng: 'zh-CN', // 回退语言，默认显示的语言
     debug: process.env.NODE_ENV === 'development',
-    lng: 'zh-CN',
-    // supportedLngs: ['en', 'zh'],
-    load: 'all', // FIXME 加速语言切换后快速渲染
+    lng: localStorage.getItem('language') || 'zh-CN',
+    // supportedLngs: ['en-US', 'zh-CN', 'zh-HK', 'zh', 'en'],
+    load: 'currentOnly',
     partialBundledLanguages: true,
     resources,
-    backend: {},
+    backend: {
+      // const file = `locales/${project}/${version}/${locale}/${ns}.json`
+      loadPath: 'http://127.0.0.1:9000/i18n-bucket/locales/example/1.0.0/{{lng}}/{{ns}}.json',
+      // loadPath: (lngs) => {
+      //   console.log(lngs, 'lngs')
+      //   const lng = lngs.includes('zh') || lngs.includes('dev') ? 'zh-CN' : lngs[0]
+      //   return `http://127.0.0.1:9000/i18n-bucket/locales/example/1.0.0/${lng}/{{ns}}.json`
+      // },
+    },
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },

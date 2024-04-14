@@ -27,8 +27,10 @@ const Language = {
   'zh-HK': '繁体中文',
 }
 type LanguageKey = keyof typeof Language
+const existLocale = localStorage.getItem('language') as LanguageKey
+
 const Root = () => {
-  const [lng, setLng] = useState<LanguageKey>('zh-CN')
+  const [lng, setLng] = useState<LanguageKey>(existLocale || 'zh-CN')
 
   const items: MenuProps['items'] = (Object.keys(Language) as LanguageKey[]).map((key) => {
     return {
@@ -36,6 +38,7 @@ const Root = () => {
       key,
       onClick: () => {
         i18n.changeLanguage(key).catch(console.error)
+        localStorage.setItem('language', key)
         setLng(key)
       },
     }

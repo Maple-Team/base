@@ -25,7 +25,8 @@
     "test:watch": "nx test --watch",
     "server": "node config/server.js",
     "lint:fix": "nx lint --fix",
-    "translate": "node scripts/translate.js"
+    "translate:locale": "node scripts/translate.js",
+    "upload:locale": "node scripts/upload-locale.js"
   },
   "keywords": [],
   "author": "",
