@@ -16,8 +16,32 @@ const hash = child.execSync('git rev-parse HEAD').toString().trim().substring(0,
 // https://github.com/seek-oss/css-modules-typescript-loader
 const root = process.cwd()
 const mode = process.env.NODE_ENV
+
 const isDev = mode === 'development'
-const envKeys = require('../plugins/env.js')(root)
+
+const envPrefix = 'REACT_APP_'
+/**
+ * 当前系统的环境变量+cross-env注入的环境变量
+ */
+const injectEnvs = Object.keys(process.env)
+const injectEnvsKeys = injectEnvs.filter((k) => k.startsWith(envPrefix))
+
+/**
+ * env环境文件注入的环境变量
+ */
+const envFilesEnvsObj = require('../plugins/env.js')(root)
+
+const envFilesEnvsKeys = Object.keys(envFilesEnvsObj).filter((k) => k.includes(envPrefix))
+/**
+ * @type {Record<string, string>}
+ */
+const envKeys = {}
+injectEnvsKeys.forEach((k) => {
+  envKeys[`process.env.${k.replace(envPrefix, '')}`] = JSON.stringify(process.env[k])
+})
+envFilesEnvsKeys.forEach((k) => {
+  envKeys[k.replace(envPrefix, '')] = envFilesEnvsObj[k]
+})
 
 const { version } = require(path.resolve(root, 'package.json'))
 
@@ -208,6 +232,7 @@ const config = {
       process: 'process/browser',
     }),
     new DefinePlugin({
+      // NOTE 注入特定的环境变量，而不是全部的，理清node环境与浏览器环境
       ...envKeys,
     }),
 
