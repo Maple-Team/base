@@ -19,8 +19,18 @@ const getEnvKeys = (pathStr) => {
 
   return envKeys
 }
-
+/**
+ * 提取前缀为REACT_APP_的环境变量给到browser环境使用
+ * @param {*} dirname
+ * @returns
+ */
 module.exports = (dirname) => {
+  const envPrefix = 'REACT_APP_'
+  /**
+   * 当前系统的环境变量+cross-env注入的环境变量
+   */
+  const injectEnvs = Object.keys(process.env)
+  const injectEnvsKeys = injectEnvs.filter((k) => k.startsWith(envPrefix))
   // Get the root path (assuming your webpack config is in the root of your project!)
 
   const mode = process.env.mode || 'dev' // 'dev, sit, pro, ...
@@ -42,5 +52,18 @@ module.exports = (dirname) => {
   if (fs.existsSync(basePath)) baseEnvKeys = getEnvKeys(basePath)
 
   // NOTE for same key .env.local > .env.xx > .env
-  return Object.assign({}, { ...baseEnvKeys }, { ...modeEnvKeys }, { ...localEnvKeys })
+  const envFilesEnvsObj = Object.assign({}, { ...baseEnvKeys }, { ...modeEnvKeys }, { ...localEnvKeys })
+  const envFilesEnvsKeys = Object.keys(envFilesEnvsObj).filter((k) => k.includes(envPrefix))
+  /**
+   * @type {Record<string, string>}
+   */
+  const envKeys = {}
+  injectEnvsKeys.forEach((k) => {
+    envKeys[`process.env.${k.replace(envPrefix, '')}`] = JSON.stringify(process.env[k])
+  })
+  envFilesEnvsKeys.forEach((k) => {
+    envKeys[k.replace(envPrefix, '')] = envFilesEnvsObj[k]
+  })
+
+  return envKeys
 }

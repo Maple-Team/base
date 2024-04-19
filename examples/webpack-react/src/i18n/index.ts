@@ -41,16 +41,17 @@ i18n
   // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init<HttpBackendOptions>({
-    // fallbackLng: 'zh-CN', // 回退语言，默认显示的语言
+    fallbackLng: 'zh-CN', // 回退语言，默认显示的语言
     debug: process.env.NODE_ENV === 'development',
     lng: localStorage.getItem('language') || 'zh-CN',
+
     // supportedLngs: ['en-US', 'zh-CN', 'zh-HK', 'zh', 'en'],
     load: 'currentOnly',
     partialBundledLanguages: true,
     resources,
     backend: {
       // const file = `locales/${project}/${version}/${locale}/${ns}.json`
-      loadPath: 'http://127.0.0.1:9000/i18n-bucket/locales/example/1.0.0/{{lng}}/{{ns}}.json',
+      loadPath: `${process.env.MINIO_URL!}/i18n-bucket/locales/example/1.0.0/{{lng}}/{{ns}}.json`,
       // loadPath: (lngs) => {
       //   console.log(lngs, 'lngs')
       //   const lng = lngs.includes('zh') || lngs.includes('dev') ? 'zh-CN' : lngs[0]

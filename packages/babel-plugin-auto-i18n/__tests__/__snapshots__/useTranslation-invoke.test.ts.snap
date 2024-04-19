@@ -11,7 +11,7 @@ var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
+  return <div name={t(\\"key_属性\\")} data-i18n=\\"[\\\\\\"key_\\\\u5C5E\\\\u6027\\\\\\",\\\\\\"key_\\\\u7AD9\\\\u4F4D\\\\u6587\\\\u672C\\\\\\"]\\">{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -27,7 +27,7 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
-  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本-arrow-function-case2\\")}</div>;
+  return <div name={t(\\"key_属性\\")} data-i18n=\\"[\\\\\\"key_\\\\u5C5E\\\\u6027\\\\\\",\\\\\\"key_\\\\u7AD9\\\\u4F4D\\\\u6587\\\\u672C-arrow-function-case2\\\\\\"]\\">{t(\\"key_站位文本-arrow-function-case2\\")}</div>;
 };"
 `;
 
@@ -43,7 +43,7 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
-  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
+  return <div name={t(\\"key_属性\\")} data-i18n=\\"[\\\\\\"key_\\\\u5C5E\\\\u6027\\\\\\",\\\\\\"key_\\\\u7AD9\\\\u4F4D\\\\u6587\\\\u672C\\\\\\"]\\">{t(\\"key_站位文本\\")}</div>;
 };"
 `;
 
@@ -58,7 +58,7 @@ var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div name={t(\\"key_属性\\")}>{t('key')}</div>;
+  return <div name={t(\\"key_属性\\")} data-i18n=\\"[\\\\\\"key_\\\\u5C5E\\\\u6027\\\\\\"]\\">{t('key')}</div>;
 };"
 `;
 
@@ -194,7 +194,7 @@ var _reactI18next = require(\\"react-i18next\\");
 function useComponent() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
+  return <div name={t(\\"key_属性\\")} data-i18n=\\"[\\\\\\"key_\\\\u5C5E\\\\u6027\\\\\\",\\\\\\"key_\\\\u7AD9\\\\u4F4D\\\\u6587\\\\u672C\\\\\\"]\\">{t(\\"key_站位文本\\")}</div>;
 }"
 `;
 
@@ -210,7 +210,7 @@ function useComponent() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t,
     i18n = _useTranslation.i18n;
-  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本\\")}</div>;
+  return <div name={t(\\"key_属性\\")} data-i18n=\\"[\\\\\\"key_\\\\u5C5E\\\\u6027\\\\\\",\\\\\\"key_\\\\u7AD9\\\\u4F4D\\\\u6587\\\\u672C\\\\\\"]\\">{t(\\"key_站位文本\\")}</div>;
 }"
 `;
 
@@ -226,7 +226,7 @@ function useComponent() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     i18n = _useTranslation.i18n,
     t = _useTranslation.t;
-  return <div name={t(\\"key_属性\\")}>{t(\\"key_站位文本-function-declaration-case2\\")}</div>;
+  return <div name={t(\\"key_属性\\")} data-i18n=\\"[\\\\\\"key_\\\\u5C5E\\\\u6027\\\\\\",\\\\\\"key_\\\\u7AD9\\\\u4F4D\\\\u6587\\\\u672C-function-declaration-case2\\\\\\"]\\">{t(\\"key_站位文本-function-declaration-case2\\")}</div>;
 }"
 `;
 
@@ -241,7 +241,7 @@ var _reactI18next = require(\\"react-i18next\\");
 function useComponent() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div name={t(\\"key_属性\\")}>{t('key')}</div>;
+  return <div name={t(\\"key_属性\\")} data-i18n=\\"[\\\\\\"key_\\\\u5C5E\\\\u6027\\\\\\"]\\">{t('key')}</div>;
 }"
 `;
 

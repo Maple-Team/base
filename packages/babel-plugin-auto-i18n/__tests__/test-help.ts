@@ -17,6 +17,7 @@ export function preset() {
           debug: false,
           // hashFn: (v:string)=>hash(v).substring(0, 8),
           hashFn: transformKeyWithoutHash,
+          shouldInjectDataI18nAttribute: true,
           // i18nIgnoreLabel: '@i18n-ignore',
         },
       ],

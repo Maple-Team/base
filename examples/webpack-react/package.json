@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "sideEffects": [
-    "*.css"
+    "*.css", "@/i18n"
   ],
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "preserve1": "pnpm run rm",
     "stats": "webpack --config config/webpack.stats.js",
     "swc:dev": "cross-env NODE_ENV=development webpack serve --config config/webpack.swc.dev.js",
-    "serve": "cross-env NODE_ENV=development REACT_APP_customArg=ARGS webpack serve --config config/webpack.dev.js",
+    "serve": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
     "serve:dashboard": "cross-env NODE_ENV=development webpack-dashboard -- webpack serve --config config/webpack.dev.js",
     "build:dev": "cross-env NODE_ENV=development webpack --config config/webpack.dev.js",
     "build:lib": "webpack --config config/webpack.lib.js",
@@ -37,7 +37,6 @@
     "@antv/g2plot": "^2.4.22",
     "@babel/runtime": "^7.23.2",
     "@babel/runtime-corejs3": "^7.23.2",
-    "@liutsing/babel-plugin-auto-i18n": "workspace:*",
     "@liutsing/rc-components": "workspace:*",
     "@liutsing/rc-hooks": "workspace:*",
     "@liutsing/utils": "workspace:*",
@@ -61,6 +60,7 @@
     "@antfu/eslint-config": "^0.43.1",
     "@babel/plugin-transform-runtime": "^7.23.2",
     "@google-cloud/translate": "^8.1.0",
+    "@liutsing/babel-plugin-auto-i18n": "workspace:*",
     "@liutsing/babel-plugin-extract-used-chinese": "workspace:*",
     "@liutsing/babel-plugin-remove-console": "workspace:*",
     "@liutsing/eslint-config": "workspace:*",

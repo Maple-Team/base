@@ -1,6 +1,5 @@
-import _ from './lib'
+import plugin from './lib'
 
-export { save, transformKeyWithoutHash, transformKey } from './helper'
+export { transformKeyWithoutHash, transformKey } from './helper'
 export * from './lib'
-
-export default _
+export default plugin

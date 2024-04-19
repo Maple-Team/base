@@ -134,7 +134,7 @@ export const App = () => {
                   path="example"
                   element={
                     <Suspense fallback={<div>loading...</div>}>
-                      <Example3 />
+                      <Example3>测试自定义组件</Example3>
                     </Suspense>
                   }
                 />

@@ -1,10 +1,11 @@
 import { Dialog, Message } from '@liutsing/rc-components'
 import { Button } from 'antd'
+import type { HTMLAttributes, PropsWithChildren } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { IconParking } from '@/assets/svg-icons'
 import '@liutsing/rc-components/dist/index.css'
 
-const Example3 = () => {
+const Example3: React.FC<PropsWithChildren & HTMLAttributes<HTMLDivElement>> = ({ children, ...rest }) => {
   const [num, setNum] = useState<number>(0)
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const Example3 = () => {
   const var1 = `车牌号: ${plateNo}, ${price}`
 
   return (
-    <div>
+    <div {...rest}>
       {num}
       <Button onClick={onIncrease}>+</Button>
       <div>触发chunk content-hash change</div>
@@ -37,6 +38,7 @@ const Example3 = () => {
       <div onClick={onShowDialog}>显示Dialog</div>
       <div onClick={onShowMessage}>显示Message</div>
       <div>{var1}</div>
+      {children}
     </div>
   )
 }
