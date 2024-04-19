@@ -356,13 +356,26 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         } else if (
           t.isAssignmentExpression(parent) ||
           t.isArrayExpression(parent) ||
-          t.isJSXExpressionContainer(parent) ||
           t.isLogicalExpression(parent) ||
           t.isBinaryExpression(parent) ||
           t.isConditionalExpression(parent)
         ) {
           replaceWithCallExpression(i18nKey, path, state)
-        } else if (t.isVariableDeclarator(parent)) {
+        } else if (t.isJSXExpressionContainer(parent)){
+          // 注入i8nKey
+          const jsxElement = path.findParent(p=>p.isJSXElement())
+          const JSXOpeningElement = jsxElement?.openingElement
+          if (JSXOpeningElement) {
+            // 方式1
+            const cb = JSXOpeningElement.extra?.cb as Function
+            cb?.(i18nKey)
+            // FIXME 方式2 -> 多执行了一次
+            // if (!JSXOpeningElement.extra) JSXOpeningElement.extra = {}
+            // JSXOpeningElement.extra.i18nKey = transformedKey
+          }
+          replaceWithCallExpression(i18nKey, path, state)
+        }
+        else if (t.isVariableDeclarator(parent)) {
           const blockPath = path.findParent((path) => path.isBlockStatement())
           if (!blockPath) return
           replaceWithCallExpression(i18nKey, path, state)
