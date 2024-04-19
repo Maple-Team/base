@@ -11,7 +11,7 @@ var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div>{'你好'}<span>{/*@i18n-ignore*/}{t(\\"key_你好\\")}</span></div>;
+  return <div>{'你好'}<span data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{/*@i18n-ignore*/}{t(\\"key_你好\\")}</span></div>;
 };"
 `;
 
@@ -27,7 +27,7 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
   var var1 = '你好';
-  return <div>{t(\\"key_你好\\")}</div>;
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}</div>;
 };"
 `;
 
@@ -43,6 +43,6 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
   var var1 = \`templateElement你好\`;
-  return <div>{t(\\"key_你好\\")}</div>;
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}</div>;
 };"
 `;

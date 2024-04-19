@@ -50,7 +50,7 @@ i18n
     resources,
     backend: {
       // const file = `locales/${project}/${version}/${locale}/${ns}.json`
-      loadPath: 'http://127.0.0.1:9000/i18n-bucket/locales/example/1.0.0/{{lng}}/{{ns}}.json',
+      loadPath: `${process.env.REACT_APP_MINIO_URL!}/i18n-bucket/locales/example/1.0.0/{{lng}}/{{ns}}.json`,
       // loadPath: (lngs) => {
       //   console.log(lngs, 'lngs')
       //   const lng = lngs.includes('zh') || lngs.includes('dev') ? 'zh-CN' : lngs[0]

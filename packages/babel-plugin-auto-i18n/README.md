@@ -14,6 +14,15 @@ in babel config file like `.babelrc`,
 }
 ```
 
+### access i18n in dom
+
+```js
+const elements = document.querySelectorAll('[data-i18n]')
+const i18nValues = Array.from(elements).map((el) => JSON.parse(el.getAttribute('data-i18n')))
+const totalI18nKeys = Array.prototype.concat.apply([], i18nValues)
+console.log(totalI18nKeys)
+```
+
 ## TODO
 
 ### 1.0
@@ -33,14 +42,11 @@ in babel config file like `.babelrc`,
 - [x] i18n-ignore comments
 - [x] 支持 templateLiteral 的文本，文本插槽功能
 - [ ] jsxText/jsxAttribute/jsxExpressionContainer 下的 stringLiteral 注入 data-i18n 属性，页面上的访问方式：
-  ```js
-  const elements = document.querySelectorAll('[data-i18n]')
-  const i18nValues = Array.from(elements).map((el) => el.getAttribute('data-i18n'))
-  console.log(i18nValues)
-  ```
   - [x] jsxText
-  - [ ] jsxAttribute注入是否react render时会被保留
+  - [ ] jsxAttribute 注入是否 react render 时会被保留
   - [ ] jsxExpressionContainer
+  - [ ] jsxAttribute 其他属性也需要加入到`data-i18n`属性上
+  - [ ] jsx 其他的键绑定到根元素的 dom 上？
 
 ### ideas
 
