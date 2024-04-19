@@ -32,11 +32,22 @@ in babel config file like `.babelrc`,
 - [x] 多个 plugins，含同样的节点遍历逻辑，测试访问顺序
 - [x] i18n-ignore comments
 - [x] 支持 templateLiteral 的文本，文本插槽功能
+- [ ] jsxText/jsxAttribute/jsxExpressionContainer 下的 stringLiteral 注入 data-i18n 属性，页面上的访问方式：
+  ```js
+  const elements = document.querySelectorAll('[data-i18n]')
+  const i18nValues = Array.from(elements).map((el) => el.getAttribute('data-i18n'))
+  console.log(i18nValues)
+  ```
+  - [x] jsxText
+  - [ ] jsxAttribute注入是否react render时会被保留
+  - [ ] jsxExpressionContainer
 
-### todos
-- [ ] templateLiterral不影响现有的手动处理的`t('xx', {count;'xxx'})` 之类的
+### ideas
+
+- [ ] templateLiteral 不影响现有的手动处理的`t('xx', {count;'xxx'})` 之类的
 - [ ] bench the performance of this plugin
 - [ ] support class component
 - [ ] support option source language
 - [ ] 删除冗余的导入
-
+- [ ] 其他节点的处理方式呢？
+  - 比如 message.info('xx'), 函数改写再注入？

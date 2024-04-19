@@ -206,11 +206,55 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         if (stringLiteralParentTypeDebug) console.log(i18nKey, path.parent.type)
         const transformedKey = hashFn(i18nKey)
         const identifier = t.identifier(`"${transformedKey}"`)
+        const JSXOpeningElement = t.isJSXElement(path.parent) ? path.parent.openingElement : null
+        // console.log('JSXOpeningElement', JSXOpeningElement, transformedKey)
+        if (JSXOpeningElement) {
+          // 方式1
+          const cb = JSXOpeningElement.extra?.cb as Function
+          cb?.(i18nKey)
+          // FIXME 方式2 -> 多执行了一次
+          // if (!JSXOpeningElement.extra) JSXOpeningElement.extra = {}
+          // JSXOpeningElement.extra.i18nKey = transformedKey
+        }
+
         const expressionContainer = t.jsxExpressionContainer(t.callExpression(t.identifier('t'), [identifier]))
         // 替换文本节点为JSXExpressionContainer节点
         path.replaceWith(expressionContainer)
         save(state, transformedKey, i18nKey)
         path.skip()
+      },
+      JSXOpeningElement(path) {
+        const cb = (value: string) => {
+          // TODO 类型为: JSXAttribute|JSXSpreadAttribute  JSXSpreadAttribute 待测试
+          const existI18nKey = path.node.attributes.find(
+            (attr) => t.isJSXAttribute(attr) && t.isJSXIdentifier(attr.name) && attr.name.name === 'data-i18n'
+          )
+          let existI18nValues: string[] = []
+          if (existI18nKey) {
+            existI18nValues =
+              t.isJSXAttribute(existI18nKey) && t.isStringLiteral(existI18nKey.value)
+                ? (JSON.parse(existI18nKey.value.value) as string[])
+                : []
+          }
+
+          const v = hashFn(value)
+          existI18nValues.push(v)
+          // 创建一个新的属性, 使用数组存储使用到的i18nKey
+          const newAttribute = t.jsxAttribute(
+            t.jsxIdentifier('data-i18n'),
+            t.stringLiteral(JSON.stringify(existI18nValues))
+          )
+          // 将新属性添加到现有属性列表的末尾
+          path.node.attributes.push(newAttribute)
+        }
+        // 方式1 回调的形式
+        if (!path.node.extra) path.node.extra = {}
+        path.node.extra.cb = cb
+        // 方式2 -> 多执行了一次
+        // const i18nKey = path.node.extra?.i18nKey as string | undefined
+        // if(!i18nKey) return
+        // cb(i18nKey)
+        // path.skip()
       },
       TemplateLiteral(path, state) {
         if (path.node.extra?.skipTransform) {
@@ -286,6 +330,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
             }
             return
           }
+          if (parent.name.name === 'data-i18n') return
           const transformedKey = hashFn(i18nKey)
           if (stringLiteralParentTypeDebug) console.log(i18nKey, path.parent.type)
           const identifier = t.identifier(`"${transformedKey}"`)

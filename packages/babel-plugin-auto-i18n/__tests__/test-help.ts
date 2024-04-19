@@ -2,7 +2,7 @@ import * as parser from '@babel/parser'
 import type { PluginItem } from '@babel/core'
 import { transformFromAstSync } from '@babel/core'
 import autoI18nPlugin, { transformKeyWithoutHash } from '../src'
-
+// import { hash } from '@liutsing/node-utils'
 /**
  * 构建preset
  * @returns
@@ -15,6 +15,7 @@ export function preset() {
         {
           outputDir: 'output',
           debug: false,
+          // hashFn: (v:string)=>hash(v).substring(0, 8),
           hashFn: transformKeyWithoutHash,
           // i18nIgnoreLabel: '@i18n-ignore',
         },

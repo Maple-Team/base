@@ -11,7 +11,7 @@ var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div>{t(\\"key_你好\\")}</div>;
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}</div>;
 };"
 `;
 
@@ -26,7 +26,7 @@ var _reactI18next = require(\\"react-i18next\\");
 var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div>{t(\\"key_你好\\")}<span>{t(\\"key_嵌套文本\\")}</span></div>;
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}<span data-i18n=\\"[\\\\\\"key_\\\\u5D4C\\\\u5957\\\\u6587\\\\u672C\\\\\\"]\\">{t(\\"key_嵌套文本\\")}</span></div>;
 };"
 `;
 
@@ -42,8 +42,8 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
   return <>
-      <div>{t(\\"key_你好\\")}</div>
-      <span>{t(\\"key_嵌套文本\\")}</span>
+      <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}</div>
+      <span data-i18n=\\"[\\\\\\"key_\\\\u5D4C\\\\u5957\\\\u6587\\\\u672C\\\\\\"]\\">{t(\\"key_嵌套文本\\")}</span>
       </>;
 };"
 `;
@@ -59,7 +59,7 @@ var _reactI18next = require(\\"react-i18next\\");
 var _default = exports[\\"default\\"] = function _default() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div>{t(\\"key_你好\\")}</div>;
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}</div>;
 };"
 `;
 
@@ -74,7 +74,7 @@ var _reactI18next = require(\\"react-i18next\\");
 var _default = exports[\\"default\\"] = function _default() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div>{t(\\"key_你好\\")}<span>{t(\\"key_嵌套文本\\")}</span></div>;
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}<span data-i18n=\\"[\\\\\\"key_\\\\u5D4C\\\\u5957\\\\u6587\\\\u672C\\\\\\"]\\">{t(\\"key_嵌套文本\\")}</span></div>;
 };"
 `;
 
@@ -90,8 +90,8 @@ var _default = exports[\\"default\\"] = function _default() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
   return <>
-      <div>{t(\\"key_你好\\")}</div>
-      <span>{t(\\"key_嵌套文本\\")}</span>
+      <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}</div>
+      <span data-i18n=\\"[\\\\\\"key_\\\\u5D4C\\\\u5957\\\\u6587\\\\u672C\\\\\\"]\\">{t(\\"key_嵌套文本\\")}</span>
       </>;
 };"
 `;
@@ -107,7 +107,7 @@ var _reactI18next = require(\\"react-i18next\\");
 function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div>{t(\\"key_你好\\")}</div>;
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}</div>;
 }"
 `;
 
@@ -122,7 +122,7 @@ var _reactI18next = require(\\"react-i18next\\");
 function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div>{t(\\"key_你好\\")}<span>{t(\\"key_嵌套文本\\")}</span></div>;
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}<span data-i18n=\\"[\\\\\\"key_\\\\u5D4C\\\\u5957\\\\u6587\\\\u672C\\\\\\"]\\">{t(\\"key_嵌套文本\\")}</span></div>;
 }"
 `;
 
@@ -138,8 +138,8 @@ function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
   return <>
-        <div>{t(\\"key_你好\\")}</div>
-        <span>{t(\\"key_嵌套文本\\")}</span>
+        <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}</div>
+        <span data-i18n=\\"[\\\\\\"key_\\\\u5D4C\\\\u5957\\\\u6587\\\\u672C\\\\\\"]\\">{t(\\"key_嵌套文本\\")}</span>
         </>;
 }"
 `;
@@ -155,7 +155,7 @@ var _reactI18next = require(\\"react-i18next\\");
 function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div>{t(\\"key_你好\\")}</div>;
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}</div>;
 }"
 `;
 
@@ -170,7 +170,7 @@ var _reactI18next = require(\\"react-i18next\\");
 function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
-  return <div>{t(\\"key_你好\\")}<span>{t(\\"key_嵌套文本\\")}</span></div>;
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}<span data-i18n=\\"[\\\\\\"key_\\\\u5D4C\\\\u5957\\\\u6587\\\\u672C\\\\\\"]\\">{t(\\"key_嵌套文本\\")}</span></div>;
 }"
 `;
 
@@ -186,8 +186,8 @@ function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
   return <>
-      <div>{t(\\"key_你好\\")}</div>
-      <span>{t(\\"key_嵌套文本\\")}</span>
+      <div data-i18n=\\"[\\\\\\"key_\\\\u4F60\\\\u597D\\\\\\"]\\">{t(\\"key_你好\\")}</div>
+      <span data-i18n=\\"[\\\\\\"key_\\\\u5D4C\\\\u5957\\\\u6587\\\\u672C\\\\\\"]\\">{t(\\"key_嵌套文本\\")}</span>
       </>;
 }"
 `;
