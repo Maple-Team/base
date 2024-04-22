@@ -49,7 +49,7 @@ console.log(uniqiqI18nKeys)
   - [x] jsxAttribute 其他属性也需要加入到`data-i18n`属性上
 - [x] jsxText
 - [ ] templateLiteral
-- [ ] jsx 其他的键绑定到根元素的 dom 上
+- [ ] 非jsx中的字符串绑定到根元素的 dom 上
 
 ### ideas
 

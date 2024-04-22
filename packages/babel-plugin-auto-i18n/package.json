@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/babel-plugin-auto-i18n",
-  "version": "1.0.0.bata1",
+  "version": "1.0.0.beta1",
   "description": "A babel plugin to transform source language to 't' invoke expression",
   "keywords": [
     "babel plugin"

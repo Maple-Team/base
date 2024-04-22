@@ -21,51 +21,10 @@ import type {
   VariableDeclarator,
 } from '@babel/types'
 import { save, transformKey, transformKeyWithoutHash } from './helper'
+import type { Option } from './helper'
 
 type Babel = typeof BabelCoreNamespace
 
-export interface Option {
-  /**
-   * 中文文案输出目录
-   * @default string path.join(process.cwd(), 'src','i18n','zh_CN')
-   */
-  outputDir?: string
-  /**
-   * 是否开启debug
-   */
-  debug?: boolean
-  /**
-   * 提取/转化符合条件的语言文案
-   * @param text
-   * @default {import('./helper').isHans}
-   * @returns
-   */
-  conditionalLanguage?: (text: string) => boolean
-  /**
-   * hash函数
-   */
-  hashFn?: (text: string) => string
-  /**
-   * 父节点信息debug
-   */
-  stringLiteralParentTypeDebug?: boolean
-  /**
-   * 需要删除id的节点名称
-   */
-  needDeleteAttributeElementNames?: string[]
-  /**
-   * 忽略注释文案
-   */
-  i18nIgnoreCommentsLabel?: string
-  /**
-   * 是否注入data-i18n属性
-   */
-  shouldInjectDataI18nAttribute?: boolean
-  /**
-   * data-i18n属性名称
-   */
-  dataI18nAttributeName?: string
-}
 /**
  * react组件注入t('xxx')
  * @param param0
@@ -94,8 +53,6 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
     path: BabelCoreNamespace.NodePath,
     state: BabelCoreNamespace.PluginPass
   ) {
-    if (stringLiteralParentTypeDebug) console.log(i18nKey, path.parent.type)
-
     const transformedKey = hashFn(i18nKey)
     const identifier = t.identifier(`"${transformedKey}"`)
     const expressionContainer = t.callExpression(t.identifier('t'), [identifier])
@@ -159,6 +116,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
       path.attributes.push(newAttribute)
     }
   }
+
   type InjectAttributesCB = typeof elementInjectAttributesCB
 
   const obj: BabelCoreNamespace.PluginObj = {
@@ -166,6 +124,11 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
     pre(this) {
       this.set('allText', [])
     },
+    /**
+     * 将文件内提取到的文案写入文件
+     * @param this
+     * @param file
+     */
     post(this, file: BabelCoreNamespace.BabelFile) {
       const allText = this.get('allText') as { key: string; value: string }[]
       const intlData = allText.reduce((obj: Record<string, string>, item) => {
@@ -183,7 +146,10 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
       }
     },
     visitor: {
-      // 处理导入代码：import { useTranslation } from 'react-i18next'
+      //
+      /**
+       * 处理导入代码：import { useTranslation } from 'react-i18next'
+       */
       Program: {
         enter(path, state) {
           state.hasUseTranslationImport = false
@@ -224,26 +190,17 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           }
         },
       },
-      JSXAttribute(path) {
-        const JSXOpeningElementPath = path.findParent((p) =>
-          p.isJSXOpeningElement()
-        ) as BabelCoreNamespace.NodePath<JSXOpeningElement> | null
-        const elementName = t.isJSXIdentifier(JSXOpeningElementPath?.node.name)
-          ? JSXOpeningElementPath?.node.name.name || ''
-          : ''
-        // 检查是否是JSXAttribute节点
-        if (path.node.name.name === 'id' && needIgnoreIdAttributeElementNames.includes(elementName)) {
-          // 获取字符串字面量的值
-          const stringValue = t.isStringLiteral(path.node?.value) ? path.node.value.value : ''
-          if (conditionalLanguage(stringValue)) path.remove()
-        }
-      },
+      /**
+       * i18n提取替换
+       * @param path
+       * @param state
+       * @returns
+       */
       JSXText(path, state) {
         if (path.node.extra?.skipTransform) return
         const file = state.file
         // 获取文件的绝对路径
         const absolutePath = file.opts.filename
-
         if (absolutePath?.endsWith('.svg')) {
           // 使用webpack require context导入的svg文件，需要忽略其内部的中文的处理
           return
@@ -271,20 +228,11 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         path.skip()
       },
       /**
-       * 在JSXOpeningElement节点上插入data-i18n属性
+       * i18n提取替换
        * @param path
+       * @param state
+       * @returns
        */
-      JSXOpeningElement(path) {
-        if (!shouldInjectDataI18nAttribute) return
-        // 方式1 回调的形式
-        if (!path.node.extra) path.node.extra = {}
-        path.node.extra.elementInjectAttributesCB = elementInjectAttributesCB
-        // 方式2 -> 多执行了一次
-        // const i18nKey = path.node.extra?.i18nKey as string | undefined
-        // if(!i18nKey) return
-        // elementInjectAttributesCB(i18nKey)
-        // path.skip()
-      },
       TemplateLiteral(path, state) {
         if (path.node.extra?.skipTransform) {
           path.skip()
@@ -316,6 +264,12 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           path.skip()
         }
       },
+      /**
+       * i18n提取替换
+       * @param path
+       * @param state
+       * @returns
+       */
       StringLiteral(path, state) {
         if (path.node.extra?.skipTransform) return
         const i18nKey = path.node.value.trim()
@@ -431,12 +385,56 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           }
         }
       },
+      /**
+       * i18n提取替换
+       * @param path
+       * @param state
+       * @returns
+       */
       TemplateElement(path, state) {
         if (path.node.extra?.skipTransform) return
         const i18nKey = path.node.value.raw.trim()
         if (!conditionalLanguage(i18nKey)) return
         replaceWithCallExpression(i18nKey, path, state)
       },
+      /**
+       * 移除需要删除的节点
+       * @param path
+       */
+      JSXAttribute(path) {
+        const JSXOpeningElementPath = path.findParent((p) =>
+          p.isJSXOpeningElement()
+        ) as BabelCoreNamespace.NodePath<JSXOpeningElement> | null
+        const elementName = t.isJSXIdentifier(JSXOpeningElementPath?.node.name)
+          ? JSXOpeningElementPath?.node.name.name || ''
+          : ''
+        // 检查是否是JSXAttribute节点
+        if (path.node.name.name === 'id' && needIgnoreIdAttributeElementNames.includes(elementName)) {
+          // 获取字符串字面量的值
+          const stringValue = t.isStringLiteral(path.node?.value) ? path.node.value.value : ''
+          if (conditionalLanguage(stringValue)) path.remove()
+        }
+      },
+      /**
+       * 在JSXOpeningElement节点上为后续插入data-i18n属性提前设置好回调函数
+       * @param path
+       */
+      JSXOpeningElement(path) {
+        if (!shouldInjectDataI18nAttribute) return
+        // 方式1 回调的形式
+        if (!path.node.extra) path.node.extra = {}
+        path.node.extra.elementInjectAttributesCB = elementInjectAttributesCB
+        // 方式2 -> 多执行了一次
+        // const i18nKey = path.node.extra?.i18nKey as string | undefined
+        // if(!i18nKey) return
+        // elementInjectAttributesCB(i18nKey)
+        // path.skip()
+      },
+      /**
+       * 判断是否需要注入`const { t, i18n } = useTranslation()`
+       * @param path
+       * @returns
+       */
       FunctionDeclaration(path) {
         let isValidJSXElement = false
         let hasUseTranslationVariableDeclarator: BabelCoreNamespace.NodePath<VariableDeclarator> | undefined
@@ -508,6 +506,11 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           }
         }
       },
+      /**
+       * 判断是否需要注入`const { t, i18n } = useTranslation()`
+       * @param path
+       * @returns
+       */
       ArrowFunctionExpression(path) {
         const blockStatement = path.node.body as BlockStatement
         const parent = path.parent as VariableDeclarator | CallExpression
@@ -600,6 +603,11 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           }
         }
       },
+      /**
+       * react hooks 依赖数组注入`t`
+       * @param path
+       * @returns
+       */
       CallExpression(path) {
         // 将t添加进hooks的依赖数组中
         const calleeName = (path.node.callee as V8IntrinsicIdentifier).name
