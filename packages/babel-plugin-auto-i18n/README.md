@@ -45,11 +45,14 @@ console.log(uniqiqI18nKeys)
   - [x] jsxText
   - [ ] jsxExpressionContainer
   - [ ] jsxAttribute
+  - [ ] TemplateLiteral
+    - [x] TemplateElement
   - [x] jsxAttribute 注入是否 react render 时会被保留 -> 组件框架或自定义组件处理
   - [x] jsxAttribute 其他属性也需要加入到`data-i18n`属性上
 - [x] jsxText
 - [ ] templateLiteral
-- [ ] 非jsx中的字符串绑定到根元素的 dom 上
+- [ ] 非 jsx 中的字符串绑定到根元素的 dom 上 -> 简化逻辑实现(平台手动维护辅助)
+  - [ ] 注意条件判断下的场景
 
 ### ideas
 

@@ -13,8 +13,8 @@ import type {
   FunctionExpression,
   Identifier,
   ImportSpecifier,
+  JSXFragment,
   JSXOpeningElement,
-  MemberExpression,
   ObjectProperty,
   Statement,
   V8IntrinsicIdentifier,
@@ -22,6 +22,12 @@ import type {
 } from '@babel/types'
 import { save, transformKey, transformKeyWithoutHash } from './helper'
 import type { Option } from './helper'
+
+/**
+ * console具有的方法属性
+ */
+const CONSOLE_METHODS: string[] = []
+for (const i in console) if (Object.prototype.hasOwnProperty.call(console, i)) CONSOLE_METHODS.push(i)
 
 type Babel = typeof BabelCoreNamespace
 
@@ -53,6 +59,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
     path: BabelCoreNamespace.NodePath,
     state: BabelCoreNamespace.PluginPass
   ) {
+    if (stringLiteralParentTypeDebug) console.log(i18nKey, path.parent.type)
     const transformedKey = hashFn(i18nKey)
     const identifier = t.identifier(`"${transformedKey}"`)
     const expressionContainer = t.callExpression(t.identifier('t'), [identifier])
@@ -66,22 +73,16 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
    * @param declarationPath
    * @returns
    */
-  function isConsoleCallExpression(declarationPath: BabelCoreNamespace.NodePath) {
+  function isUnderConsoleCallExpression(declarationPath: BabelCoreNamespace.NodePath) {
     const callExpressionPath = declarationPath.findParent((p) => p.isCallExpression())
-    if (callExpressionPath) {
-      const callee = (callExpressionPath.node as CallExpression).callee as MemberExpression
-      if (t.isMemberExpression(callee)) {
-        const { property, object } = callee
-        if (
-          t.isIdentifier(object) &&
-          t.isIdentifier(property) &&
-          object.name === 'console' &&
-          ['log', 'debug', 'error', 'warn', 'info'].includes(property.name)
-        )
-          return true
-      }
-      return false
-    }
+    if (!callExpressionPath) return false
+    const callee = (callExpressionPath.node as CallExpression).callee
+    if (!t.isMemberExpression(callee)) return false
+    const { property, object } = callee
+    if (!t.isIdentifier(object)) return false
+    if (!t.isIdentifier(property)) return false
+    if (object.name !== 'console') return false
+    if (CONSOLE_METHODS.includes(property.name)) return true
     return false
   }
   /**
@@ -238,6 +239,8 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           path.skip()
           return
         }
+        // 忽略console.log()调用
+        if (isUnderConsoleCallExpression(path)) return
         // 不执行子节点TemplateElement
         const value = path
           .get('quasis')
@@ -248,20 +251,58 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         // key1 key2 ...
         const keys = Array.from({ length: interpolationLength }, (_, i) => `{{key${i + 1}}}`)
         const combineValue = Array.prototype.concat.apply([], zip(value, keys)).join('')
-        if (!conditionalLanguage(combineValue)) return
+        if (!combineValue && !conditionalLanguage(combineValue)) return
         // console.log(combineValue)
-        if (combineValue) {
-          const key = hashFn(value.join(''))
-          save(state, key, combineValue)
-          const expressionParams = path.isTemplateLiteral()
-            ? path.node.expressions.map((item) => generate(item).code)
-            : null
-          // console.log(expressionParams) //    [ 'plateNo', 'price' ]
-          // t('key', {key1: '', key2: '', ...})
-          const params = expressionParams?.map((v, index) => `key${index + 1}: ${v}`)
-          const statement = template.ast(`t('${key}'${params?.length ? `,{${params.join(',')}}` : ''})`) as Statement
-          path.replaceWith(statement)
-          path.skip()
+        const rawKey = value.join('')
+        const key = hashFn(rawKey)
+
+        save(state, key, combineValue)
+        const expressionParams = path.isTemplateLiteral()
+          ? path.node.expressions.map((item) => generate(item).code)
+          : null
+        // console.log(expressionParams) //    [ 'plateNo', 'price' ]
+        // t('key', {key1: '', key2: '', ...})
+        const params = expressionParams?.map((v, index) => `key${index + 1}: ${v}`)
+        const statement = template.ast(`t('${key}'${params?.length ? `,{${params.join(',')}}` : ''})`) as Statement
+        path.replaceWith(statement)
+        path.skip()
+        // data-i18n节点注入
+        if (!shouldInjectDataI18nAttribute) return
+        const JSXOpeningElement = t.isJSXElement(path.parent) ? path.parent.openingElement : null
+        if (JSXOpeningElement) {
+          // 在jsx节点下
+          const elementInjectAttributesCB = JSXOpeningElement.extra?.elementInjectAttributesCB as InjectAttributesCB
+          elementInjectAttributesCB?.(rawKey, JSXOpeningElement)
+        } else {
+          // 不在jsxj节点下，插入到根节点
+          // 在jsx组件中
+          const blockPath = path.findParent((p) => p.isBlockStatement())
+          if (blockPath && t.isBlockStatement(blockPath.node)) {
+            const returnStatement = blockPath.node.body.find((statement) => t.isReturnStatement(statement))
+            if (!returnStatement || !t.isReturnStatement(returnStatement)) return
+            const argument = returnStatement.argument
+            if (t.isJSXElement(argument)) {
+              if (!argument.openingElement.extra) argument.openingElement.extra = {}
+              argument.openingElement.extra.elementInjectAttributesCB = elementInjectAttributesCB
+              elementInjectAttributesCB?.(rawKey, argument.openingElement)
+            } else if (t.isJSXFragment(argument)) {
+              const firstJSXElement = argument.children[0]
+              if (!t.isJSXElement(firstJSXElement)) {
+                // jsxFragment不存在jsxElement，则插入新增jsxElement节点
+                const element = template.ast(`<div data-i18n=\'${JSON.stringify([rawKey])}\'></div>`, {
+                  plugins: ['jsx'],
+                })
+                if (!element || Array.isArray(element) || !t.isExpressionStatement(element)) return
+                if (!t.isJSXElement(element.expression)) return
+                ;(returnStatement.argument as JSXFragment).children.unshift(element.expression)
+              } else {
+                // jsxFragment下存在jsxElement，则插入data-i18n到这个jsxElement上
+                elementInjectAttributesCB?.(rawKey, firstJSXElement.openingElement)
+              }
+            }
+          }
+          // 不在jsx组件中, 在custom hooks中，这里怎么处理呢？
+          // 由平台接口反推？应该仅支持固定文本的，不支持插槽等
         }
       },
       /**
@@ -279,13 +320,12 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         const absolutePath = file.opts.filename
         const parent = path.parent
         if (stringLiteralParentTypeDebug) console.log(i18nKey, parent.type)
-        // console.log(i18nKey, parent.type)
         // NOTE 忽略console.xxx('<中文>')
-        if (isConsoleCallExpression(path)) return
-        // TODO console.xxx({pro:'<中文>'})
+        if (isUnderConsoleCallExpression(path)) return
+        // FIXME console.xxx({pro:'<中文>'})
         if (t.isCallExpression(parent)) {
           const callExpressionPath = parent
-          // 处理类似message.info('<中文>')
+          // NOTE 处理类似message.info('<中文>')
           if (
             (t.isMemberExpression(callExpressionPath.callee) &&
               (callExpressionPath.callee.object as Identifier).name) ||
@@ -293,11 +333,10 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           ) {
             replaceWithCallExpression(i18nKey, path, state)
           } else if (t.isIdentifier(callExpressionPath.callee) && callExpressionPath.callee.name === 't') {
-            // TODO 测试
             // 已存在的t('xx')，忽略
           } else {
             if (options.debug) {
-              console.log('the unhandled chinese text of callExpression condition: ', {
+              console.log('the unhandled chinese text: ', {
                 key: i18nKey,
                 type: parent.type,
                 absolutePath,
@@ -309,7 +348,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           if (parent.name.name === 'id') {
             if (options.debug) {
               // 忽略svg中id中的中文
-              console.log('ignore the text of svg dom', i18nKey)
+              console.log('ignore the text of svg dom: ', i18nKey)
             }
             return
           }
@@ -386,15 +425,19 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         }
       },
       /**
+       * @deprecated
        * i18n提取替换
        * @param path
        * @param state
        * @returns
        */
       TemplateElement(path, state) {
+        // FIXME
         if (path.node.extra?.skipTransform) return
+        // 外部的TemplateElement后面处理
         const i18nKey = path.node.value.raw.trim()
         if (!conditionalLanguage(i18nKey)) return
+        // 注入t("xxx")
         replaceWithCallExpression(i18nKey, path, state)
       },
       /**
@@ -468,7 +511,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           StringLiteral(declaratorPath) {
             const value = declaratorPath.node.value.trim()
             // TODO 很多需要排除的
-            if (!isConsoleCallExpression(declaratorPath))
+            if (!isUnderConsoleCallExpression(declaratorPath))
               if (conditionalLanguage(value)) hasConditionalLanguageText = true
           },
         })
@@ -571,7 +614,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           StringLiteral(declaratorPath) {
             const value = declaratorPath.node.value.trim()
             // TODO 很多需要排除的
-            if (!isConsoleCallExpression(declaratorPath))
+            if (!isUnderConsoleCallExpression(declaratorPath))
               if (conditionalLanguage(value)) hasConditionalLanguageText = true
           },
         })
@@ -624,7 +667,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         path.traverse({
           StringLiteral(stringLiteralPath) {
             // 排除console.log
-            if (isConsoleCallExpression(stringLiteralPath)) {
+            if (isUnderConsoleCallExpression(stringLiteralPath)) {
               hasChineseUsage = false
               return
             }
