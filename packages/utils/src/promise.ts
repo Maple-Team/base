@@ -22,3 +22,24 @@ export function wrapPromise<R>(promise: Promise<R>) {
     },
   }
 }
+
+const run = () => {
+  const oldFetch = window.fetch
+  let cache: {
+    status: 'pending' | 'fullfilled' | 'error'
+    value?: unknown
+  }
+  let promise: PromiseLike<unknown>
+  window.fetch = (...args: unknown[]) => {
+    promise = oldFetch(...args)
+      .then((r) => r.json())
+      .then((v) => {
+        cache.status = 'fullfilled'
+        cache.value = v
+      })
+      .catch((e) => {
+        cache.status = 'error'
+        cache.value = e
+      })
+  }
+}
