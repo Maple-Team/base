@@ -14,6 +14,16 @@ in babel config file like `.babelrc`,
 }
 ```
 
+### access i18n in dom
+
+```js
+const elements = document.querySelectorAll('[data-i18n]')
+const i18nValues = Array.from(elements).map((el) => JSON.parse(el.getAttribute('data-i18n')))
+const totalI18nKeys = Array.prototype.concat.apply([], i18nValues)
+const uniqiqI18nKeys = [...new Set(totalI18nKeys)]
+console.log(uniqiqI18nKeys)
+```
+
 ## TODO
 
 ### 1.0
@@ -21,7 +31,6 @@ in babel config file like `.babelrc`,
 - [x] 支持 jsxText 内的文本转换
 - [x] 支持 stringLiteral 内的文本转换
 - [x] 支持 templateElement 内的文本转换
-- [ ] 支持 objectMethod 内的文本转换
 - [x] Avoid unnecessary calls to the `useTranslation` function.
 - [x] unnecessary import will be tree-shaking by webpack
   - ```js
@@ -32,15 +41,18 @@ in babel config file like `.babelrc`,
 - [x] 多个 plugins，含同样的节点遍历逻辑，测试访问顺序
 - [x] i18n-ignore comments
 - [x] 支持 templateLiteral 的文本，文本插槽功能
-- [ ] jsxText/jsxAttribute/jsxExpressionContainer 下的 stringLiteral 注入 data-i18n 属性，页面上的访问方式：
-  ```js
-  const elements = document.querySelectorAll('[data-i18n]')
-  const i18nValues = Array.from(elements).map((el) => el.getAttribute('data-i18n'))
-  console.log(i18nValues)
-  ```
+- [ ] jsxText/jsxAttribute/jsxExpressionContainer 下的 stringLiteral 注入 data-i18n 属性
   - [x] jsxText
-  - [ ] jsxAttribute注入是否react render时会被保留
   - [ ] jsxExpressionContainer
+  - [ ] jsxAttribute
+  - [ ] TemplateLiteral
+    - [x] TemplateElement
+  - [x] jsxAttribute 注入是否 react render 时会被保留 -> 组件框架或自定义组件处理
+  - [x] jsxAttribute 其他属性也需要加入到`data-i18n`属性上
+- [x] jsxText
+- [ ] templateLiteral
+- [ ] 非 jsx 中的字符串绑定到根元素的 dom 上 -> 简化逻辑实现(平台手动维护辅助)
+  - [ ] 注意条件判断下的场景
 
 ### ideas
 

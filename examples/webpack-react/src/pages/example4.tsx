@@ -47,6 +47,7 @@ const Example4 = memo(() => {
     <div>
       当前状态：{num}
       <Button onClick={onIncrease}>+</Button>
+      <Button onClick={onIncrease}>测试自定义组件是否能注入data属性</Button>
       <IconParking />
       <div>
         <header>字体测试</header>

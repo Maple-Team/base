@@ -7,6 +7,7 @@ module.exports = function () {
         '@liutsing/babel-plugin-auto-i18n',
         {
           hashFn: plugin.transformKey,
+          shouldInjectDataI18nAttribute: true,
         },
       ],
     ],

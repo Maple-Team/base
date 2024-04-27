@@ -23,7 +23,6 @@ export class ErrorBoundary extends React.Component<AnyToFix, { hasError: boolean
       // You can render any custom fallback UI
       return process.env.NODE_ENV === 'development' ? (
         <Alert
-          // TODO i18n
           message="出错了"
           description={this.state.stackTrace?.split('\n').map((msg) => (
             <p key={msg}>{msg}</p>
@@ -36,7 +35,6 @@ export class ErrorBoundary extends React.Component<AnyToFix, { hasError: boolean
         />
       ) : (
         <Alert
-          // TODO i18n
           message="出错了"
           description={[...(this.state?.stackTrace || '').split('\n')].map((msg) => (
             <p key={msg}>{msg}</p>

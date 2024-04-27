@@ -15,7 +15,7 @@ var Component = exports.Component = function Component() {
   var var1 = t('key_车牌号: ', {
     key1: plateNo
   });
-  return <div>{var1}</div>;
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u8F66\\\\u724C\\\\u53F7: \\\\\\"]\\">{var1}</div>;
 };"
 `;
 
@@ -31,7 +31,7 @@ var Component = exports.Component = function Component() {
   var _useTranslation = (0, _reactI18next.useTranslation)(),
     t = _useTranslation.t;
   var plateNo = 'No.123';
-  return <div>{t('key_车牌号: ', {
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u8F66\\\\u724C\\\\u53F7: \\\\\\"]\\">{t('key_车牌号: ', {
       key1: plateNo
     })}</div>;
 };"
@@ -54,7 +54,7 @@ var Component = exports.Component = function Component() {
     key1: plateNo,
     key2: price
   });
-  return <div>{var1}</div>;
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u8F66\\\\u724C\\\\u53F7: , \\\\\\"]\\">{var1}</div>;
 };"
 `;
 
@@ -75,6 +75,6 @@ var Component = exports.Component = function Component() {
     key1: plateNo,
     key2: price
   });
-  return <div>{var1}</div>;
+  return <div data-i18n=\\"[\\\\\\"key_\\\\u8F66\\\\u724C\\\\u53F7: , \\\\\\"]\\">{var1}</div>;
 };"
 `;
