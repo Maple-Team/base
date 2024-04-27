@@ -120,6 +120,9 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
 
   type InjectAttributesCB = typeof elementInjectAttributesCB
 
+  // NOTE 每个文件都会走一遍
+  // fs.unlinkSync(path.join(outputDir, 'report.log'))
+
   const obj: BabelCoreNamespace.PluginObj = {
     name: '@liutsing/babel-plugin-auto-i18n',
     pre(this) {
@@ -142,8 +145,27 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         const absolutePath = file.opts.filename || ''
         // TODO 字段重复处理策略
         const content = JSON.stringify(intlData, null, 4)
-        const outputFilename = debug ? absolutePath.replace(/[:\\\/\.\s]/g, '-') : hash(absolutePath)
-        fs.writeFileSync(path.join(outputDir, `${outputFilename}.json`), content)
+        const escapeFileName = absolutePath.replace(/[:\\\/\.\s]/g, '-')
+        const outputFilename = debug ? escapeFileName : hash(absolutePath)
+        // 输出扫描报告
+        fs.writeFile(
+          path.join(outputDir, 'report.log'),
+          `${JSON.stringify(
+            {
+              path: escapeFileName,
+              data: intlData,
+            },
+            null,
+            4
+          )}\r\n`,
+          { flag: 'a+' },
+          (e) => {
+            if (e) throw e
+          }
+        )
+        fs.writeFile(path.join(outputDir, `${outputFilename}.json`), content, (e) => {
+          if (e) throw e
+        })
       }
     },
     visitor: {
@@ -246,6 +268,8 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           .get('quasis')
           .map((item) => item.node.value.raw)
           .filter(Boolean) // [ '车牌号: ', ', ' ]
+        // 筛选符合条件的文案
+        if (!conditionalLanguage(value.join(','))) return
 
         const interpolationLength = value.length
         // key1 key2 ...
