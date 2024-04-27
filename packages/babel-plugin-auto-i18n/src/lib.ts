@@ -2,7 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import generate from '@babel/generator'
 import { isChinese } from '@liutsing/utils'
-import { hash } from '@liutsing/node-utils'
+import { hash, mkdirSafeSync } from '@liutsing/node-utils'
 import type * as BabelCoreNamespace from '@babel/core'
 import zip from 'lodash.zip'
 import type {
@@ -141,6 +141,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
       }, {})
       // 文件内容被覆盖
       if (Object.keys(intlData).length) {
+        mkdirSafeSync(outputDir)
         // 获取文件的绝对路径
         const absolutePath = file.opts.filename || ''
         // TODO 字段重复处理策略
