@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
+// import { useQuery } from '@tanstack/react-query'
 import { Button } from 'antd'
-import axios from 'axios'
+// import axios from 'axios'
 import type { DebouncedFuncLeading } from 'lodash'
 import { debounce } from 'lodash'
 import React, { memo, useCallback, useMemo, useState } from 'react'
@@ -9,8 +9,8 @@ import { IconParking } from '@/assets/svg-icons'
 const Example4 = memo(() => {
   const [num, setNum] = useState<number>(0)
   // const { data } = useQuery(['fetchInfo'], () => axios.get('/api/auth/profile'))
-  const { data } = useQuery(['fetchInfo'], () => axios.get('/api/lzz/all'))
-  console.log('useQuery发起请求', data)
+  // const { data } = useQuery(['fetchInfo'], () => axios.get('/api/lzz/all'))
+  // console.log('useQuery发起请求', data)
   // const { mutate } = useMutation(['directives'], (data) => axios.post('/api/directives', data))
   // useEffect(() => {
   //   mutate(
