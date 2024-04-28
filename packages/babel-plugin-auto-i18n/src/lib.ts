@@ -13,7 +13,6 @@ import type {
   FunctionExpression,
   Identifier,
   ImportSpecifier,
-  JSXFragment,
   JSXOpeningElement,
   ObjectProperty,
   Statement,
@@ -91,9 +90,6 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
    * @param path
    */
   const elementInjectAttributesCB = (value: string, path: JSXOpeningElement) => {
-    /**
-     *  TODO 类型为: JSXAttribute|JSXSpreadAttribute  JSXSpreadAttribute 待测试
-     */
     const i18nAttribute = path.attributes.find(
       (attr) => t.isJSXAttribute(attr) && t.isJSXIdentifier(attr.name) && attr.name.name === dataI18nAttributeName
     )
@@ -120,7 +116,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
 
   type InjectAttributesCB = typeof elementInjectAttributesCB
 
-  // NOTE 每个文件都会走一遍
+  // 每个文件都会走一遍
   // fs.unlinkSync(path.join(outputDir, 'report.log'))
 
   const obj: BabelCoreNamespace.PluginObj = {
@@ -144,7 +140,6 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         mkdirSafeSync(outputDir)
         // 获取文件的绝对路径
         const absolutePath = file.opts.filename || ''
-        // TODO 字段重复处理策略
         const content = JSON.stringify(intlData, null, 4)
         const escapeFileName = absolutePath.replace(/[:\\\/\.\s]/g, '-')
         const outputFilename = debug ? escapeFileName : hash(absolutePath)
@@ -191,7 +186,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           path.traverse({
             'StringLiteral|TemplateLiteral': function (path) {
               if (path.node.leadingComments) {
-                // NOTE 顺带删除注释
+                // 顺带删除注释
                 path.node.leadingComments = path.node.leadingComments.filter((comment) => {
                   if (comment.value.includes(i18nIgnoreLabel)) {
                     if (!path.node.extra) path.node.extra = {}
@@ -293,40 +288,44 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         path.skip()
         // data-i18n节点注入
         if (!shouldInjectDataI18nAttribute) return
-        const JSXOpeningElement = t.isJSXElement(path.parent) ? path.parent.openingElement : null
-        if (JSXOpeningElement) {
+        const JSXElement = path.findParent((el) => el.isJSXElement())
+
+        if (JSXElement) {
+          const JSXOpeningElement = t.isJSXElement(JSXElement.node) ? JSXElement.node.openingElement : null
+          if (!JSXOpeningElement) return
           // 在jsx节点下
           const elementInjectAttributesCB = JSXOpeningElement.extra?.elementInjectAttributesCB as InjectAttributesCB
           elementInjectAttributesCB?.(rawKey, JSXOpeningElement)
         } else {
-          // 不在jsxj节点下，插入到根节点
+          console.log(rawKey)
+          // 提供手动截图的话，就不插入到根节点
           // 在jsx组件中
-          const blockPath = path.findParent((p) => p.isBlockStatement())
-          if (blockPath && t.isBlockStatement(blockPath.node)) {
-            const returnStatement = blockPath.node.body.find((statement) => t.isReturnStatement(statement))
-            if (!returnStatement || !t.isReturnStatement(returnStatement)) return
-            const argument = returnStatement.argument
-            if (t.isJSXElement(argument)) {
-              if (!argument.openingElement.extra) argument.openingElement.extra = {}
-              argument.openingElement.extra.elementInjectAttributesCB = elementInjectAttributesCB
-              elementInjectAttributesCB?.(rawKey, argument.openingElement)
-            } else if (t.isJSXFragment(argument)) {
-              const firstJSXElement = argument.children[0]
-              if (!t.isJSXElement(firstJSXElement)) {
-                // jsxFragment不存在jsxElement，则插入新增jsxElement节点
-                const element = template.ast(`<div data-i18n=\'${JSON.stringify([rawKey])}\'></div>`, {
-                  plugins: ['jsx'],
-                })
-                if (!element || Array.isArray(element) || !t.isExpressionStatement(element)) return
-                if (!t.isJSXElement(element.expression)) return
-                ;(returnStatement.argument as JSXFragment).children.unshift(element.expression)
-              } else {
-                // jsxFragment下存在jsxElement，则插入data-i18n到这个jsxElement上
-                elementInjectAttributesCB?.(rawKey, firstJSXElement.openingElement)
-              }
-            }
-          }
-          // 不在jsx组件中, 在custom hooks中，这里怎么处理呢？
+          // const blockPath = path.findParent((p) => p.isBlockStatement())
+          // if (!blockPath) return
+          // if (!t.isBlockStatement(blockPath.node)) return
+          // const returnStatement = blockPath.node.body.find((statement) => t.isReturnStatement(statement))
+          // if (!returnStatement || !t.isReturnStatement(returnStatement)) return
+          // const argument = returnStatement.argument
+          // if (t.isJSXElement(argument)) {
+          //   if (!argument.openingElement.extra) argument.openingElement.extra = {}
+          //   argument.openingElement.extra.elementInjectAttributesCB = elementInjectAttributesCB
+          //   elementInjectAttributesCB?.(rawKey, argument.openingElement)
+          // } else if (t.isJSXFragment(argument)) {
+          //   const firstJSXElement = argument.children[0]
+          //   if (!t.isJSXElement(firstJSXElement)) {
+          //     // jsxFragment不存在jsxElement，则插入新增jsxElement节点
+          //     const element = template.ast(`<div data-i18n=\'${JSON.stringify([rawKey])}\'></div>`, {
+          //       plugins: ['jsx'],
+          //     })
+          //     if (!element || Array.isArray(element) || !t.isExpressionStatement(element)) return
+          //     if (!t.isJSXElement(element.expression)) return
+          //     ;(returnStatement.argument as JSXFragment).children.unshift(element.expression)
+          //   } else {
+          //     // jsxFragment下存在jsxElement，则插入data-i18n到这个jsxElement上
+          //     elementInjectAttributesCB?.(rawKey, firstJSXElement.openingElement)
+          //   }
+          // }
+          // 不在jsx组件中, 在custom hooks中，=> 手动截图
           // 由平台接口反推？应该仅支持固定文本的，不支持插槽等
         }
       },
@@ -345,12 +344,10 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         const absolutePath = file.opts.filename
         const parent = path.parent
         if (stringLiteralParentTypeDebug) console.log(i18nKey, parent.type)
-        // NOTE 忽略console.xxx('<中文>')
         if (isUnderConsoleCallExpression(path)) return
-        // FIXME console.xxx({pro:'<中文>'})
         if (t.isCallExpression(parent)) {
           const callExpressionPath = parent
-          // NOTE 处理类似message.info('<中文>')
+          // 处理类似message.info('<中文>')
           if (
             (t.isMemberExpression(callExpressionPath.callee) &&
               (callExpressionPath.callee.object as Identifier).name) ||
@@ -405,12 +402,12 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           保留函数作用域内的(react函数组件)
            */
           const blockPath = path.findParent((path) => path.isBlockStatement())
-          // NOTE 排除不在函数作用域中的中文: 其他字典类的定义按手动处理
+          // 排除不在函数作用域中的中文: 其他字典类的定义按手动处理
           if (!blockPath) return
-          // NOTE react组件中的svg内的id  插件在webpack中使用，走了两种节点遍历：JSXAttribute/StringLiteral
-          // NOTE 原因：@babel/preset-react处理这个jsx语法，JSXAttribute转变为ObjectExpression
-          // NOTE 先走了JSXAttribute遍历，已经删除了id="xxx" 这个节点
-          // NOTE 处理@babel/preset-react处理后的二次遍历问题
+          // react组件中的svg内的id  插件在webpack中使用，走了两种节点遍历：JSXAttribute/StringLiteral
+          // 原因：@babel/preset-react处理这个jsx语法，JSXAttribute转变为ObjectExpression
+          // 先走了JSXAttribute遍历，已经删除了id="xxx" 这个节点
+          // 处理@babel/preset-react处理后的二次遍历问题
           if (t.isStringLiteral(parent.key) && parent.key.value === dataI18nAttributeName) return
           replaceWithCallExpression(i18nKey, path, state)
         } else if (
@@ -545,7 +542,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         const hasBindingT = path.scope.hasBinding('t')
         const hasBindingI18n = path.scope.hasBinding('i18n')
 
-        // NOTE 不是是返回一个jsx element或函数名以use开头，则不需要注入
+        // 不是是返回一个jsx element或函数名以use开头，则不需要注入
         if (isValidJSXElement || functionNameNode?.name.startsWith('use')) {
           if (!hasUseTranslationVariableDeclarator) {
             const objectPropertyT = !hasBindingT ? t.objectProperty(t.identifier('t'), t.identifier('t')) : null
@@ -554,7 +551,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
               : null
             const objectProperties = [objectPropertyT, objectPropertyI18n].filter(Boolean) as ObjectProperty[]
 
-            // NOTE 没有符合条件的语言文案，则不需要注入
+            // 没有符合条件的语言文案，则不需要注入
             if (!hasConditionalLanguageText) return
             const useTranslationStatement = t.variableDeclaration('const', [
               t.variableDeclarator(
@@ -643,7 +640,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
               if (conditionalLanguage(value)) hasConditionalLanguageText = true
           },
         })
-        // NOTE 不是返回一个jsx element或函数名以use开头，则不需要注入
+        // 不是返回一个jsx element或函数名以use开头，则不需要注入
         if (isValidJSXElement || parentId?.name.startsWith('use')) {
           if (!useTranslationVariableDeclarator) {
             const objectPropertyT = !hasBindingT ? t.objectProperty(t.identifier('t'), t.identifier('t')) : null
@@ -651,7 +648,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
               ? t.objectProperty(t.identifier('i18n'), t.identifier('i18n'))
               : null
             const objectProperties = [objectPropertyT, objectPropertyI18n].filter(Boolean) as ObjectProperty[]
-            // NOTE 没有符合条件的语言文案，则不需要注入
+            // 没有符合条件的语言文案，则不需要注入
             if (!hasConditionalLanguageText) return
             const useTranslationStatement = t.variableDeclaration('const', [
               t.variableDeclarator(
@@ -714,7 +711,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           // path.node.arguments: [ArrowFunctionExpression, ArrayExpression|null]
           const dependencies = path.node.arguments[1] as ArrayExpression | null
           if (!dependencies) {
-            // NOTE 当前hooks无依赖数组项，默认每次都重新执行，不添加t函数进依赖数组
+            // 当前hooks无依赖数组项，默认每次都重新执行，不添加t函数进依赖数组
             return
             // dependencies = t.arrayExpression([])
             // if (t.isCallExpression(path.parent) && path.parent.arguments.length > 1)
