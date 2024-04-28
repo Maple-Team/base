@@ -29,7 +29,7 @@ const Language = {
 type LanguageKey = keyof typeof Language
 const existLocale = localStorage.getItem('language') as LanguageKey
 // NOTE 测试多种方式注入的环境变量
-console.log(process.env.customArg, process.env.args2)
+// console.log(process.env.customArg, process.env.args2)
 
 const Root = () => {
   const [lng, setLng] = useState<LanguageKey>(existLocale || 'zh-CN')
