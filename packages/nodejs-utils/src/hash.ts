@@ -57,3 +57,23 @@ export function hashFileSync(path: fs.PathLike, algo: HashAlgorithm) {
   const content = fs.readFileSync(path)
   return hash(algo).update(content).digest('base64')
 }
+
+/**
+ * base64转buffer
+ * @param base64
+ * @returns
+ */
+export const base64ToBuffer = (base64: string): Buffer => {
+  // The btoa() method creates a Base64-encoded ASCII string from a binary string (i.e., a string in which each character in the string is treated as a byte of binary data).
+  // The atob() function decodes a string of data which has been encoded using Base64 encoding. You can use the btoa() method to encode and transmit data which may otherwise cause communication problems, then transmit it and use the atob() method to decode the data again. For example, you can encode, transmit, and decode control characters such as ASCII values 0 through 31.
+
+  // method1
+  const binnaryString = atob(base64)
+  const len = binnaryString.length
+  const bytes = new Uint8Array(len)
+  for (let i = 0; i < len; i++) bytes[i] = binnaryString.charCodeAt(i)
+
+  return Buffer.copyBytesFrom(bytes)
+  // method2
+  // return Buffer.from(base64, 'base64')
+}
