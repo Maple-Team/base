@@ -67,21 +67,13 @@ export const base64ToBuffer = (base64: string): Buffer => {
   // The btoa() method creates a Base64-encoded ASCII string from a binary string (i.e., a string in which each character in the string is treated as a byte of binary data).
   // The atob() function decodes a string of data which has been encoded using Base64 encoding. You can use the btoa() method to encode and transmit data which may otherwise cause communication problems, then transmit it and use the atob() method to decode the data again. For example, you can encode, transmit, and decode control characters such as ASCII values 0 through 31.
 
-  // const str = atob(base64)
-  // const arr: number[] = []
-  // for (let index = 0; index < str.length; index++) {
-  //   const element = str[index]
-  //   console.log(element, element.charCodeAt(0))
-  //   arr.push(element.charCodeAt(0))
-  // }
-
   // method1
   const binnaryString = atob(base64)
   const len = binnaryString.length
   const bytes = new Uint8Array(len)
   for (let i = 0; i < len; i++) bytes[i] = binnaryString.charCodeAt(i)
-
-  return Buffer.copyBytesFrom(bytes)
+  return Buffer.from(bytes)
+  // return Buffer.copyBytesFrom(bytes)
   // method2
   // return Buffer.from(base64, 'base64')
 }
