@@ -1,5 +1,11 @@
 import { useEffect, useRef } from 'react'
 
+/**
+ * 获取引用的最新值(解决闭包的问题)
+ * https://github.com/alibaba/hooks/issues/2495
+ * @param fn
+ * @returns
+ */
 const useLatest = (fn: (...args: unknown[]) => void) => {
   const ref = useRef(fn)
   // method 1
