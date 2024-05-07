@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/cli",
-  "version": "0.0.2",
+  "version": "0.1.0-beta.1",
   "description": "",
   "engines": {
     "node": ">=16.0.0"
@@ -9,6 +9,7 @@
   "bin": {
     "maple": "index.js"
   },
+  "type": "module",
   "keywords": [],
   "license": "MIT",
   "repository": {
@@ -19,13 +20,11 @@
     "url": ""
   },
   "homepage": "",
-  "scripts": {
-  },
+  "scripts": {},
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "prompts": "2.4.2",
-    "yargs": "17.7.2"
+  "devDependencies": {
+    "inquirer": "^9.2.20"
   }
 }

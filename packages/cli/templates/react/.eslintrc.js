@@ -5,4 +5,5 @@ module.exports = {
     indent: 'off',
     'operator-linebreak': 'off',
   },
+  ignorePatterns: ['*.html', '*.json'],
 }
