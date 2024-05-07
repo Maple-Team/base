@@ -4,17 +4,7 @@ const webpack = require('webpack')
 module.exports = {
   mode: 'development',
   entry: {
-    vendor: [
-      'react',
-      'react-dom',
-      'axios',
-      // 'dayjs',
-      '@tanstack/react-query',
-      'react-router-dom',
-      'antd',
-      'ahooks',
-      'lodash-es',
-    ],
+    vendor: ['react', 'react-dom', 'axios', '@tanstack/react-query', 'ahooks', 'lodash-es'],
   },
   output: {
     filename: 'vendor.bundle.js',

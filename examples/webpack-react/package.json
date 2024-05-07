@@ -9,7 +9,6 @@
   "scripts": {
     "temp": "webpack --config config/webpack.temp.js",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
-    "dev:dll": "cross-env NODE_ENV=development webpack --config config/webpack.vendor.js",
     "rm": "rimraf public/fonts/*.woff2 public/fonts/*.woff node_modules/.cache/babel-loader",
     "preserve1": "pnpm run rm",
     "stats": "webpack --config config/webpack.stats.js",

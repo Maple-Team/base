@@ -3,11 +3,11 @@ const os = require('os')
 const { dev, getHtmWebpackPlugin } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
 const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
-const webpack = require('webpack')
+
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 const DashboardPlugin = require('webpack-dashboard/plugin')
-const { ModuleFederationPlugin } = require('webpack').container
-const ExternalTemplateRemotesPlugin = require('external-remotes-plugin')
+// const { ModuleFederationPlugin } = require('webpack').container
+// const ExternalTemplateRemotesPlugin = require('external-remotes-plugin')
 
 // const LifeCycleWebpackPlugin = require('@liutsing/lifecycle-webpack-plugin')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
@@ -20,25 +20,18 @@ const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 //   },
 // }),
 const smp = new SpeedMeasurePlugin()
-// TODO DllReferencePlugin
 // TODO ModuleFederationPlugin
 const config = merge(dev, {
-  // entry: [path.resolve(__dirname, '../src/index.ts'), path.resolve(__dirname, '../src/test/index.js')],
-  // entry: path.resolve(__dirname, '../src/index.ts'),
   entry: path.resolve(__dirname, '../src/main.tsx'),
   plugins: [
     getHtmWebpackPlugin(false),
-    // new webpack.DllReferencePlugin({
-    //   context: process.cwd(),
-    //   manifest: require(path.join(__dirname, '../public', 'vendor-manifest.json')),
-    // }),
+
     new MapleHtmlWebpackPlugin(
       [
         // {
         //   tagName: 'script',
         //   src: 'http://localhost:3002/runtime.js',
         // },
-        // { tagName: 'script', src: 'vendor.bundle.js', defer: true },
         {
           tagName: 'style',
           content: `
