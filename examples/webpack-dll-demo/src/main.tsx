@@ -5,5 +5,5 @@ import './main.css'
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
 
-// @ts-expect-error: xx
+//@ts-expect-error: xx
 root.render(<App />)

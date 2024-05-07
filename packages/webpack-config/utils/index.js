@@ -18,7 +18,7 @@ const getHtmWebpackPlugin = (hash = true) =>
     </head>
     <body>
       <!-- // TODO LOADING 主题变量-->
-      <div id="app"></div>
+      <div id="root"></div>
     </body>
   </html>
     `,

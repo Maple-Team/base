@@ -71,6 +71,7 @@ const eslintConfig = defineConfig({
     '*.crt',
     '*.key',
     'Dockerfile',
+    '*.html',
     // force include
     '!.github',
     '!.vitepress',

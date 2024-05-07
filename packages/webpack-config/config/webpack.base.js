@@ -79,40 +79,6 @@ const config = {
           },
           {
             loader: 'babel-loader',
-            options: {
-              cacheDirectory: true, // 缓存
-              presets: [
-                [
-                  '@babel/preset-env',
-                  {
-                    useBuiltIns: 'usage',
-                    corejs: '3.26.1',
-                    modules: false,
-                  },
-                ],
-                ['@babel/preset-react', { development: isDev, runtime: 'automatic' }],
-                require.resolve('../presets/auto-i18n.js'),
-                '@babel/preset-typescript',
-              ],
-              plugins: [
-                [
-                  '@babel/plugin-transform-runtime',
-                  {
-                    regenerator: true,
-                  },
-                ],
-                // ['@liutsing/babel-plugin-extract-used-chinese', { filename: 'example-webpack-react.txt' }],
-                isDev ? 'react-refresh/babel' : null,
-                !isDev
-                  ? [
-                      '@liutsing/babel-plugin-remove-console',
-                      {
-                        exclude: ['debug', 'error', 'warn'],
-                      },
-                    ]
-                  : null,
-              ].filter(Boolean),
-            },
           },
         ],
       },
@@ -217,7 +183,7 @@ const config = {
       ...envKeys,
     }),
 
-    new ESLintPlugin(),
+    isDev ? new ESLintPlugin() : null,
     !isDev ? new MiniCssExtractPlugin() : null,
   ].filter(Boolean),
 }
