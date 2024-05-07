@@ -72,8 +72,8 @@ export const base64ToBuffer = (base64: string): Buffer => {
   const len = binnaryString.length
   const bytes = new Uint8Array(len)
   for (let i = 0; i < len; i++) bytes[i] = binnaryString.charCodeAt(i)
-
-  return Buffer.copyBytesFrom(bytes)
+  return Buffer.from(bytes)
+  // return Buffer.copyBytesFrom(bytes)
   // method2
   // return Buffer.from(base64, 'base64')
 }
