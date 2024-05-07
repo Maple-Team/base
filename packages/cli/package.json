@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/cli",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "description": "",
   "engines": {
     "node": ">=16.0.0"
@@ -19,8 +19,13 @@
   "bugs": {
     "url": ""
   },
+  "files":[
+    "index.js","templates","utils.js"
+  ],
   "homepage": "",
-  "scripts": {},
+  "scripts": {
+    "postpublish": "pnpx @liutsing/npmmirror-sync"
+  },
   "publishConfig": {
     "access": "public"
   },
