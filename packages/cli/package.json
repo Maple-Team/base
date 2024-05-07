@@ -24,7 +24,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "devDependencies": {
+  "dependencies": {
     "inquirer": "^9.2.20"
   }
 }

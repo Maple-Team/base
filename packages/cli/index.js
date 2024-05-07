@@ -1,7 +1,6 @@
 import path from 'path'
-import fs from 'fs'
 import inquirer from 'inquirer'
-import { copyFolder } from './utils'
+import { copyFolder } from './utils.js'
 
 inquirer
   .prompt([
@@ -33,10 +32,12 @@ inquirer
     },
   ])
   .then((answers) => {
+    console.log(answers)
     const target = path.join(process.cwd(), answers.packageName)
-    const source = path.join(__dirname, 'templates', answers.projectType.tolowerCase())
-    copyFolder(source, target, (file, srcPath, destPath) => {
-      if (file === '_gitignore') fs.copyFileSync(srcPath, destPath.replace(/_gitignore/g, '.gitignore'))
-      else fs.copyFileSync(srcPath, destPath)
-    })
+    const source = path.join(process.cwd(), 'templates', answers.projectType.toLowerCase())
+    copyFolder(source, target)
+    //   (file, srcPath, destPath) => {
+    //   if (file === '_gitignore') fs.copyFileSync(srcPath, destPath.replace(/_gitignore/g, '.gitignore'))
+    //   else fs.copyFileSync(srcPath, destPath)
+    // }
   })
