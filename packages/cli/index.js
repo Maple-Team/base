@@ -1,6 +1,10 @@
-import path from 'path'
+import path, { dirname } from 'path'
+import { fileURLToPath } from 'url'
 import inquirer from 'inquirer'
 import { copyFolder } from './utils.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 inquirer
   .prompt([
@@ -32,9 +36,8 @@ inquirer
     },
   ])
   .then((answers) => {
-    console.log(answers)
     const target = path.join(process.cwd(), answers.packageName)
-    const source = path.join(process.cwd(), 'templates', answers.projectType.toLowerCase())
+    const source = path.join(__dirname, 'templates', answers.projectType.toLowerCase())
     copyFolder(source, target)
     //   (file, srcPath, destPath) => {
     //   if (file === '_gitignore') fs.copyFileSync(srcPath, destPath.replace(/_gitignore/g, '.gitignore'))
