@@ -24,4 +24,7 @@
 ## TODO
 
 - [ ] 打包代码代码拆分几块的功能
-- [x] 添加i18n使用示例
+- [x] 添加 i18n 使用示例
+- 拆分，当前项目改为打包/i18n demo 项目
+  - [ ] 拆分出 dll demo 项目
+  - [ ] 拆分出 modulee federation demo 项目

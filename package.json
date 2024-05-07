@@ -48,7 +48,7 @@
     "@babel/runtime": "^7.24.4",
     "@babel/template": "^7.24.0",
     "@babel/types": "^7.24.0",
-    "@liutsing/cli": "0.1.0-beta.2",
+    "@liutsing/cli": "0.1.0-beta.3",
     "@liutsing/eslint-config": "workspace:*",
     "@liutsing/node-utils": "workspace:*",
     "@liutsing/npmmirror-sync": "1.0.0",
