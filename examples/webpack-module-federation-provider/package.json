@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "sideEffects": ["*.css"],
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js",
-    "serve": "cross-env NODE_ENV=development webpack serve --config webpack.dev.js",
+    "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
+    "serve": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
     "lint": "nx lint",
     "lint:debug": "nx lint --debug",
     "test": "nx test",

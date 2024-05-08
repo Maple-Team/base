@@ -12,7 +12,7 @@ const config = merge(dev, {
     publicPath: 'auto',
   },
   optimization: {
-    runtimeChunk: 'single',
+    runtimeChunk: false, // <- 影响重大
   },
   plugins: [
     new HtmlWebpackPlugin({

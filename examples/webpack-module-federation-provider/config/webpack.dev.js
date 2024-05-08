@@ -8,12 +8,12 @@ const { ModuleFederationPlugin } = require('webpack').container
  * @type {import('webpack').Configuration}
  */
 const config = merge(dev, {
-  entry: path.resolve(__dirname, './src/index.ts'),
+  entry: path.resolve(__dirname, '../src/index.ts'),
   output: {
     publicPath: 'auto',
   },
   optimization: {
-    runtimeChunk: 'single',
+    runtimeChunk: false,
   },
   plugins: [
     new HtmlWebpackPlugin({

@@ -1,6 +1,6 @@
 import React, { Suspense, useState } from 'react'
 
-// const RemoteButton = React.lazy(() => import('mfprovider/Button'))
+const RemoteButton = React.lazy(() => import('mfprovider/Button'))
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,9 +14,9 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      {/* <Suspense fallback="loading...">
+      <Suspense fallback="loading...">
         <RemoteButton />
-      </Suspense> */}
+      </Suspense>
     </div>
   )
 }
