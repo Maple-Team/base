@@ -2,15 +2,15 @@
   "name": "react-ts-starter",
   "private": true,
   "version": "1.0.0",
-  "sideEffects": false,
+  "sideEffects": ["*.css"],
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
     "serve": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
-    "lint": "npm run lint",
-    "lint:debug": "npm run lint --debug",
-    "test": "npm run test",
-    "test:watch": "npm run test --watch",
-    "lint:fix": "npm run lint --fix"
+    "lint": "nx lint",
+    "lint:debug": "nx lint --debug",
+    "test": "nx test",
+    "test:watch": "nx test --watch",
+    "lint:fix": "nx lint --fix"
   },
   "dependencies": {
     "@babel/runtime": "^7.23.2",
@@ -20,23 +20,28 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "18.2.0",
-    "@types/react-dom": "18.2.0",
-    "typescript": "^5.0.4",
-    "tailwindcss": "^3.3.4",
+    "@babel/plugin-transform-runtime": "^7.24.3",
     "@liutsing/babel-plugin-remove-console": "workspace:*",
     "@liutsing/eslint-config": "workspace:*",
+    "@liutsing/html-webpack-plugin": "^0.1.1",
     "@liutsing/prettier-config": "workspace:*",
-    "@liutsing/types-utils": "workspace:*",
     "@liutsing/tsconfig": "0.0.6",
+    "@liutsing/types-utils": "workspace:*",
     "@liutsing/webpack-config": "workspace:*",
-    "cross-env": "^7.0.3",
-    "@testing-library/react-hooks": "^8.0.1",
     "@svgr/webpack": "^8.1.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.0",
+    "autoprefixer": "^10.4.19",
+    "cross-env": "^7.0.3",
     "css-modules-typescript-loader": "^4.0.1",
+    "install": "^0.13.0",
+    "postcss": "^8.4.38",
     "postcss-loader": "^8.1.1",
     "style-loader": "^4.0.0",
-    "svgo-loader": "^4.0.0"
+    "svgo-loader": "^4.0.0",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.0.4"
   },
   "prettier": "@liutsing/prettier-config",
   "simple-git-hooks": {
@@ -44,5 +49,8 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
+  },
+  "nx": {
+    "includedScripts": []
   }
 }

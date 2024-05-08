@@ -2,14 +2,10 @@
   "name": "react-ts-starter",
   "private": true,
   "version": "1.0.0",
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": ["*.css"],
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
-    "stats": "cross-env NODE_ENV=production webpack --config config/webpack.stats.js",
-    "serve": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
-    "preserve1": "cross-env NODE_ENV=development webpack --config config/webpack.vendor.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js",
+    "serve": "cross-env NODE_ENV=development webpack serve --config webpack.dev.js",
     "lint": "nx lint",
     "lint:debug": "nx lint --debug",
     "test": "nx test",
@@ -17,8 +13,9 @@
     "lint:fix": "nx lint --fix"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.23.2",
+    "@babel/runtime": "^7.23.2",
     "core-js": "^3.33.1",
+    "@babel/runtime-corejs3": "^7.23.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -55,11 +52,5 @@
   },
   "nx": {
     "includedScripts": []
-  },
-  "browserslist": [
-    "> 1%",
-    "not dead",
-    "not ie 11",
-    "not op_mini all"
-  ]
+  }
 }

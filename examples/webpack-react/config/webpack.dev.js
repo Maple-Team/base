@@ -6,8 +6,6 @@ const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
 
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 const DashboardPlugin = require('webpack-dashboard/plugin')
-// const { ModuleFederationPlugin } = require('webpack').container
-// const ExternalTemplateRemotesPlugin = require('external-remotes-plugin')
 
 // const LifeCycleWebpackPlugin = require('@liutsing/lifecycle-webpack-plugin')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
@@ -28,10 +26,6 @@ const config = merge(dev, {
 
     new MapleHtmlWebpackPlugin(
       [
-        // {
-        //   tagName: 'script',
-        //   src: 'http://localhost:3002/runtime.js',
-        // },
         {
           tagName: 'style',
           content: `
@@ -63,14 +57,6 @@ const config = merge(dev, {
     //   isFilePath: false,
     // }),
     new DashboardPlugin(),
-    // new ModuleFederationPlugin({
-    //   name: 'webpack-example-app',
-    //   remotes: {
-    //     module_federation: 'module_federation@[module_federationUrl]/remoteEntry.js',
-    //   },
-    //   shared: { react: { singleton: true }, 'react-dom': { singleton: true } },
-    // }),
-    // new ExternalTemplateRemotesPlugin(),
   ],
   optimization: {
     usedExports: true, // 使用分析报告
@@ -87,9 +73,6 @@ const config = merge(dev, {
   externalsType: 'script',
   externals: {
     lodash: ['https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-y/lodash.js/4.17.21/lodash.min.js', '_'],
-    // FIXME not working 顺序问题
-    // react: ['https://static.etlink.ecar.com/js/react_18.2.0_umd_react.development.js', 'React'],
-    // 'react-dom/client': ['https://static.etlink.ecar.com/js/react-dom_18.2.0_umd_react-dom.development.js', 'ReactDom'],
   },
   externalsPresets: {
     web: true,

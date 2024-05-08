@@ -60,13 +60,13 @@ const dev = {
     pathinfo: false,
     clean: true,
   },
-  watchOptions: {
-    aggregateTimeout: 600, // 在第一个文件更改后，添加一个延迟再进行重新构建。这样可以让webpack在此期间聚合其他任何更改，并进行一次重新构建。单位：ms
-    poll: 100, // 轮询时长 单位：ms
-    ignored: ['**/node_modules'],
-    stdin: true,
-    followSymlinks: false, // 在查找文件时，跟随符号链接。This is usually not needed as webpack already resolves symlinks with `resolve.symlinks`.
-  },
+  //   watchOptions: {
+  //     aggregateTimeout: 600, // 在第一个文件更改后，添加一个延迟再进行重新构建。这样可以让webpack在此期间聚合其他任何更改，并进行一次重新构建。单位：ms
+  //     poll: 100, // 轮询时长 单位：ms
+  //     ignored: ['**/node_modules'],
+  //     stdin: true,
+  //     followSymlinks: false, // 在查找文件时，跟随符号链接。This is usually not needed as webpack already resolves symlinks with `resolve.symlinks`.
+  //   },
   experiments: {
     lazyCompilation: true,
   },
