@@ -1,5 +1,5 @@
 {
-  "name": "react-ts-starter",
+  "name": "@liutsing/webpack-react",
   "private": true,
   "version": "1.0.0",
   "sideEffects": false,
