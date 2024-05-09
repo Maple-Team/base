@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/webpack-config",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0-beta.1",
   "private": false,
   "description": "common webpack config",
   "keywords": [
@@ -21,7 +21,7 @@
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged",
-    "postpublish": "npx @liutsing/npmmirror-sync"
+    "postpublish": "pnpx @liutsing/npmmirror-sync"
   },
   "lint-staged": {
     "*": "eslint --fix"
