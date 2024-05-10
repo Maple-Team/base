@@ -6,10 +6,10 @@ const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
 
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const DashboardPlugin = require('webpack-dashboard/plugin')
+// const DashboardPlugin = require('webpack-dashboard/plugin')
 
 // const LifeCycleWebpackPlugin = require('@liutsing/lifecycle-webpack-plugin')
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+// const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 // new LifeCycleWebpackPlugin({
 //   compile: () => {
 //     console.log('\n compile \n', new Date())
@@ -18,7 +18,7 @@ const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 //     console.log('\n done \n', new Date())
 //   },
 // }),
-const smp = new SpeedMeasurePlugin()
+// const smp = new SpeedMeasurePlugin()
 // TODO ModuleFederationPlugin
 const config = merge(dev, {
   entry: path.resolve(__dirname, '../src/main.tsx'),
@@ -26,46 +26,53 @@ const config = merge(dev, {
     new HtmlWebpackPlugin({
       inject: true,
       hash: true, // 文件连接hash值
-      cache: false,
+      cache: true,
       // TODO LOADING 主题变量
       templateContent: () => templateContent,
       meta,
     }),
-
     new MapleHtmlWebpackPlugin(
       [
-        // {
-        //   tagName: 'style',
-        //   content: `
-        //   @font-face {
-        //     font-family: 'Alibaba PuHuiTi 2.0 55';
-        //     src: url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff2') format('woff2'),
-        //       url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff') format('woff');
-        //     font-weight: normal;
-        //     font-style: normal;
-        //     font-display: swap;
-        //   }
-        //   `,
-        // },
-        // null,
+        {
+          tagName: 'style',
+          content: `
+          @font-face {
+            font-family: 'Alibaba PuHuiTi 2.0 55';
+            src: url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff2') format('woff2'),
+              url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+          }
+          `,
+        },
+        null,
+        {
+          tagName: 'script',
+          content: `
+          window.onload = function () {
+            console.log('window.onload')
+          }
+          `,
+        },
       ],
-      'head'
+      'body'
     ),
     // 动态扫描 -> babel缓存了导致这个文字文件不存在
-    new FontMinifyPlugin({
-      words: path.resolve(os.tmpdir(), 'example-webpack-react.txt'),
-      fontSource: path.resolve(
-        __dirname,
-        '../../../packages/font-minify-plugin/puhui2/AlibabaPuHuiTi_2_55_Regular.ttf'
-      ),
-      fontDistFilename: 'AlibabaPuHuiTi_2_55_Regular',
-    }),
+    // new FontMinifyPlugin({
+    //   words: path.resolve(os.tmpdir(), 'example-webpack-react.txt'),
+    //   fontSource: path.resolve(
+    //     __dirname,
+    //     '../../../packages/font-minify-plugin/puhui2/AlibabaPuHuiTi_2_55_Regular.ttf'
+    //   ),
+    //   fontDistFilename: 'AlibabaPuHuiTi_2_55_Regular',
+    // }),
     // 静态传入
     // new FontMinifyPlugin({
     //   words: '文言文字形对比',
     //   isFilePath: false,
     // }),
-    new DashboardPlugin(),
+    // new DashboardPlugin(),
   ],
   optimization: {
     usedExports: true, // 使用分析报告

@@ -15,14 +15,14 @@ module.exports = (api) => {
       [
         '@babel/preset-env',
         {
-          // useBuiltIns: 'usage',
+          useBuiltIns: 'usage',
           corejs: '3.33.1',
           modules: false,
           targets: {
             browsers: pkg.browserslist,
           },
           bugfixes: true,
-          debug: api.env('development'),
+          // debug: api.env('development'),
         },
       ],
       ['@babel/preset-react', { development: api.env('development'), runtime: 'automatic' }],
@@ -36,7 +36,10 @@ module.exports = (api) => {
             {
               regenerator: true,
               corejs: 3,
-              helpers: true,
+              // FIXME error
+              // moduleName: '@babel/runtime-corejs3',
+              // Module not found: Error: Package path ./helpers/esm/callSuper is not exported from package /root/maple/base/examples/webpack-react/node_modules/@babel/runtime-corejs3 (see exports field in /root/maple/base/examples/webpack-react/node_modules/@babel/runtime-corejs3/package.json)
+              helpers: false,
               useESModules: true,
               version: '^7.24.3',
             },
