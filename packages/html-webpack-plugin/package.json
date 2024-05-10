@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/html-webpack-plugin",
-  "version": "0.1.3-beta.1",
+  "version": "0.2.0-beta.1",
   "description": "A plugin to inject addition tag to supplement html-webpack-plugin",
   "keywords": [
     "webpack",
@@ -8,16 +8,13 @@
     "html-webpack-plugin"
   ],
   "homepage": "",
-  "bugs": {
-    "url": ""
-  },
   "repository": {
     "type": "git",
     "url": ""
   },
   "license": "MIT",
   "author": "liutsing <liutsingluo@gmail.com>",
-  "main": "index.js",
+  "main": "lib/index.js",
   "source": "src/index.ts",
   "types": "types/index.d.ts",
   "files": [

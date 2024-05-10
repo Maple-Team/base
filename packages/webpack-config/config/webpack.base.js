@@ -4,7 +4,7 @@ const { ProvidePlugin, DefinePlugin } = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const dayjs = require('dayjs')
-const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
+const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin').default
 const ESLintPlugin = require('eslint-webpack-plugin')
 
 const currentGitBranch = child.execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
