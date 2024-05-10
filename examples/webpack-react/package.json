@@ -87,7 +87,6 @@
     "css-modules-typescript-loader": "^4.0.1",
     "express": "^4.18.2",
     "external-remotes-plugin": "^1.0.0",
-    "html-webpack-plugin": "^5.5.3",
     "less": "^4.2.0",
     "less-loader": "^11.1.3",
     "lint-staged": "^15.0.2",
