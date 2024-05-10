@@ -3,10 +3,9 @@ const os = require('os')
 const { dev, templateContent, meta } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
 const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
-
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const DashboardPlugin = require('webpack-dashboard/plugin')
+const DashboardPlugin = require('webpack-dashboard/plugin')
 
 // const LifeCycleWebpackPlugin = require('@liutsing/lifecycle-webpack-plugin')
 // const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
@@ -19,7 +18,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 //   },
 // }),
 // const smp = new SpeedMeasurePlugin()
-// TODO ModuleFederationPlugin
+
 const config = merge(dev, {
   entry: path.resolve(__dirname, '../src/main.tsx'),
   plugins: [
@@ -46,33 +45,24 @@ const config = merge(dev, {
           }
           `,
         },
-        null,
-        {
-          tagName: 'script',
-          content: `
-          window.onload = function () {
-            console.log('window.onload')
-          }
-          `,
-        },
       ],
       'body'
     ),
     // 动态扫描 -> babel缓存了导致这个文字文件不存在
-    // new FontMinifyPlugin({
-    //   words: path.resolve(os.tmpdir(), 'example-webpack-react.txt'),
-    //   fontSource: path.resolve(
-    //     __dirname,
-    //     '../../../packages/font-minify-plugin/puhui2/AlibabaPuHuiTi_2_55_Regular.ttf'
-    //   ),
-    //   fontDistFilename: 'AlibabaPuHuiTi_2_55_Regular',
-    // }),
+    new FontMinifyPlugin({
+      words: path.resolve(os.tmpdir(), 'example-webpack-react.txt'),
+      fontSource: path.resolve(
+        __dirname,
+        '../../../packages/font-minify-plugin/puhui2/AlibabaPuHuiTi_2_55_Regular.ttf'
+      ),
+      fontDistFilename: 'AlibabaPuHuiTi_2_55_Regular',
+    }),
     // 静态传入
-    // new FontMinifyPlugin({
-    //   words: '文言文字形对比',
-    //   isFilePath: false,
-    // }),
-    // new DashboardPlugin(),
+    new FontMinifyPlugin({
+      words: '文言文字形对比',
+      isFilePath: false,
+    }),
+    new DashboardPlugin(),
   ],
   optimization: {
     usedExports: true, // 使用分析报告

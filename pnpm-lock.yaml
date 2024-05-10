@@ -666,7 +666,7 @@ importers:
         version: 3.3.8(webpack@5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4))
       webpack-dev-server:
         specifier: ^4.15.1
-        version: 4.15.1(webpack-cli@5.1.4)(webpack@5.89.0)
+        version: 4.15.1(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))(webpack@5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0)))
       webpack-merge:
         specifier: ^5.10.0
         version: 5.10.0
@@ -969,6 +969,12 @@ importers:
       '@babel/plugin-proposal-class-properties':
         specifier: ^7.18.6
         version: 7.18.6(@babel/core@7.24.4)
+      '@rollup/plugin-typescript':
+        specifier: ^9.0.1
+        version: 9.0.2(rollup@4.17.2)(tslib@2.6.2)(typescript@5.4.3)
+      rollup:
+        specifier: ^4.17.2
+        version: 4.17.2
       webpack:
         specifier: ^5.75.0
         version: 5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))
@@ -1473,7 +1479,7 @@ importers:
         version: 5.1.4(webpack-bundle-analyzer@4.9.1)(webpack-dev-server@4.15.1)(webpack@5.89.0)
       webpack-dev-server:
         specifier: ^4.11.1
-        version: 4.15.1(webpack-cli@5.1.4)(webpack@5.89.0)
+        version: 4.15.1(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))(webpack@5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0)))
       webpack-merge:
         specifier: ^5.8.0
         version: 5.10.0
@@ -4509,8 +4515,18 @@ packages:
     cpu: [arm]
     os: [android]
 
+  '@rollup/rollup-android-arm-eabi@4.17.2':
+    resolution: {integrity: sha512-NM0jFxY8bB8QLkoKxIQeObCaDlJKewVlIEkuyYKm5An1tdVZ966w2+MPQ2l8LBZLjR+SgyV+nRkTIunzOYBMLQ==, tarball: https://registry.npmjs.org/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.17.2.tgz}
+    cpu: [arm]
+    os: [android]
+
   '@rollup/rollup-android-arm64@4.13.2':
     resolution: {integrity: sha512-GdxxXbAuM7Y/YQM9/TwwP+L0omeE/lJAR1J+olu36c3LqqZEBdsIWeQ91KBe6nxwOnb06Xh7JS2U5ooWU5/LgQ==, tarball: https://registry.npmjs.org/@rollup/rollup-android-arm64/-/rollup-android-arm64-4.13.2.tgz}
+    cpu: [arm64]
+    os: [android]
+
+  '@rollup/rollup-android-arm64@4.17.2':
+    resolution: {integrity: sha512-yeX/Usk7daNIVwkq2uGoq2BYJKZY1JfyLTaHO/jaiSwi/lsf8fTFoQW/n6IdAsx5tx+iotu2zCJwz8MxI6D/Bw==, tarball: https://registry.npmjs.org/@rollup/rollup-android-arm64/-/rollup-android-arm64-4.17.2.tgz}
     cpu: [arm64]
     os: [android]
 
@@ -4519,8 +4535,18 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
+  '@rollup/rollup-darwin-arm64@4.17.2':
+    resolution: {integrity: sha512-kcMLpE6uCwls023+kknm71ug7MZOrtXo+y5p/tsg6jltpDtgQY1Eq5sGfHcQfb+lfuKwhBmEURDga9N0ol4YPw==, tarball: https://registry.npmjs.org/@rollup/rollup-darwin-arm64/-/rollup-darwin-arm64-4.17.2.tgz}
+    cpu: [arm64]
+    os: [darwin]
+
   '@rollup/rollup-darwin-x64@4.13.2':
     resolution: {integrity: sha512-yUoEvnH0FBef/NbB1u6d3HNGyruAKnN74LrPAfDQL3O32e3k3OSfLrPgSJmgb3PJrBZWfPyt6m4ZhAFa2nZp2A==, tarball: https://registry.npmjs.org/@rollup/rollup-darwin-x64/-/rollup-darwin-x64-4.13.2.tgz}
+    cpu: [x64]
+    os: [darwin]
+
+  '@rollup/rollup-darwin-x64@4.17.2':
+    resolution: {integrity: sha512-AtKwD0VEx0zWkL0ZjixEkp5tbNLzX+FCqGG1SvOu993HnSz4qDI6S4kGzubrEJAljpVkhRSlg5bzpV//E6ysTQ==, tarball: https://registry.npmjs.org/@rollup/rollup-darwin-x64/-/rollup-darwin-x64-4.17.2.tgz}
     cpu: [x64]
     os: [darwin]
 
@@ -4529,50 +4555,93 @@ packages:
     cpu: [arm]
     os: [linux]
 
+  '@rollup/rollup-linux-arm-gnueabihf@4.17.2':
+    resolution: {integrity: sha512-3reX2fUHqN7sffBNqmEyMQVj/CKhIHZd4y631duy0hZqI8Qoqf6lTtmAKvJFYa6bhU95B1D0WgzHkmTg33In0A==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-arm-gnueabihf/-/rollup-linux-arm-gnueabihf-4.17.2.tgz}
+    cpu: [arm]
+    os: [linux]
+
+  '@rollup/rollup-linux-arm-musleabihf@4.17.2':
+    resolution: {integrity: sha512-uSqpsp91mheRgw96xtyAGP9FW5ChctTFEoXP0r5FAzj/3ZRv3Uxjtc7taRQSaQM/q85KEKjKsZuiZM3GyUivRg==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-arm-musleabihf/-/rollup-linux-arm-musleabihf-4.17.2.tgz}
+    cpu: [arm]
+    os: [linux]
+
   '@rollup/rollup-linux-arm64-gnu@4.13.2':
     resolution: {integrity: sha512-L1+D8/wqGnKQIlh4Zre9i4R4b4noxzH5DDciyahX4oOz62CphY7WDWqJoQ66zNR4oScLNOqQJfNSIAe/6TPUmQ==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-arm64-gnu/-/rollup-linux-arm64-gnu-4.13.2.tgz}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
+
+  '@rollup/rollup-linux-arm64-gnu@4.17.2':
+    resolution: {integrity: sha512-EMMPHkiCRtE8Wdk3Qhtciq6BndLtstqZIroHiiGzB3C5LDJmIZcSzVtLRbwuXuUft1Cnv+9fxuDtDxz3k3EW2A==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-arm64-gnu/-/rollup-linux-arm64-gnu-4.17.2.tgz}
+    cpu: [arm64]
+    os: [linux]
 
   '@rollup/rollup-linux-arm64-musl@4.13.2':
     resolution: {integrity: sha512-tK5eoKFkXdz6vjfkSTCupUzCo40xueTOiOO6PeEIadlNBkadH1wNOH8ILCPIl8by/Gmb5AGAeQOFeLev7iZDOA==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-arm64-musl/-/rollup-linux-arm64-musl-4.13.2.tgz}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
+
+  '@rollup/rollup-linux-arm64-musl@4.17.2':
+    resolution: {integrity: sha512-NMPylUUZ1i0z/xJUIx6VUhISZDRT+uTWpBcjdv0/zkp7b/bQDF+NfnfdzuTiB1G6HTodgoFa93hp0O1xl+/UbA==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-arm64-musl/-/rollup-linux-arm64-musl-4.17.2.tgz}
+    cpu: [arm64]
+    os: [linux]
 
   '@rollup/rollup-linux-powerpc64le-gnu@4.13.2':
     resolution: {integrity: sha512-zvXvAUGGEYi6tYhcDmb9wlOckVbuD+7z3mzInCSTACJ4DQrdSLPNUeDIcAQW39M3q6PDquqLWu7pnO39uSMRzQ==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-powerpc64le-gnu/-/rollup-linux-powerpc64le-gnu-4.13.2.tgz}
     cpu: [ppc64le]
     os: [linux]
-    libc: [glibc]
+
+  '@rollup/rollup-linux-powerpc64le-gnu@4.17.2':
+    resolution: {integrity: sha512-T19My13y8uYXPw/L/k0JYaX1fJKFT/PWdXiHr8mTbXWxjVF1t+8Xl31DgBBvEKclw+1b00Chg0hxE2O7bTG7GQ==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-powerpc64le-gnu/-/rollup-linux-powerpc64le-gnu-4.17.2.tgz}
+    cpu: [ppc64]
+    os: [linux]
 
   '@rollup/rollup-linux-riscv64-gnu@4.13.2':
     resolution: {integrity: sha512-C3GSKvMtdudHCN5HdmAMSRYR2kkhgdOfye4w0xzyii7lebVr4riCgmM6lRiSCnJn2w1Xz7ZZzHKuLrjx5620kw==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-riscv64-gnu/-/rollup-linux-riscv64-gnu-4.13.2.tgz}
     cpu: [riscv64]
     os: [linux]
-    libc: [glibc]
+
+  '@rollup/rollup-linux-riscv64-gnu@4.17.2':
+    resolution: {integrity: sha512-BOaNfthf3X3fOWAB+IJ9kxTgPmMqPPH5f5k2DcCsRrBIbWnaJCgX2ll77dV1TdSy9SaXTR5iDXRL8n7AnoP5cg==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-riscv64-gnu/-/rollup-linux-riscv64-gnu-4.17.2.tgz}
+    cpu: [riscv64]
+    os: [linux]
 
   '@rollup/rollup-linux-s390x-gnu@4.13.2':
     resolution: {integrity: sha512-l4U0KDFwzD36j7HdfJ5/TveEQ1fUTjFFQP5qIt9gBqBgu1G8/kCaq5Ok05kd5TG9F8Lltf3MoYsUMw3rNlJ0Yg==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-s390x-gnu/-/rollup-linux-s390x-gnu-4.13.2.tgz}
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
+
+  '@rollup/rollup-linux-s390x-gnu@4.17.2':
+    resolution: {integrity: sha512-W0UP/x7bnn3xN2eYMql2T/+wpASLE5SjObXILTMPUBDB/Fg/FxC+gX4nvCfPBCbNhz51C+HcqQp2qQ4u25ok6g==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-s390x-gnu/-/rollup-linux-s390x-gnu-4.17.2.tgz}
+    cpu: [s390x]
+    os: [linux]
 
   '@rollup/rollup-linux-x64-gnu@4.13.2':
     resolution: {integrity: sha512-xXMLUAMzrtsvh3cZ448vbXqlUa7ZL8z0MwHp63K2IIID2+DeP5iWIT6g1SN7hg1VxPzqx0xZdiDM9l4n9LRU1A==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.13.2.tgz}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
+
+  '@rollup/rollup-linux-x64-gnu@4.17.2':
+    resolution: {integrity: sha512-Hy7pLwByUOuyaFC6mAr7m+oMC+V7qyifzs/nW2OJfC8H4hbCzOX07Ov0VFk/zP3kBsELWNFi7rJtgbKYsav9QQ==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.17.2.tgz}
+    cpu: [x64]
+    os: [linux]
 
   '@rollup/rollup-linux-x64-musl@4.13.2':
     resolution: {integrity: sha512-M/JYAWickafUijWPai4ehrjzVPKRCyDb1SLuO+ZyPfoXgeCEAlgPkNXewFZx0zcnoIe3ay4UjXIMdXQXOZXWqA==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-x64-musl/-/rollup-linux-x64-musl-4.13.2.tgz}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
+
+  '@rollup/rollup-linux-x64-musl@4.17.2':
+    resolution: {integrity: sha512-h1+yTWeYbRdAyJ/jMiVw0l6fOOm/0D1vNLui9iPuqgRGnXA0u21gAqOyB5iHjlM9MMfNOm9RHCQ7zLIzT0x11Q==, tarball: https://registry.npmjs.org/@rollup/rollup-linux-x64-musl/-/rollup-linux-x64-musl-4.17.2.tgz}
+    cpu: [x64]
+    os: [linux]
 
   '@rollup/rollup-win32-arm64-msvc@4.13.2':
     resolution: {integrity: sha512-2YWwoVg9KRkIKaXSh0mz3NmfurpmYoBBTAXA9qt7VXk0Xy12PoOP40EFuau+ajgALbbhi4uTj3tSG3tVseCjuA==, tarball: https://registry.npmjs.org/@rollup/rollup-win32-arm64-msvc/-/rollup-win32-arm64-msvc-4.13.2.tgz}
+    cpu: [arm64]
+    os: [win32]
+
+  '@rollup/rollup-win32-arm64-msvc@4.17.2':
+    resolution: {integrity: sha512-tmdtXMfKAjy5+IQsVtDiCfqbynAQE/TQRpWdVataHmhMb9DCoJxp9vLcCBjEQWMiUYxO1QprH/HbY9ragCEFLA==, tarball: https://registry.npmjs.org/@rollup/rollup-win32-arm64-msvc/-/rollup-win32-arm64-msvc-4.17.2.tgz}
     cpu: [arm64]
     os: [win32]
 
@@ -4581,8 +4650,18 @@ packages:
     cpu: [ia32]
     os: [win32]
 
+  '@rollup/rollup-win32-ia32-msvc@4.17.2':
+    resolution: {integrity: sha512-7II/QCSTAHuE5vdZaQEwJq2ZACkBpQDOmQsE6D6XUbnBHW8IAhm4eTufL6msLJorzrHDFv3CF8oCA/hSIRuZeQ==, tarball: https://registry.npmjs.org/@rollup/rollup-win32-ia32-msvc/-/rollup-win32-ia32-msvc-4.17.2.tgz}
+    cpu: [ia32]
+    os: [win32]
+
   '@rollup/rollup-win32-x64-msvc@4.13.2':
     resolution: {integrity: sha512-7h7J2nokcdPePdKykd8wtc8QqqkqxIrUz7MHj6aNr8waBRU//NLDVnNjQnqQO6fqtjrtCdftpbTuOKAyrAQETQ==, tarball: https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.13.2.tgz}
+    cpu: [x64]
+    os: [win32]
+
+  '@rollup/rollup-win32-x64-msvc@4.17.2':
+    resolution: {integrity: sha512-TGGO7v7qOq4CYmSBVEYpI1Y5xDuCEnbVC5Vth8mOsW0gDSzxNrVERPc790IGHsrT2dQSimgMr9Ub3Y1Jci5/8w==, tarball: https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.17.2.tgz}
     cpu: [x64]
     os: [win32]
 
@@ -5136,7 +5215,7 @@ packages:
     resolution: {integrity: sha512-2JwWnHK9H+wUZNorf2Zr6ves96WHoWDJIftkcxPKsS7Djta6Zu519LarhRNljPXkpsZR2ZMwNCPeW7omW07BJw==}
 
   '@types/estree@1.0.5':
-    resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
+    resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==, tarball: https://registry.npmjs.org/@types/estree/-/estree-1.0.5.tgz}
 
   '@types/express-serve-static-core@4.17.39':
     resolution: {integrity: sha512-BiEUfAiGCOllomsRAZOiMFP7LAnrifHpt56pc4Z7l9K6ACyN06Ns1JLMBxwkfLOjJRlSf06NwWsT7yzfpaVpyQ==}
@@ -13232,11 +13311,11 @@ packages:
     resolution: {integrity: sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==}
 
   rollup@0.25.8:
-    resolution: {integrity: sha512-a2S4Bh3bgrdO4BhKr2E4nZkjTvrJ2m2bWjMTzVYtoqSCn0HnuxosXnaJUHrMEziOWr3CzL9GjilQQKcyCQpJoA==}
+    resolution: {integrity: sha512-a2S4Bh3bgrdO4BhKr2E4nZkjTvrJ2m2bWjMTzVYtoqSCn0HnuxosXnaJUHrMEziOWr3CzL9GjilQQKcyCQpJoA==, tarball: https://registry.npmjs.org/rollup/-/rollup-0.25.8.tgz}
     hasBin: true
 
   rollup@0.34.13:
-    resolution: {integrity: sha512-DlmYghq9ozqhrGHEEUoPXpDq9isXuejioj4toBiMXEpp7K8jlsaURcC2iMFa/J6E81vWuq5cYYafStcOgyFDUg==}
+    resolution: {integrity: sha512-DlmYghq9ozqhrGHEEUoPXpDq9isXuejioj4toBiMXEpp7K8jlsaURcC2iMFa/J6E81vWuq5cYYafStcOgyFDUg==, tarball: https://registry.npmjs.org/rollup/-/rollup-0.34.13.tgz}
     hasBin: true
 
   rollup@2.79.1:
@@ -13250,7 +13329,12 @@ packages:
     hasBin: true
 
   rollup@4.13.2:
-    resolution: {integrity: sha512-MIlLgsdMprDBXC+4hsPgzWUasLO9CE4zOkj/u6j+Z6j5A4zRY+CtiXAdJyPtgCsc42g658Aeh1DlrdVEJhsL2g==}
+    resolution: {integrity: sha512-MIlLgsdMprDBXC+4hsPgzWUasLO9CE4zOkj/u6j+Z6j5A4zRY+CtiXAdJyPtgCsc42g658Aeh1DlrdVEJhsL2g==, tarball: https://registry.npmjs.org/rollup/-/rollup-4.13.2.tgz}
+    engines: {node: '>=18.0.0', npm: '>=8.0.0'}
+    hasBin: true
+
+  rollup@4.17.2:
+    resolution: {integrity: sha512-/9ClTJPByC0U4zNLowV1tMBe8yMEAxewtR3cUNX5BoEpGH3dQEWpJLr6CLp0fPdYRF/fzVOgvDb1zXuakwF5kQ==, tarball: https://registry.npmjs.org/rollup/-/rollup-4.17.2.tgz}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -19916,7 +20000,7 @@ snapshots:
       '@types/webpack': 4.41.35
       sockjs-client: 1.6.1(supports-color@6.1.0)
       type-fest: 2.19.0
-      webpack-dev-server: 4.15.1(webpack-cli@5.1.4)(webpack@5.89.0)
+      webpack-dev-server: 4.15.1(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))(webpack@5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0)))
 
   '@polka/url@1.0.0-next.23': {}
 
@@ -20133,6 +20217,15 @@ snapshots:
       rollup: 2.79.1
       tslib: 2.6.2
 
+  '@rollup/plugin-typescript@9.0.2(rollup@4.17.2)(tslib@2.6.2)(typescript@5.4.3)':
+    dependencies:
+      '@rollup/pluginutils': 5.0.5(rollup@4.17.2)
+      resolve: 1.22.8
+      typescript: 5.4.3
+    optionalDependencies:
+      rollup: 4.17.2
+      tslib: 2.6.2
+
   '@rollup/pluginutils@3.1.0(rollup@2.79.1)':
     dependencies:
       '@types/estree': 0.0.39
@@ -20153,49 +20246,105 @@ snapshots:
     optionalDependencies:
       rollup: 2.79.1
 
+  '@rollup/pluginutils@5.0.5(rollup@4.17.2)':
+    dependencies:
+      '@types/estree': 1.0.5
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+    optionalDependencies:
+      rollup: 4.17.2
+
   '@rollup/rollup-android-arm-eabi@4.13.2':
+    optional: true
+
+  '@rollup/rollup-android-arm-eabi@4.17.2':
     optional: true
 
   '@rollup/rollup-android-arm64@4.13.2':
     optional: true
 
+  '@rollup/rollup-android-arm64@4.17.2':
+    optional: true
+
   '@rollup/rollup-darwin-arm64@4.13.2':
+    optional: true
+
+  '@rollup/rollup-darwin-arm64@4.17.2':
     optional: true
 
   '@rollup/rollup-darwin-x64@4.13.2':
     optional: true
 
+  '@rollup/rollup-darwin-x64@4.17.2':
+    optional: true
+
   '@rollup/rollup-linux-arm-gnueabihf@4.13.2':
+    optional: true
+
+  '@rollup/rollup-linux-arm-gnueabihf@4.17.2':
+    optional: true
+
+  '@rollup/rollup-linux-arm-musleabihf@4.17.2':
     optional: true
 
   '@rollup/rollup-linux-arm64-gnu@4.13.2':
     optional: true
 
+  '@rollup/rollup-linux-arm64-gnu@4.17.2':
+    optional: true
+
   '@rollup/rollup-linux-arm64-musl@4.13.2':
+    optional: true
+
+  '@rollup/rollup-linux-arm64-musl@4.17.2':
     optional: true
 
   '@rollup/rollup-linux-powerpc64le-gnu@4.13.2':
     optional: true
 
+  '@rollup/rollup-linux-powerpc64le-gnu@4.17.2':
+    optional: true
+
   '@rollup/rollup-linux-riscv64-gnu@4.13.2':
+    optional: true
+
+  '@rollup/rollup-linux-riscv64-gnu@4.17.2':
     optional: true
 
   '@rollup/rollup-linux-s390x-gnu@4.13.2':
     optional: true
 
+  '@rollup/rollup-linux-s390x-gnu@4.17.2':
+    optional: true
+
   '@rollup/rollup-linux-x64-gnu@4.13.2':
+    optional: true
+
+  '@rollup/rollup-linux-x64-gnu@4.17.2':
     optional: true
 
   '@rollup/rollup-linux-x64-musl@4.13.2':
     optional: true
 
+  '@rollup/rollup-linux-x64-musl@4.17.2':
+    optional: true
+
   '@rollup/rollup-win32-arm64-msvc@4.13.2':
+    optional: true
+
+  '@rollup/rollup-win32-arm64-msvc@4.17.2':
     optional: true
 
   '@rollup/rollup-win32-ia32-msvc@4.13.2':
     optional: true
 
+  '@rollup/rollup-win32-ia32-msvc@4.17.2':
+    optional: true
+
   '@rollup/rollup-win32-x64-msvc@4.13.2':
+    optional: true
+
+  '@rollup/rollup-win32-x64-msvc@4.17.2':
     optional: true
 
   '@rspack/binding-darwin-arm64@0.6.3':
@@ -21673,14 +21822,14 @@ snapshots:
       webpack: 5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack-bundle-analyzer@4.9.1)(webpack-dev-server@4.15.1)(webpack@5.89.0)
     optionalDependencies:
-      webpack-dev-server: 4.15.1(webpack-cli@5.1.4)(webpack@5.89.0)
+      webpack-dev-server: 4.15.1(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))(webpack@5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0)))
 
   '@webpack-cli/serve@2.0.5(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))(webpack-dev-server@4.15.1(webpack-cli@5.1.4)(webpack@5.89.0))(webpack@5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0)))':
     dependencies:
       webpack: 5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))
       webpack-cli: 5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0)
     optionalDependencies:
-      webpack-dev-server: 4.15.1(webpack-cli@5.1.4)(webpack@5.89.0)
+      webpack-dev-server: 4.15.1(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))(webpack@5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0)))
 
   '@xmldom/xmldom@0.8.10': {}
 
@@ -31787,6 +31936,28 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.13.2
       fsevents: 2.3.3
 
+  rollup@4.17.2:
+    dependencies:
+      '@types/estree': 1.0.5
+    optionalDependencies:
+      '@rollup/rollup-android-arm-eabi': 4.17.2
+      '@rollup/rollup-android-arm64': 4.17.2
+      '@rollup/rollup-darwin-arm64': 4.17.2
+      '@rollup/rollup-darwin-x64': 4.17.2
+      '@rollup/rollup-linux-arm-gnueabihf': 4.17.2
+      '@rollup/rollup-linux-arm-musleabihf': 4.17.2
+      '@rollup/rollup-linux-arm64-gnu': 4.17.2
+      '@rollup/rollup-linux-arm64-musl': 4.17.2
+      '@rollup/rollup-linux-powerpc64le-gnu': 4.17.2
+      '@rollup/rollup-linux-riscv64-gnu': 4.17.2
+      '@rollup/rollup-linux-s390x-gnu': 4.17.2
+      '@rollup/rollup-linux-x64-gnu': 4.17.2
+      '@rollup/rollup-linux-x64-musl': 4.17.2
+      '@rollup/rollup-win32-arm64-msvc': 4.17.2
+      '@rollup/rollup-win32-ia32-msvc': 4.17.2
+      '@rollup/rollup-win32-x64-msvc': 4.17.2
+      fsevents: 2.3.3
+
   run-async@0.1.0:
     dependencies:
       once: 1.4.0
@@ -33924,7 +34095,7 @@ snapshots:
       webpack-merge: 5.10.0
     optionalDependencies:
       webpack-bundle-analyzer: 4.9.1
-      webpack-dev-server: 4.15.1(webpack-cli@5.1.4)(webpack@5.89.0)
+      webpack-dev-server: 4.15.1(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))(webpack@5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0)))
 
   webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0):
     dependencies:
@@ -33943,7 +34114,7 @@ snapshots:
       webpack: 5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))
       webpack-merge: 5.10.0
     optionalDependencies:
-      webpack-dev-server: 4.15.1(webpack-cli@5.1.4)(webpack@5.89.0)
+      webpack-dev-server: 4.15.1(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))(webpack@5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0)))
 
   webpack-dashboard@3.3.8(webpack@5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4)):
     dependencies:
@@ -33980,15 +34151,6 @@ snapshots:
       range-parser: 1.2.1
       schema-utils: 4.2.0
       webpack: 5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))
-
-  webpack-dev-middleware@5.3.3(webpack@5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4)):
-    dependencies:
-      colorette: 2.0.20
-      memfs: 3.5.3
-      mime-types: 2.1.35
-      range-parser: 1.2.1
-      schema-utils: 4.2.0
-      webpack: 5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4)
 
   webpack-dev-middleware@6.1.1(webpack@5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))):
     dependencies:
@@ -34077,47 +34239,6 @@ snapshots:
     optionalDependencies:
       webpack: 5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0))
       webpack-cli: 5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0)
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - supports-color
-      - utf-8-validate
-
-  webpack-dev-server@4.15.1(webpack-cli@5.1.4)(webpack@5.89.0):
-    dependencies:
-      '@types/bonjour': 3.5.12
-      '@types/connect-history-api-fallback': 1.5.2
-      '@types/express': 4.17.20
-      '@types/serve-index': 1.9.3
-      '@types/serve-static': 1.15.4
-      '@types/sockjs': 0.3.35
-      '@types/ws': 8.5.8
-      ansi-html-community: 0.0.8
-      bonjour-service: 1.1.1
-      chokidar: 3.5.3
-      colorette: 2.0.20
-      compression: 1.7.4(supports-color@6.1.0)
-      connect-history-api-fallback: 2.0.0
-      default-gateway: 6.0.3
-      express: 4.18.2(supports-color@6.1.0)
-      graceful-fs: 4.2.11
-      html-entities: 2.4.0
-      http-proxy-middleware: 2.0.6(@types/express@4.17.20)
-      ipaddr.js: 2.1.0
-      launch-editor: 2.6.1
-      open: 8.4.2
-      p-retry: 4.6.2
-      rimraf: 3.0.2
-      schema-utils: 4.2.0
-      selfsigned: 2.4.1
-      serve-index: 1.9.1(supports-color@6.1.0)
-      sockjs: 0.3.24
-      spdy: 4.0.2(supports-color@6.1.0)
-      webpack-dev-middleware: 5.3.3(webpack@5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4))
-      ws: 8.14.2
-    optionalDependencies:
-      webpack: 5.89.0(@swc/core@1.3.103(@swc/helpers@0.5.3))(webpack-cli@5.1.4)
-      webpack-cli: 5.1.4(webpack-bundle-analyzer@4.9.1)(webpack-dev-server@4.15.1)(webpack@5.89.0)
     transitivePeerDependencies:
       - bufferutil
       - debug
