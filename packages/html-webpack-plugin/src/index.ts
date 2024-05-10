@@ -31,7 +31,7 @@ export default class MapleHtmlWebpackPlugin {
         if (this.options) {
           if (!Array.isArray(this.options)) this.options = [this.options]
           // 避免空数组为空
-          if (this.options.length === 0) return cb(null, data)
+          if (this.options.filter(Boolean).length === 0) return cb(null, data)
           const tags = this.options.map(({ tagName, src, content, rel, href, ...rest }) => {
             return tagName === 'script'
               ? {

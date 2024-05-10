@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "sideEffects": [
-    "*.css", "@/i18n"
+    "*.css",
+    "@/i18n"
   ],
   "main": "index.js",
   "scripts": {
     "temp": "webpack --config config/webpack.temp.js",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
     "rm": "rimraf public/fonts/*.woff2 public/fonts/*.woff node_modules/.cache/babel-loader",
-    "preserve1": "pnpm run rm",
+    "preserve": "pnpm run rm",
     "stats": "webpack --config config/webpack.stats.js",
     "swc:dev": "cross-env NODE_ENV=development webpack serve --config config/webpack.swc.dev.js",
     "serve": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
@@ -34,7 +35,6 @@
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@ant-design/icons": "^5.2.6",
     "@antv/g2plot": "^2.4.22",
-    "@babel/runtime": "^7.23.2",
     "@babel/runtime-corejs3": "^7.23.2",
     "@liutsing/rc-components": "workspace:*",
     "@liutsing/rc-hooks": "workspace:*",
@@ -120,5 +120,8 @@
   },
   "nx": {
     "includedScripts": []
-  }
+  },
+  "browserslist": [
+    "last 2 versions", ">0.1%"
+  ]
 }

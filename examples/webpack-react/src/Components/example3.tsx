@@ -1,4 +1,4 @@
-import { Dialog, Message } from '@liutsing/rc-components'
+// import { Dialog, Message } from '@liutsing/rc-components'
 import { Button } from 'antd'
 import type { HTMLAttributes, PropsWithChildren } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -19,10 +19,10 @@ const Example3: React.FC<PropsWithChildren & HTMLAttributes<HTMLDivElement>> = (
 
   const onIncrease = useCallback(() => setNum((num) => num + 1), [])
   const onShowDialog = useCallback(() => {
-    Dialog.show({ title: '这是一个标题', content: '一大段的文本内容' })
+    // Dialog.show({ title: '这是一个标题', content: '一大段的文本内容' })
   }, [])
   const onShowMessage = useCallback(() => {
-    Message.success('测试下')
+    // Message.success('测试下')
   }, [])
   const plateNo = 'No.123'
   const price = '￥20W'

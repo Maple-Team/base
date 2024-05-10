@@ -4,4 +4,4 @@ import { App } from './app'
 import '@/i18n'
 import './main.css'
 
-ReactDOM.createRoot(document.getElementById('app') as HTMLElement).render(<App />)
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(<App />)

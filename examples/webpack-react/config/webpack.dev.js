@@ -1,10 +1,11 @@
 const path = require('path')
 const os = require('os')
-const { dev, getHtmWebpackPlugin } = require('@liutsing/webpack-config')
+const { dev, templateContent, meta } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
 const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
 
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const DashboardPlugin = require('webpack-dashboard/plugin')
 
 // const LifeCycleWebpackPlugin = require('@liutsing/lifecycle-webpack-plugin')
@@ -22,23 +23,31 @@ const smp = new SpeedMeasurePlugin()
 const config = merge(dev, {
   entry: path.resolve(__dirname, '../src/main.tsx'),
   plugins: [
-    getHtmWebpackPlugin(false),
+    new HtmlWebpackPlugin({
+      inject: true,
+      hash: true, // 文件连接hash值
+      cache: false,
+      // TODO LOADING 主题变量
+      templateContent: () => templateContent,
+      meta,
+    }),
 
     new MapleHtmlWebpackPlugin(
       [
-        {
-          tagName: 'style',
-          content: `
-          @font-face {
-            font-family: 'Alibaba PuHuiTi 2.0 55';
-            src: url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff2') format('woff2'),
-              url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-          }
-          `,
-        },
+        // {
+        //   tagName: 'style',
+        //   content: `
+        //   @font-face {
+        //     font-family: 'Alibaba PuHuiTi 2.0 55';
+        //     src: url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff2') format('woff2'),
+        //       url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff') format('woff');
+        //     font-weight: normal;
+        //     font-style: normal;
+        //     font-display: swap;
+        //   }
+        //   `,
+        // },
+        // null,
       ],
       'head'
     ),
