@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReturnStatement  1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var _useTranslation = (0, _reactI18next.useTranslation)(),
+    t = _useTranslation.t;
+  var errorMessage = useMemo(function () {
+    if (!errorCode) return '';
+    switch (errorCode) {
+      case MediaError.MEDIA_ERR_NETWORK:
+        return t(\\"key_当前视频加载网络错误\\");
+      case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
+        return t(\\"key_当前视频地址错误或格式不支持\\");
+      default:
+        return t(\\"key_当前视频出现其他错误\\");
+    }
+  }, [errorCode, t]);
+  return <div>{errorMessage}</div>;
+};"
+`;
