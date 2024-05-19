@@ -436,6 +436,8 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           const blockPath = path.findParent((path) => path.isBlockStatement())
           if (!blockPath) return
           replaceWithCallExpression(i18nKey, path, state)
+        } else if (t.isReturnStatement(parent)) {
+          replaceWithCallExpression(i18nKey, path, state)
         } else {
           if (options.debug) {
             console.log('unmatched condition: ', {
