@@ -1,41 +1,10 @@
+const { readFileSync } = require('fs')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const templateContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>webpack example</title> 
-</head>
-<body>
-  <div id="root"></div>
-</body>
-</html>`
-const meta = {
-  _: {
-    name: 'viewport',
-    content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
-  },
-  a: {
-    'http-Equiv': 'Content-Type',
-    content: 'text/html; charset=utf-8',
-  },
-  b: {
-    'http-equiv': 'X-UA-Compatible',
-    content: 'IE=edge',
-  },
-  c: {
-    'http-equiv': 'expires',
-    content: 'Wed, 26 Feb 1997 08:21:57 GMT',
-  },
-  d: {
-    'http-equiv': 'pragma',
-    content: 'no-cache',
-  },
-  e: {
-    'http-equiv': 'Cache-Control',
-    content: 'no-store, must-revalidate',
-  },
-}
+const templateContent = readFileSync('./template.html').toString()
+const { meta } = require('./meta')
 
+// 从这个项目中学习一些设定项目 /Users/liutsing/Code/incubator-answer
 /**
  * 获取HtmlWebpackPlugin实例
  * TODO 传入参数
