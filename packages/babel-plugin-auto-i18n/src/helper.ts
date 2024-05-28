@@ -17,7 +17,6 @@ export function save(file: PluginPass, key: string, value: string) {
 
   file.set('allText', allText)
 }
-
 /**
  * 转换key
  * @param {string} key
