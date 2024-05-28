@@ -52,9 +52,27 @@ module.exports = (api) => {
           ]
         : null,
     ].filter(Boolean),
+    env: {
+      // process.env.NODE_ENV 注入进来的值
+      test: {
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              targets: {
+                node: 'current',
+              },
+            },
+          ],
+          '@babel/preset-react',
+          '@babel/preset-typescript',
+        ],
+      },
+    },
   }
   return config
 }
+
 // https://babeljs.io/docs/babel-plugin-transform-runtime#technical-details
 // https://babeljs.io/docs/babel-plugin-transform-runtime#absoluteruntime
 // https://babeljs.io/docs/babel-preset-env
