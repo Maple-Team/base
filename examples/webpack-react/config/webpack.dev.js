@@ -4,6 +4,7 @@ const { dev, templateContent, meta } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
 const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
+// const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin').default
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const DashboardPlugin = require('webpack-dashboard/plugin')
 
@@ -25,7 +26,7 @@ const config = merge(dev, {
     new HtmlWebpackPlugin({
       inject: true,
       hash: true, // 文件连接hash值
-      cache: true,
+      cache: false,
       // TODO LOADING 主题变量
       templateContent: () => templateContent,
       meta,
@@ -42,6 +43,14 @@ const config = merge(dev, {
             font-weight: normal;
             font-style: normal;
             font-display: swap;
+          }
+          `,
+        },
+        {
+          tagName: 'script',
+          content: `
+          window.onload = function () {
+            console.log('window.onload111')
           }
           `,
         },

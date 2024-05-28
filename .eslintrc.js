@@ -1,6 +1,6 @@
 module.exports = {
   extends: '@liutsing/eslint-config',
-  ignorePatterns: ['docs'],
+  ignorePatterns: ['docs', '*.html'],
   rules: {
     'multiline-ternary': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',

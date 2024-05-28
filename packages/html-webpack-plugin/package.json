@@ -8,9 +8,6 @@
     "html-webpack-plugin"
   ],
   "homepage": "",
-  "bugs": {
-    "url": ""
-  },
   "repository": {
     "type": "git",
     "url": ""
