@@ -10,3 +10,6 @@
 [submodule "awaresome/preload-webpack-plugin"]
 	path = awaresome/preload-webpack-plugin
 	url = https://github.com/vuejs/preload-webpack-plugin.git
+[submodule "examples/webpack-react/query"]
+	path = examples/webpack-react/query
+	url = https://github.com/TanStack/query.git
