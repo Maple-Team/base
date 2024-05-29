@@ -1,7 +1,11 @@
 const { readFileSync } = require('fs')
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const templateContent = readFileSync('./template.html').toString()
+const dirname = path.dirname(__dirname)
+const templatePath = path.join(dirname, './utils/template.html')
+
+const templateContent = readFileSync(templatePath).toString()
 const { meta } = require('./meta')
 
 // 从这个项目中学习一些设定项目 /Users/liutsing/Code/incubator-answer

@@ -48,7 +48,7 @@ const config = merge(dev, {
           tagName: 'script',
           content: `
           window.onload = function () {
-            console.log('window.onload111')
+            console.log('test: window.onload')
           }
           `,
         },

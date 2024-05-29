@@ -21,6 +21,10 @@ export default () => {
       key: 'ReactAmap',
     },
     {
+      label: 'Socket.io',
+      key: 'Socket.io',
+    },
+    {
       label: 'infinite-scroll',
       key: 'react-infinite-scroll-component',
     },

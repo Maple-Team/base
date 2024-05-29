@@ -5,6 +5,9 @@
     "jsx": "react",
     "paths":{
       "@/*": ["./src/*"]
-    }
+    },
+    "typeRoots": [
+      "node_modules/@types", "src/query/packages/query-core/build/modern"
+    ]
   }
 }
