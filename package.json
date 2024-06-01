@@ -19,7 +19,8 @@
     "lint2": "eslint --ext .js,.ts,.tsx,.vue --fix ./packages/*/src",
     "prettier": "prettier --write --ignore-unknown '**/*'",
     "tsc": "nx run-many --target=tsc --all",
-    "start": "node scripts/while.js"
+    "start": "node scripts/while.js",
+    "dev":"pnpm --filter 'examples/webpack-react' serve"
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {

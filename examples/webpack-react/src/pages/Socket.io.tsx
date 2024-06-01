@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { io } from 'socket.io-client'
 import type { BaseResponse } from '@liutsing/types-utils'
+import { debounce, throttle } from 'lodash-es'
 
 const socket = io('http://localhost:4003/default')
 
@@ -11,6 +12,24 @@ const fetchData = (): Promise<BaseResponse<{ name: string }>> =>
 const ReactQueryDemo = () => {
   const [isConnected, setIsConnected] = useState(socket.connected)
   const [msg, setMsg] = useState<{ ts: number }>()
+  const debounceFn = useMemo(() => {
+    return debounce(
+      function (msg) {
+        console.log('debounce', msg)
+      },
+      1000,
+      { leading: true }
+    )
+  }, [])
+  const throttleFn = useMemo(() => {
+    return throttle(
+      function (msg) {
+        console.log('throttle', msg)
+      },
+      1000,
+      { leading: true }
+    )
+  }, [])
   useEffect(() => {
     function onConnect() {
       setIsConnected(true)
@@ -24,6 +43,9 @@ const ReactQueryDemo = () => {
     socket.on('disconnect', onDisconnect)
     socket.on('message', (msg) => {
       setMsg(msg)
+      // console.log('2', msg)
+      debounceFn(msg) // 只执行开头的一次
+      throttleFn(msg) // 相隔固定时间重新执行一次
     })
     return () => {
       socket.off('connect', onConnect)
