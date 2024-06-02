@@ -10,4 +10,5 @@
 
 ## TODO
 
+- for windows
 - 更新版本

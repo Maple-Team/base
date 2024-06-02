@@ -1,13 +1,13 @@
 {
   "name": "@liutsing/cli",
-  "version": "0.1.0-beta.5",
+  "version": "0.1.0-beta.7",
   "description": "",
   "engines": {
     "node": ">=16.0.0"
   },
   "main": "index.js",
   "bin": {
-    "maple": "index.js"
+    "maple": "./index.js"
   },
   "type": "module",
   "keywords": [],
