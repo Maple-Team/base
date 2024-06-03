@@ -11,6 +11,7 @@ export type Options = {
   tagName: 'script' | 'link' | 'style'
 } & LinkAttribute &
   ScriptAttribute
+
 export default class MapleHtmlWebpackPlugin {
   /**
    * @type {Options}
@@ -32,7 +33,7 @@ export default class MapleHtmlWebpackPlugin {
           if (!Array.isArray(this.options)) this.options = [this.options]
           // 避免空数组为空
           if (this.options.filter(Boolean).length === 0) return cb(null, data)
-          const tags = this.options.map(({ tagName, src, content, rel, href, ...rest }) => {
+          const tags = this.options.filter(Boolean).map(({ tagName, src, content, rel, href, ...rest }) => {
             return tagName === 'script'
               ? {
                   tagName,

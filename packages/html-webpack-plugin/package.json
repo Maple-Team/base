@@ -14,24 +14,28 @@
   },
   "license": "MIT",
   "author": "liutsing <liutsingluo@gmail.com>",
+  "exports": {
+    "import": "./lib/index.mjs",
+    "require": "./lib/index.js",
+    "default": "./lib/index.mjs",
+    "types": "./lib/index.d.ts"
+  },
   "main": "lib/index.js",
+  "module": "lib/index.mjs",
   "source": "src/index.ts",
-  "types": "types/index.d.ts",
+  "jsnext:main": "lib/index.mjs",
+  "typings": "lib/index.d.ts",
   "files": [
-    "types"
+    "lib"
   ],
   "scripts": {
     "lint": "nx lint --ext .ts",
     "prettier": "prettier . --ext .ts -w",
-    "prebuild": "rimraf lib types",
+    "prebuild": "rimraf lib",
     "prepublish": "pnpm run build",
-    "build:watch": "tsc -w",
-    "build": "npm run build:commonjs",
-    "postbuild": "npm run build:types",
-    "build:commonjs": "babel src -d lib --extensions .ts --delete-dir-on-start",
-    "build:types": "tsc --project tsconfig.build.json",
     "test": "nx test",
-    "postpublish": "pnpx @liutsing/npmmirror-sync"
+    "postpublish": "pnpx @liutsing/npmmirror-sync",
+    "build": "rollup -c rollup.config.js"
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {
@@ -40,6 +44,8 @@
   "devDependencies": {
     "@babel/cli": "^7.23.0",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@rollup/plugin-typescript": "^9.0.1",
+    "rollup": "^4.17.2",
     "webpack": "^5.75.0"
   },
   "nx": {

@@ -3,7 +3,8 @@ const os = require('os')
 const { dev, templateContent, meta } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
 const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
-const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin').default
+const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
+// const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin').default
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const DashboardPlugin = require('webpack-dashboard/plugin')
 
@@ -18,6 +19,7 @@ const DashboardPlugin = require('webpack-dashboard/plugin')
 //   },
 // }),
 // const smp = new SpeedMeasurePlugin()
+
 const config = merge(dev, {
   entry: path.resolve(__dirname, '../src/main.tsx'),
   plugins: [
