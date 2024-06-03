@@ -1,10 +1,17 @@
 import { Buffer } from 'buffer'
 import { base64ToBuffer } from '../src'
 
-const iter = (arr: NodeJS.TypedArray) => {
-  for (let index = 0; index < arr.length; index++) {
-    const element = arr[index]
-    console.log(element)
+const iter = (arr: NodeJS.ArrayBufferView) => {
+  if (arr instanceof DataView) {
+    for (let index = 0; index < arr.byteLength; index++) {
+      const element = arr.getUint8(index)
+      console.log(element)
+    }
+  } else {
+    for (let index = 0; index < arr.length; index++) {
+      const element = arr[index]
+      console.log(element)
+    }
   }
 }
 
