@@ -28,7 +28,7 @@
     "prebuild": "rimraf types dist && pnpm run test",
     "build:watch": "tsc -w",
     "new:patch": "npm version patch",
-    "test": "nx test",
+    "test": "jest",
     "test:watch": "nx test --watch",
     "lint": "nx lint --ext .ts",
     "lint:types": "tsc --noEmit",
