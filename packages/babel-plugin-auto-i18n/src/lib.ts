@@ -297,7 +297,8 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           const elementInjectAttributesCB = JSXOpeningElement.extra?.elementInjectAttributesCB as InjectAttributesCB
           elementInjectAttributesCB?.(rawKey, JSXOpeningElement)
         } else {
-          console.log(rawKey)
+          // TODO 区分是否在jsxElement中使用了国际化的变量
+          console.log('[非JSXElement下的文本]: ', rawKey)
           // 提供手动截图的话，就不插入到根节点
           // 在jsx组件中
           // const blockPath = path.findParent((p) => p.isBlockStatement())

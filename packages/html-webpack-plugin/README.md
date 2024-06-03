@@ -104,10 +104,48 @@ const configs = {
     }>
 ```
 
+## build
+
+### with babel
+
+### with rollup
+
+```sh
+"build": "rollup -c rollup.config.js"
+```
+
+rollup.config.js:
+
+```js
+const typescript = require('@rollup/plugin-typescript')
+// https://rollupjs.org/javascript-api/#outputoptions-object
+
+/**
+ * @type {import('rollup').RollupOptions}
+ *
+ */
+module.exports = {
+  input: 'src/index.ts',
+  output: [
+    {
+      file: 'lib/index.js',
+      format: 'cjs',
+      sourcemap: false,
+    },
+    {
+      file: 'lib/index.mjs',
+      format: 'es',
+      sourcemap: false,
+    },
+  ],
+  plugins: [
+    typescript({
+      tsconfig: './tsconfig.build.json',
+    }),
+  ],
+}
+```
+
 ## TODO
 
 nodejs 库打包产物问题
-
-- https://www.npmjs.com/package/babel-plugin-add-module-exports
-- https://babeljs.io/docs/babel-preset-env
-- https://github.com/open-data-plan/pangu

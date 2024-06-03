@@ -41,7 +41,6 @@ console.log(uniqiqI18nKeys)
 - [x] 多个 plugins，含同样的节点遍历逻辑，测试访问顺序
 - [x] i18n-ignore comments
 - [x] 支持 templateLiteral 的文本，文本插槽功能
-      <<<<<<< HEAD
 - [ ] jsxText/jsxAttribute/jsxExpressionContainer 下的 stringLiteral 注入 data-i18n 属性
   - [x] jsxText
   - [ ] jsxExpressionContainer
@@ -60,7 +59,6 @@ console.log(uniqiqI18nKeys)
   - [ ] jsxExpressionContainer
   - [ ] jsxAttribute 其他属性也需要加入到`data-i18n`属性上
   - [ ] jsx 其他的键绑定到根元素的 dom 上？
-    > > > > > > > i18n-1.1.beta
 
 ### ideas
 
