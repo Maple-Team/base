@@ -2,7 +2,8 @@
   "extends":"./tsconfig.json",
   "exclude": ["__tests__/**"],
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+
   },
   "include": ["src", "global.d.ts"]
 }

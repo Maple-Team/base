@@ -17,7 +17,9 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: true,
+      refetchOnMount: true,
       retry: false,
+      refetchOnReconnect: true,
     },
   },
 })
@@ -57,6 +59,9 @@ const Root = () => {
           </li>
           <li>
             <Link to="/example5">example5</Link>
+          </li>
+          <li>
+            <Link to="/socket.io">socket.io</Link>
           </li>
           <li>
             <Link to="/mc">MarkerCluster</Link>
@@ -112,6 +117,7 @@ const _router = createBrowserRouter([
 
 const Example4 = lazy(() => import(/* webpackChunkName: "example4" */ '@/pages/example4'))
 const Example5 = lazy(() => import(/* webpackChunkName: "example5" */ '@/pages/example5'))
+const SocketIO = lazy(() => import(/* webpackChunkName: "example5" */ '@/pages/Socket.io'))
 
 export const App = () => {
   return (
@@ -151,6 +157,14 @@ export const App = () => {
                   element={
                     <Suspense fallback={<div>loading...</div>}>
                       <Example5 />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="socket.io"
+                  element={
+                    <Suspense fallback={<div>loading...</div>}>
+                      <SocketIO />
                     </Suspense>
                   }
                 />

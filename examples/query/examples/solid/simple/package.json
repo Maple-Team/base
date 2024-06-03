@@ -1,0 +1,22 @@
+{
+  "name": "@tanstack/query-example-solid-simple",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:types": "tsc"
+  },
+  "dependencies": {
+    "@tanstack/solid-query": "^5.40.0",
+    "@tanstack/solid-query-devtools": "^5.40.0",
+    "solid-js": "^1.8.17"
+  },
+  "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.35.6",
+    "typescript": "5.3.3",
+    "vite": "^5.2.11",
+    "vite-plugin-solid": "^2.10.2"
+  }
+}
