@@ -1,10 +1,9 @@
 import * as crypto from 'crypto'
 import * as fs from 'fs'
 import { Buffer } from 'buffer'
+import type { HashAlgorithm } from './hash'
 
-// @https://blog.shevlyagin.com/2021/10/28/fastest-node-js-hashing-algorithm-for-large-strings/
 const BUFFER_SIZE = 8192
-export type HashAlgorithm = 'sha256' | 'sha1' | 'md5'
 
 export function md5FileSync(path: fs.PathLike) {
   const fd = fs.openSync(path, 'r')
@@ -13,7 +12,6 @@ export function md5FileSync(path: fs.PathLike) {
 
   try {
     let bytesRead
-
     do {
       bytesRead = fs.readSync(fd, buffer, 0, BUFFER_SIZE, 0)
       hash.update(buffer.slice(0, bytesRead))
