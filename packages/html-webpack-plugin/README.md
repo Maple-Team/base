@@ -108,10 +108,25 @@ const configs = {
 
 ### with babel
 
+```json
+{
+  "prebuild": "rimraf lib types",
+  "prepublish": "pnpm run build",
+  "build": "npm run build:commonjs",
+  "postbuild": "npm run build:types",
+  "build:commonjs": "babel src -d lib --extensions .ts --delete-dir-on-start",
+  "build:types": "tsc --project tsconfig.build.json"
+}
+```
+
 ### with rollup
 
-```sh
-"build": "rollup -c rollup.config.js"
+```json
+{
+  "prebuild": "rimraf lib",
+  "prepublish": "pnpm run build",
+  "build": "rollup -c rollup.config.js"
+}
 ```
 
 rollup.config.js:

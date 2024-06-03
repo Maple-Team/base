@@ -10,16 +10,4 @@
 
 ## TODO
 
-- for windows
-- 更新版本
-
-## packages missing
-
-- webpack
-- dayjs
-- mini-css-extract-plugin
-- @pmmmwh/react-refresh-webpack-plugin
-- thread-loader
-- "process": "^0.11.10",
-- babel-loader
-- css-loader
+- 拷贝目录后，初始化 git 仓库并提交

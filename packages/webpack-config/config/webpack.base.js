@@ -4,11 +4,15 @@ const { ProvidePlugin, DefinePlugin } = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const dayjs = require('dayjs')
-const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin').default
+const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
 
-const currentGitBranch = child.execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
-const hash = child.execSync('git rev-parse HEAD').toString().trim().substring(0, 8)
+let currentGitBranch = 'N/A'
+let hash = 'N/A'
+try {
+  currentGitBranch = child.execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
+  hash = child.execSync('git rev-parse HEAD').toString().trim().substring(0, 8)
+} catch (error) {}
 
 // TODO 参考vue-cli/cra/其他开源社区分享
 // https://github.com/TypeStrong/fork-ts-checker-webpack-plugin
