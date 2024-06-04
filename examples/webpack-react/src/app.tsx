@@ -6,6 +6,7 @@ import type { MenuProps } from 'antd'
 import { Dropdown, Space } from 'antd'
 import { GlobalOutlined } from '@ant-design/icons'
 import { ErrorBoundary } from './ErrorBoundary'
+import Hooks from './pages/hooks'
 import i18n from '@/i18n'
 
 // const RemoteApp = React.lazy(() => import('module_federation/App'))
@@ -65,6 +66,9 @@ const Root = () => {
           </li>
           <li>
             <Link to="/mc">MarkerCluster</Link>
+          </li>
+          <li>
+            <Link to="/hooks">Hooks</Link>
           </li>
         </ul>
       </aside>
@@ -165,6 +169,14 @@ export const App = () => {
                   element={
                     <Suspense fallback={<div>loading...</div>}>
                       <SocketIO />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="hooks"
+                  element={
+                    <Suspense fallback={<div>loading...</div>}>
+                      <Hooks />
                     </Suspense>
                   }
                 />

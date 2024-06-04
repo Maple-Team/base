@@ -4,6 +4,18 @@
 
 ## development
 
+### `@testing-library/react`
+
+> https://testing-library.com/docs/react-testing-library/intro/
+
+- `renderHook`: Allows you to render a hook within a test React component without having to create that component yourself.
+- `cleanup`: Unmounts React trees that were mounted with render.
+- `render`: Render into a container which is appended to document.body. It should be used with cleanup.
+
+### `react-test-renderer`
+
+> https://legacy.reactjs.org/docs/test-renderer.html
+
 ## test
 
 - https://zhuanlan.zhihu.com/p/220278150
@@ -13,4 +25,6 @@
 ## Resouces
 
 - [React Hooks](https://react.dev/reference/react)
-- [react-use学习分享](https://juejin.cn/post/7216357824882884667#heading-22)
+- [react-use 源码学习分享](https://juejin.cn/post/7216357824882884667)
+- [ahooks](https://github.com/alibaba/hooks)
+- [react-use](https://github.com/streamich/react-use)
