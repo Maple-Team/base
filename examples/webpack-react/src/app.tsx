@@ -5,6 +5,7 @@ import { BrowserRouter, Link, Outlet, Route, Routes, createBrowserRouter } from 
 import type { MenuProps } from 'antd'
 import { Dropdown, Space } from 'antd'
 import { GlobalOutlined } from '@ant-design/icons'
+import { StyleProvider } from '@ant-design/cssinjs'
 import { ErrorBoundary } from './ErrorBoundary'
 import Hooks from './pages/hooks'
 import i18n from '@/i18n'
@@ -129,63 +130,66 @@ export const App = () => {
       <ErrorBoundary>
         <QueryClientProvider client={queryClient}>
           {/* <RouterProvider router={router} fallbackElement={<div>loading...</div>} /> */}
-          <BrowserRouter basename="/">
-            <Routes>
-              <Route path="/" element={<Root />}>
-                <Route
-                  path="mc"
-                  element={
-                    <Suspense fallback={<div>loading...</div>}>
-                      <MarkerCluster />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="example"
-                  element={
-                    <Suspense fallback={<div>loading...</div>}>
-                      <Example3>测试自定义组件</Example3>
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="example4"
-                  element={
-                    <Suspense fallback={<div>loading...</div>}>
-                      <Example4 />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="example5"
-                  element={
-                    <Suspense fallback={<div>loading...</div>}>
-                      <Example5 />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="socket.io"
-                  element={
-                    <Suspense fallback={<div>loading...</div>}>
-                      <SocketIO />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="hooks"
-                  element={
-                    <Suspense fallback={<div>loading...</div>}>
-                      <Hooks />
-                    </Suspense>
-                  }
-                />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-          {/* <Suspense fallback={<Spin spinning />}>
+          <StyleProvider hashPriority="high">
+            <BrowserRouter basename="/">
+              <Routes>
+                <Route path="/" element={<Root />}>
+                  <Route
+                    path="mc"
+                    element={
+                      <Suspense fallback={<div>loading...</div>}>
+                        <MarkerCluster />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="example"
+                    element={
+                      <Suspense fallback={<div>loading...</div>}>
+                        <Example3>测试自定义组件</Example3>
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="example4"
+                    element={
+                      <Suspense fallback={<div>loading...</div>}>
+                        <Example4 />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="example5"
+                    element={
+                      <Suspense fallback={<div>loading...</div>}>
+                        <Example5 />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="socket.io"
+                    element={
+                      <Suspense fallback={<div>loading...</div>}>
+                        <SocketIO />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="hooks"
+                    element={
+                      <Suspense fallback={<div>loading...</div>}>
+                        <Hooks />
+                      </Suspense>
+                    }
+                  />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+            {/* <Suspense fallback={<Spin spinning />}>
             <RemoteApp />
           </Suspense> */}
+          </StyleProvider>
+
           <ReactQueryDevtools initialIsOpen />
         </QueryClientProvider>
       </ErrorBoundary>

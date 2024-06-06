@@ -5,5 +5,8 @@ import type { Root } from './types'
 export const fetchApiInfo = (): Promise<Root> => axios.get('https://randomuser.me/api').then((res) => res.data)
 
 export function useCustomHook() {
-  return useQuery(['customHook'], fetchApiInfo)
+  return useQuery({
+    queryKey: ['custom-hook'],
+    queryFn: fetchApiInfo,
+  })
 }

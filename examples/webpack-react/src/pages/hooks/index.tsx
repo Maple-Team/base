@@ -1,10 +1,10 @@
 import React, { StrictMode, useState } from 'react'
 import { Button, Space } from 'antd'
-import useForceUpdate from './hooks/useForceUpdate'
-import usePervious from './hooks/usePervious'
-import useReactUsePervious from './hooks/react-use-usePervious'
-import useAHooksPervious from './hooks/ahooks-usePervious'
-import usePreviousNext from './hooks/usePreviousNext'
+import useForceUpdate from './use-previous/useForceUpdate'
+import usePervious from './use-previous/usePervious'
+import useReactUsePervious from './use-previous/react-use-usePervious'
+import useAHooksPervious from './use-previous/ahooks-usePervious'
+import usePreviousNext from './use-previous/usePreviousNext'
 
 export function App() {
   const forceUpdate = useForceUpdate()
