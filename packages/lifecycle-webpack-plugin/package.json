@@ -1,10 +1,10 @@
 {
   "name": "@liutsing/lifecycle-webpack-plugin",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.0-alpha1",
+  "description": "Hook every compile steps by customize hooker.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postpublish": "pnpx @liutsing/npmmirror-sync"
   },
   "keywords": [],
   "author": "",
