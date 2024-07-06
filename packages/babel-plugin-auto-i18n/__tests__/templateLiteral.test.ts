@@ -45,4 +45,14 @@ describe('arrow function declaration scenarios - templateLiteral cases', () => {
     const result = getTransformCode(sourceCode, `${hash(sourceCode)}.tsx`)
     expect(result?.code).toMatchSnapshot()
   })
+
+  it('handle templateLiteral case 5', () => {
+    const sourceCode = `export const Component = () => {
+        const plateNo = 'No.123';
+        return <div>{\`\${plateNo}已急停\`}</div>
+      }
+      `
+    const result = getTransformCode(sourceCode, `${hash(sourceCode)}.tsx`)
+    expect(result?.code).toMatchSnapshot()
+  })
 })

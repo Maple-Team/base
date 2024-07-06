@@ -4,7 +4,6 @@ import generate from '@babel/generator'
 import { isChinese } from '@liutsing/utils'
 import { hash, mkdirSafeSync } from '@liutsing/node-utils'
 import type * as BabelCoreNamespace from '@babel/core'
-import zip from 'lodash.zip'
 import type {
   ArrayExpression,
   ArrowFunctionExpression,
@@ -260,19 +259,42 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         // 忽略console.log()调用
         if (isUnderConsoleCallExpression(path)) return
         // 不执行子节点TemplateElement
+        // quasis 是 TemplateLiteral 的一个属性，它是一个数组，包含了模板字符串中所有的静态文本部分
+        // expressions是TemplateLiteral下的表达式
+
+        const sourceCode = state.file.code
+
+        // 获取 TemplateLiteral 节点的开始和结束位置
+        const start = path.node.start || 0
+        const end = path.node.end || 0
+        if (start === end) return
+
+        // 根据位置提取源码片段
+        const templateLiteralSourceCode = sourceCode.slice(start, end)
+
         const value = path
           .get('quasis')
           .map((item) => item.node.value.raw)
-          .filter(Boolean) // [ '车牌号: ', ', ' ]
+          .filter(Boolean)
+        const expressions = path.get('expressions')
+        // .filter(Boolean) // [ '车牌号: ', ', ' ]
         // 筛选符合条件的文案
         if (!conditionalLanguage(value.join(','))) return
+        const interpolationLength = expressions.length
+        function replaceInterpolations(str: string) {
+          // 正则表达式匹配 ${...} 中的内容
+          return [...str.matchAll(/\$\{(\w+)\}/g)]
+        }
 
-        const interpolationLength = value.length
         // key1 key2 ...
         const keys = Array.from({ length: interpolationLength }, (_, i) => `{{key${i + 1}}}`)
-        const combineValue = Array.prototype.concat.apply([], zip(value, keys)).join('')
+        const matches = replaceInterpolations(templateLiteralSourceCode)
+        let combineValue = templateLiteralSourceCode
+        matches.forEach((match, index) => {
+          combineValue = combineValue.replace(match[0], keys[index])
+        })
+
         if (!combineValue && !conditionalLanguage(combineValue)) return
-        // console.log(combineValue)
         const rawKey = value.join('')
         const key = hashFn(rawKey)
 
@@ -280,8 +302,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         const expressionParams = path.isTemplateLiteral()
           ? path.node.expressions.map((item) => generate(item).code)
           : null
-        // console.log(expressionParams) //    [ 'plateNo', 'price' ]
-        // t('key', {key1: '', key2: '', ...})
+
         const params = expressionParams?.map((v, index) => `key${index + 1}: ${v}`)
         const statement = template.ast(`t('${key}'${params?.length ? `,{${params.join(',')}}` : ''})`) as Statement
         path.replaceWith(statement)
