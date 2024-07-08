@@ -31,7 +31,7 @@
     "build": "microbundle -f es,cjs,umd --tsconfig tsconfig.build.json",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
-    "test": "nx test",
+    "test": "jest",
     "test:watch": "nx test --watch",
     "new:patch": "npm version patch"
   },

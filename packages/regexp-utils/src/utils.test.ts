@@ -1,9 +1,13 @@
+/* eslint-disable no-template-curly-in-string */
+/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable prettier/prettier */
 import {
   camelCase,
   convert,
   dasherize,
   escapeHTML,
   matchPair,
+  matchStringLiteral,
   trim,
   trim2,
   unescapeHTML,
@@ -65,7 +69,7 @@ describe('regexp正则测试集', () => {
     // vue-format-input实现
   })
   describe('密码强度', () => {
-    //NOTE 密码长度是6-12位，由数字、小写字符和大写字母组成，但必须至少包括2种字符
+    // NOTE 密码长度是6-12位，由数字、小写字符和大写字母组成，但必须至少包括2种字符
     const regexp = /(((?=.*\d)((?=.*[a-z])|(?=.*[A-Z])))|(?=.*[a-z])(?=.*[A-Z]))^[a-zA-Z\d]{6,12}/
     it('含数字字母6-12内的字符串可以通过', () => {
       expect(regexp.test('232af4')).toBe(true)
@@ -116,7 +120,7 @@ describe('regexp正则测试集', () => {
   it('匹配id', () => {
     const string = '<div id="container" class="main"></div>'
     const match: RegExpMatchArray | null = string.match(/id=".*?"/)
-    expect(match![0]).toBe(`id="container"`)
+    expect(match![0]).toBe('id="container"')
   })
   it('匹配颜色', () => {
     const reg = /#[a-fA-F\d]{3}|[a-fA-F\d]{6}/
@@ -268,6 +272,30 @@ describe('regexp正则测试集', () => {
     })
     it('case 2', () => {
       expect(matchPair('<title>wrong!</p>')).toEqual(false)
+    })
+  })
+  describe('匹配StringLiteral字符串', () => {
+    const inputs = [
+      ['`${plateNo}`(`${abc}`)}视频推流异常', '${plateNo}', 2, '`{{key1}}`(`{{key2}}`)}视频推流异常'],
+      ['`${basicInfo?.plateNo}已急停`', '${basicInfo?.plateNo}', 1, '`{{key1}}已急停`'],
+      [
+        '`${basicInfo?.plateNo}已离线 自动断开远程监管`',
+        '${basicInfo?.plateNo}',
+        1,
+        '`{{key1}}已离线 自动断开远程监管`',
+      ],
+    ]
+    // @ts-expect-error： xx
+    it.concurrent.each(inputs)('case', (input: string, expected: string, count: number, formated: string) => {
+      const matches = matchStringLiteral(input)
+      // console.log(matches)
+      let combineValue = input
+      matches.forEach((match, index) => {
+        combineValue = combineValue.replace(match[0], `{{key${index + 1}}}`)
+      })
+      expect(combineValue).toBe(formated)
+      expect(matches[0][0]).toBe(expected)
+      expect(matches.length).toEqual(count)
     })
   })
 })

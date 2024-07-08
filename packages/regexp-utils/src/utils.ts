@@ -103,3 +103,7 @@ export const matchPair = (input: string): boolean => {
   // NOTE 反向引用
   return pairTagReg.test(input)
 }
+
+export const matchStringLiteral = (input: string) => {
+  return [...input.matchAll(/\$\{(\w+\??\.?\w+)+\}/g)]
+}
