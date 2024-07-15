@@ -19,12 +19,14 @@ export const ReactQueryDemo = () => {
     }
   }, [])
 
-  const { data, isLoading, error, refetch } = useQuery(['fetchData'], fetchData, {
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ['zyc-blog'],
+    queryFn: fetchData,
     refetchInterval: 1000 * 30 * 1,
     // refetchIntervalInBackground: true,
     // keepPreviousData: true,
     refetchOnWindowFocus: false,
-    cacheTime: 20 * 1000,
+    gcTime: 20 * 1000,
     staleTime: 10 * 1000,
   })
   useEffect(() => {
