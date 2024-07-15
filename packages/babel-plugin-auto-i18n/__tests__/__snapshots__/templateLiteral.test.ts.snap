@@ -96,3 +96,52 @@ var Component = exports.Component = function Component() {
     })}</div>;
 };"
 `;
+
+exports[`arrow function declaration scenarios - templateLiteral cases handle templateLiteral case 6 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var basicInfo = {
+    plateNo: 123
+  };
+  useEffect(function () {
+    stopMsgRef.current = message.info({
+      content: t('key_已急停', {
+        key1: basicInfo === null || basicInfo === void 0 ? void 0 : basicInfo.plateNo
+      }),
+      duration: 0
+    });
+  }, [t]);
+};"
+`;
+
+exports[`arrow function declaration scenarios - templateLiteral cases handle templateLiteral case 7 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.Component = void 0;
+var _reactI18next = require(\\"react-i18next\\");
+var Component = exports.Component = function Component() {
+  var basicInfo = {
+    plateNo: {
+      no: 123
+    }
+  };
+  useEffect(function () {
+    var _basicInfo$plateNo;
+    stopMsgRef.current = message.info({
+      content: t('key_已急停', {
+        key1: basicInfo === null || basicInfo === void 0 || (_basicInfo$plateNo = basicInfo.plateNo) === null || _basicInfo$plateNo === void 0 ? void 0 : _basicInfo$plateNo.no
+      }),
+      duration: 0
+    });
+  }, [t]);
+};"
+`;

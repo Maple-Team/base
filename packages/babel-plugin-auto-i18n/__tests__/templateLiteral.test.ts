@@ -55,4 +55,36 @@ describe('arrow function declaration scenarios - templateLiteral cases', () => {
     const result = getTransformCode(sourceCode, `${hash(sourceCode)}.tsx`)
     expect(result?.code).toMatchSnapshot()
   })
+  it('handle templateLiteral case 6', () => {
+    const sourceCode = `export const Component = () => {
+    const basicInfo = {
+      plateNo:123
+    }
+      useEffect(()=>{
+            stopMsgRef.current = message.info({
+        content: \`\${basicInfo?.plateNo\}已急停\`,
+        duration: 0,
+      })
+      },[])
+    }`
+    const result = getTransformCode(sourceCode, `${hash(sourceCode)}.tsx`)
+    expect(result?.code).toMatchSnapshot()
+  })
+  it('handle templateLiteral case 7', () => {
+    const sourceCode = `export const Component = () => {
+    const basicInfo = {
+      plateNo: {
+      no:123
+      }
+    }
+      useEffect(()=>{
+            stopMsgRef.current = message.info({
+        content: \`\${basicInfo?.plateNo?.no\}已急停\`,
+        duration: 0,
+      })
+      },[])
+    }`
+    const result = getTransformCode(sourceCode, `${hash(sourceCode)}.tsx`)
+    expect(result?.code).toMatchSnapshot()
+  })
 })

@@ -21,6 +21,18 @@ import type {
 import { save, transformKey, transformKeyWithoutHash } from './helper'
 import type { Option } from './helper'
 
+function printStatementCode(statement: Statement) {
+  // 使用 generate 函数生成代码
+  const output = generate(statement, {
+    // 可选的配置项，如保留原样的换行符、缩进等
+    // 具体配置项请根据你的需要进行调整
+    concise: true,
+    // 还可以配置 sourceMaps: true 来生成源码映射，如果需要的话
+  }).code
+
+  console.log(output)
+}
+
 /**
  * console具有的方法属性
  */
@@ -282,18 +294,21 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
         if (!conditionalLanguage(value.join(','))) return
         const interpolationLength = expressions.length
         function replaceInterpolations(str: string) {
+          const reg1 = /\$\{([^\s\}\/]+(?:\.[^\s\}\/]+)*)\}/g
+          // const reg2 = /\$\{(\w+\??\.?\w+)+\}/g
           // 正则表达式匹配 ${...} 中的内容
-          return [...str.matchAll(/\$\{(\w+)\}/g)]
+          return str.match(reg1)
         }
 
         // key1 key2 ...
         const keys = Array.from({ length: interpolationLength }, (_, i) => `{{key${i + 1}}}`)
-        const matches = replaceInterpolations(templateLiteralSourceCode)
+        const matches = replaceInterpolations(templateLiteralSourceCode) || []
         let combineValue = templateLiteralSourceCode
         matches.forEach((match, index) => {
-          combineValue = combineValue.replace(match[0], keys[index])
+          combineValue = combineValue.replace(match, keys[index])
         })
-
+        combineValue = combineValue.replace(/`/g, '')
+        console.log(combineValue)
         if (!combineValue && !conditionalLanguage(combineValue)) return
         const rawKey = value.join('')
         const key = hashFn(rawKey)
@@ -305,6 +320,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
 
         const params = expressionParams?.map((v, index) => `key${index + 1}: ${v}`)
         const statement = template.ast(`t('${key}'${params?.length ? `,{${params.join(',')}}` : ''})`) as Statement
+        printStatementCode(statement) // t('key_已急停', { key1: plateNo });
         path.replaceWith(statement)
         path.skip()
         // data-i18n节点注入
