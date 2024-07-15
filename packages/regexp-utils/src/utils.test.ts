@@ -1,6 +1,4 @@
 /* eslint-disable no-template-curly-in-string */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable prettier/prettier */
 import {
   camelCase,
   convert,
@@ -8,6 +6,7 @@ import {
   escapeHTML,
   matchPair,
   matchStringLiteral,
+  matchStringLiteral2,
   trim,
   trim2,
   unescapeHTML,
@@ -295,6 +294,18 @@ describe('regexp正则测试集', () => {
       })
       expect(combineValue).toBe(formated)
       expect(matches[0][0]).toBe(expected)
+      expect(matches.length).toEqual(count)
+    })
+    // @ts-expect-error： xx
+    it.concurrent.each(inputs)('case', (input: string, expected: string, count: number, formated: string) => {
+      const matches = matchStringLiteral2(input) || []
+      // console.log(matches)
+      let combineValue = input
+      matches.forEach((match, index) => {
+        combineValue = combineValue.replace(match, `{{key${index + 1}}}`)
+      })
+      expect(combineValue).toBe(formated)
+      expect(matches[0]).toBe(expected)
       expect(matches.length).toEqual(count)
     })
   })

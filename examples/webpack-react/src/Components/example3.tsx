@@ -1,5 +1,5 @@
 // import { Dialog, Message } from '@liutsing/rc-components'
-import { Button } from 'antd'
+import { Button, message } from 'antd'
 import type { HTMLAttributes, PropsWithChildren } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { IconParking } from '@/assets/svg-icons'
@@ -27,6 +27,18 @@ const Example3: React.FC<PropsWithChildren & HTMLAttributes<HTMLDivElement>> = (
   const plateNo = 'No.123'
   const price = '￥20W'
   const var1 = `车牌号: ${plateNo}, ${price}`
+  const obj = {
+    plateNo: '12323',
+  }
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    message.success(
+      {
+        content: `车牌号: ${obj.plateNo}, ${price}`,
+      },
+      0
+    )
+  }, [obj.plateNo])
 
   return (
     <div {...rest}>
