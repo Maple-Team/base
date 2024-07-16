@@ -23,14 +23,16 @@ export function wrapPromise<R>(promise: Promise<R>) {
   }
 }
 
-const run = () => {
+export const run = () => {
   const oldFetch = window.fetch
   let cache: {
     status: 'pending' | 'fullfilled' | 'error'
     value?: unknown
   }
-  let promise: PromiseLike<unknown>
+  let _promise: PromiseLike<unknown>
+  // @ts-expect-error:xx
   window.fetch = (...args: unknown[]) => {
+    // @ts-expect-error:xx
     promise = oldFetch(...args)
       .then((r) => r.json())
       .then((v) => {

@@ -23,6 +23,7 @@ module.exports = function (api) {
         '@babel/plugin-transform-runtime',
         {
           version: require('@babel/runtime/package.json').version,
+          corejs: 3,
         },
       ],
       '@babel/plugin-proposal-class-properties',
