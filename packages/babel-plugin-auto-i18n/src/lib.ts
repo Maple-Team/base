@@ -21,7 +21,11 @@ import type {
 import { save, transformKey, transformKeyWithoutHash } from './helper'
 import type { Option } from './helper'
 
-function printStatementCode(statement: Statement) {
+/**
+ * @deprecated
+ * @param statement
+ */
+function _printStatementCode(statement: Statement) {
   // 使用 generate 函数生成代码
   const output = generate(statement, {
     // 可选的配置项，如保留原样的换行符、缩进等
@@ -308,7 +312,6 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           combineValue = combineValue.replace(match, keys[index])
         })
         combineValue = combineValue.replace(/`/g, '')
-        console.log(combineValue)
         if (!combineValue && !conditionalLanguage(combineValue)) return
         const rawKey = value.join('')
         const key = hashFn(rawKey)
@@ -320,7 +323,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
 
         const params = expressionParams?.map((v, index) => `key${index + 1}: ${v}`)
         const statement = template.ast(`t('${key}'${params?.length ? `,{${params.join(',')}}` : ''})`) as Statement
-        printStatementCode(statement) // t('key_已急停', { key1: plateNo });
+        // printStatementCode(statement) // t('key_已急停', { key1: plateNo });
         path.replaceWith(statement)
         path.skip()
         // data-i18n节点注入
@@ -335,7 +338,7 @@ export default function ({ types: t, template }: Babel, options: Option): BabelC
           elementInjectAttributesCB?.(rawKey, JSXOpeningElement)
         } else {
           // TODO 区分是否在jsxElement中使用了国际化的变量
-          console.log('[非JSXElement下的文本]: ', rawKey)
+          // console.log('[非JSXElement下的文本]: ', rawKey)
           // 提供手动截图的话，就不插入到根节点
           // 在jsx组件中
           // const blockPath = path.findParent((p) => p.isBlockStatement())

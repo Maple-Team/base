@@ -1,4 +1,5 @@
 import type { PluginPass } from '@babel/core'
+import type { HashAlgorithm } from '@liutsing/node-utils'
 import { hash } from '@liutsing/node-utils'
 
 /**
@@ -22,8 +23,8 @@ export function save(file: PluginPass, key: string, value: string) {
  * @param {string} key
  * @returns
  */
-export function transformKey(key: string) {
-  return hash(key).substring(0, 8)
+export function transformKey(key: string, algo?: HashAlgorithm) {
+  return hash(key, algo).substring(0, 8)
 }
 
 /**

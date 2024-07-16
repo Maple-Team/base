@@ -4,9 +4,13 @@ import { Buffer } from 'buffer'
 
 // @https://blog.shevlyagin.com/2021/10/28/fastest-node-js-hashing-algorithm-for-large-strings/
 export type HashAlgorithm = 'sha256' | 'sha1' | 'md5'
-export function hash(str: string | NodeJS.ArrayBufferView, algo: HashAlgorithm = 'sha1') {
+export function hash(
+  str: string | NodeJS.ArrayBufferView,
+  algo: HashAlgorithm = 'sha1',
+  encoding: crypto.BinaryToTextEncoding = 'hex'
+) {
   const hash = crypto.createHash
-  return hash(algo).update(str).digest('base64')
+  return hash(algo).update(str).digest(encoding)
 }
 
 export function hashFile(path: fs.PathLike, algo: HashAlgorithm) {

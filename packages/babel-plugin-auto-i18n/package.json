@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/babel-plugin-auto-i18n",
-  "version": "1.0.1-beta.1",
+  "version": "1.0.1-beta.2",
   "description": "A babel plugin to transform source language to 't' invoke expression",
   "keywords": [
     "babel plugin"
@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf types && rimraf lib",
-    "build": "cross-env NODE_ENV=production microbundle -f es,cjs --tsconfig tsconfig.build.json --no-compress --external crypto,path,@babel/types",
+    "build": "cross-env NODE_ENV=production microbundle -f es,cjs --tsconfig tsconfig.build.json --target node --external crypto,path,fs",
     "dev": "cross-env NODE_ENV=development npm run build -- --no-compress --no-sourcemap",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier . --ext .ts -w",
@@ -47,6 +47,12 @@
     "lint-staged": "^13.0.3",
     "lodash.zip": "^4.2.0",
     "simple-git-hooks": "^2.8.1"
+  },
+  "peerDependencies": {
+    "core-js": "~3.25.0",
+    "@babel/core": "~7.24.4",
+    "@babel/generator": "~7.24.4",
+    "@babel/types": "~7.24.0"
   },
   "publishConfig": {
     "access": "public"

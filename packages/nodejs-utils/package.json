@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/node-utils",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "",
   "keywords": [],
   "license": "ISC",
@@ -25,6 +25,7 @@
     "build": "microbundle -f es,cjs --tsconfig tsconfig.build.json --target node --external crypto,buffer,os,fs",
     "build:watch": "tsc -w",
     "test": "nx test",
+    "postpublish": "pnpx @liutsing/npmmirror-sync",
     "test:watch": "nx test --watch",
     "new:patch": "npm version patch"
   },
@@ -39,7 +40,6 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.21"
-
   },
   "publishConfig": {
     "access": "public"
