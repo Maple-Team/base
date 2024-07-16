@@ -4,7 +4,7 @@ import { Buffer } from 'buffer'
 
 // @https://blog.shevlyagin.com/2021/10/28/fastest-node-js-hashing-algorithm-for-large-strings/
 export type HashAlgorithm = 'sha256' | 'sha1' | 'md5'
-export function hash(str: string | NodeJS.ArrayBufferView, algo: HashAlgorithm) {
+export function hash(str: string | NodeJS.ArrayBufferView, algo: HashAlgorithm = 'sha1') {
   const hash = crypto.createHash
   return hash(algo).update(str).digest('base64')
 }

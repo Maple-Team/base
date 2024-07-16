@@ -22,18 +22,24 @@
   },
   "scripts": {
     "prebuild": "npx rimraf types dist",
-    "build": "microbundle -f es,cjs --tsconfig tsconfig.build.json --external crypto,buffer,os",
+    "build": "microbundle -f es,cjs --tsconfig tsconfig.build.json --target node --external crypto,buffer,os,fs",
     "build:watch": "tsc -w",
     "test": "nx test",
     "test:watch": "nx test --watch",
     "new:patch": "npm version patch"
   },
   "prettier": "@liutsing/prettier-config",
-  "devDependencies": {},
-  "dependencies": {
-    "lodash-es": "^4.17.21",
+  "devDependencies": {
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3"
+  },
+  "peerDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21"
+
   },
   "publishConfig": {
     "access": "public"
