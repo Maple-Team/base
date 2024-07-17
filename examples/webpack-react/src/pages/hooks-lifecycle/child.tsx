@@ -31,6 +31,15 @@ export const ChildComponent = memo(({ id }: { id?: string }) => {
       socket.off('connect', handler)
     }
   }, [])
+  useEffect(() => {
+    function handler(msg: string) {
+      console.log(msg)
+    }
+    socket.on('message', handler)
+    return () => {
+      socket.off('message', handler)
+    }
+  }, [])
 
   useEffect(() => {
     console.log('child mounted')
