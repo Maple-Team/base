@@ -5,7 +5,6 @@ import type { OptionalPick } from '@liutsing/types-utils'
 type LinkAttribute = OptionalPick<HTMLLinkElement, 'rel' | 'href'>
 type ScriptAttribute = OptionalPick<HTMLScriptElement, 'src' | 'defer' | 'async'>
 
-// TODO 支持更多注入的
 export type Options = {
   content?: string
   tagName: 'script' | 'link' | 'style'
@@ -27,7 +26,9 @@ export default class MapleHtmlWebpackPlugin {
     const className = this.constructor.name
     const logger = compiler.getInfrastructureLogger(className)
     return compiler.hooks.compilation.tap(className, (compilation) => {
-      HtmlWebpackPlugin.getHooks(compilation).alterAssetTagGroups.tapAsync(className, (data, cb) => {
+      const hooks = HtmlWebpackPlugin.getHooks(compilation)
+      if (!hooks) throw new Error('HtmlWebpackPlugin hooks are not available.')
+      hooks.alterAssetTagGroups.tapAsync(className, (data, cb) => {
         logger.info('HtmlWebpackPlugin自定义插件执行...')
         if (this.options) {
           if (!Array.isArray(this.options)) this.options = [this.options]

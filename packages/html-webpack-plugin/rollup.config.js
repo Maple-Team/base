@@ -7,17 +7,18 @@ const typescript = require('@rollup/plugin-typescript')
  */
 module.exports = {
   input: 'src/index.ts',
+  external: ['html-webpack-plugin'],
   output: [
     {
       file: 'lib/index.js',
       format: 'cjs',
       sourcemap: false,
     },
-    {
-      file: 'lib/index.mjs',
-      format: 'es',
-      sourcemap: false,
-    },
+    // {
+    //   file: 'lib/index.mjs',
+    //   format: 'es',
+    //   sourcemap: false,
+    // },
   ],
   plugins: [
     typescript({

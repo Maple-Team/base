@@ -19,7 +19,7 @@
     "lint2": "eslint --ext .js,.ts,.tsx,.vue --fix ./packages/*/src",
     "prettier": "prettier --write --ignore-unknown '**/*'",
     "tsc": "nx run-many --target=tsc --all",
-    "dev":"pnpm --filter 'examples/webpack-react' serve"
+    "dev": "pnpm --filter 'examples/webpack-react' serve"
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {
@@ -28,7 +28,6 @@
     "@liutsing/rc-hooks": "workspace:*",
     "@liutsing/rcv-components": "workspace:*",
     "@liutsing/types-utils": "workspace:*",
-
     "ahooks": "^3.7.8",
     "axios": "^1.2.1",
     "classnames": "^2.3.2",
@@ -97,7 +96,7 @@
     "nx": "18.2.1",
     "process": "^0.11.10",
     "react": "18.2.0",
-   "react-dom": "18.2.0",
+    "react-dom": "18.2.0",
     "react-refresh": "0.14.0",
     "rimraf": "^3.0.2",
     "rollup": "^3.4.0",
@@ -106,6 +105,7 @@
     "simple-git-hooks": "^2.8.1",
     "speed-measure-webpack-plugin": "^1.5.0",
     "tailwindcss": "^3.2.4",
+    "terser": "^5.31.3",
     "thread-loader": "^4.0.2",
     "ts-jest": "^28.0.5",
     "ts-node": "^10.8.1",

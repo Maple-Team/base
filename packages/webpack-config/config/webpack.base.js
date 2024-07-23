@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 const child = require('child_process')
 const { ProvidePlugin, DefinePlugin } = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -6,6 +7,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 const dayjs = require('dayjs')
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
+const { minify_sync } = require('terser')
 
 let currentGitBranch = 'N/A'
 let hash = 'N/A'
@@ -19,10 +21,18 @@ try {
 // https://github.com/webpack-contrib/eslint-webpack-plugin
 // https://github.com/seek-oss/css-modules-typescript-loader
 const root = process.cwd()
+const projectRoot = path.resolve(__dirname, '..')
+
 const mode = process.env.NODE_ENV
 
 const isDev = mode === 'development'
 
+const colorFn = minify_sync(
+  {
+    'color.js': fs.readFileSync(path.resolve(projectRoot, './utils/color.js')).toString(),
+  },
+  { compress: true }
+).code
 /**
  * env环境文件注入的环境变量
  */
@@ -112,64 +122,30 @@ const config = {
         {
           tagName: 'script',
           content: `;(function () {
-          window.appHash = '${hash}';
+          window.appHash = '${hash}';   
           window.appBranch = '${currentGitBranch}';
-          var c = '#41b883',
-            f = '#42c02e',
-            l = function (t) {
-              var e = t.title,
-                r = t.content,
-                n = t.backgroundColor,
-                i = [
-                  '%c '.concat(e, ' %c ').concat(r, ' '),
-                  'padding: 1px; border-radius: 3px 0 0 3px; color: #fff; background: '.concat('#35495e', ';'),
-                  'padding: 1px; border-radius: 0 3px 3px 0; color: #fff; background: '.concat(n, ';'),
-                ]
-              return (
-                function () {
-                  var t
-                  console && 'function' === typeof console.log && (t = console).log.apply(t, arguments)
-                }.apply(void 0, i),
-                i
-              )
-            }
-
-          function p(t) {
-            var e = t.title,
-              r = t.content
-            return l({
-              title: e,
-              content: r,
-              backgroundColor: c,
-            })
-          }
-          p({
+          const print = ${colorFn}
+          debugger
+          print({
             title: 'Build Date',
             content: '${dayjs().format('YYYY-MM-DD HH:mm:ss')}',
           })
-          p({
+          print({
             title: 'Build Version',
             content: '${version}',
           })
-          p({
+          print({
             title: 'Build Commit',
             content: '${hash}',
           })
-          p({
+          print({
             title: 'Build Branch',
             content: '${currentGitBranch}',
           })
         })()`,
         },
         {
-          content: `
-        window.addEventListener('error', function handleError(e) {
-          // prompt user to confirm refresh
-          console.log('error', e.message)
-          if (/Loading (?:CSS\\s)?chunk \\d+ failed/.test(e.message)) {
-            window.location.reload();
-          }
-        })`,
+          content: fs.readFileSync(path.resolve(projectRoot, './utils/error.js')).toString(),
           tagName: 'script',
         },
       ],
@@ -193,7 +169,12 @@ const config = {
     }),
 
     isDev ? new ESLintPlugin() : null,
-    !isDev ? new MiniCssExtractPlugin() : null,
+    !isDev
+      ? new MiniCssExtractPlugin({
+          filename: '[name].css',
+          chunkFilename: '[id].css',
+        })
+      : null,
   ].filter(Boolean),
 }
 

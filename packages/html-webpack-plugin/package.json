@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/html-webpack-plugin",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A plugin to inject addition tag to supplement html-webpack-plugin",
   "keywords": [
     "webpack",
@@ -15,27 +15,27 @@
   "license": "MIT",
   "author": "liutsing <liutsingluo@gmail.com>",
   "exports": {
-    "import": "./lib/index.mjs",
     "require": "./lib/index.js",
-    "default": "./lib/index.mjs",
-    "types": "./lib/index.d.ts"
+    "types": "./types/index.d.ts"
   },
   "main": "lib/index.js",
-  "module": "lib/index.mjs",
-  "source": "src/index.ts",
-  "jsnext:main": "lib/index.mjs",
-  "typings": "lib/index.d.ts",
+  "typings": "types/index.d.ts",
   "files": [
-    "lib"
+    "lib","types"
   ],
   "scripts": {
     "lint": "nx lint --ext .ts",
     "prettier": "prettier . --ext .ts -w",
-    "prebuild": "rimraf lib",
-    "prepublish": "pnpm run build",
+    "prebuild": "rimraf lib types",
+    "prepublish": "pnpm run build:babel",
     "test": "nx test",
     "postpublish": "pnpx @liutsing/npmmirror-sync",
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "tsc -w",
+    "build:babel": "npm run build:commonjs",
+    "postbuild:babel": "npm run build:types",
+    "build:commonjs": "babel src -d lib --extensions .ts --delete-dir-on-start",
+    "build:types": "tsc --project tsconfig.build.json"
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {
