@@ -68,7 +68,7 @@
     "@liutsing/babel-plugin-remove-console": "workspace:*",
     "@liutsing/eslint-config": "workspace:*",
     "@liutsing/font-minify-plugin": "workspace:*",
-    "@liutsing/html-webpack-plugin": "workspace:*",
+    "@liutsing/html-webpack-plugin": "0.3.0",
     "@liutsing/lifecycle-webpack-plugin": "workspace:*",
     "@liutsing/pattern-logger-loader": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
