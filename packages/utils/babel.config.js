@@ -8,9 +8,6 @@ module.exports = function (api) {
         '@babel/preset-env',
         {
           modules: false,
-          // useBuiltIns: 'usage',
-          corejs: 3,
-          helpers: true,
           targets: {
             node: 'current',
           },
@@ -20,14 +17,14 @@ module.exports = function (api) {
       '@babel/preset-react',
     ],
     plugins: [
-      [
-        '@babel/plugin-transform-runtime',
-        {
-          version: require('@babel/runtime/package.json').version,
-          corejs: 3,
-        },
-      ],
-      '@babel/plugin-proposal-class-properties',
+      // [
+      //   '@babel/plugin-transform-runtime',
+      //   {
+      //     version: require('@babel/runtime/package.json').version,
+      //     corejs: 3,
+      //   },
+      // ],
+      // '@babel/plugin-proposal-class-properties',
     ],
     env: {
       test: {
