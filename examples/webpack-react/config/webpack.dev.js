@@ -1,15 +1,15 @@
 const path = require('path')
 const os = require('os')
-const { dev, templateContent, meta } = require('@liutsing/webpack-config')
+const { dev, meta, templateContent } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
 const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
-const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
-// const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin').default
+const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-inject-plugin').default
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const DashboardPlugin = require('webpack-dashboard/plugin')
 
+// const HtmlWebpackInjectPreload = require('@principalstudio/html-webpack-inject-preload')
+
 // const LifeCycleWebpackPlugin = require('@liutsing/lifecycle-webpack-plugin')
-// const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 // new LifeCycleWebpackPlugin({
 //   compile: () => {
 //     console.log('\n compile \n', new Date())
@@ -18,14 +18,21 @@ const DashboardPlugin = require('webpack-dashboard/plugin')
 //     console.log('\n done \n', new Date())
 //   },
 // }),
+
+// FIXME speed-measure-webpack-plugin与@liutsing/html-webpack-inject-plugin不兼容
+// const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 // const smp = new SpeedMeasurePlugin()
+
+// NOTE 如果要使用本地的HtmlWebpackPlugin配置的话
+const htmlPluginIndex = dev.plugins.findIndex((plugin) => plugin instanceof HtmlWebpackPlugin)
+dev.plugins.splice(htmlPluginIndex >>> 0, 1)
 
 const config = merge(dev, {
   entry: path.resolve(__dirname, '../src/main.tsx'),
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      hash: true, // 文件连接hash值
+      hash: false,
       cache: false,
       // TODO LOADING 主题变量
       templateContent: () => templateContent,
@@ -48,15 +55,21 @@ const config = merge(dev, {
         },
         {
           tagName: 'script',
-          content: `
-          window.onload = function () {
-            console.log('test: window.onload')
-          }
-          `,
+          content: `window.onload = function () {
+            console.log('window.onload')
+          }`,
         },
       ],
       'body'
     ),
+    // new HtmlWebpackInjectPreload({
+    //   files: [
+    //     {
+    //       match: /.*\.woff2$/,
+    //       attributes: { as: 'font', type: 'font/woff2', crossorigin: true },
+    //     },
+    //   ],
+    // }),
     // 动态扫描 -> babel缓存了导致这个文字文件不存在
     new FontMinifyPlugin({
       words: path.resolve(os.tmpdir(), 'example-webpack-react.txt'),
@@ -105,7 +118,6 @@ const config = merge(dev, {
     },
   },
 })
-// FIXME speed-measure-webpack-plugin与@liutsing/html-webpack-plugin不兼容
-// module.exports = smp.wrap(config)
 
+// module.exports = smp.wrap(config)
 module.exports = config

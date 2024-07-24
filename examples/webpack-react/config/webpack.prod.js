@@ -10,6 +10,7 @@ module.exports = merge(prod, {
   output: {
     ...prod.output,
     publicPath: '/app/',
+    clean: true,
   },
   plugins: [
     getHtmWebpackPlugin(false),

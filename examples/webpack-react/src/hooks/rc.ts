@@ -41,6 +41,7 @@ export const useLatestVehicleResultQuery = (vin?: string) =>
   useQuery(
     ['getLatestTrackingQueryKey', vin],
     (): Promise<VehicleResult> => axios.get(Api.getLatestTracking, { params: { vin } }),
+    // @ts-expect-error: 忽略不处理
     {
       enabled: !!vin,
     }
@@ -56,6 +57,7 @@ export const useFetchCommandResult = (timeout: number, commandId?: string | null
   return useQuery(
     ['fetchRemoteCommandResultKey', commandId],
     () => axios.get<AnyToFix, RemoteControlResult>(Api.fetchControlResult, { params: { commandId } }),
+    // @ts-expect-error: 忽略不处理
     {
       enabled: !!commandId && timeout === 0,
       staleTime: Infinity,

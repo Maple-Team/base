@@ -115,10 +115,12 @@ export const useRemoteControlResult = (commandID?: string | null) => {
 
   // 等待xhr数据返回, 有ws数据的话，则不再使用xhr数据
   useEffect(() => {
+    // @ts-expect-error: 忽略不处理
     if (isSuccess && commandID === data?.commandId) {
       console.debug('获取到xhr远控结果')
       resetFetchTimeout(FETCH_REMOTE_CONTROL_TIMEOUT)
       if (!hasWSData) {
+        // @ts-expect-error: 忽略不处理
         setResult(data)
         console.log('远控结果: xhr')
       }

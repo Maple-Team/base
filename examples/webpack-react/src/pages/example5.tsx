@@ -9,7 +9,7 @@ const fetchData = async () => {
 
 const Example5 = () => {
   const queryClient = useQueryClient()
-
+  // @ts-expect-error: 忽略不处理
   const { data, isLoading } = useQuery(['exampleQueryKey'], fetchData)
 
   const handleUpdateData = () => {
@@ -23,7 +23,12 @@ const Example5 = () => {
         'Loading...'
       ) : (
         <div>
-          <p>{data?.message}</p>
+          <p>
+            {
+              // @ts-expect-error: 忽略不处理
+              data?.message
+            }
+          </p>
           <button onClick={handleUpdateData}>Update Data</button>
         </div>
       )}

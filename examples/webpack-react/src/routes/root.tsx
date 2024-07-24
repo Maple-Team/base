@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 // import Scrollbar from './scrollbar'
 import { Menu } from 'antd'
-import type { ItemType } from 'antd/es/menu/hooks/useItems'
+import type { ItemType } from 'antd/es/menu/interface'
 
 export default () => {
   const items: ItemType[] = [

@@ -3,6 +3,7 @@ import { Button, message } from 'antd'
 import type { HTMLAttributes, PropsWithChildren } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { IconParking } from '@/assets/svg-icons'
+// FIXME 优化这个导入问题
 import '@liutsing/rc-components/dist/index.css'
 
 const Example3: React.FC<PropsWithChildren & HTMLAttributes<HTMLDivElement>> = ({ children, ...rest }) => {
