@@ -24,20 +24,24 @@ const DashboardPlugin = require('webpack-dashboard/plugin')
 // const smp = new SpeedMeasurePlugin()
 
 // NOTE 如果要使用本地的HtmlWebpackPlugin配置的话
-const htmlPluginIndex = dev.plugins.findIndex((plugin) => plugin instanceof HtmlWebpackPlugin)
-dev.plugins.splice(htmlPluginIndex >>> 0, 1)
+const useLocalHtmlWebpackPlugin = process.env.USE_LOCAL_HTML_WEBPACK_PLUGIN === 'true' || false
+if (useLocalHtmlWebpackPlugin) {
+  const htmlPluginIndex = dev.plugins.findIndex((plugin) => plugin instanceof HtmlWebpackPlugin)
+  dev.plugins.splice(htmlPluginIndex >>> 0, 1)
+}
 
 const config = merge(dev, {
   entry: path.resolve(__dirname, '../src/main.tsx'),
   plugins: [
-    new HtmlWebpackPlugin({
-      inject: true,
-      hash: false,
-      cache: false,
-      // TODO LOADING 主题变量
-      templateContent: () => templateContent,
-      meta,
-    }),
+    useLocalHtmlWebpackPlugin
+      ? new HtmlWebpackPlugin({
+          inject: true,
+          hash: false,
+          cache: false,
+          templateContent: () => templateContent,
+          meta,
+        })
+      : null,
     new MapleHtmlWebpackPlugin(
       [
         {
@@ -85,7 +89,7 @@ const config = merge(dev, {
       isFilePath: false,
     }),
     new DashboardPlugin(),
-  ],
+  ].filter(Boolean),
   optimization: {
     usedExports: true, // 使用分析报告
     runtimeChunk: 'single',

@@ -52,27 +52,27 @@ const Root = () => {
 
   return (
     <div className="flex w-full" style={{ display: 'flex' }}>
-      <aside className="w-[240px]" style={{ width: 240 }}>
-        <ul>
-          <li>
+      <aside className="w-[240px]">
+        <ul className="p-0 px-2 capitalize m-0 h-full">
+          <li className="nav-list">
             <Link to="/example">example3</Link>
           </li>
-          <li>
+          <li className="nav-list">
             <Link to="/example4">example4</Link>
           </li>
-          <li>
+          <li className="nav-list">
             <Link to="/example5">example5</Link>
           </li>
-          <li>
+          <li className="nav-list">
             <Link to="/socket.io">socket.io</Link>
           </li>
-          <li>
+          <li className="nav-list">
             <Link to="/mc">MarkerCluster</Link>
           </li>
-          <li>
+          <li className="nav-list">
             <Link to="/hooks">Hooks</Link>
           </li>
-          <li>
+          <li className="nav-list">
             <Link to="/hooks-lifecycle">Hooks-lifecycle</Link>
           </li>
         </ul>

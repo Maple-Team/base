@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .nav-list {
+    @apply text-gray-800 hover:text-white py-2 my-1 bg-green-100 hover:bg-green-400 px-2 rounded-lg;
+  }
+}
+
 body {
   font-family: 'Lato Regular', Arial, 'Alibaba PuHuiTi 2.0 55', 'PingFang SC', 'Microsoft YaHei';
   color: black;
