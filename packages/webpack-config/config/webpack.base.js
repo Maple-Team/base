@@ -67,12 +67,12 @@ const cssLoaders = [
  */
 const config = {
   entry: path.resolve(root, './src/main.tsx'),
-
   resolve: {
     // 尽可能少
     extensions: ['.js', '.ts', '.tsx', '.css', '.less'], // extensions: ['.js', '.ts', '.tsx', '.jsx', '.node', '.wasm', '.css', '.less', '.scss', '.styl'],
     alias: {
       '@': path.resolve(root, './src'),
+      // 其他的模块别名
     },
     mainFiles: ['index'],
     cacheWithContext: false,
@@ -190,14 +190,17 @@ const config = {
       ],
       'body'
     ),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: path.resolve(root, './public'),
-          to: './',
-        },
-      ],
-    }),
+    // 生产下才复制
+    !isDev
+      ? new CopyPlugin({
+          patterns: [
+            {
+              from: path.resolve(root, './public'),
+              to: './',
+            },
+          ],
+        })
+      : null,
     new ProvidePlugin({
       React: 'react',
       process: 'process/browser',

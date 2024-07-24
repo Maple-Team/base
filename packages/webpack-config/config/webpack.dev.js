@@ -1,7 +1,9 @@
+const path = require('path')
 const { merge } = require('webpack-merge')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const base = require('./webpack.base')
 
+const root = process.cwd()
 /**
  * @type {import("webpack-dev-server").Configuration}
  */
@@ -14,6 +16,11 @@ const devServer = {
   open: false,
   setupExitSignals: true,
   historyApiFallback: true,
+  // 适用于开发环境
+  static: {
+    // https://webpack.js.org/configuration/dev-server/#devserverstatic
+    directory: path.resolve(root, 'public'),
+  },
   proxy: [
     {
       context: ['/api'],
@@ -64,6 +71,9 @@ const dev = {
   output: {
     pathinfo: false,
     clean: true,
+    path: path.resolve(root, './dist'),
+    filename: '[name].[chunkhash:8].js',
+    chunkFilename: '[name].[chunkhash:8].chunk.js',
   },
   //   watchOptions: {
   //     aggregateTimeout: 600, // 在第一个文件更改后，添加一个延迟再进行重新构建。这样可以让webpack在此期间聚合其他任何更改，并进行一次重新构建。单位：ms

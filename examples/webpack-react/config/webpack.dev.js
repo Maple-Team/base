@@ -93,6 +93,7 @@ const config = merge(dev, {
   optimization: {
     usedExports: true, // 使用分析报告
     runtimeChunk: 'single',
+    moduleIds: 'deterministic',
     splitChunks: {
       chunks: 'all',
     },
@@ -121,6 +122,20 @@ const config = merge(dev, {
         changeOrigin: true, // NOTE 很重要
       },
     ],
+  },
+  // 持久化缓存
+  cache: {
+    type: 'filesystem',
+    cacheDirectory: path.resolve(__dirname, '../node_modules/.cache/webpack'),
+    buildDependencies: {
+      // 那些文件发现改变就让缓存失效，一般为 webpack 的配置文件
+      config: [__filename],
+    },
+    managedPaths: [path.resolve(__dirname, '../node_modules')], // 受控目录，指的就是那些目录文件会生成缓存
+    // 缓存时间
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    compression: false,
+    profile: false,
   },
 })
 
