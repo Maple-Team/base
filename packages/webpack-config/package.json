@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/webpack-config",
-  "version": "0.2.0-beta.4",
+  "version": "0.2.0-beta.5",
   "private": false,
   "description": "common webpack config",
   "keywords": [
@@ -31,7 +31,7 @@
     "@liutsing/babel-plugin-remove-console": "workspace:*",
     "@liutsing/babel-plugin-auto-i18n": "workspace:*",
     "@liutsing/eslint-config": "workspace:*", 
-    "@liutsing/html-webpack-plugin": "0.3.0",
+    "@liutsing/html-webpack-inject-plugin": "workspace:*",
     "@liutsing/prettier-config": "workspace:*",
     "@svgr/webpack": "^5.5.0",
     "@types/lodash": "^4.14.191",

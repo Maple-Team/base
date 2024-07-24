@@ -67,6 +67,10 @@ const dev = {
   //     stdin: true,
   //     followSymlinks: false, // 在查找文件时，跟随符号链接。This is usually not needed as webpack already resolves symlinks with `resolve.symlinks`.
   //   },
+  watchOptions: {
+    // 忽略字体文件的变化
+    ignored: /\.woff2?/,
+  },
   experiments: {
     lazyCompilation: true,
   },

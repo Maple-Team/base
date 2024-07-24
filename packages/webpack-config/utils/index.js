@@ -12,14 +12,14 @@ const { meta } = require('./meta')
 /**
  * 获取HtmlWebpackPlugin实例
  * TODO 传入参数
+ * TODO LOADING 主题变量
  * @returns
  */
 const getHtmWebpackPlugin = (hash = true) =>
   new HtmlWebpackPlugin({
     inject: true,
-    hash, // 文件连接hash值
+    hash,
     cache: false,
-    // TODO LOADING 主题变量
     templateContent: () => templateContent,
     meta,
   })

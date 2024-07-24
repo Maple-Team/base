@@ -23,6 +23,10 @@ const meta = {
     'http-equiv': 'Cache-Control',
     content: 'no-store, must-revalidate',
   },
+  f: {
+    name: 'Build Date',
+    content: new Date().toLocaleString(),
+  },
 }
 
 module.exports = { meta }

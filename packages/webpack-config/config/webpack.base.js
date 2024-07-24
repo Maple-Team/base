@@ -5,9 +5,11 @@ const { ProvidePlugin, DefinePlugin } = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const dayjs = require('dayjs')
-const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
+const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-inject-plugin').default
 const ESLintPlugin = require('eslint-webpack-plugin')
 const { minify_sync } = require('terser')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { meta, templateContent } = require('../utils')
 
 let currentGitBranch = 'N/A'
 let hash = 'N/A'
@@ -27,12 +29,22 @@ const mode = process.env.NODE_ENV
 
 const isDev = mode === 'development'
 
+const colorSourceCode = fs.readFileSync(path.resolve(projectRoot, './utils/color.js')).toString()
 const colorFn = minify_sync(
   {
-    'color.js': fs.readFileSync(path.resolve(projectRoot, './utils/color.js')).toString(),
+    'color.js': colorSourceCode,
   },
-  { compress: true }
+  {
+    compress: true,
+    format: {
+      comments: false,
+    },
+    mangle: {
+      reserved: ['title', 'content'],
+    },
+  }
 ).code
+
 /**
  * env环境文件注入的环境变量
  */
@@ -117,28 +129,36 @@ const config = {
     ],
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      hash: true, // 文件连接hash值
+      cache: false,
+      // TODO LOADING 主题变量
+      templateContent: () => templateContent,
+      meta,
+    }),
     new MapleHtmlWebpackPlugin(
       [
         {
           tagName: 'script',
           content: `;(function () {
-          window.appHash = '${hash}';   
+          // for version compare
+          window.appHash = '${hash}';
           window.appBranch = '${currentGitBranch}';
-          const print = ${colorFn}
-          debugger
-          print({
+          const _c = (${colorFn})()
+          _c({
             title: 'Build Date',
             content: '${dayjs().format('YYYY-MM-DD HH:mm:ss')}',
           })
-          print({
+          _c({
             title: 'Build Version',
             content: '${version}',
           })
-          print({
+          _c({
             title: 'Build Commit',
             content: '${hash}',
           })
-          print({
+          _c({
             title: 'Build Branch',
             content: '${currentGitBranch}',
           })
