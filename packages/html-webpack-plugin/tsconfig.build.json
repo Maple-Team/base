@@ -1,12 +1,19 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
     "rootDir": "src",
-    "emitDeclarationOnly": true,
     "declaration": true,
     "declarationDir": "types",
-
+    "outDir": "lib",
+    "lib": [
+      "es2019","DOM"
+    ],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noImplicitAny": false,
   },
-  "exclude": ["jest.config.ts", "types", "__tests__"],
+  "exclude": ["jest.config.ts", "types", "__tests__", "lib", "node_modules"],
   "include": ["src"]
 }

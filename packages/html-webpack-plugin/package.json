@@ -1,6 +1,6 @@
 {
-  "name": "@liutsing/html-webpack-plugin",
-  "version": "0.3.0",
+  "name": "@liutsing/html-webpack-inject-plugin",
+  "version": "0.3.0-beta.2",
   "description": "A plugin to inject addition tag to supplement html-webpack-plugin",
   "keywords": [
     "webpack",
@@ -11,6 +11,9 @@
   "repository": {
     "type": "git",
     "url": ""
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "license": "MIT",
   "author": "liutsing <liutsingluo@gmail.com>",
@@ -27,10 +30,11 @@
     "lint": "nx lint --ext .ts",
     "prettier": "prettier . --ext .ts -w",
     "prebuild": "rimraf lib types",
-    "prepublish": "pnpm run build:babel",
+    "prepublish": "pnpm run build",
     "test": "nx test",
+    "build": "tsc --project tsconfig.build.json",
     "postpublish": "pnpx @liutsing/npmmirror-sync",
-    "build": "rollup -c rollup.config.js",
+    "build:rollup": "rollup -c rollup.config.js",
     "build:watch": "tsc -w",
     "build:babel": "npm run build:commonjs",
     "postbuild:babel": "npm run build:types",
