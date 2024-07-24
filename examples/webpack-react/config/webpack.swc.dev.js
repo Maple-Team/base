@@ -4,7 +4,7 @@ const { dev, getHtmWebpackPlugin } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
 const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
 const webpack = require('webpack')
-const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
+const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-inject-plugin').default
 
 // const LifeCycleWebpackPlugin = require('@liutsing/lifecycle-webpack-plugin')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
@@ -115,7 +115,7 @@ const config = merge(
     },
   }
 )
-// FIXME speed-measure-webpack-plugin与@liutsing/html-webpack-plugin不兼容
+// FIXME speed-measure-webpack-plugin与@liutsing/html-webpack-inject-plugin不兼容
 module.exports = smp.wrap(config)
 
 // module.exports = config

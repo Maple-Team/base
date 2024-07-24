@@ -113,13 +113,14 @@ const config = merge(dev, {
   devServer: {
     ...dev.devServer,
     headers: { 'X-Upstream': process.env.API_URL, 'Access-Control-Allow-Origin': '*' },
-    proxy: {
-      '/api': {
+    proxy: [
+      {
+        context: ['/api'],
         target: process.env.API_URL,
         secure: false,
-        changeOrigin: true,
+        changeOrigin: true, // NOTE 很重要
       },
-    },
+    ],
   },
 })
 

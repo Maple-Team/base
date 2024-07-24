@@ -22,11 +22,11 @@
   "devDependencies": {
     "@liutsing/babel-plugin-remove-console": "0.0.1",
     "@liutsing/eslint-config": "0.0.11",
-    "@liutsing/html-webpack-plugin": "^0.2.0",
+    "@liutsing/html-webpack-inject-plugin": "^0.3.0-beta.2",
     "@liutsing/prettier-config": "0.0.6",
     "@liutsing/tsconfig": "0.0.6",
     "@liutsing/types-utils": "1.0.2",
-    "@liutsing/webpack-config": "0.2.0-beta.4",
+    "@liutsing/webpack-config": "0.2.0-beta.8",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@svgr/webpack": "^8.1.0",
     "@testing-library/react-hooks": "^8.0.1",

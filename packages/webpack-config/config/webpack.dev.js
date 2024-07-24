@@ -14,19 +14,24 @@ const devServer = {
   open: false,
   setupExitSignals: true,
   historyApiFallback: true,
-  proxy: {
-    '/api': {
+  proxy: [
+    {
+      context: ['/api'],
       target: process.env.API_URL,
       secure: false,
       changeOrigin: true, // NOTE 很重要
     },
-    '/ws/': {
+    {
+      context: ['/ws-service'], // NOTE 避免与内置的/ws请求冲突
       target: process.env.WS_URL,
       ws: true,
       secure: false,
       changeOrigin: true,
+      pathRewrite: {
+        '^/ws-service': '/ws',
+      },
     },
-  },
+  ],
   client: {
     logging: 'error',
     overlay: false,

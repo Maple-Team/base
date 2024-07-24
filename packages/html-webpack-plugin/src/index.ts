@@ -51,7 +51,7 @@ export default class MapleHtmlWebpackPlugin implements WebpackPluginInstance {
       const hooks = HtmlWebpackPlugin.getHooks(compilation)
       hooks.alterAssetTagGroups.tapAsync(className, (data, cb) => {
         try {
-          logger.info('@liutsing/html-webpack-plugin running...')
+          logger.info('@liutsing/html-webpack-inject-plugin running...')
           if (this.options) {
             if (!Array.isArray(this.options)) this.options = [this.options]
             // 避免空数组为空

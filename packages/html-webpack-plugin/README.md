@@ -1,19 +1,19 @@
-# @liutsing/html-webpack-plugin
+# @liutsing/html-webpack-inject-plugin
 
 测试 webpack module test pattern 规则的 loader
 
 ## install
 
 ```sh
-npm install @liutsing/html-webpack-plugin --save-dev
-pnpm install @liutsing/html-webpack-plugin --save-dev
-yarn add @liutsing/html-webpack-plugin -D
+npm install @liutsing/html-webpack-inject-plugin --save-dev
+pnpm install @liutsing/html-webpack-inject-plugin --save-dev
+yarn add @liutsing/html-webpack-inject-plugin -D
 ```
 
 ## usage
 
 ```js
-const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-plugin')
+const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-inject-plugin').default
 
 const configs = {
   plugins: [new MapleHtmlWebpackPlugin({ options: '' })],

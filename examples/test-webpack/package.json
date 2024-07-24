@@ -25,11 +25,11 @@
   "devDependencies": {
     "@liutsing/babel-plugin-remove-console": "0.0.1",
     "@liutsing/eslint-config": "0.0.11",
-    "@liutsing/html-webpack-plugin": "^0.2.0",
+    "@liutsing/html-webpack-inject-plugin": "workspace:*",
     "@liutsing/prettier-config": "0.0.6",
     "@liutsing/tsconfig": "0.0.6",
     "@liutsing/types-utils": "1.0.2",
-    "@liutsing/webpack-config": "0.2.0-beta.4",
+    "@liutsing/webpack-config": "workspace:*",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@svgr/webpack": "^8.1.0",
     "@testing-library/react-hooks": "^8.0.1",
@@ -47,7 +47,8 @@
     "tailwindcss": "^3.3.4",
     "thread-loader": "^4.0.2",
     "typescript": "^5.0.4",
-    "webpack": "^5.91.0"
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   },
   "prettier": "@liutsing/prettier-config",
   "simple-git-hooks": {
