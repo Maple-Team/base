@@ -106,3 +106,9 @@ export const IconWrap = () => {
 - [svgo-loader](https://github.com/svg/svgo-loader)
 - [svgr](https://github.com/gregberge/svgr)
 - [webpack-merge](https://github.com/survivejs/webpack-merge)
+
+## Idea
+
+> ✨✨✨
+
+打包出多种输出产物，支持现代浏览器和 legacy 浏览器

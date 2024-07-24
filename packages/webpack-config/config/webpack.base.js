@@ -7,9 +7,9 @@ const CopyPlugin = require('copy-webpack-plugin')
 const dayjs = require('dayjs')
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-inject-plugin').default
 const ESLintPlugin = require('eslint-webpack-plugin')
-const { minify_sync } = require('terser')
+
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { meta, templateContent } = require('../utils')
+const { meta, templateContentFn, minfiyCode } = require('../utils')
 
 let currentGitBranch = 'N/A'
 let hash = 'N/A'
@@ -29,21 +29,9 @@ const mode = process.env.NODE_ENV
 
 const isDev = mode === 'development'
 
-const colorSourceCode = fs.readFileSync(path.resolve(projectRoot, './utils/color.js')).toString()
-const colorFn = minify_sync(
-  {
-    'color.js': colorSourceCode,
-  },
-  {
-    compress: true,
-    format: {
-      comments: false,
-    },
-    mangle: {
-      reserved: ['title', 'content'],
-    },
-  }
-).code
+const colorSourceCode = fs.readFileSync(path.resolve(projectRoot, './inject/color.js')).toString()
+
+const colorFn = minfiyCode(colorSourceCode)
 
 /**
  * env环境文件注入的环境变量
@@ -133,9 +121,40 @@ const config = {
       inject: true,
       hash: true, // 文件连接hash值
       cache: false,
+      // If you pass a plain object, it will be merged with the default values
+      // 注入额外的参数
+      templateParameters: {
+        foo: 'bar',
+        themeColor: '#FF9500' || 'rgba(108, 117, 125, 0.75)',
+      },
+      // Or if you want full control, pass a function
+      // templateParameters: (compilation, assets, assetTags, options) => {
+      //   return {
+      //     compilation,
+      //     webpackConfig: compilation.options,
+      //     htmlWebpackPlugin: {
+      //       tags: assetTags,
+      //       files: assets,
+      //       options
+      //     },
+      //     'foo': 'bar'
+      //   };
+      // },
       // TODO LOADING 主题变量
-      templateContent: () => templateContent,
+      templateContent: templateContentFn,
       meta,
+      minify: true,
+      title: 'React Webpack Template',
+      filename: 'index.html',
+      // TODO
+      //   scriptLoading: 'defer',
+      //   publicPath: '/',
+      //   base: '',
+      //   favicon: '',
+      // 过滤chunks
+      //   chunks:[]
+      // 排除chunks
+      //   excludeChunks:[]
     }),
     new MapleHtmlWebpackPlugin(
       [
@@ -165,7 +184,7 @@ const config = {
         })()`,
         },
         {
-          content: fs.readFileSync(path.resolve(projectRoot, './utils/error.js')).toString(),
+          content: minfiyCode(fs.readFileSync(path.resolve(projectRoot, './inject/error.js')).toString()),
           tagName: 'script',
         },
       ],
