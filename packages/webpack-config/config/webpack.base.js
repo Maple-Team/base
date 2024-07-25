@@ -156,11 +156,12 @@ const config = {
       // 排除chunks
       //   excludeChunks:[]
     }),
-    new MapleHtmlWebpackPlugin(
-      [
-        {
-          tagName: 'script',
-          content: `;(function () {
+    !isDev
+      ? new MapleHtmlWebpackPlugin(
+          [
+            {
+              tagName: 'script',
+              content: `;(function () {
           // for version compare
           window.appHash = '${hash}';
           window.appBranch = '${currentGitBranch}';
@@ -182,14 +183,15 @@ const config = {
             content: '${currentGitBranch}',
           })
         })()`,
-        },
-        {
-          content: minfiyCode(fs.readFileSync(path.resolve(projectRoot, './inject/error.js')).toString()),
-          tagName: 'script',
-        },
-      ],
-      'body'
-    ),
+            },
+            {
+              content: minfiyCode(fs.readFileSync(path.resolve(projectRoot, './inject/error.js')).toString()),
+              tagName: 'script',
+            },
+          ],
+          'body'
+        )
+      : null,
     // 生产下才复制
     !isDev
       ? new CopyPlugin({
@@ -210,7 +212,7 @@ const config = {
       ...envKeys,
     }),
 
-    isDev ? new ESLintPlugin() : null,
+    !isDev ? new ESLintPlugin() : null,
     !isDev
       ? new MiniCssExtractPlugin({
           filename: '[name].css',

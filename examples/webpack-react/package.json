@@ -113,12 +113,12 @@
     "ts-loader": "^9.5.0",
     "typescript": "^5.2.2",
     "typings-for-css-modules-loader": "^1.7.0",
-    "webpack": "^5.89.0",
-    "webpack-bundle-analyzer": "^4.9.1",
+    "webpack": "^5.93.0",
+    "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^5.1.4",
     "webpack-dashboard": "^3.3.8",
     "webpack-dev-server": "^5.0.4",
-    "webpack-merge": "^5.10.0"
+    "webpack-merge": "^6.0.1"
   },
   "prettier": "@liutsing/prettier-config",
   "simple-git-hooks": {

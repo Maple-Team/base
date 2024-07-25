@@ -1,13 +1,10 @@
 const path = require('path')
 const os = require('os')
-const { dev, meta, templateContent } = require('@liutsing/webpack-config')
+const { dev } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
 const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
-const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-inject-plugin').default
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const DashboardPlugin = require('webpack-dashboard/plugin')
 
-// const HtmlWebpackInjectPreload = require('@principalstudio/html-webpack-inject-preload')
+console.log('[ webpack start compile ] > ', new Date().toLocaleTimeString())
 
 // const LifeCycleWebpackPlugin = require('@liutsing/lifecycle-webpack-plugin')
 // new LifeCycleWebpackPlugin({
@@ -19,53 +16,52 @@ const DashboardPlugin = require('webpack-dashboard/plugin')
 //   },
 // }),
 
-// FIXME speed-measure-webpack-plugin与@liutsing/html-webpack-inject-plugin不兼容
-// const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
-// const smp = new SpeedMeasurePlugin()
-
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+const smp = new SpeedMeasurePlugin()
+const useSMP = true
 // NOTE 如果要使用本地的HtmlWebpackPlugin配置的话
-const useLocalHtmlWebpackPlugin = process.env.USE_LOCAL_HTML_WEBPACK_PLUGIN === 'true' || false
-if (useLocalHtmlWebpackPlugin) {
-  const htmlPluginIndex = dev.plugins.findIndex((plugin) => plugin instanceof HtmlWebpackPlugin)
-  dev.plugins.splice(htmlPluginIndex >>> 0, 1)
-}
+// const useLocalHtmlWebpackPlugin = process.env.USE_LOCAL_HTML_WEBPACK_PLUGIN === 'true' || false
+// if (useLocalHtmlWebpackPlugin) {
+//   const htmlPluginIndex = dev.plugins.findIndex((plugin) => plugin instanceof HtmlWebpackPlugin)
+//   dev.plugins.splice(htmlPluginIndex >>> 0, 1)
+// }
 
 const config = merge(dev, {
   entry: path.resolve(__dirname, '../src/main.tsx'),
   plugins: [
-    useLocalHtmlWebpackPlugin
-      ? new HtmlWebpackPlugin({
-          inject: true,
-          hash: false,
-          cache: false,
-          templateContent: () => templateContent,
-          meta,
-        })
-      : null,
-    new MapleHtmlWebpackPlugin(
-      [
-        {
-          tagName: 'style',
-          content: `
-          @font-face {
-            font-family: 'Alibaba PuHuiTi 2.0 55';
-            src: url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff2') format('woff2'),
-              url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-          }
-          `,
-        },
-        {
-          tagName: 'script',
-          content: `window.onload = function () {
-            console.log('window.onload')
-          }`,
-        },
-      ],
-      'body'
-    ),
+    // useLocalHtmlWebpackPlugin
+    //   ? new HtmlWebpackPlugin({
+    //       inject: true,
+    //       hash: false,
+    //       cache: false,
+    //       templateContent: () => templateContent,
+    //       meta,
+    //     })
+    //   : null,
+    // new MapleHtmlWebpackPlugin(
+    //   [
+    //     {
+    //       tagName: 'style',
+    //       content: `
+    //       @font-face {
+    //         font-family: 'Alibaba PuHuiTi 2.0 55';
+    //         src: url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff2') format('woff2'),
+    //           url('/fonts/AlibabaPuHuiTi_2_55_Regular.woff') format('woff');
+    //         font-weight: normal;
+    //         font-style: normal;
+    //         font-display: swap;
+    //       }
+    //       `,
+    //     },
+    //     {
+    //       tagName: 'script',
+    //       content: `window.onload = function () {
+    //         console.log('window.onload')
+    //       }`,
+    //     },
+    //   ],
+    //   'body'
+    // ),
     // new HtmlWebpackInjectPreload({
     //   files: [
     //     {
@@ -88,7 +84,8 @@ const config = merge(dev, {
       words: '文言文字形对比',
       isFilePath: false,
     }),
-    new DashboardPlugin(),
+    // TODO 作用是?
+    // new DashboardPlugin(),
   ].filter(Boolean),
   optimization: {
     usedExports: true, // 使用分析报告
@@ -98,11 +95,10 @@ const config = merge(dev, {
       chunks: 'all',
     },
   },
-
   experiments: {
     lazyCompilation: false,
   },
-  // parallelism: 3000,
+  // parallelism: 24,
   externalsType: 'script',
   externals: {
     lodash: ['https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-y/lodash.js/4.17.21/lodash.min.js', '_'],
@@ -124,20 +120,23 @@ const config = merge(dev, {
     ],
   },
   // 持久化缓存
-  cache: {
-    type: 'filesystem',
-    cacheDirectory: path.resolve(__dirname, '../node_modules/.cache/webpack'),
-    buildDependencies: {
-      // 那些文件发现改变就让缓存失效，一般为 webpack 的配置文件
-      config: [__filename],
-    },
-    managedPaths: [path.resolve(__dirname, '../node_modules')], // 受控目录，指的就是那些目录文件会生成缓存
-    // 缓存时间
-    maxAge: 1000 * 60 * 60 * 24 * 7,
-    compression: false,
-    profile: false,
-  },
+  cache: useSMP
+    ? true
+    : {
+        type: 'filesystem',
+        cacheDirectory: path.resolve(__dirname, '../node_modules/.cache/webpack'),
+        buildDependencies: {
+          // 那些文件发现改变就让缓存失效，一般为 webpack 的配置文件
+          config: [__filename],
+        },
+        managedPaths: [path.resolve(__dirname, '../node_modules')], // 受控目录，指的就是那些目录文件会生成缓存
+        // 缓存时间
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        compression: false,
+        profile: false,
+      },
+  profile: false,
 })
 
-// module.exports = smp.wrap(config)
-module.exports = config
+module.exports = smp.wrap(config)
+// module.exports = config

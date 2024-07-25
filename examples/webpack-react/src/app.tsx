@@ -186,15 +186,15 @@ export const App = () => {
                     </Suspense>
                   }
                 />
+                <Route
+                  path="hooks-lifecycle"
+                  element={
+                    <Suspense fallback={<div>loading...</div>}>
+                      <HooksLifecycle />
+                    </Suspense>
+                  }
+                />
               </Route>
-              <Route
-                path="hooks-lifecycle"
-                element={
-                  <Suspense fallback={<div>loading...</div>}>
-                    <HooksLifecycle />
-                  </Suspense>
-                }
-              />
             </Routes>
           </BrowserRouter>
           {/* <Suspense fallback={<Spin spinning />}>
