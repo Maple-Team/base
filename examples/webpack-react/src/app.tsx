@@ -54,27 +54,27 @@ const Root = () => {
     <div className="flex w-full" style={{ display: 'flex' }}>
       <aside className="w-[240px]">
         <ul className="p-0 px-2 capitalize m-0 h-full">
-          <li className="nav-list">
-            <Link to="/example">example3</Link>
-          </li>
-          <li className="nav-list">
-            <Link to="/example4">example4</Link>
-          </li>
-          <li className="nav-list">
-            <Link to="/example5">example5</Link>
-          </li>
-          <li className="nav-list">
-            <Link to="/socket.io">socket.io</Link>
-          </li>
-          <li className="nav-list">
-            <Link to="/mc">MarkerCluster</Link>
-          </li>
-          <li className="nav-list">
-            <Link to="/hooks">Hooks</Link>
-          </li>
-          <li className="nav-list">
-            <Link to="/hooks-lifecycle">Hooks-lifecycle</Link>
-          </li>
+          <Link to="/example">
+            <li className="nav-list">example3</li>
+          </Link>
+          <Link to="/example4">
+            <li className="nav-list">example4</li>
+          </Link>
+          <Link to="/example5">
+            <li className="nav-list">example5</li>
+          </Link>
+          <Link to="/socket.io">
+            <li className="nav-list">socket.io</li>
+          </Link>
+          <Link to="/mc">
+            <li className="nav-list">MarkerCluster</li>
+          </Link>
+          <Link to="/hooks">
+            <li className="nav-list">Hooks</li>
+          </Link>
+          <Link to="/hooks-lifecycle">
+            <li className="nav-list">Hooks-lifecycle</li>
+          </Link>
         </ul>
       </aside>
       <main className="flex-1" style={{ paddingLeft: 24, paddingTop: 0, flex: 1 }}>

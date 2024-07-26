@@ -4,6 +4,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const base = require('./webpack.base')
 
 const root = process.cwd()
+
 /**
  * @type {import("webpack-dev-server").Configuration}
  */
@@ -16,6 +17,11 @@ const devServer = {
   open: false,
   setupExitSignals: true,
   historyApiFallback: true,
+  // Provide options to [webpack-dev-middleware](https://github.com/webpack/webpack-dev-middleware) which handles webpack assets.
+  devMiddleware: {
+    // true: 写入本地文件，方便开发下查看输出的产物，方便调试一些babel插件
+    writeToDisk: false,
+  },
   // 适用于开发环境
   static: {
     // https://webpack.js.org/configuration/dev-server/#devserverstatic
@@ -49,10 +55,13 @@ const devServer = {
  */
 const dev = {
   mode: 'development',
-  devtool: 'eval-cheap-module-source-map',
+  // cheap-module-source-map ->  输出的代码可读性较好，性能较差
+  // eval-cheap-module-source-map ->  输出的代码可读性较差，性能较好
+  devtool: 'cheap-module-source-map',
   plugins: [
     new ReactRefreshWebpackPlugin({
       overlay: false, // NOTE 是否以遮挡的形式展示错误
+      library: 'reactRefreshWebpackPlugin',
     }),
   ],
   cache: true,
@@ -69,7 +78,7 @@ const dev = {
     debug: true,
   },
   output: {
-    pathinfo: false,
+    pathinfo: true,
     clean: true,
     path: path.resolve(root, './dist'),
     filename: '[name].[chunkhash:8].js',

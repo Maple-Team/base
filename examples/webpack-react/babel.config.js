@@ -1,4 +1,7 @@
 const pkg = require('./package.json')
+const path = require('path')
+const fs = require('fs')
+
 /**
  * 创建Babel配置的函数
  * @type {import('@babel/core').ConfigFunction} api
@@ -29,7 +32,7 @@ module.exports = (api) => {
       '@babel/preset-typescript',
     ],
     plugins: [
-      api.env('development')
+      api.env('production')
         ? [
             // When this plugin is enabled, the useBuiltIns option in @babel/preset-env must not be set. Otherwise, this plugin may not able to completely sandbox the environment.
             '@babel/plugin-transform-runtime',
@@ -45,7 +48,7 @@ module.exports = (api) => {
             },
           ]
         : null,
-      !api.env('production') ? 'react-refresh/babel' : null,
+      api.env('development') ? 'react-refresh/babel' : null,
       api.env('production')
         ? [
             '@liutsing/babel-plugin-remove-console',
@@ -56,6 +59,14 @@ module.exports = (api) => {
         : null,
     ].filter(Boolean),
   }
+
+  const configStr = JSON.stringify(config, null, 2)
+  fs.writeFile(path.resolve(__dirname, './config/babel-config.json'), configStr, (err) => {
+    if (err) {
+      console.log(err)
+    }
+  })
+
   return config
 }
 // https://babeljs.io/docs/babel-plugin-transform-runtime#technical-details

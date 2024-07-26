@@ -89,6 +89,8 @@ const config = {
             loader: 'thread-loader',
             options: {
               workers: require('os').cpus().length,
+              // 数字安全
+              poolTimeout: 2 ** 31 - 1,
             },
           },
           {

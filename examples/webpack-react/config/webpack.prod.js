@@ -5,7 +5,7 @@ const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
 const { merge } = require('webpack-merge')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
-module.exports = merge(prod, {
+const config = merge(prod, {
   entry: path.resolve(__dirname, '../src/main.tsx'),
   output: {
     ...prod.output,
@@ -58,3 +58,12 @@ module.exports = merge(prod, {
     profile: false,
   },
 })
+
+const configStr = JSON.stringify(config, null, 2)
+writeFile(path.resolve(__dirname, './webpack.prod.json'), configStr, (err) => {
+  if (err) {
+    console.log(err)
+  }
+})
+
+module.exports = config
