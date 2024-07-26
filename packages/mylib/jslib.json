@@ -1,0 +1,9 @@
+{
+    "name": "mylib",
+    "npmname": "mylib",
+    "umdname": "mylib",
+    "username": "liutsingluo",
+    "type": "ts",
+    "lang": "en",
+    "version": "2.3.4"
+}
