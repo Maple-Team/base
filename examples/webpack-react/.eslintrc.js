@@ -8,5 +8,6 @@ module.exports = {
     indent: 'off',
     'multiline-ternary': 'off',
     'operator-linebreak': 'off',
+    'prettier/prettier': 'off',
   },
 }

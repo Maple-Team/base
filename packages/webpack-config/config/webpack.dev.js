@@ -1,9 +1,9 @@
 const path = require('path')
-const { merge } = require('webpack-merge')
+const { mergeWithRules } = require('webpack-merge')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const base = require('./webpack.base')
 
-const root = process.cwd()
+const appRoot = process.cwd()
 
 /**
  * @type {import("webpack-dev-server").Configuration}
@@ -19,23 +19,23 @@ const devServer = {
   historyApiFallback: true,
   // Provide options to [webpack-dev-middleware](https://github.com/webpack/webpack-dev-middleware) which handles webpack assets.
   devMiddleware: {
-    // true: 写入本地文件，方便开发下查看输出的产物，方便调试一些babel插件
+    //  true: 写入本地文件，方便开发下查看输出的产物，方便调试一些babel插件
     writeToDisk: false,
   },
   // 适用于开发环境
   static: {
     // https://webpack.js.org/configuration/dev-server/#devserverstatic
-    directory: path.resolve(root, 'public'),
+    directory: path.resolve(appRoot, 'public'),
   },
   proxy: [
     {
       context: ['/api'],
       target: process.env.API_URL,
       secure: false,
-      changeOrigin: true, // NOTE 很重要
+      changeOrigin: true, // 很重要
     },
     {
-      context: ['/ws-service'], // NOTE 避免与内置的/ws请求冲突
+      context: ['/ws-service'], // 避免与内置的/ws请求冲突
       target: process.env.WS_URL,
       ws: true,
       secure: false,
@@ -46,8 +46,8 @@ const devServer = {
     },
   ],
   client: {
-    logging: 'error',
-    overlay: false,
+    logging: 'log', // web-dev-server的日志输出控制，输出到控制台: 确定当前的一些配置信息
+    overlay: false, // 输出信息是否遮挡页面
   },
 }
 /**
@@ -60,37 +60,35 @@ const dev = {
   devtool: 'cheap-module-source-map',
   plugins: [
     new ReactRefreshWebpackPlugin({
-      overlay: false, // NOTE 是否以遮挡的形式展示错误
+      overlay: false, // 是否以遮挡的形式展示错误
       library: 'reactRefreshWebpackPlugin',
     }),
   ],
-  cache: true,
   optimization: {
-    runtimeChunk: true,
-    removeAvailableModules: false,
-    removeEmptyChunks: false,
-    splitChunks: false,
+    moduleIds: 'named', // 便于识别
+    chunkIds: 'named', // 便于识别
+    concatenateModules: false, // 避免模块被合并
+    removeAvailableModules: false, // 保留模块的依赖关系，有助于调试
+    removeEmptyChunks: true,
+    splitChunks: {
+      chunks: 'async', // 不需要复杂的代码切割
+    },
+    runtimeChunk: false, // 影响代码的加载，比如模块联邦下、HMR
+    noEmitOnErrors: true, // 遇到错误不会产生输出文件
+    mangleExports: false, // 避免导出的名称被混淆
   },
   devServer,
+  // Webpack 基础设施级别的日志记录
   infrastructureLogging: {
-    appendOnly: true,
-    level: 'verbose',
-    debug: true,
+    debug: false, // 开启特定日志比如插件(plugins)和加载器(loaders)的调试信息, 提供筛选能力 ['MyPlugin', /MyPlugin/, (name) => name.contains('MyPlugin')],
   },
   output: {
     pathinfo: true,
     clean: true,
-    path: path.resolve(root, './dist'),
+    path: path.resolve(appRoot, './dist'),
     filename: '[name].[chunkhash:8].js',
     chunkFilename: '[name].[chunkhash:8].chunk.js',
   },
-  //   watchOptions: {
-  //     aggregateTimeout: 600, // 在第一个文件更改后，添加一个延迟再进行重新构建。这样可以让webpack在此期间聚合其他任何更改，并进行一次重新构建。单位：ms
-  //     poll: 100, // 轮询时长 单位：ms
-  //     ignored: ['**/node_modules'],
-  //     stdin: true,
-  //     followSymlinks: false, // 在查找文件时，跟随符号链接。This is usually not needed as webpack already resolves symlinks with `resolve.symlinks`.
-  //   },
   watchOptions: {
     // 忽略字体文件的变化
     ignored: /\.woff2?/,
@@ -98,7 +96,16 @@ const dev = {
   experiments: {
     lazyCompilation: true,
   },
+  profile: false,
+  // 产物分析用，含依赖关系等 如果你使用了代码分离(code splittnig)这样的复杂配置，records 会特别有用。这些数据用于确保拆分 bundle，以便实现你需要的缓存(caching)行为。
+  recordsPath: path.join(appRoot, './config/records.dev.json'),
 }
-const config = merge(base, dev)
+
+const config = mergeWithRules({
+  output: 'merge',
+  infrastructureLogging: 'merge',
+  experiments: 'merge',
+  watchOptions: 'merge',
+})(base, dev)
 
 module.exports = config
