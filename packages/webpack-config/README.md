@@ -106,9 +106,15 @@ export const IconWrap = () => {
 - [svgo-loader](https://github.com/svg/svgo-loader)
 - [svgr](https://github.com/gregberge/svgr)
 - [webpack-merge](https://github.com/survivejs/webpack-merge)
+- [build-performance reference](https://webpack.js.org/guides/build-performance/)
 
 ## Idea
 
 > ✨✨✨
 
 打包出多种输出产物，支持现代浏览器和 legacy 浏览器
+// TODO 参考 vue-cli/cra/其他开源社区分享
+
+- https://github.com/TypeStrong/fork-ts-checker-webpack-plugin
+- https://github.com/webpack-contrib/eslint-webpack-plugin
+- https://github.com/seek-oss/css-modules-typescript-loader

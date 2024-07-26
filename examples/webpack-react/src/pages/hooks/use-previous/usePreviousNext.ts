@@ -5,6 +5,7 @@ function usePrevious<T>(state: T, deps: React.DependencyList): T | undefined {
 
   useEffect(() => {
     ref.current = state
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 
   return ref.current

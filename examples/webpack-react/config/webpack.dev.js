@@ -25,8 +25,12 @@ threadLoader.warmup(
   ]
 )
 
+/**
+ *
+ * @type {import("webpack").Configuration}
+ */
 const config = merge(dev, {
-  entry: path.resolve(__dirname, '../src/main.tsx'),
+  // 合并
   plugins: [
     // 动态扫描 -> babel缓存了导致这个文字文件不存在
     new FontMinifyPlugin({
@@ -43,33 +47,10 @@ const config = merge(dev, {
       isFilePath: false,
     }),
   ].filter(Boolean),
+  // 替换
   experiments: {
-    lazyCompilation: true,
+    lazyCompilation: false, // NOTE 按需编译/延迟编译，但还未稳定
   },
-  // parallelism: 10, // 平行处理的模块数量，需要微调达到最佳性能(还不知如何微调)
-  // recordsPath: path.join(__dirname, 'records.json'), // 产物分析用，含依赖关系等
-  output: {
-    ...dev.output,
-    clean: true,
-  },
-  devServer: {
-    ...dev.devServer,
-    headers: { 'X-Upstream': process.env.API_URL, 'Access-Control-Allow-Origin': '*' },
-    proxy: [
-      {
-        context: ['/api'],
-        target: process.env.API_URL,
-        secure: false,
-        changeOrigin: true, // NOTE 很重要
-      },
-    ],
-    devMiddleware: {
-      // true: 写入本地文件，方便开发下查看输出的产物，方便调试一些babel插件
-      writeToDisk: false,
-    },
-  },
-
-  profile: false,
 })
 
 // NOTE 输出配置详情来确认webpack-merge策略是否按预期正常输出，方便定位问题
@@ -83,10 +64,10 @@ writeFile(path.resolve(__dirname, './webpack.dev.json'), configStr, (err) => {
 module.exports = config
 
 // -----------------------------------------------------------------------------
-// NOTE 如果要使用本地的HtmlWebpackPlugin配置的话
+// 如果要使用本地的HtmlWebpackPlugin配置的话
 // const useLocalHtmlWebpackPlugin = process.env.USE_LOCAL_HTML_WEBPACK_PLUGIN === 'true' || false
 // if (useLocalHtmlWebpackPlugin) {
-//   const htmlPluginIndex = dev.plugins.findIndex((plugin) => plugin instanceof HtmlWebpackPlugin)
+//   const htmlPluginIndex = dev.plugins.findIndex((plugin) => plugin.constructor.name==='')
 //   dev.plugins.splice(htmlPluginIndex >>> 0, 1)
 // }
 // useLocalHtmlWebpackPlugin
@@ -144,3 +125,15 @@ module.exports = config
 // externalsPresets: {
 //   web: true,
 // },
+// new StatsPlugin('./stats.json', {
+//   chunkModules: true,
+//   exclude: [/node_modules/],
+// }),
+// 效果不明显
+// new webpack.DllReferencePlugin({
+//   context: __dirname,
+//   manifest: require('../public/library.json'),
+//   scope: 'xyz',
+//   sourceType: 'commonjs2',
+// }),
+// parallelism: 10, // 平行处理的模块数量，需要微调达到最佳性能(还不知如何微调)

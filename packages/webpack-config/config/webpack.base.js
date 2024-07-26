@@ -1,45 +1,23 @@
 const path = require('path')
-const fs = require('fs')
-const child = require('child_process')
 const { ProvidePlugin, DefinePlugin } = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CopyPlugin = require('copy-webpack-plugin')
-const dayjs = require('dayjs')
-const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-inject-plugin').default
-const ESLintPlugin = require('eslint-webpack-plugin')
-
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { meta, templateContentFn, minfiyCode } = require('../utils')
-
-let currentGitBranch = 'N/A'
-let hash = 'N/A'
-try {
-  currentGitBranch = child.execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
-  hash = child.execSync('git rev-parse HEAD').toString().trim().substring(0, 8)
-} catch (error) {}
-
-// TODO 参考vue-cli/cra/其他开源社区分享
-// https://github.com/TypeStrong/fork-ts-checker-webpack-plugin
-// https://github.com/webpack-contrib/eslint-webpack-plugin
-// https://github.com/seek-oss/css-modules-typescript-loader
-const root = process.cwd()
-const projectRoot = path.resolve(__dirname, '..')
+const { meta, templateContentFn } = require('../utils')
 
 const mode = process.env.NODE_ENV
-
 const isDev = mode === 'development'
 
-const colorSourceCode = fs.readFileSync(path.resolve(projectRoot, './inject/color.js')).toString()
+const appRoot = process.cwd()
 
-const colorFn = minfiyCode(colorSourceCode)
-
+// 数字安全
+const poolTimeout = !isDev ? 500 : 2 ** 31 - 1
 /**
  * env环境文件注入的环境变量
  */
-const envKeys = require('../plugins/env.js')(root)
-
-const { version } = require(path.resolve(root, 'package.json'))
-
+const envKeys = require('../plugins/env.js')(appRoot)
+// 具体应用的信息
+const { version: appVersion, name: appName } = require(path.resolve(appRoot, 'package.json'))
+// 通用的css loader配置项
 const cssLoaders = [
   isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
   {
@@ -61,17 +39,29 @@ const cssLoaders = [
     },
   },
   'postcss-loader',
+  // 效果
+  {
+    loader: 'thread-loader',
+    options: {
+      // https://webpack.js.org/loaders/thread-loader/
+      workers: require('os').cpus().length,
+      name: 'webpack-tsx',
+      poolTimeout,
+    },
+  },
 ]
 /**
  * @type {import('webpack').Configuration}
  */
 const config = {
-  entry: path.resolve(root, './src/main.tsx'),
+  entry: path.resolve(appRoot, './src/main.tsx'),
+  name: `App-${appName}`,
   resolve: {
     // 尽可能少
-    extensions: ['.js', '.ts', '.tsx', '.css', '.less'], // extensions: ['.js', '.ts', '.tsx', '.jsx', '.node', '.wasm', '.css', '.less', '.scss', '.styl'],
+    // extensions: ['.js', '.ts', '.tsx', '.jsx', '.node', '.wasm', '.css', '.less', '.scss', '.styl'],
+    extensions: ['.js', '.ts', '.tsx', '.css', '.less'],
     alias: {
-      '@': path.resolve(root, './src'),
+      '@': path.resolve(appRoot, './src'),
       // 其他的模块别名
     },
     mainFiles: ['index'],
@@ -83,14 +73,16 @@ const config = {
       {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
-        include: [path.resolve(root, './src')],
+        include: [path.resolve(appRoot, './src')],
         use: [
           {
             loader: 'thread-loader',
             options: {
+              // https://webpack.js.org/loaders/thread-loader/
               workers: require('os').cpus().length,
+              name: 'webpack-tsx',
               // 数字安全
-              poolTimeout: 2 ** 31 - 1,
+              poolTimeout,
             },
           },
           {
@@ -99,6 +91,7 @@ const config = {
               // https://github.com/babel/babel-loader
               // Default false. When set, the given directory will be used to cache the results of the loader. Future webpack builds will attempt to read from the cache to avoid needing to run the potentially expensive Babel recompilation process on each run. If the value is set to true in options ({cacheDirectory: true}), the loader will use the default cache directory in node_modules/.cache/babel-loader or fallback to the default OS temporary file directory if no node_modules folder could be found in any root directory.
               cacheDirectory: true,
+              cacheCompression: false,
             },
           },
         ],
@@ -142,13 +135,11 @@ const config = {
       //     'foo': 'bar'
       //   };
       // },
-      // TODO LOADING 主题变量
       templateContent: templateContentFn,
       meta,
       minify: true,
-      title: 'React Webpack Template',
+      title: appName,
       filename: 'index.html',
-      // TODO
       //   scriptLoading: 'defer',
       //   publicPath: '/',
       //   base: '',
@@ -158,70 +149,56 @@ const config = {
       // 排除chunks
       //   excludeChunks:[]
     }),
-    !isDev
-      ? new MapleHtmlWebpackPlugin(
-          [
-            {
-              tagName: 'script',
-              content: `;(function () {
-          // for version compare
-          window.appHash = '${hash}';
-          window.appBranch = '${currentGitBranch}';
-          const _c = (${colorFn})()
-          _c({
-            title: 'Build Date',
-            content: '${dayjs().format('YYYY-MM-DD HH:mm:ss')}',
-          })
-          _c({
-            title: 'Build Version',
-            content: '${version}',
-          })
-          _c({
-            title: 'Build Commit',
-            content: '${hash}',
-          })
-          _c({
-            title: 'Build Branch',
-            content: '${currentGitBranch}',
-          })
-        })()`,
-            },
-            {
-              content: minfiyCode(fs.readFileSync(path.resolve(projectRoot, './inject/error.js')).toString()),
-              tagName: 'script',
-            },
-          ],
-          'body'
-        )
-      : null,
-    // 生产下才复制
-    !isDev
-      ? new CopyPlugin({
-          patterns: [
-            {
-              from: path.resolve(root, './public'),
-              to: './',
-            },
-          ],
-        })
-      : null,
     new ProvidePlugin({
       React: 'react',
       process: 'process/browser',
     }),
     new DefinePlugin({
-      // NOTE 注入特定的环境变量，而不是全部的，理清node环境与浏览器环境
+      // 注入特定的环境变量，而不是全部的，理清node环境与浏览器环境
       ...envKeys,
     }),
-
-    !isDev ? new ESLintPlugin() : null,
-    !isDev
-      ? new MiniCssExtractPlugin({
-          filename: '[name].css',
-          chunkFilename: '[id].css',
-        })
-      : null,
   ].filter(Boolean),
+  cache: {
+    type: 'filesystem',
+    buildDependencies: {
+      // 那些文件发现改变就让缓存失效，一般为 webpack 的配置文件
+      config: [__filename],
+    },
+    compression: false,
+    name: appName,
+    store: 'pack', // 现阶段支持的存储类型，类似打包结果
+    version: appVersion,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    profile: false,
+    // cacheDirectory: path.resolve(__dirname, '../node_modules/.cache/webpack'),
+    // managedPaths: [path.resolve(__dirname, '../node_modules')],
+    // 缓存时间
+  },
+  output: {
+    pathinfo: true,
+    clean: true,
+    path: path.resolve(appRoot, './dist'),
+    filename: '[name].[chunkhash:8].js',
+    chunkFilename: '[name].[chunkhash:8].chunk.js',
+  },
+  // 你可以在统计输出里指定你想看到的信息: 展示产物信息
+  // stats: 'summary', // 输出 webpack 版本，以及警告数和错误数
+  // stats: 'verbose', // 全部输出
+  // stats: 'detailed', // 全部输出除了 chunkModules 和 chunkRootModules
+  // stats: 'normal', // 标准输出(默认输出)
+  profile: true,
+  // 产物分析用，含依赖关系等 如果你使用了代码分离(code splittnig)这样的复杂配置，records 会特别有用。这些数据用于确保拆分 bundle，以便实现你需要的缓存(caching)行为。
+  recordsPath: path.join(appRoot, './config/records.prod.json'),
+  // Webpack 基础设施级别的日志记录
+  infrastructureLogging: {
+    appendOnly: true, // 将内容追加到现有输出中，而非更新现有输出，这对于展示状态信息来说非常有用
+    colors: true, // 为基础设施日志启用带有颜色的输出
+    // console: Console, // 为基础设施日志提供自定义方案
+    level: 'log', // 开启基础设施日志输出
+  },
 }
 
 module.exports = config
+
+// TODO ---------------------------------------------------
+// new StylelintPlugin({ files: '**/*.css', cache: true }),

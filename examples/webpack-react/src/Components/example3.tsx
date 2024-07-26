@@ -46,7 +46,6 @@ const Example3: React.FC<PropsWithChildren & HTMLAttributes<HTMLDivElement>> = (
       {num}
       <Button onClick={onIncrease}>+</Button>
       <div>触发chunk content-hash change</div>
-      <div>触发chunk content-hash change</div>
       <IconParking />
       <div onClick={onShowDialog}>显示Dialog</div>
       <div onClick={onShowMessage}>显示Message</div>
