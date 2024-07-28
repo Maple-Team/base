@@ -1,7 +1,8 @@
 const path = require('path')
-const { ProvidePlugin, DefinePlugin } = require('webpack')
+const { ProvidePlugin } = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { EsbuildPlugin } = require('esbuild-loader')
 const { meta, templateContentFn } = require('../utils')
 
 const mode = process.env.NODE_ENV
@@ -153,9 +154,11 @@ const config = {
       React: 'react',
       process: 'process/browser',
     }),
-    new DefinePlugin({
-      // 注入特定的环境变量，而不是全部的，理清node环境与浏览器环境
-      ...envKeys,
+    new EsbuildPlugin({
+      define: {
+        // 注入特定的环境变量，而不是全部的，理清node环境与浏览器环境
+        ...envKeys,
+      },
     }),
   ].filter(Boolean),
   cache: {

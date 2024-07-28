@@ -3,7 +3,6 @@ const { readFileSync } = require('fs')
 const child = require('child_process')
 const { merge } = require('webpack-merge')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-// const TerserPlugin = require('terser-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const dayjs = require('dayjs')
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-inject-plugin').default

@@ -69,11 +69,13 @@ const dev = {
     chunkIds: 'named', // 便于识别
     concatenateModules: false, // 避免模块被合并
     removeAvailableModules: false, // 保留模块的依赖关系，有助于调试
-    removeEmptyChunks: true,
-    splitChunks: {
-      chunks: 'async', // 不需要复杂的代码切割
-    },
-    runtimeChunk: false, // 影响代码的加载，比如模块联邦下、HMR
+    removeEmptyChunks: false,
+    // splitChunks: {
+    //   chunks: 'async', // 不需要复杂的代码切割
+    // },
+    // 避免额外的优化步骤
+    splitChunks: false,
+    runtimeChunk: true, // 影响代码的加载，比如模块联邦下、HMR
     noEmitOnErrors: true, // 遇到错误不会产生输出文件
     mangleExports: false, // 避免导出的名称被混淆
   },
@@ -83,15 +85,17 @@ const dev = {
     debug: false, // 开启特定日志比如插件(plugins)和加载器(loaders)的调试信息, 提供筛选能力 ['MyPlugin', /MyPlugin/, (name) => name.contains('MyPlugin')],
   },
   output: {
-    pathinfo: true,
+    pathinfo: false,
     clean: true,
     path: path.resolve(appRoot, './dist'),
-    filename: '[name].[chunkhash:8].js',
-    chunkFilename: '[name].[chunkhash:8].chunk.js',
+    // 开发下不提取hash
+    filename: '[name].js',
+    chunkFilename: '[name].chunk.js',
   },
   watchOptions: {
     // 忽略字体文件的变化
     ignored: /\.woff2?/,
+    // TODO 设置poll等一些配置
   },
   experiments: {
     lazyCompilation: true,
