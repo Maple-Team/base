@@ -32,13 +32,15 @@ const Example3: React.FC<PropsWithChildren & HTMLAttributes<HTMLDivElement>> = (
     plateNo: '12323',
   }
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    message.success(
+    const messageFn = message.success(
       {
         content: `车牌号: ${obj.plateNo}, ${price}`,
       },
       0
     )
+    return () => {
+      messageFn()
+    }
   }, [obj.plateNo])
 
   return (
