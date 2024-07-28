@@ -14,7 +14,7 @@ const config = mergeWithRules({
   },
 })(prod, {
   output: {
-    publicPath: '/app/',
+    publicPath: '/',
     clean: true,
   },
   plugins: [

@@ -21,7 +21,7 @@ function print() {
     console.log.apply(null, consoleContent)
   }
 
-  return (arg) => {
+  return function (arg) {
     colorFulContent(arg)
   }
 }
