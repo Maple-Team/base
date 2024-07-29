@@ -40,22 +40,16 @@ const prod = {
   performance: {
     hints: 'warning',
   },
-  output: {
-    path: path.resolve(appRoot, './dist'),
-    filename: '[name].[contenthash].js',
-    chunkFilename: 'chunk-[name].[contenthash].js',
-    publicPath: '/',
-    clean: true,
-    pathinfo: false,
-  },
   plugins: [
     new ForkTsCheckerWebpackPlugin({
+      // TODO 更多配置
       typescript: {
         configFile: path.resolve(appRoot, 'tsconfig.build.json'),
         context: appRoot,
       },
     }),
     new ESLintPlugin({
+      // TODO 更多配置
       cache: true,
       cacheLocation: path.resolve(appRoot, './node_modules/.cache/.eslintcache'),
       extensions: ['js', 'jsx', 'ts', 'tsx'],
@@ -64,8 +58,8 @@ const prod = {
       failOnWarning: false,
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].chunk.css',
+      filename: 'css/[name].[contenthash:8].css',
+      chunkFilename: 'css/[name].[contenthash:8].chunk.css',
     }),
     new CopyPlugin({
       patterns: [
@@ -105,18 +99,6 @@ const prod = {
     usedExports: true,
     minimizer: [
       new CssMinimizerPlugin({ parallel: true }),
-      // use EsbuildPlugin
-      //   new TerserPlugin({
-      //     parallel: true,
-      //     extractComments: false,
-      //     minify: TerserPlugin.swcMinify,
-      //     terserOptions: {
-      //       compress: true,
-      //       format: {
-      //         comments: false,
-      //       },
-      //     },
-      //   }),
       // more faster
       new EsbuildPlugin({
         target: 'es2015', // Syntax to transpile to (see options below for possible values)
@@ -143,3 +125,46 @@ const prod = {
 const config = merge(base, prod)
 
 module.exports = config
+
+// cra TerserPlugin options
+// new TerserPlugin({
+//     terserOptions: {
+//       parse: {
+//         // We want terser to parse ecma 8 code. However, we don't want it
+//         // to apply any minification steps that turns valid ecma 5 code
+//         // into invalid ecma 5 code. This is why the 'compress' and 'output'
+//         // sections only apply transformations that are ecma 5 safe
+//         // https://github.com/facebook/create-react-app/pull/4234
+//         ecma: 8,
+//       },
+//       compress: {
+//         ecma: 5,
+//         warnings: false,
+//         // Disabled because of an issue with Uglify breaking seemingly valid code:
+//         // https://github.com/facebook/create-react-app/issues/2376
+//         // Pending further investigation:
+//         // https://github.com/mishoo/UglifyJS2/issues/2011
+//         comparisons: false,
+//         // Disabled because of an issue with Terser breaking valid code:
+//         // https://github.com/facebook/create-react-app/issues/5250
+//         // Pending further investigation:
+//         // https://github.com/terser-js/terser/issues/120
+//         inline: 2,
+//       },
+//       mangle: {
+//         safari10: true,
+//       },
+//       // Added for profiling in devtools
+//       keep_classnames: isEnvProductionProfile,
+//       keep_fnames: isEnvProductionProfile,
+//       output: {
+//         ecma: 5,
+//         comments: false,
+//         // Turned on because emoji and regex is not minified properly using default
+//         // https://github.com/facebook/create-react-app/issues/2488
+//         ascii_only: true,
+//       },
+//     },
+//   }),
+// new WebpackManifestPlugin()
+//  new webpack.IgnorePlugin() -> 基于产物分析再处理

@@ -60,15 +60,20 @@ const config = {
   resolve: {
     // 尽可能少
     // extensions: ['.js', '.ts', '.tsx', '.jsx', '.node', '.wasm', '.css', '.less', '.scss', '.styl'],
-    extensions: ['.js', '.ts', '.tsx', '.css', '.less'],
+    // '...': 默认拓展名
+    extensions: ['.js', '.ts', '.tsx', '.css', '.less', '...'],
     alias: {
       '@': path.resolve(appRoot, './src'),
       // 其他的模块别名
     },
     mainFiles: ['index'],
     cacheWithContext: false,
+    // symlinks: isDev,
   },
-  target: 'web',
+  target: ['browserslist'],
+  stats: 'errors-warnings',
+  // TODO ?
+  bail: !isDev,
   module: {
     rules: [
       {
@@ -138,9 +143,23 @@ const config = {
       // },
       templateContent: templateContentFn,
       meta,
-      minify: true,
+      minify: isDev
+        ? undefined
+        : {
+            removeComments: true,
+            collapseWhitespace: true,
+            removeRedundantAttributes: true,
+            useShortDoctype: true,
+            removeEmptyAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            keepClosingSlash: true,
+            minifyJS: true,
+            minifyCSS: true,
+            minifyURLs: true,
+          },
       title: appName,
       filename: 'index.html',
+
       //   scriptLoading: 'defer',
       //   publicPath: '/',
       //   base: '',
@@ -166,10 +185,13 @@ const config = {
     buildDependencies: {
       // 那些文件发现改变就让缓存失效，一般为 webpack 的配置文件
       config: [__filename],
+      //   defaultWebpack: ['webpack/lib/'],
+      tsconfig: [path.resolve(appRoot, 'tsconfig.json')],
     },
     compression: false,
     name: appName,
     store: 'pack', // 现阶段支持的存储类型，类似打包结果
+    // FIXME hash化 createEnvironmentHash(env.raw)
     version: appVersion,
     maxAge: 1000 * 60 * 60 * 24 * 7,
     profile: false,
@@ -178,11 +200,14 @@ const config = {
     // 缓存时间
   },
   output: {
-    pathinfo: true,
+    pathinfo: isDev,
     clean: true,
     path: path.resolve(appRoot, './dist'),
-    filename: '[name].[chunkhash:8].js',
-    chunkFilename: '[name].[chunkhash:8].chunk.js',
+    filename: isDev ? 'js/[name].js' : 'js/[name].[chunkhash:8].js',
+    chunkFilename: isDev ? 'js/[name].chunk.js' : 'js/[name].[chunkhash:8].chunk.js',
+    assetModuleFilename: 'assets/[name].[hash][ext]',
+    publicPath: '/',
+    // 打包后文件的公共前缀路径
   },
   // 你可以在统计输出里指定你想看到的信息: 展示产物信息
   // stats: 'summary', // 输出 webpack 版本，以及警告数和错误数
@@ -199,9 +224,26 @@ const config = {
     // console: Console, // 为基础设施日志提供自定义方案
     level: 'log', // 开启基础设施日志输出
   },
+  performance: false,
 }
 
 module.exports = config
 
 // TODO ---------------------------------------------------
 // new StylelintPlugin({ files: '**/*.css', cache: true }),
+// const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
+// Prevents users from importing files from outside of src/ (or node_modules/).
+// This often causes confusion because we only process files within src/ with babel.
+// To fix this, we prevent you from importing files out of src/ -- if you'd like to,
+// please link the files into your node_modules/ and let module-resolution kick in.
+// Make sure your source files are compiled, as they will not be processed in any way.
+// resolve.plugins
+// new ModuleScopePlugin(paths.appSrc, [
+//     paths.appPackageJson,
+//     reactRefreshRuntimeEntry,
+//     reactRefreshWebpackPluginRuntimeEntry,
+//     babelRuntimeEntry,
+//     babelRuntimeEntryHelpers,
+//     babelRuntimeRegenerator,
+//   ]),
+// module: oneOf: []

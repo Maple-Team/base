@@ -48,8 +48,8 @@ const CircleDot = () => (
 export const RemoteControlCard = memo(() => {
   const vin = 'TESTVIN111111'
 
-  useWebSocket(`/ws-service/patrol/vehicle?vin=${vin}`)
-  useWebSocket(`/ws-service/patrol/common?vin=${vin}`)
+  useWebSocket(`/ws/patrol/vehicle?vin=${vin}`)
+  useWebSocket(`/ws/patrol/common?vin=${vin}`)
 
   const items: ItemProps[] = [
     { icon: 'icon-rc-alarm', name: '警用设备', checked: true, code: 'alarm', children: AlarmPanel },
