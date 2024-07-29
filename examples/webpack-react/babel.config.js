@@ -20,15 +20,17 @@ module.exports = (api) => {
         {
           useBuiltIns: 'usage',
           corejs: '3.33.1',
+          helpers: false,
           modules: false,
           targets: {
-            browsers: pkg.browserslist,
+            browsers: pkg.browserslist || ['> 1%', 'last 2 versions', 'not ie <= 11'],
           },
           bugfixes: true,
           // debug: api.env('development'),
+          exclude: ['transform-typeof-symbol'],
         },
       ],
-      ['@babel/preset-react', { development: api.env('development'), runtime: 'automatic' }],
+      ['@babel/preset-react', { development: api.env('development'), runtime: 'automatic', useBuiltIns: true }],
       '@babel/preset-typescript',
     ],
     plugins: [
@@ -58,6 +60,18 @@ module.exports = (api) => {
           ]
         : null,
     ].filter(Boolean),
+    test: {
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            targets: {
+              node: 'current',
+            },
+          },
+        ],
+      ],
+    },
   }
 
   const configStr = JSON.stringify(config, null, 2)
