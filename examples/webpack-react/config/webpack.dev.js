@@ -51,7 +51,8 @@ const config = merge(dev, {
   experiments: {
     lazyCompilation: false, // NOTE 按需编译/延迟编译，但还未稳定
   },
-  stats: 'detailed',
+  stats: 'none',
+  profile: false,
 })
 
 // NOTE 输出配置详情来确认webpack-merge策略是否按预期正常输出，方便定位问题

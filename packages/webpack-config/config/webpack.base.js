@@ -1,8 +1,7 @@
 const path = require('path')
-const { ProvidePlugin } = require('webpack')
+const { ProvidePlugin, DefinePlugin } = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { EsbuildPlugin } = require('esbuild-loader')
 const { meta, templateContentFn } = require('../utils')
 
 const mode = process.env.NODE_ENV
@@ -128,19 +127,7 @@ const config = {
         foo: 'bar',
         themeColor: '#FF9500' || 'rgba(108, 117, 125, 0.75)',
       },
-      // Or if you want full control, pass a function
       // templateParameters: (compilation, assets, assetTags, options) => {
-      //   return {
-      //     compilation,
-      //     webpackConfig: compilation.options,
-      //     htmlWebpackPlugin: {
-      //       tags: assetTags,
-      //       files: assets,
-      //       options
-      //     },
-      //     'foo': 'bar'
-      //   };
-      // },
       templateContent: templateContentFn,
       meta,
       minify: isDev
@@ -159,25 +146,14 @@ const config = {
           },
       title: appName,
       filename: 'index.html',
-
-      //   scriptLoading: 'defer',
-      //   publicPath: '/',
-      //   base: '',
-      //   favicon: '',
-      // 过滤chunks
-      //   chunks:[]
-      // 排除chunks
-      //   excludeChunks:[]
     }),
     new ProvidePlugin({
       React: 'react',
       process: 'process/browser',
     }),
-    new EsbuildPlugin({
-      define: {
-        // 注入特定的环境变量，而不是全部的，理清node环境与浏览器环境
-        ...envKeys,
-      },
+    new DefinePlugin({
+      // 注入特定的环境变量，而不是全部的，理清node环境与浏览器环境
+      ...envKeys,
     }),
   ].filter(Boolean),
   cache: {

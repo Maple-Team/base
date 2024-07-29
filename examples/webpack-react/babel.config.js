@@ -20,17 +20,16 @@ module.exports = (api) => {
         {
           useBuiltIns: 'usage',
           corejs: '3.33.1',
-          helpers: false,
           modules: false,
           targets: {
-            browsers: pkg.browserslist || ['> 1%', 'last 2 versions', 'not ie <= 11'],
+            browsers: pkg.browserslist,
           },
           bugfixes: true,
-          // debug: api.env('development'),
+          debug: api.env('development'), // 展示每个文件的polyfill
           exclude: ['transform-typeof-symbol'],
         },
       ],
-      ['@babel/preset-react', { development: api.env('development'), runtime: 'automatic', useBuiltIns: true }],
+      ['@babel/preset-react', { development: api.env('development'), runtime: 'automatic' }],
       '@babel/preset-typescript',
     ],
     plugins: [
@@ -60,17 +59,21 @@ module.exports = (api) => {
           ]
         : null,
     ].filter(Boolean),
-    test: {
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            targets: {
-              node: 'current',
+    env: {
+      test: {
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              targets: {
+                node: 'current',
+              },
             },
-          },
+          ],
+          '@babel/preset-react',
+          '@babel/preset-typescript',
         ],
-      ],
+      },
     },
   }
 

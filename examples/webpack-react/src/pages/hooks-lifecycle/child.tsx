@@ -3,8 +3,7 @@ import { Button, Space } from 'antd'
 import { io } from 'socket.io-client'
 import { useHooks } from './useHooks'
 
-const socket = io('http://localhost:4003/default')
-
+const socket = io(`${process.env.SOCKET_IO_URL!}/default`)
 export const ChildComponent = memo(({ id }: { id?: string }) => {
   const [isStopped, setStopped] = useState<boolean>()
   console.log('child id: ', id, isStopped)

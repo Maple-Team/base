@@ -3,7 +3,7 @@ import { io } from 'socket.io-client'
 import { debounce, throttle } from 'lodash-es'
 import { Tiny } from '@ant-design/plots'
 
-const socket = io('http://localhost:4003/default')
+const socket = io(`${process.env.SOCKET_IO_URL!}/default`)
 
 const GapArea = ({ data }: { data: number[] }) => {
   const modifyData = data.map((value, index) => ({ value, index }))
