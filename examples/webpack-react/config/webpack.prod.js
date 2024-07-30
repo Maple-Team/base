@@ -13,6 +13,7 @@ const config = mergeWithRules({
     },
   },
 })(prod, {
+  // entry: path.resolve(__dirname, '../src/simple-entry.tsx'),
   output: {
     publicPath: '/',
     clean: true,

@@ -14,12 +14,13 @@ module.exports = (api) => {
    * @type {import('@babel/core').TransformOptions}
    */
   const config = {
+    sourceType: 'module', // 默认值
     presets: [
       [
         '@babel/preset-env',
         {
           useBuiltIns: 'usage',
-          corejs: '3.33.1',
+          corejs: 3,
           modules: false,
           targets: {
             browsers: pkg.browserslist,
@@ -33,19 +34,18 @@ module.exports = (api) => {
       '@babel/preset-typescript',
     ],
     plugins: [
-      api.env('production')
+      !api.env('production')
         ? [
             // When this plugin is enabled, the useBuiltIns option in @babel/preset-env must not be set. Otherwise, this plugin may not able to completely sandbox the environment.
             '@babel/plugin-transform-runtime',
             {
-              regenerator: true,
+              absoluteRuntime: false, // 路径自动处理
+              regenerator: true, // 默认开启 In older Babel version, this option used to toggles whether or not generator functions were transformed to use a regenerator runtime that does not pollute the global scope.
               corejs: 3,
-              // FIXME error
-              // moduleName: '@babel/runtime-corejs3',
-              // Module not found: Error: Package path ./helpers/esm/callSuper is not exported from package /root/maple/base/examples/webpack-react/node_modules/@babel/runtime-corejs3 (see exports field in /root/maple/base/examples/webpack-react/node_modules/@babel/runtime-corejs3/package.json)
-              helpers: false,
-              useESModules: true,
-              version: '^7.24.3',
+              helpers: true, // 是否不注入行内Babel helpers polyfill方法. 默认开启 Toggles whether or not inlined Babel helpers (classCallCheck, extends, etc.) are replaced with calls to @babel/runtime (or equivalent package).
+              useESModules: true, // 废弃了
+              version: require('@babel/runtime-corejs3/package.json').version, // 确定@babel/runtime版本信息
+              // version: require('@babel/runtime/package.json').version,
             },
           ]
         : null,
@@ -75,6 +75,12 @@ module.exports = (api) => {
         ],
       },
     },
+    overrides: [
+      {
+        // 针对特定的第三方模块，可以定制化它的模块处理
+        // test: '',
+      },
+    ],
   }
 
   const configStr = JSON.stringify(config, null, 2)

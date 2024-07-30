@@ -5,6 +5,7 @@ const { merge } = require('webpack-merge')
 const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
 const threadLoader = require('thread-loader')
 const { writeFile } = require('fs')
+const { default: MapleHtmlWebpackPlugin } = require('@liutsing/html-webpack-inject-plugin')
 
 threadLoader.warmup(
   {
@@ -30,6 +31,7 @@ threadLoader.warmup(
  * @type {import("webpack").Configuration}
  */
 const config = merge(dev, {
+  // entry: path.resolve(__dirname, '../src/simple-entry.tsx'),
   // 合并
   plugins: [
     // 动态扫描 -> babel缓存了导致这个文字文件不存在
@@ -46,6 +48,19 @@ const config = merge(dev, {
       words: '文言文字形对比',
       isFilePath: false,
     }),
+    new MapleHtmlWebpackPlugin(
+      [
+        {
+          tagName: 'script',
+          src: './react.development.js',
+        },
+        {
+          tagName: 'script',
+          src: './react-dom.development.js',
+        },
+      ],
+      'head'
+    ),
   ].filter(Boolean),
   // 替换
   experiments: {
@@ -53,6 +68,16 @@ const config = merge(dev, {
   },
   stats: 'none',
   profile: false,
+  devServer: {
+    devMiddleware: {
+      //  true: 写入本地文件，方便开发下查看输出的产物，方便调试一些babel插件
+      writeToDisk: true,
+    },
+  },
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+  },
 })
 
 // NOTE 输出配置详情来确认webpack-merge策略是否按预期正常输出，方便定位问题

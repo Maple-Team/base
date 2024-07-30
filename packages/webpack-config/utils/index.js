@@ -1,6 +1,7 @@
 const { readFileSync } = require('fs')
 const path = require('path')
 const { minify_sync } = require('terser')
+const { uuid } = require('@liutsing/utils')
 
 const dirname = path.dirname(__dirname)
 const templatePath = path.join(dirname, './utils/template.html')
@@ -13,8 +14,11 @@ const minfiyCode = (source) => {
     },
     {
       compress: true,
+
       format: {
         comments: false,
+        semicolons: true,
+        // TODO 格式化处理
       },
     }
   ).code
@@ -25,6 +29,7 @@ const minfiyCode = (source) => {
  * @returns
  */
 const templateContentFn = ({ htmlWebpackPlugin, ...rest }) => {
+  const id = uuid()
   return `
     <!DOCTYPE html>
 <html lang="en">
@@ -34,10 +39,10 @@ const templateContentFn = ({ htmlWebpackPlugin, ...rest }) => {
   </head>
   <body>
     <div id="root">
-      <div id="spin-mask-0525d3b0-4ada-47af-9638-93777ade95fc">
+      <div id="spin-mask-${id}">
         <noscript>
           <style>
-            #spin-mask-0525d3b0-4ada-47af-9638-93777ade95fc {
+            #spin-mask-${id} {
               display: none !important;
             }
             #protect-browser {
@@ -51,7 +56,7 @@ const templateContentFn = ({ htmlWebpackPlugin, ...rest }) => {
               transform: rotate(360deg);
             }
           }
-          #spin-mask-0525d3b0-4ada-47af-9638-93777ade95fc {
+          #spin-mask-${id} {
             position: fixed;
             top: 0;
             right: 0;
