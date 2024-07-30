@@ -30,7 +30,8 @@
     "server": "node config/server.js",
     "lint:fix": "nx lint --fix",
     "translate:locale": "node scripts/translate.js",
-    "upload:locale": "node scripts/upload-locale.js"
+    "upload:locale": "node scripts/upload-locale.js",
+    "browserslist":"browserslist"
   },
   "keywords": [],
   "author": "",
@@ -51,6 +52,7 @@
     "ahooks": "^3.7.8",
     "antd": "^5.18.0",
     "axios": "1.5.1",
+    "browserslist": "^4.18.1",
     "i18next": "^23.10.1",
     "i18next-browser-languagedetector": "^7.2.1",
     "i18next-http-backend": "^2.5.0",
@@ -137,7 +139,8 @@
     "includedScripts": []
   },
   "browserslist": [
-    "last 2 versions",
-    ">0.1%"
+    "defaults",
+    "not ie <= 9",
+    "ie 10"
   ]
 }

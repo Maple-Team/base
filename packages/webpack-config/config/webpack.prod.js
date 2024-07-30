@@ -46,6 +46,7 @@ const prod = {
       typescript: {
         configFile: path.resolve(appRoot, 'tsconfig.build.json'),
         context: appRoot,
+        memoryLimit: 3048,
       },
     }),
     new ESLintPlugin({
@@ -94,7 +95,7 @@ const prod = {
   ],
   optimization: {
     runtimeChunk: true,
-    minimize: true,
+    minimize: false,
     sideEffects: true,
     usedExports: true,
     minimizer: [
