@@ -84,10 +84,9 @@ const config = {
             options: {
               showGap: true,
               showLogger: true,
-              logFileName: path.resolve(appRoot, 'pattern-src.log'),
+              logFileName: path.resolve(appRoot, 'config/pattern-src.log'),
             },
           },
-          // FIXME not working with @liutsing/pattern-logger-loader
           {
             loader: 'thread-loader',
             options: {

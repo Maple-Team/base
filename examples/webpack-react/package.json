@@ -46,7 +46,7 @@
     "@babel/runtime-corejs3": "^7.25.0",
     "@liutsing/rc-components": "workspace:*",
     "@liutsing/rc-hooks": "workspace:*",
-    "@liutsing/utils": "workspace:*",
+    "@liutsing/utils": "0.3.0",
     "@pansy/react-amap": "^2.16.0",
     "@principalstudio/html-webpack-inject-preload": "^1.2.7",
     "@tanstack/react-query": "5.40.0",

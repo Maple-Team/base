@@ -5,6 +5,7 @@ const fs = require('fs')
 /**
  * 创建Babel配置的函数
  * @type {import('@babel/core').ConfigFunction} api
+ * @https://babeljs.io/docs/options#overrides
  * @returns
  */
 module.exports = (api) => {
@@ -15,24 +16,6 @@ module.exports = (api) => {
    * @type {import('@babel/core').TransformOptions}
    */
   const config = {
-    presets: [
-      [
-        '@babel/preset-env',
-        {
-          useBuiltIns: 'usage',
-          corejs: corejsVersion,
-          modules: false,
-          targets: {
-            browsers: pkg.browserslist,
-          },
-          bugfixes: true,
-          debug: api.env('development'), // 辅助调试用，展示每个文件的polyfill
-          exclude: ['transform-typeof-symbol'],
-        },
-      ],
-      ['@babel/preset-react', { development: api.env('development'), runtime: 'automatic' }],
-      '@babel/preset-typescript',
-    ],
     plugins: [
       api.env('production')
         ? [
@@ -59,6 +42,70 @@ module.exports = (api) => {
           ]
         : null,
     ].filter(Boolean),
+    presets: [
+      [
+        '@babel/preset-env',
+        {
+          useBuiltIns: 'usage',
+          corejs: corejsVersion,
+          modules: false,
+          targets: {
+            browsers: pkg.browserslist,
+            // browsers: ['defaults'],
+          },
+          bugfixes: true,
+          debug: api.env('development'), // 辅助调试用，展示每个文件的polyfill
+          exclude: ['transform-typeof-symbol'],
+        },
+      ],
+      ['@babel/preset-react', { development: api.env('development'), runtime: 'automatic' }],
+      '@babel/preset-typescript',
+    ],
+    overrides: [
+      {
+        test:
+          /**
+           * babel处理的模块文件名
+           * @param {string} filename
+           * @returns
+           */
+          (filename) => {
+            const date = new Date()
+            // for debugger
+            fs.writeFile(
+              path.resolve(__dirname, './config/babel-overrides.log'),
+              `[${date.toLocaleDateString()}} ${date.toLocaleTimeString()}] ${filename} \r\n`,
+              { flag: 'a+' },
+              (err) => {
+                if (err) {
+                  console.log(err)
+                }
+              }
+            )
+            //  筛选匹配到的模块
+            return filename.includes('node_modules')
+          },
+        sourceType: 'unambiguous',
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              useBuiltIns: 'usage',
+              corejs: corejsVersion,
+              // modules: 'cjs',
+              modules: false,
+              targets: {
+                // browsers: ['defaults'],
+                browsers: pkg.browserslist,
+              },
+              bugfixes: true,
+              debug: api.env('development'),
+              exclude: ['transform-typeof-symbol'],
+            },
+          ],
+        ],
+      },
+    ],
     env: {
       test: {
         presets: [
@@ -75,30 +122,6 @@ module.exports = (api) => {
         ],
       },
     },
-    // overrides: [
-    //   {
-    //     test: /\/node_modules\/@liutsing\/utils\//,
-    //     // test: './node_modules/@liutsing/utils/es/uuid.js',
-    //     sourceType: 'unambiguous',
-    //     presets: [
-    //       [
-    //         '@babel/preset-env',
-    //         {
-    //           useBuiltIns: 'usage',
-    //           corejs: corejsVersion,
-    //           modules: 'cjs',
-    //           targets: {
-    //             // browsers: ['defaults'],
-    //             browsers: pkg.browserslist,
-    //           },
-    //           bugfixes: true,
-    //           debug: true,
-    //           exclude: ['transform-typeof-symbol'],
-    //         },
-    //       ],
-    //     ],
-    //   },
-    // ],
   }
 
   const configStr = JSON.stringify(config, null, 2)

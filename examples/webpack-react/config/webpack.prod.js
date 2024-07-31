@@ -11,6 +11,14 @@ const config = mergeWithRules({
     buildDependencies: {
       config: 'replace',
     },
+    module: {
+      rules: {
+        test: 'match',
+        use: {
+          loader: 'prepend', // loader追加到前面
+        },
+      },
+    },
   },
 })(prod, {
   entry: path.resolve(__dirname, '../src/simple-entry.tsx'),
@@ -54,6 +62,20 @@ const config = mergeWithRules({
           },
         ],
       },
+      // {
+      //   test: /\.(t|j)sx?$/,
+      //   use: [
+      //     {
+      //       // NOTE 与thread-loader存在兼容问题
+      //       loader: '@liutsing/pattern-logger-loader',
+      //       options: {
+      //         showGap: true,
+      //         showLogger: true,
+      //         logFileName: path.resolve(__dirname, './pattern-src.log'),
+      //       },
+      //     },
+      //   ],
+      // },
     ],
   },
 })
