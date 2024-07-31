@@ -1,6 +1,12 @@
 module.exports = function (api) {
   api.assertVersion(7)
   api.cache(true)
+  const corejsVersion = 3
+  // 兼容性
+  const targets = {
+    // es6
+    chrome: 58,
+  }
 
   return {
     presets: [
@@ -8,27 +14,29 @@ module.exports = function (api) {
         '@babel/preset-env',
         {
           modules: false,
-          targets: {
-            node: 'current',
-          },
+          useBuiltIns: 'usage',
+          corejs: corejsVersion,
+          targets,
+          debug: true,
         },
       ],
       '@babel/preset-typescript',
-      '@babel/preset-react',
     ],
     plugins: [
-      // [
-      //   '@babel/plugin-transform-runtime',
-      //   {
-      //     version: require('@babel/runtime/package.json').version,
-      //     corejs: 3,
-      //   },
-      // ],
-      // '@babel/plugin-proposal-class-properties',
+      [
+        '@babel/plugin-transform-runtime',
+        {
+          regenerator: true,
+          corejs: corejsVersion,
+          helpers: true,
+          version: require('@babel/runtime-corejs3/package.json').version,
+        },
+      ],
+      '@babel/plugin-proposal-class-properties',
     ],
     env: {
       test: {
-        presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
+        presets: ['@babel/preset-env', '@babel/preset-typescript'],
         plugins: [
           [
             '@babel/plugin-transform-runtime',
@@ -39,26 +47,29 @@ module.exports = function (api) {
           '@babel/plugin-proposal-class-properties',
         ],
       },
+      // 环境变量
       commonjs: {
         presets: [
           [
             '@babel/preset-env',
             {
               useBuiltIns: 'usage',
-              corejs: 3,
-              targets: {
-                chrome: 58,
-              },
+              corejs: corejsVersion,
+              modules: 'cjs',
+              targets,
+              debug: true,
             },
           ],
           '@babel/preset-typescript',
-          '@babel/preset-react',
         ],
         plugins: [
           [
             '@babel/plugin-transform-runtime',
             {
-              version: require('@babel/runtime/package.json').version,
+              regenerator: true,
+              corejs: corejsVersion,
+              helpers: true,
+              version: require('@babel/runtime-corejs3/package.json').version,
             },
           ],
           '@babel/plugin-proposal-class-properties',

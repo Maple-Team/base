@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/utils",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "",
   "sideEffects": false,
   "keywords": [],
@@ -26,9 +26,9 @@
     "prebuild": "npx rimraf es lib types",
     "prepublish": "pnpm run build",
     "build:watch": "tsc -w",
-    "build": "npm run build:es & npm run build:commonjs",
+    "build": "npm run build:es & npm run build:cjs",
     "postbuild": "npm run build:types",
-    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src -d lib --extensions .ts --delete-dir-on-start",
+    "build:cjs": "cross-env BABEL_ENV=commonjs babel src -d lib --extensions .ts --delete-dir-on-start",
     "build:es": "babel src -d es --extensions .ts --delete-dir-on-start",
     "build:types": "tsc --project tsconfig.build.json",
     "test": "nx test",
@@ -54,13 +54,14 @@
     "cross-env": "^7.0.3"
   },
   "dependencies": {
-    "js-md5": "^0.7.3",
+    "core-js": "^3.37.1",
+    "@babel/runtime-corejs3": "^7.25.0",
+    "@liutsing/regexp-utils": "workspace:*",
     "@liutsing/types-utils": "workspace:*",
-    "@liutsing/regexp-utils": "workspace:*"
+    "js-md5": "^0.7.3"
   },
   "peerDependencies": {
-     "lodash-es": "^4.17.21",
-     "core-js":"^3.25.0"
+    "lodash-es": "^4.17.21"
   },
   "publishConfig": {
     "access": "public"
