@@ -67,20 +67,27 @@ const config = {
     },
     mainFiles: ['index'],
     cacheWithContext: false,
-    // symlinks: isDev,
+    symlinks: true,
+    modules: ['node_modules', path.resolve(appRoot, 'node_modules')],
+    // loader等解析
   },
   target: ['browserslist'],
   stats: 'errors-warnings',
-  // TODO ?
-  bail: !isDev,
   module: {
     rules: [
       {
-        test: /\.(j|t)sx?$/,
-        // include: [path.resolve(appRoot, 'src'), path.resolve(appRoot, 'node_modules', '@liutsing/utils')],
-        exclude: /node_modules(?![/]@liutsing[/]utils).*/, // NOTE working，node_modules下的模块能被转换
-        // exclude: [],
+        test: /\.(t|j)sx?$/,
+        include: [path.resolve(appRoot, 'src')],
         use: [
+          {
+            loader: '@liutsing/pattern-logger-loader',
+            options: {
+              showGap: true,
+              showLogger: true,
+              logFileName: path.resolve(appRoot, 'pattern-src.log'),
+            },
+          },
+          // FIXME not working with @liutsing/pattern-logger-loader
           {
             loader: 'thread-loader',
             options: {
@@ -92,44 +99,20 @@ const config = {
           {
             loader: 'babel-loader',
             options: {
-              // https://github.com/babel/babel-loader
-              // Default false. When set, the given directory will be used to cache the results of the loader. Future webpack builds will attempt to read from the cache to avoid needing to run the potentially expensive Babel recompilation process on each run. If the value is set to true in options ({cacheDirectory: true}), the loader will use the default cache directory in node_modules/.cache/babel-loader or fallback to the default OS temporary file directory if no node_modules folder could be found in any root directory.
               cacheDirectory: true,
               cacheCompression: false,
               //   cacheIdentifier: '', // 缓存标识符：环境+打包工具相关的版本信息
               inputSourceMap: true,
               sourceMaps: true,
-              //   // 查找配置文件
-              //   //   babelrc: false, // 不读取 .babelrc 或 babel.config.js
-              //   //   configFile: false, // 不查找 babel.config.js
-              //   // 代码输出
+              // 查找配置文件
+              //   babelrc: false, // 不读取 .babelrc 或 babel.config.js
+              //   configFile: false, // 不查找 babel.config.js
+              // 代码输出
               compact: true, // 输出格式化良好的代码
               comments: isDev,
             },
           },
         ],
-        // src目录下一个配置
-        // node_modules下一个配置: sourceType: 'unambiguous'，三方包不确定
-        // oneOf: [
-        //   {
-        //     exclude: /node_modules/,
-        //     loader: 'babel-loader',
-        //     options: {
-        //       cacheDirectory: true,
-        //     },
-        //   },
-        //   {
-        //     loader: 'babel-loader',
-        //     // exclude: /node_modules\/(?!@liutsing\/utils|@babel\/runtime-corejs3|core-js)/,
-        //     options: {
-        //       cacheDirectory: true,
-        //       configFile: false,
-        //       // 使用我们的 preset
-        //       presets: [require('./dependencies.js')],
-        //       compact: false,
-        //     },
-        //   },
-        // ],
       },
       {
         test: /\.css$/,

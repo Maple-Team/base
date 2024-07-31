@@ -31,7 +31,7 @@ threadLoader.warmup(
  * @type {import("webpack").Configuration}
  */
 const config = merge(dev, {
-  // entry: path.resolve(__dirname, '../src/simple-entry.tsx'),
+  entry: path.resolve(__dirname, '../src/simple-entry.tsx'),
   // 合并
   plugins: [
     // 动态扫描 -> babel缓存了导致这个文字文件不存在

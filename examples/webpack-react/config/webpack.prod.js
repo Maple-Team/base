@@ -32,6 +32,30 @@ const config = mergeWithRules({
       config: [__filename],
     },
   },
+  profile: true,
+  stats: 'verbose',
+  cache: false,
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /@babel(?:\/|\\{1,2})runtime/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: '@liutsing/pattern-logger-loader',
+            options: {
+              showGap: true,
+              showLogger: true,
+              logFileName: path.resolve(__dirname, 'pattern-node_modules.log'),
+            },
+          },
+        ],
+      },
+    ],
+  },
 })
 
 const configStr = JSON.stringify(config, null, 2)

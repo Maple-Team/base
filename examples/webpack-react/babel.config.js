@@ -75,6 +75,30 @@ module.exports = (api) => {
         ],
       },
     },
+    // overrides: [
+    //   {
+    //     test: /\/node_modules\/@liutsing\/utils\//,
+    //     // test: './node_modules/@liutsing/utils/es/uuid.js',
+    //     sourceType: 'unambiguous',
+    //     presets: [
+    //       [
+    //         '@babel/preset-env',
+    //         {
+    //           useBuiltIns: 'usage',
+    //           corejs: corejsVersion,
+    //           modules: 'cjs',
+    //           targets: {
+    //             // browsers: ['defaults'],
+    //             browsers: pkg.browserslist,
+    //           },
+    //           bugfixes: true,
+    //           debug: true,
+    //           exclude: ['transform-typeof-symbol'],
+    //         },
+    //       ],
+    //     ],
+    //   },
+    // ],
   }
 
   const configStr = JSON.stringify(config, null, 2)
