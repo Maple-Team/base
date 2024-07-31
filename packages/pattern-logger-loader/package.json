@@ -44,5 +44,8 @@
   "prettier": "@liutsing/prettier-config",
   "nx": {
     "includedScripts": []
+  },
+  "peerDependencies": {
+    "webpack": "^5.93.0"
   }
 }
