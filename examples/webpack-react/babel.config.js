@@ -10,23 +10,23 @@ const fs = require('fs')
 module.exports = (api) => {
   api.cache.using(() => process.env.NODE_ENV)
 
+  const corejsVersion = +require('core-js/package.json').version
   /**
    * @type {import('@babel/core').TransformOptions}
    */
   const config = {
-    sourceType: 'module',
     presets: [
       [
         '@babel/preset-env',
         {
           useBuiltIns: 'usage',
-          corejs: 3,
+          corejs: corejsVersion,
           modules: false,
           targets: {
             browsers: pkg.browserslist,
           },
           bugfixes: true,
-          debug: api.env('development'), // 展示每个文件的polyfill
+          debug: api.env('development'), // 辅助调试用，展示每个文件的polyfill
           exclude: ['transform-typeof-symbol'],
         },
       ],
@@ -34,16 +34,16 @@ module.exports = (api) => {
       '@babel/preset-typescript',
     ],
     plugins: [
-      !api.env('production')
+      api.env('production')
         ? [
             // When this plugin is enabled, the useBuiltIns option in @babel/preset-env must not be set. Otherwise, this plugin may not able to completely sandbox the environment.
             '@babel/plugin-transform-runtime',
             {
-              absoluteRuntime: false, // 路径自动处理
+              // absoluteRuntime: false, // 路径自动处理
               regenerator: true, // 默认开启 In older Babel version, this option used to toggles whether or not generator functions were transformed to use a regenerator runtime that does not pollute the global scope.
-              corejs: 3,
+              corejs: corejsVersion,
               helpers: true, // 是否不注入行内Babel helpers polyfill方法. 默认开启 Toggles whether or not inlined Babel helpers (classCallCheck, extends, etc.) are replaced with calls to @babel/runtime (or equivalent package).
-              useESModules: true, // 废弃了
+              // useESModules: true, // 废弃了
               version: require('@babel/runtime-corejs3/package.json').version, // 确定@babel/runtime版本信息
               // version: require('@babel/runtime/package.json').version,
             },
