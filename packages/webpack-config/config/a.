@@ -1,0 +1,30 @@
+  use: [
+          {
+            loader: 'thread-loader',
+            options: {
+              // https://webpack.js.org/loaders/thread-loader/
+              workers: require('os').cpus().length,
+              name: 'webpack-tsx',
+              // 数字安全
+              poolTimeout,
+            },
+          },
+          {
+            loader: 'babel-loader',
+            options: {
+              // https://github.com/babel/babel-loader
+              // Default false. When set, the given directory will be used to cache the results of the loader. Future webpack builds will attempt to read from the cache to avoid needing to run the potentially expensive Babel recompilation process on each run. If the value is set to true in options ({cacheDirectory: true}), the loader will use the default cache directory in node_modules/.cache/babel-loader or fallback to the default OS temporary file directory if no node_modules folder could be found in any root directory.
+              cacheDirectory: true,
+              cacheCompression: false,
+              //   cacheIdentifier: '', // 缓存标识符：环境+打包工具相关的版本信息
+              inputSourceMap: true,
+              sourceMaps: true,
+              // 查找配置文件
+              //   babelrc: false, // 不读取 .babelrc 或 babel.config.js
+              //   configFile: false, // 不查找 babel.config.js
+              // 代码输出
+              compact: true, // 输出格式化良好的代码
+              comments: isDev,
+            },
+          },
+        ],

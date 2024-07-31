@@ -14,7 +14,7 @@ module.exports = (api) => {
    * @type {import('@babel/core').TransformOptions}
    */
   const config = {
-    sourceType: 'module', // 默认值
+    sourceType: 'module',
     presets: [
       [
         '@babel/preset-env',
@@ -75,42 +75,6 @@ module.exports = (api) => {
         ],
       },
     },
-    overrides: [
-      {
-        // 针对特定的第三方模块，可以定制化它的模块处理
-        test: /node_modules\/.*\.js$/,
-        sourceType: 'unambiguous',
-        presets: [
-          [
-            '@babel/preset-env',
-            {
-              useBuiltIns: 'usage',
-              corejs: 3,
-              modules: false,
-              targets: {
-                browsers: pkg.browserslist,
-              },
-              bugfixes: true,
-              debug: api.env('development'), // 展示每个文件的polyfill
-              exclude: ['transform-typeof-symbol'],
-            },
-          ],
-        ],
-        plugins: [
-          [
-            '@babel/plugin-transform-runtime',
-            {
-              absoluteRuntime: false,
-              regenerator: true,
-              corejs: 3,
-              helpers: true,
-              useESModules: true,
-              version: require('@babel/runtime-corejs3/package.json').version,
-            },
-          ],
-        ],
-      },
-    ],
   }
 
   const configStr = JSON.stringify(config, null, 2)

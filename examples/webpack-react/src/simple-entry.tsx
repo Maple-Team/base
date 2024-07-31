@@ -7,8 +7,9 @@ import { uuid } from '@liutsing/utils'
 // const myMap = new WeakMap()
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root') as HTMLElement
-  const id = uuid()
-  console.log(id)
+  const ids = [uuid(), uuid(), uuid()]
+  const _ids = [...ids]
+  console.log(_ids.map((id) => `${id}1`))
 })
 
 // async function stuff() {

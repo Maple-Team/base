@@ -12,7 +12,7 @@
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
     "rm": "rimraf public/fonts/*.woff2 public/fonts/*.woff node_modules/.cache",
     "postinstall": "pnpm run rm",
-    "clear": "rimraf dist",
+    "clear": "rimraf dist && rimraf node_modules/.cache",
     "prebuild": "pnpm run clear",
     "stats": "webpack --config config/webpack.stats.js",
     "swc:dev": "cross-env NODE_ENV=development webpack serve --config config/webpack.swc.dev.js",
@@ -31,7 +31,7 @@
     "lint:fix": "nx lint --fix",
     "translate:locale": "node scripts/translate.js",
     "upload:locale": "node scripts/upload-locale.js",
-    "browserslist":"browserslist"
+    "browserslist": "browserslist"
   },
   "keywords": [],
   "author": "",
@@ -42,6 +42,7 @@
     "@ant-design/icons": "^5.3.7",
     "@ant-design/plots": "^2.2.2",
     "@antv/g2plot": "^2.4.22",
+    "@babel/runtime": "^7.25.0",
     "@babel/runtime-corejs3": "^7.25.0",
     "@liutsing/rc-components": "workspace:*",
     "@liutsing/rc-hooks": "workspace:*",
