@@ -2,14 +2,24 @@ module.exports = function (api) {
   api.assertVersion(7)
   api.cache(true)
 
-  console.log('core-js', require('core-js/package.json').version)
-  const corejsVersion = 3
   // 兼容性
   const targets = {
     // es6
     chrome: 58,
   }
 
+  const plugins = [
+    [
+      '@babel/plugin-transform-runtime',
+      {
+        regenerator: true,
+        corejs: 3,
+        helpers: true,
+        version: require('@babel/runtime-corejs3/package.json').version,
+      },
+    ],
+    '@babel/plugin-proposal-class-properties',
+  ]
   return {
     presets: [
       [
@@ -17,37 +27,17 @@ module.exports = function (api) {
         {
           modules: false,
           useBuiltIns: false, // 'usage', 是否注入"core-js/x"样的polyfill
-          corejs: require('core-js/package.json').version,
+          // corejs: corejsVersion, The `corejs` option only has an effect when the `useBuiltIns` option is not `false`
           targets,
           debug: true,
         },
       ],
       '@babel/preset-typescript',
     ],
-    plugins: [
-      [
-        '@babel/plugin-transform-runtime',
-        {
-          regenerator: true,
-          corejs: corejsVersion,
-          helpers: true,
-          version: require('@babel/runtime-corejs3/package.json').version,
-        },
-      ],
-      '@babel/plugin-proposal-class-properties',
-    ],
+    plugins,
     env: {
       test: {
         presets: ['@babel/preset-env', '@babel/preset-typescript'],
-        plugins: [
-          [
-            '@babel/plugin-transform-runtime',
-            {
-              version: require('@babel/runtime/package.json').version,
-            },
-          ],
-          '@babel/plugin-proposal-class-properties',
-        ],
       },
       // 环境变量
       commonjs: {
@@ -56,7 +46,7 @@ module.exports = function (api) {
             '@babel/preset-env',
             {
               useBuiltIns: false, // 'usage', 是否注入"core-js/x"样的polyfill
-              corejs: require('core-js/package.json').version,
+              // corejs: corejsVersion, The `corejs` option only has an effect when the `useBuiltIns` option is not `false`
               modules: 'cjs',
               targets,
               debug: true,
@@ -64,18 +54,7 @@ module.exports = function (api) {
           ],
           '@babel/preset-typescript',
         ],
-        plugins: [
-          [
-            '@babel/plugin-transform-runtime',
-            {
-              regenerator: true,
-              corejs: corejsVersion,
-              helpers: true,
-              version: require('@babel/runtime-corejs3/package.json').version,
-            },
-          ],
-          '@babel/plugin-proposal-class-properties',
-        ],
+        plugins,
       },
     },
   }
