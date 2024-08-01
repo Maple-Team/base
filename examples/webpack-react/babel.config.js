@@ -46,7 +46,7 @@ module.exports = (api) => {
         '@babel/preset-env',
         {
           useBuiltIns: 'usage',
-          corejs: 3,
+          corejs: require('core-js/package.json').version,
           modules: false,
           targets: {
             browsers: pkg.browserslist,
@@ -86,20 +86,25 @@ module.exports = (api) => {
             return !filename.includes('src')
           },
         sourceType: 'unambiguous',
-        ignore: ['**/node_modules/core-js/**', '**/node_modules/@babel/runtime-corejs3/**'],
+        ignore: [
+          '**/node_modules/core-js/**',
+          '**/node_modules/@babel/runtime-corejs3/**',
+          'core-js/**',
+          '@babel/runtime-corejs3/**',
+        ],
         presets: [
           [
             '@babel/preset-env',
             {
               useBuiltIns: 'usage',
-              corejs: 3,
+              corejs: require('core-js/package.json').version,
               modules: false,
               targets: {
                 // browsers: ['defaults'],
                 browsers: pkg.browserslist,
               },
               bugfixes: true,
-              debug: api.env('development'),
+              debug: true || api.env('development'),
               exclude: ['transform-typeof-symbol'],
             },
           ],

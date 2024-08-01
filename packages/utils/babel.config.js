@@ -1,6 +1,8 @@
 module.exports = function (api) {
   api.assertVersion(7)
   api.cache(true)
+
+  console.log('core-js', require('core-js/package.json').version)
   const corejsVersion = 3
   // 兼容性
   const targets = {
@@ -14,8 +16,8 @@ module.exports = function (api) {
         '@babel/preset-env',
         {
           modules: false,
-          useBuiltIns: 'usage',
-          corejs: corejsVersion,
+          useBuiltIns: false, // 'usage', 是否注入"core-js/x"样的polyfill
+          corejs: require('core-js/package.json').version,
           targets,
           debug: true,
         },
@@ -53,8 +55,8 @@ module.exports = function (api) {
           [
             '@babel/preset-env',
             {
-              useBuiltIns: 'usage',
-              corejs: corejsVersion,
+              useBuiltIns: false, // 'usage', 是否注入"core-js/x"样的polyfill
+              corejs: require('core-js/package.json').version,
               modules: 'cjs',
               targets,
               debug: true,

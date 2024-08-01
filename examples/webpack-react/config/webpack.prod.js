@@ -7,6 +7,7 @@ const { writeFile } = require('fs')
 
 const config = mergeWithRules({
   output: 'merge',
+  optimization: 'merge',
   cache: {
     buildDependencies: {
       config: 'replace',
@@ -40,9 +41,13 @@ const config = mergeWithRules({
       config: [__filename],
     },
   },
-  profile: true,
-  stats: 'verbose',
-  cache: false,
+  profile: false,
+  performance: {
+    hints: 'warning',
+    maxEntrypointSize: 240 * 1024,
+  },
+  // stats: 'verbose',
+  // cache: false,
   module: {
     rules: [
       {
@@ -52,14 +57,14 @@ const config = mergeWithRules({
           {
             loader: 'babel-loader',
           },
-          {
-            loader: '@liutsing/pattern-logger-loader',
-            options: {
-              showGap: true,
-              showLogger: true,
-              logFileName: path.resolve(__dirname, 'pattern-node_modules.log'),
-            },
-          },
+          // {
+          //   loader: '@liutsing/pattern-logger-loader',
+          //   options: {
+          //     showGap: true,
+          //     showLogger: true,
+          //     logFileName: path.resolve(__dirname, 'pattern-node_modules.log'),
+          //   },
+          // },
         ],
       },
       // {
@@ -77,6 +82,9 @@ const config = mergeWithRules({
       //   ],
       // },
     ],
+  },
+  optimization: {
+    minimize: false,
   },
 })
 

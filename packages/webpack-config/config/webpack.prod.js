@@ -95,7 +95,7 @@ const prod = {
   ],
   optimization: {
     runtimeChunk: true,
-    minimize: false,
+    minimize: true,
     sideEffects: true,
     usedExports: true,
     minimizer: [

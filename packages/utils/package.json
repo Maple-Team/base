@@ -61,7 +61,8 @@
     "js-md5": "^0.7.3"
   },
   "peerDependencies": {
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.21",
+    "js-md5": "^0.7.3"
   },
   "publishConfig": {
     "access": "public"

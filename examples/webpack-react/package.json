@@ -141,7 +141,6 @@
   },
   "browserslist": [
     "defaults",
-    "not ie <= 11",
-    "> 5%"
+    "chrome 45"
   ]
 }
