@@ -69,29 +69,30 @@ module.exports = (api) => {
            * @returns
            */
           (filename) => {
-            const date = new Date()
+            // const date = new Date()
             // for debugger
-            fs.writeFile(
-              path.resolve(__dirname, './config/babel-handle.log'),
-              `[${date.toLocaleDateString()}} ${date.toLocaleTimeString()}] ${filename} \r\n`,
-              { flag: 'a+' },
-              (err) => {
-                if (err) {
-                  console.log(err)
-                }
-              }
-            )
+            // fs.writeFile(
+            //   path.resolve(__dirname, './config/babel-handle.log'),
+            //   `[${date.toLocaleDateString()}} ${date.toLocaleTimeString()}] ${filename} \r\n`,
+            //   { flag: 'a+' },
+            //   (err) => {
+            //     if (err) {
+            //       console.log(err)
+            //     }
+            //   }
+            // )
 
             //  筛选匹配到的模块
             return !filename.includes('src')
           },
         sourceType: 'unambiguous',
-        ignore: [
-          '**/node_modules/core-js/**',
-          '**/node_modules/@babel/runtime-corejs3/**',
-          'core-js/**',
-          '@babel/runtime-corejs3/**',
-        ],
+        // ignore: [
+        //   '**/node_modules/core-js/**',
+        //   '**/node_modules/@babel/runtime-corejs3/**',
+        //   'core-js/**',
+        //   '@babel/runtime-corejs3/**',
+        // ],
+        // only:[],
         presets: [
           [
             '@babel/preset-env',

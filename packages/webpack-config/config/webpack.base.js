@@ -98,6 +98,7 @@ const config = {
           {
             loader: 'babel-loader',
             options: {
+              // 部分配置传给@babel/core
               cacheDirectory: true,
               cacheCompression: false,
               //   cacheIdentifier: '', // 缓存标识符：环境+打包工具相关的版本信息
