@@ -27,7 +27,6 @@
     "@liutsing/rc-components": "workspace:*",
     "@liutsing/rc-hooks": "workspace:*",
     "@liutsing/rcv-components": "workspace:*",
-    "@liutsing/types-utils": "workspace:*",
     "ahooks": "^3.7.8",
     "axios": "^1.2.1",
     "classnames": "^2.3.2",

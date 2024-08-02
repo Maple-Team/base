@@ -1,25 +1,27 @@
 {
   "name": "@liutsing/utils",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "",
   "sideEffects": false,
   "keywords": [],
   "license": "ISC",
   "author": "",
-  "main": "lib/index.js",
-  "module": "es/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "source": "src/index.ts",
-  "jsnext:main": "es/index.js",
+  "jsnext:main": "dist/index.esm.js",
   "typings": "types/index.d.ts",
+  "umd:main": "dist/index.umd.js",
   "files": [
     "lib",
     "es",
-    "types"
+    "types",
+    "dist"
   ],
   "exports": {
-    "import": "./es/index.js",
-    "require": "./lib/index.js",
-    "default": "./es/index.js",
+    "import": "./dist/index.esm.js",
+    "require": "./dist/index.js",
+    "default": "./dist/index.esm.js",
     "types": "./types/index.d.ts"
   },
   "scripts": {
@@ -37,32 +39,47 @@
     "postpublish1": "pnpm run doc",
     "postpublish": "pnpx @liutsing/npmmirror-sync",
     "doc": "typedoc",
-    "postdoc": "rimraf ../../docs/utils && mv docs ../../docs/utils"
+    "postdoc": "rimraf ../../docs/utils && mv docs ../../docs/utils",
+    "clean": "rimraf ./dist ./types",
+    "build:rollup": "npm run clean && npm run build:self && npm run build:esm && npm run build:aio",
+    "build:self": "rollup -c config/rollup.config.cjs",
+    "build:esm": "rollup -c config/rollup.config.esm.cjs",
+    "build:aio": "rollup -c config/rollup.config.aio.cjs"
   },
   "prettier": "@liutsing/prettier-config",
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
-    "@babel/core": "^7.23.0",
-    "@babel/helper-plugin-utils": "^7.22.5",
+    "@babel/cli": "^7.24.8",
+    "@babel/core": "^7.25.2",
+    "@babel/helper-plugin-utils": "^7.24.8",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/plugin-transform-runtime": "^7.22.15",
-    "@babel/preset-env": "^7.22.20",
-    "@babel/preset-react": "^7.22.15",
-    "@babel/preset-typescript": "^7.23.0",
-    "@babel/runtime": "^7.23.1",
-    "@types/js-md5": "^0.7.0",
-    "cross-env": "^7.0.3"
+    "@babel/plugin-transform-runtime": "^7.24.7",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@babel/runtime": "^7.25.0",
+    "@jsmini/extend": "^0.5.0",
+    "@liutsing/types-utils": "workspace:*",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^23.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@types/js-md5": "^0.7.2",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.23.0",
+    "rollup": "^4.19.2",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4"
   },
   "dependencies": {
-    "core-js": "^3.37.1",
     "@babel/runtime-corejs3": "^7.25.0",
     "@liutsing/regexp-utils": "workspace:*",
-    "@liutsing/types-utils": "workspace:*",
+    "core-js": "^3.37.1",
     "js-md5": "^0.7.3"
   },
   "peerDependencies": {
-    "lodash-es": "^4.17.21",
-    "js-md5": "^0.7.3"
+    "js-md5": "^0.7.3",
+    "lodash-es": "^4.17.21"
   },
   "publishConfig": {
     "access": "public"

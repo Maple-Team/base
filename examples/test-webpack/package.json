@@ -28,7 +28,7 @@
     "@liutsing/html-webpack-inject-plugin": "workspace:*",
     "@liutsing/prettier-config": "0.0.6",
     "@liutsing/tsconfig": "0.0.6",
-    "@liutsing/types-utils": "1.0.2",
+    "@liutsing/types-utils": "workspace:*",
     "@liutsing/webpack-config": "workspace:*",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@svgr/webpack": "^8.1.0",

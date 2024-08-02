@@ -1,7 +1,6 @@
 {
   "extends": "@liutsing/tsconfig",
   "compilerOptions": {
-    "rootDir": ".",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]

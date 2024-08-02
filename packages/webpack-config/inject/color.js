@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars, unused-imports/no-unused-vars
 function print() {
+  // @reference: @liutsing/utils's consoleFn
   const defaultContentBgColor = '#41b883'
   const defaultTitleBgColor = '#35495e'
   const defaultTextColor = '#FFFFFF'
