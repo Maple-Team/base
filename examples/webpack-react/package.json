@@ -140,7 +140,10 @@
     "includedScripts": []
   },
   "browserslist": [
-    "defaults",
-    "chrome 45"
+    "last 2 versions",
+    "> 1%",
+    "ie >= 11",
+    "Android >= 4.1",
+    "iOS >= 10.3"
   ]
 }
