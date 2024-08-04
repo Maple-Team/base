@@ -52,19 +52,20 @@ const config = mergeWithRules({
     rules: [
       {
         test: /\.js$/,
-        exclude: /@babel(?:\/|\\{1,2})runtime/,
+        // exclude: /@babel(?:\/|\\{1,2})runtime/,
+        exclude: /node_modules\/(?!(@liutsing\/utils)).*/, // working
         use: [
           {
             loader: 'babel-loader',
           },
-          // {
-          //   loader: '@liutsing/pattern-logger-loader',
-          //   options: {
-          //     showGap: true,
-          //     showLogger: true,
-          //     logFileName: path.resolve(__dirname, 'pattern-node_modules.log'),
-          //   },
-          // },
+          {
+            loader: '@liutsing/pattern-logger-loader',
+            options: {
+              showGap: true,
+              showLogger: true,
+              logFileName: path.resolve(__dirname, 'pattern-node_modules.log'),
+            },
+          },
         ],
       },
       // {
