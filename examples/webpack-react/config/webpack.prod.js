@@ -38,6 +38,13 @@ const config = mergeWithRules({
         words: path.resolve(os.tmpdir(), 'example-webpack-react.txt'),
       }),
     ],
+    profile: false,
+    performance: {
+      hints: 'warning',
+      maxEntrypointSize: 240 * 1024,
+    },
+    // stats: 'verbose',
+    // cache: false,
     recordsPath: path.join(__dirname, 'records.json'),
     // 持久化缓存
     cache: {

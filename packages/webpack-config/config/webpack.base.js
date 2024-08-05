@@ -18,7 +18,7 @@ const poolTimeout = !isDev ? 500 : 2 ** 31 - 1
 const envKeys = require('../plugins/env.js')(appRoot)
 // 具体应用的信息
 const { version: appVersion, name: appName } = require(path.resolve(appRoot, 'package.json'))
-const debugCssLoader = (source) => {
+const _debugCssLoader = (source) => {
   fs.writeFile(
     path.resolve(appRoot, `./config/debug-${Math.random()}.json`),
     JSON.stringify(source),
@@ -92,6 +92,7 @@ const config = {
       {
         test: /\.(t|j)sx?$/,
         include: [path.resolve(appRoot, 'src')],
+        sideEffects: false,
         use: [
           {
             loader: 'thread-loader',
