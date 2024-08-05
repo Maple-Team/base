@@ -5,6 +5,8 @@ const FontMinifyPlugin = require('@liutsing/font-minify-plugin')
 const { mergeWithRules } = require('webpack-merge')
 const { writeFile } = require('fs')
 
+const appRoot = path.resolve(__dirname, '..')
+
 const config = mergeWithRules({
   output: 'merge',
   optimization: 'merge',
@@ -15,14 +17,12 @@ const config = mergeWithRules({
     module: {
       rules: {
         test: 'match',
-        use: {
-          loader: 'prepend', // loader追加到前面
-        },
+        use: 'replace',
       },
     },
   },
 })(prod, {
-  entry: path.resolve(__dirname, '../src/simple-entry.tsx'),
+  entry: path.resolve(appRoot, 'src/simple-entry.tsx'),
   output: {
     publicPath: '/',
     clean: true,
@@ -51,6 +51,46 @@ const config = mergeWithRules({
   module: {
     rules: [
       {
+        test: /\.(t|j)sx?$/,
+        include: [path.resolve(appRoot, 'src')],
+        use: [
+          // FIXME not working with thread-loader
+          // {
+          //   loader: '@liutsing/pattern-logger-loader',
+          //   options: {
+          //     showGap: true,
+          //     showLogger: true,
+          //     logFileName: path.resolve(appRoot, 'config/pattern-src.log'),
+          //   },
+          // },
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: require('os').cpus().length,
+              name: 'webpack-tsx',
+              poolTimeout: 500,
+            },
+          },
+          {
+            loader: 'babel-loader',
+            options: {
+              // 部分配置传给@babel/core
+              cacheDirectory: true,
+              cacheCompression: false,
+              //   cacheIdentifier: '', // 缓存标识符：环境+打包工具相关的版本信息
+              inputSourceMap: true,
+              sourceMaps: true,
+              // 查找配置文件
+              //   babelrc: false, // 不读取 .babelrc 或 babel.config.js
+              //   configFile: false, // 不查找 babel.config.js
+              // 代码输出
+              compact: true, // 输出格式化良好的代码
+              comments: false,
+            },
+          },
+        ],
+      },
+      {
         test: /\.js$/,
         // exclude: /@babel(?:\/|\\{1,2})runtime/,
         exclude: /node_modules\/(?!(@liutsing\/utils)).*/, // working
@@ -68,20 +108,6 @@ const config = mergeWithRules({
           },
         ],
       },
-      // {
-      //   test: /\.(t|j)sx?$/,
-      //   use: [
-      //     {
-      //       // NOTE 与thread-loader存在兼容问题
-      //       loader: '@liutsing/pattern-logger-loader',
-      //       options: {
-      //         showGap: true,
-      //         showLogger: true,
-      //         logFileName: path.resolve(__dirname, './pattern-src.log'),
-      //       },
-      //     },
-      //   ],
-      // },
     ],
   },
   optimization: {

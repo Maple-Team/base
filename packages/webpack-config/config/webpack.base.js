@@ -80,14 +80,6 @@ const config = {
         include: [path.resolve(appRoot, 'src')],
         use: [
           {
-            loader: '@liutsing/pattern-logger-loader',
-            options: {
-              showGap: true,
-              showLogger: true,
-              logFileName: path.resolve(appRoot, 'config/pattern-src.log'),
-            },
-          },
-          {
             loader: 'thread-loader',
             options: {
               workers: require('os').cpus().length,
