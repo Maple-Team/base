@@ -86,13 +86,6 @@ module.exports = (api) => {
             return !filename.includes('src')
           },
         sourceType: 'unambiguous',
-        // ignore: [
-        //   '**/node_modules/core-js/**',
-        //   '**/node_modules/@babel/runtime-corejs3/**',
-        //   'core-js/**',
-        //   '@babel/runtime-corejs3/**',
-        // ],
-        // only:[],
         presets: [
           [
             '@babel/preset-env',

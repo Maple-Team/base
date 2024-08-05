@@ -53,6 +53,7 @@ const config = mergeWithRules({
       {
         test: /\.(t|j)sx?$/,
         include: [path.resolve(appRoot, 'src')],
+        sideEffects: false,
         use: [
           // FIXME not working with thread-loader
           // {
@@ -92,6 +93,7 @@ const config = mergeWithRules({
       },
       {
         test: /\.js$/,
+        sideEffects: false,
         // exclude: /@babel(?:\/|\\{1,2})runtime/,
         exclude: /node_modules\/(?!(@liutsing\/utils)).*/, // working
         use: [

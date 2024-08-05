@@ -78,6 +78,7 @@ const config = {
       {
         test: /\.(t|j)sx?$/,
         include: [path.resolve(appRoot, 'src')],
+        sideEffects: false,
         use: [
           {
             loader: 'thread-loader',
