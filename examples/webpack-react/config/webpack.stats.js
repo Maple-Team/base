@@ -1,13 +1,13 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const { merge } = require('webpack-merge')
 const prod = require('./webpack.prod')
+const { mergeWithRules } = require('webpack-merge')
 
 /**
  * @type {import("webpack").Configuration}
  */
 const stats = {
-  mode: 'production',
   stats: 'detailed',
+  mode: 'production',
   plugins: [
     new BundleAnalyzerPlugin({
       open: false,
@@ -15,7 +15,13 @@ const stats = {
       analyzerPort: 8888,
     }),
   ],
+  optimization: {
+    minimize: true,
+  },
 }
-const config = merge(prod, stats)
+
+const config = mergeWithRules({
+  optimization: 'merge',
+})(prod, stats)
 
 module.exports = config

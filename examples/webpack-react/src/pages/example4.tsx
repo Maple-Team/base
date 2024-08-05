@@ -1,8 +1,7 @@
 // import { useQuery } from '@tanstack/react-query'
 import { Button, Card, Input, Space } from 'antd'
 // import axios from 'axios'
-import type { DebouncedFuncLeading } from 'lodash'
-import { debounce } from 'lodash'
+import { debounce } from 'lodash-es'
 import type { ChangeEvent } from 'react'
 import React, { memo, useCallback, useMemo, useState } from 'react'
 import { IconParking } from '@/assets/svg-icons'
@@ -33,14 +32,14 @@ const Example4 = memo(() => {
   //   }
   // }, [num])
 
-  const onIncrease = useMemo<DebouncedFuncLeading<() => void>>(
+  const onIncrease = useMemo(
     () => debounce(() => setNum((num) => num + 1), 500, { leading: true, trailing: false }),
     []
   )
   // working but with eslint error
   // React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const _onIncrease2 = useCallback<DebouncedFuncLeading<() => void>>(
+  const _onIncrease2 = useCallback(
     debounce(() => setNum((num) => num + 1), 500, { leading: true, trailing: false }),
     []
   )
