@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 const { ProvidePlugin, DefinePlugin } = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -17,15 +18,27 @@ const poolTimeout = !isDev ? 500 : 2 ** 31 - 1
 const envKeys = require('../plugins/env.js')(appRoot)
 // 具体应用的信息
 const { version: appVersion, name: appName } = require(path.resolve(appRoot, 'package.json'))
+const debugCssLoader = (source) => {
+  fs.writeFile(
+    path.resolve(appRoot, `./config/debug-${Math.random()}.json`),
+    JSON.stringify(source),
+    { flag: 'a+' },
+    (e) => {
+      if (e) throw e
+    }
+  )
+  return source
+}
 // 通用的css loader配置项
 const cssLoaders = [
   isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-  {
-    loader: 'css-modules-typescript-loader',
-    options: {
-      mode: process.env.CI ? 'verify' : 'emit',
-    },
-  },
+
+  //   {
+  //     loader: 'css-modules-typescript-loader',
+  //     options: {
+  //       mode: process.env.CI ? 'verify' : 'emit',
+  //     },
+  //   },
   {
     loader: 'css-loader',
     options: {
@@ -38,17 +51,18 @@ const cssLoaders = [
       },
     },
   },
+  //   debugCssLoader,
   'postcss-loader',
-  // 效果
-  {
-    loader: 'thread-loader',
-    options: {
-      // https://webpack.js.org/loaders/thread-loader/
-      workers: require('os').cpus().length,
-      name: 'webpack-tsx',
-      poolTimeout,
-    },
-  },
+  // TODO 效果
+  //   {
+  //     loader: 'thread-loader',
+  //     options: {
+  //       // https://webpack.js.org/loaders/thread-loader/
+  //       workers: require('os').cpus().length,
+  //       name: 'webpack-tsx',
+  //       poolTimeout,
+  //     },
+  //   },
 ]
 /**
  * @type {import('webpack').Configuration}

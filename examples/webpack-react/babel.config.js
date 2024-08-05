@@ -105,7 +105,7 @@ module.exports = (api) => {
                 browsers: pkg.browserslist,
               },
               bugfixes: true,
-              debug: true || api.env('development'),
+              debug: api.env('development'),
               exclude: ['transform-typeof-symbol'],
             },
           ],

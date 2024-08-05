@@ -3,7 +3,6 @@ import AMapLoader from '@amap/amap-jsapi-loader'
 import { Button, Space } from 'antd'
 // import './style.module.css' // NOTE will be trimed
 import styles from './style.modules.css'
-
 import _points from './points.json'
 
 const gridSize = 60
@@ -82,7 +81,7 @@ export default function MapContainer() {
   useEffect(() => {
     AMapLoader.load({
       key: '6f025e700cbacbb0bb866712d20bb35c', // 申请好的Web端开发者Key，首次调用 load 时必填
-      version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+      version: '2.0', // 指定要加载的 JSAPI 的版本，默认为 1.4.15
       plugins: ['AMap.MarkerCluster'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
     })
       .then((AMap) => {
