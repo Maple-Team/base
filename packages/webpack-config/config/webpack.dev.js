@@ -74,8 +74,6 @@ const devServer = {
  */
 const dev = {
   mode: 'development',
-  // cheap-module-source-map ->  输出的代码可读性较好，性能较差
-  // eval-cheap-module-source-map ->  输出的代码可读性较差，性能较好
   devtool: 'cheap-module-source-map',
   plugins: [
     new ReactRefreshWebpackPlugin({
@@ -130,6 +128,8 @@ const config = mergeWithRules({
 module.exports = config
 
 // ---------------------------------
+// cheap-module-source-map ->  输出的代码可读性较好，性能较差
+// eval-cheap-module-source-map ->  输出的代码可读性较差，性能较好
 // 额外的devServer钩子
 // onBeforeSetupMiddleware(devServer) {
 //     // Keep `evalSourceMapMiddleware`

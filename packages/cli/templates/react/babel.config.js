@@ -1,7 +1,9 @@
 const pkg = require('./package.json')
+
 /**
  * 创建Babel配置的函数
  * @type {import('@babel/core').ConfigFunction} api
+ * @https://babeljs.io/docs/options#overrides
  * @returns
  */
 module.exports = (api) => {
@@ -11,38 +13,23 @@ module.exports = (api) => {
    * @type {import('@babel/core').TransformOptions}
    */
   const config = {
-    presets: [
-      [
-        '@babel/preset-env',
-        {
-          // useBuiltIns: 'usage',
-          corejs: '3.33.1',
-          modules: false,
-          targets: {
-            browsers: pkg.browserslist,
-          },
-          bugfixes: true,
-          debug: api.env('development'),
-        },
-      ],
-      ['@babel/preset-react', { development: api.env('development'), runtime: 'automatic' }],
-      '@babel/preset-typescript',
-    ],
     plugins: [
-      api.env('development')
+      api.env('production')
         ? [
             // When this plugin is enabled, the useBuiltIns option in @babel/preset-env must not be set. Otherwise, this plugin may not able to completely sandbox the environment.
             '@babel/plugin-transform-runtime',
             {
-              regenerator: true,
+              // absoluteRuntime: false, // 路径自动处理
+              regenerator: true, // 默认开启 In older Babel version, this option used to toggles whether or not generator functions were transformed to use a regenerator runtime that does not pollute the global scope.
               corejs: 3,
-              helpers: true,
-              useESModules: true,
-              version: '^7.24.3',
+              helpers: true, // 是否不注入行内Babel helpers polyfill方法. 默认开启 Toggles whether or not inlined Babel helpers (classCallCheck, extends, etc.) are replaced with calls to @babel/runtime (or equivalent package).
+              // useESModules: true, // 废弃了
+              version: require('@babel/runtime-corejs3/package.json').version, // 确定@babel/runtime版本信息
+              // version: require('@babel/runtime/package.json').version,
             },
           ]
         : null,
-      !api.env('production') ? 'react-refresh/babel' : null,
+      api.env('development') ? 'react-refresh/babel' : null,
       api.env('production')
         ? [
             '@liutsing/babel-plugin-remove-console',
@@ -52,8 +39,56 @@ module.exports = (api) => {
           ]
         : null,
     ].filter(Boolean),
+    presets: [
+      [
+        '@babel/preset-env',
+        {
+          useBuiltIns: 'usage',
+          corejs: require('core-js/package.json').version,
+          modules: false,
+          targets: {
+            browsers: pkg.browserslist,
+          },
+          bugfixes: true,
+          debug: false, // 辅助调试用，展示每个文件的polyfill
+          exclude: ['transform-typeof-symbol'],
+        },
+      ],
+      ['@babel/preset-react', { development: api.env('development'), runtime: 'automatic' }],
+      '@babel/preset-typescript',
+    ],
+    overrides: [
+      {
+        test:
+          /**
+           * babel处理的模块文件名
+           * @param {string} filename
+           * @returns
+           */
+          (filename) => {
+            //  筛选匹配到的模块
+            return !filename.includes('src')
+          },
+        sourceType: 'unambiguous',
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              useBuiltIns: 'usage',
+              corejs: require('core-js/package.json').version,
+              modules: false,
+              targets: {
+                browsers: pkg.browserslist,
+              },
+              bugfixes: true,
+              debug: false,
+              exclude: ['transform-typeof-symbol'],
+            },
+          ],
+        ],
+      },
+    ],
     env: {
-      // process.env.NODE_ENV 注入进来的值
       test: {
         presets: [
           [
@@ -70,9 +105,6 @@ module.exports = (api) => {
       },
     },
   }
+
   return config
 }
-
-// https://babeljs.io/docs/babel-plugin-transform-runtime#technical-details
-// https://babeljs.io/docs/babel-plugin-transform-runtime#absoluteruntime
-// https://babeljs.io/docs/babel-preset-env

@@ -6,7 +6,7 @@ import fs from 'fs'
 import inquirer from 'inquirer'
 import yargs from 'yargs/yargs'
 import { hideBin } from 'yargs/helpers'
-
+import { version } from './package.json'
 import { copyFolder } from './utils.js'
 
 // 使用 yargs 解析命令行参数
@@ -73,9 +73,10 @@ const argv = yargs(hideBin(process.argv))
             const target = path.join(process.cwd(), answers.packageName)
             const source = path.join(__dirname, 'templates', answers.projectType.toLowerCase())
             copyFolder(source, target, (file, srcPath, destPath) => {
-              console.log(file)
               if (file === '_gitignore') fs.copyFileSync(srcPath, destPath.replace(/_gitignore/g, '.gitignore'))
               else if (file === '_npmrc') fs.copyFileSync(srcPath, destPath.replace(/_npmrc/g, '.npmrc'))
+              else if (file === '_editorconfig')
+                fs.copyFileSync(srcPath, destPath.replace(/_editorconfig/g, '.editorconfig'))
               else fs.copyFileSync(srcPath, destPath)
             })
           })
@@ -87,5 +88,5 @@ const argv = yargs(hideBin(process.argv))
   .version().argv // 显示版本信息
 
 // 检查是否需要显示版本或帮助信息
-if (argv.v || argv.version) console.log(`Version ${'0.1.1-beta.3'}`)
+if (argv.v || argv.version) console.log(`Version ${version}`)
 else if (argv.h || argv.help) yargs.showHelp()

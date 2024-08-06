@@ -9,11 +9,12 @@ import { StyleProvider } from '@ant-design/cssinjs'
 import { ErrorBoundary } from './ErrorBoundary'
 import Hooks from './pages/hooks'
 import HooksLifecycle from './pages/hooks-lifecycle'
+import Drag from './pages/Drag'
 import i18n from '@/i18n'
 
 // const RemoteApp = React.lazy(() => import('module_federation/App'))
 
-const MarkerCluster = lazy(() => import(/* webpackChunkName: "markerCluster" */ './markerCluster'))
+const MarkerCluster = lazy(() => import(/* webpackChunkName: "markerCluster" */ './pages/markerCluster'))
 const Example3 = lazy(() => import(/* webpackChunkName: "example3" */ './Components/example3'))
 
 const queryClient = new QueryClient({
@@ -74,6 +75,9 @@ const Root = () => {
           </Link>
           <Link to="/hooks-lifecycle">
             <li className="nav-list">Hooks-lifecycle</li>
+          </Link>
+          <Link to="/drag">
+            <li className="nav-list">Drag Example</li>
           </Link>
         </ul>
       </aside>
@@ -191,6 +195,14 @@ export const App = () => {
                   element={
                     <Suspense fallback={<div>loading...</div>}>
                       <HooksLifecycle />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="drag"
+                  element={
+                    <Suspense fallback={<div>loading...</div>}>
+                      <Drag />
                     </Suspense>
                   }
                 />

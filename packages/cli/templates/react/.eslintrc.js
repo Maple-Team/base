@@ -1,9 +1,14 @@
 module.exports = {
   extends: '@liutsing/eslint-config',
+  // extends: '@antfu/eslint-config',
+  ignorePatterns: ['*.js', '*.json', '*.html', '*.gitignore', '*.conf', '*.yaml', '*.Dockerfile'],
   rules: {
-    'multiline-ternary': 'off',
+    '@typescript-eslint/await-thenable': 'off',
+    'brace-style': 'off',
     indent: 'off',
+    'multiline-ternary': 'off',
     'operator-linebreak': 'off',
+    'prettier/prettier': 'off',
+    'no-console': 'off',
   },
-  ignorePatterns: ['*.html', '*.json'],
 }

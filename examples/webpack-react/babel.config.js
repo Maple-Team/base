@@ -50,7 +50,6 @@ module.exports = (api) => {
           modules: false,
           targets: {
             browsers: pkg.browserslist,
-            // browsers: ['defaults'],
           },
           bugfixes: true,
           debug: api.env('development'), // 辅助调试用，展示每个文件的polyfill
@@ -69,19 +68,6 @@ module.exports = (api) => {
            * @returns
            */
           (filename) => {
-            // const date = new Date()
-            // for debugger
-            // fs.writeFile(
-            //   path.resolve(__dirname, './config/babel-handle.log'),
-            //   `[${date.toLocaleDateString()}} ${date.toLocaleTimeString()}] ${filename} \r\n`,
-            //   { flag: 'a+' },
-            //   (err) => {
-            //     if (err) {
-            //       console.log(err)
-            //     }
-            //   }
-            // )
-
             //  筛选匹配到的模块
             return !filename.includes('src')
           },
@@ -94,7 +80,6 @@ module.exports = (api) => {
               corejs: require('core-js/package.json').version,
               modules: false,
               targets: {
-                // browsers: ['defaults'],
                 browsers: pkg.browserslist,
               },
               bugfixes: true,

@@ -1,5 +1,4 @@
 const path = require('path')
-const fs = require('fs')
 const { ProvidePlugin, DefinePlugin } = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -18,27 +17,16 @@ const poolTimeout = !isDev ? 500 : 2 ** 31 - 1
 const envKeys = require('../plugins/env.js')(appRoot)
 // 具体应用的信息
 const { version: appVersion, name: appName } = require(path.resolve(appRoot, 'package.json'))
-const _debugCssLoader = (source) => {
-  fs.writeFile(
-    path.resolve(appRoot, `./config/debug-${Math.random()}.json`),
-    JSON.stringify(source),
-    { flag: 'a+' },
-    (e) => {
-      if (e) throw e
-    }
-  )
-  return source
-}
+
 // 通用的css loader配置项
 const cssLoaders = [
   isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-
-  //   {
-  //     loader: 'css-modules-typescript-loader',
-  //     options: {
-  //       mode: process.env.CI ? 'verify' : 'emit',
-  //     },
-  //   },
+  {
+    loader: 'css-modules-typescript-loader',
+    options: {
+      mode: process.env.CI ? 'verify' : 'emit',
+    },
+  },
   {
     loader: 'css-loader',
     options: {
@@ -47,11 +35,10 @@ const cssLoaders = [
         mode: 'local',
         auto: true,
         exportGlobals: true,
-        localIdentContext: path.resolve(__dirname, 'src'),
+        localIdentContext: path.resolve(appRoot, 'src'),
       },
     },
   },
-  //   debugCssLoader,
   'postcss-loader',
   // TODO 效果
   //   {

@@ -5,6 +5,8 @@ import { Button, Space } from 'antd'
 import styles from './style.modules.css'
 import _points from './points.json'
 
+console.log(new Date().toLocaleTimeString(), '[ styles ] >', styles)
+
 const gridSize = 60
 const count = _points.length
 // https://lbs.amap.com/api/javascript-api-v2/documentation#markerclusteradddata
