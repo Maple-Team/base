@@ -2,7 +2,7 @@ const path = require('path')
 const { readFileSync } = require('fs')
 const child = require('child_process')
 const { merge } = require('webpack-merge')
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+// const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const dayjs = require('dayjs')
 const MapleHtmlWebpackPlugin = require('@liutsing/html-webpack-inject-plugin').default
@@ -41,14 +41,14 @@ const prod = {
     hints: 'warning',
   },
   plugins: [
-    new ForkTsCheckerWebpackPlugin({
-      // TODO 更多配置
-      typescript: {
-        configFile: path.resolve(appRoot, 'tsconfig.build.json'),
-        context: appRoot,
-        memoryLimit: 3048,
-      },
-    }),
+    // new ForkTsCheckerWebpackPlugin({
+    //   // TODO 更多配置
+    //   typescript: {
+    //     configFile: path.resolve(appRoot, 'tsconfig.build.json'),
+    //     context: appRoot,
+    //     memoryLimit: 3048,
+    //   },
+    // }),
     new ESLintPlugin({
       // TODO 更多配置
       cache: true,

@@ -24,7 +24,7 @@ module.exports = (api) => {
               // absoluteRuntime: false, // 路径自动处理
               regenerator: true, // 默认开启 In older Babel version, this option used to toggles whether or not generator functions were transformed to use a regenerator runtime that does not pollute the global scope.
               corejs: 3,
-              helpers: true, // 是否不注入行内Babel helpers polyfill方法. 默认开启 Toggles whether or not inlined Babel helpers (classCallCheck, extends, etc.) are replaced with calls to @babel/runtime (or equivalent package).
+              helpers: false, // 是否不注入行内Babel helpers polyfill方法. 默认开启 Toggles whether or not inlined Babel helpers (classCallCheck, extends, etc.) are replaced with calls to @babel/runtime (or equivalent package).
               // useESModules: true, // 废弃了
               version: require('@babel/runtime-corejs3/package.json').version, // 确定@babel/runtime版本信息
               // version: require('@babel/runtime/package.json').version,
@@ -59,14 +59,10 @@ module.exports = (api) => {
       ['@babel/preset-react', { development: api.env('development'), runtime: 'automatic' }],
       '@babel/preset-typescript',
     ],
+    /*
     overrides: [
       {
         test:
-          /**
-           * babel处理的模块文件名
-           * @param {string} filename
-           * @returns
-           */
           (filename) => {
             //  筛选匹配到的模块
             return !filename.includes('src')
@@ -103,6 +99,7 @@ module.exports = (api) => {
         // ],
       },
     ],
+    */
     env: {
       test: {
         presets: [

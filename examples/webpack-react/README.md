@@ -10,6 +10,12 @@
 
 子组件 callback props/memo 包裹
 
+## deploy
+
+```shell
+ docker build . -f ./docker/Dockerfile -t exec-webpack-react-example:latest
+```
+
 ## FAQ
 
 ### chunk load error
@@ -28,6 +34,8 @@
 - 拆分，当前项目改为打包/i18n demo 项目
   - [ ] 拆分出 dll demo 项目
   - [ ] 拆分出 modulee federation demo 项目
+- build 构建错误问题
+  - [相关日志](./build-with-node_modules_transformed_error.log)
 
 ## idea
 

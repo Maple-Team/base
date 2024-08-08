@@ -103,38 +103,39 @@ const config = mergeWithRules({
             },
           ],
         },
-        {
-          test: /\.js$/,
-          // exclude: /@babel(?:\/|\\{1,2})runtime/,
-          exclude: /node_modules\/(?!(@liutsing\/utils)).*/, // working
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {
-                // 部分配置传给@babel/core
-                cacheDirectory: true,
-                cacheCompression: false,
-                //   cacheIdentifier: '', // 缓存标识符：环境+打包工具相关的版本信息
-                inputSourceMap: true,
-                sourceMaps: true,
-                // 查找配置文件
-                //   babelrc: false, // 不读取 .babelrc 或 babel.config.js
-                //   configFile: false, // 不查找 babel.config.js
-                // 代码输出
-                compact: true, // 输出格式化良好的代码
-                comments: false,
-              },
-            },
-            // {
-            //   loader: '@liutsing/pattern-logger-loader',
-            //   options: {
-            //     showGap: true,
-            //     showLogger: true,
-            //     logFileName: path.resolve(__dirname, 'pattern-node_modules.log'),
-            //   },
-            // },
-          ],
-        },
+        // FIXME 生产构建有问题
+        // {
+        //   test: /\.js$/,
+        //   // exclude: /@babel(?:\/|\\{1,2})runtime/,
+        //   exclude: /node_modules\/(?!(@liutsing\/utils)).*/, // working
+        //   use: [
+        //     {
+        //       loader: 'babel-loader',
+        //       options: {
+        //         // 部分配置传给@babel/core
+        //         cacheDirectory: true,
+        //         cacheCompression: false,
+        //         //   cacheIdentifier: '', // 缓存标识符：环境+打包工具相关的版本信息
+        //         inputSourceMap: true,
+        //         sourceMaps: true,
+        //         // 查找配置文件
+        //         //   babelrc: false, // 不读取 .babelrc 或 babel.config.js
+        //         //   configFile: false, // 不查找 babel.config.js
+        //         // 代码输出
+        //         compact: true, // 输出格式化良好的代码
+        //         comments: false,
+        //       },
+        //     },
+        //     // {
+        //     //   loader: '@liutsing/pattern-logger-loader',
+        //     //   options: {
+        //     //     showGap: true,
+        //     //     showLogger: true,
+        //     //     logFileName: path.resolve(__dirname, 'pattern-node_modules.log'),
+        //     //   },
+        //     // },
+        //   ],
+        // },
       ],
     },
     optimization: {
