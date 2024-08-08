@@ -4,11 +4,11 @@
   "main": "src/index.js",
   "license": "MIT",
   "devDependencies": {
-    "css-loader": "^6.2.0",
+    "css-loader": "^7.1.2",
     "less": "^4.1.1",
     "less-loader": "^10.0.1",
     "postcss": "^8.3.6",
-    "postcss-loader": "^6.1.1",
+    "postcss-loader": "^8.1.1",
     "postcss-nested": "^5.0.5",
     "style-loader": "^3.2.1",
     "webpack": "^5.47.0",

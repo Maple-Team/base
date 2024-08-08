@@ -36,6 +36,8 @@ const cssLoaders = [
         auto: true,
         exportGlobals: true,
         localIdentContext: path.resolve(appRoot, 'src'),
+        // V7
+        namedExport: false,
       },
     },
   },

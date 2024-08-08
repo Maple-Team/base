@@ -2,8 +2,6 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 import styles from './index.module.css'
 
-console.log(new Date().toLocaleTimeString(), '[ styles ] >', styles)
-
 interface ListItem {
   id: number
   name: string
