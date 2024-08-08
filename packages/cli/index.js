@@ -6,7 +6,6 @@ import fs from 'fs'
 import inquirer from 'inquirer'
 import yargs from 'yargs/yargs'
 import { hideBin } from 'yargs/helpers'
-import { version } from './package.json'
 import { copyFolder } from './utils.js'
 
 // 使用 yargs 解析命令行参数
@@ -88,5 +87,5 @@ const argv = yargs(hideBin(process.argv))
   .version().argv // 显示版本信息
 
 // 检查是否需要显示版本或帮助信息
-if (argv.v || argv.version) console.log(`Version ${version}`)
+if (argv.v || argv.version) console.log(`Version V0.1.1-beta.8`)
 else if (argv.h || argv.help) yargs.showHelp()

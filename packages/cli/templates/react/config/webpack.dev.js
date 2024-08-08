@@ -1,6 +1,7 @@
 const { dev } = require('@liutsing/webpack-config')
 const { merge } = require('webpack-merge')
 
+// css-loader V7: https://github.com/webpack-contrib/css-loader/blob/master/CHANGELOG.md
 /**
  *
  * @type {import("webpack").Configuration}
@@ -8,7 +9,8 @@ const { merge } = require('webpack-merge')
 const config = merge(dev, {
   // 合并
   experiments: {
-    lazyCompilation: false, // NOTE 按需编译/延迟编译，但还未稳定
+    // NOTE 按需编译/延迟编译，但还未稳定
+    lazyCompilation: true,
   },
   stats: 'none',
   profile: false,

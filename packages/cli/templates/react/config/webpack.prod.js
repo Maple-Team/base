@@ -1,5 +1,4 @@
 const path = require('path')
-const os = require('os')
 const { prod } = require('@liutsing/webpack-config')
 const { mergeWithRules } = require('webpack-merge')
 

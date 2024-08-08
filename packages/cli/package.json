@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/cli",
-  "version": "0.1.1-beta.5",
+  "version": "0.1.1-beta.8",
   "description": "",
   "engines": {
     "node": ">=16.0.0"
@@ -17,7 +17,7 @@
     "url": ""
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/Maple-Team/base/issues"
   },
   "files": [
     "index.js",
@@ -26,7 +26,8 @@
   ],
   "homepage": "",
   "scripts": {
-    "postpublish": "pnpx @liutsing/npmmirror-sync"
+    "postpublish": "pnpx @liutsing/npmmirror-sync",
+    "prepublish": "node scripts/pre-publish.js"
   },
   "publishConfig": {
     "access": "public"
