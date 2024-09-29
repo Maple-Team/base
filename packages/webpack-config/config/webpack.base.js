@@ -112,10 +112,19 @@ const config = {
       },
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         use: cssLoaders,
       },
       {
+        test: /\.css$/,
+        include: /node_modules/,
+        use: cssLoaders.filter((loader) =>
+          typeof loader !== 'string' ? loader.loader !== 'css-modules-typescript-loader' : true
+        ),
+      },
+      {
         test: /\.less$/,
+        exclude: /node_modules/,
         use: [...cssLoaders, 'less-loader'],
       },
       {
@@ -200,7 +209,7 @@ const config = {
   // stats: 'detailed', // 全部输出除了 chunkModules 和 chunkRootModules
   // stats: 'normal', // 标准输出(默认输出)
   profile: true,
-  // 产物分析用，含依赖关系等 如果你使用了代码分离(code splittnig)这样的复杂配置，records 会特别有用。这些数据用于确保拆分 bundle，以便实现你需要的缓存(caching)行为。
+  // 产物分析用，含依赖关系等 如果你使用了代码分离(code split)这样的复杂配置，records 会特别有用。这些数据用于确保拆分 bundle，以便实现你需要的缓存(caching)行为。
   recordsPath: path.join(appRoot, './config/records.prod.json'),
   // Webpack 基础设施级别的日志记录
   infrastructureLogging: {
