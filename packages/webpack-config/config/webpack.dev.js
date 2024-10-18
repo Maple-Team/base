@@ -114,8 +114,9 @@ const dev = {
     lazyCompilation: true,
   },
   profile: false,
-  // 产物分析用，含依赖关系等 如果你使用了代码分离(code splittnig)这样的复杂配置，records 会特别有用。这些数据用于确保拆分 bundle，以便实现你需要的缓存(caching)行为。
+  // 产物分析用，含依赖关系等 如果你使用了代码分离(code split)这样的复杂配置，records 会特别有用。这些数据用于确保拆分 bundle，以便实现你需要的缓存(caching)行为。
   recordsPath: path.join(appRoot, './config/records.dev.json'),
+  cache: true,
 }
 
 const config = mergeWithRules({

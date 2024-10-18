@@ -7,7 +7,7 @@ const dirname = path.dirname(__dirname)
 const templatePath = path.join(dirname, './utils/template.html')
 const templateContent = readFileSync(templatePath).toString()
 
-const minfiyCode = (source) => {
+const minifyCode = (source) => {
   return minify_sync(
     {
       'file.js': source,
@@ -105,7 +105,7 @@ const defaultList = [
   { name: 'IE' },
 ]
   window.defaultList = defaultList
-  ${minfiyCode(readFileSync(path.resolve(dirname, './inject/check.js')).toString())}
+  ${minifyCode(readFileSync(path.resolve(dirname, './inject/check.js')).toString())}
   </script>
 </html>
     `
@@ -114,4 +114,4 @@ const { meta } = require('./meta')
 
 // 从这个项目中学习一些设定项目 incubator-answer
 
-module.exports = { meta, templateContent, templateContentFn, minfiyCode }
+module.exports = { meta, templateContent, templateContentFn, minifyCode }

@@ -11,7 +11,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const { EsbuildPlugin } = require('esbuild-loader')
 
-const { minfiyCode } = require('../utils')
+const { minifyCode } = require('../utils')
 const base = require('./webpack.base')
 
 const appRoot = process.cwd()
@@ -20,15 +20,21 @@ const root = path.resolve(__dirname, '..')
 // 获取app版本信息
 let currentGitBranch = 'N/A'
 let hash = 'N/A'
-try {
-  // 只在生产环境下输出
-  currentGitBranch = child.execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
-  hash = child.execSync('git rev-parse HEAD').toString().trim().substring(0, 8)
-} catch (error) {}
+
+if (process.env.CI) {
+  currentGitBranch = process.env.CI_COMMIT_BRANCH
+  hash = process.env.CI_COMMIT_SHORT_SHA
+} else {
+  try {
+    // 只在生产环境下输出
+    currentGitBranch = child.execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
+    hash = child.execSync('git rev-parse HEAD').toString().trim().substring(0, 8)
+  } catch (error) {}
+}
 
 // 注入app版本信息
 const colorSourceCode = readFileSync(path.resolve(root, './inject/color.js')).toString()
-const colorFn = minfiyCode(colorSourceCode)
+const colorFn = minifyCode(colorSourceCode)
 const { version: appVersion } = require(path.resolve(appRoot, 'package.json'))
 
 /**
@@ -86,7 +92,7 @@ const prod = {
       })()`,
         },
         {
-          content: minfiyCode(readFileSync(path.resolve(root, './inject/error.js')).toString()),
+          content: minifyCode(readFileSync(path.resolve(root, './inject/error.js')).toString()),
           tagName: 'script',
         },
       ],
