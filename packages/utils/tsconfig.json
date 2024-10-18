@@ -6,7 +6,7 @@
       "@/*": ["src/*"]
     },
   },
-  "exclude": ["jest.config.ts", "types"],
+  "include": ["types", "__tests__"],
   "typedocOptions": {
     "entryPoints": ["src/index.ts"],
     "out": "docs"
