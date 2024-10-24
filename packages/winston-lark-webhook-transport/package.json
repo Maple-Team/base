@@ -13,7 +13,7 @@
     "type": "git",
     "url": ""
   },
-  "author": "liutsingluo <liutsingluo@gmail.com>",
+  "author": "liutsing luo <liutsingluo@gmail.com>",
   "license": "MIT",
   "keywords": [
     "winston",
@@ -44,6 +44,7 @@
     "jest": "^29.7.0",
     "@liutsing/prettier-config": "workspace:*",
     "@liutsing/eslint-config": "workspace:*",
+    "@liutsing/types-utils": "workspace:*",
     "winston": "^3.11.0"
   },
   "prettier": "@liutsing/prettier-config",
