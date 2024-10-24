@@ -1,4 +1,6 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import type { AxiosRequestConfig } from 'axios'
+import axios from 'axios'
+
 /**
  * 统一请求入口
  * @param config
