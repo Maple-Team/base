@@ -1,4 +1,4 @@
-export const noop = () => {}
+import { noop } from './misc'
 
 export const getIps = () => {
   const ips = new Set<string>()
