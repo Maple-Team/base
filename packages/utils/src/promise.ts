@@ -25,9 +25,12 @@ export function wrapPromise<R>(promise: Promise<R>) {
 
 export const run = () => {
   const oldFetch = window.fetch
-  let cache: {
+  const cache: {
     status: 'pending' | 'fullfilled' | 'error'
     value?: unknown
+  } = {
+    status: 'pending',
+    value: undefined,
   }
   let _promise: PromiseLike<unknown>
   // @ts-expect-error:xx
@@ -36,15 +39,11 @@ export const run = () => {
     promise = oldFetch(...args)
       .then((r) => r.json())
       .then((v) => {
-        // @ts-expect-error: xx
         cache.status = 'fullfilled'
-        // @ts-expect-error: xx
         cache.value = v
       })
       .catch((e) => {
-        // @ts-expect-error: xx
         cache.status = 'error'
-        // @ts-expect-error: xx
         cache.value = e
       })
   }

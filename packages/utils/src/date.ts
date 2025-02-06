@@ -20,9 +20,32 @@ export const dayOfYear = (date: Date) =>
  * @returns
  */
 export const getWeekNumber = (date = new Date()) => {
+  // 获取当年的第一天
   const startDate = new Date(date.getFullYear(), 0, 1)
-  const days = Math.floor((date.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)) || 1
-  return Math.ceil(days / 7)
+  // 计算给定日期与当年第一天之间的天数差
+  // 计算当年第一个星期四的日期
+  const firstThursday = new Date(date.getFullYear(), 0, 1 + ((4 - startDate.getDay() + 7) % 7))
+  // 计算给定日期与第一个星期四之间的天数差
+  const daysSinceFirstThursday = Math.floor((date.getTime() - firstThursday.getTime()) / (24 * 60 * 60 * 1000))
+  // 将天数差除以7并向上取整，得到周数
+  return Math.ceil(daysSinceFirstThursday / 7) + 1
+}
+
+/**
+ * 获取当前的周数
+ * @reference: https://www.epochconverter.com/weeknumbers
+ * @param date
+ * @returns
+ */
+export const getWeekNumber2 = (date: Date) => {
+  const target = new Date(date.valueOf())
+  const dayNr = (date.getDay() + 6) % 7
+  target.setDate(target.getDate() - dayNr + 3)
+  const firstThursday = target.valueOf()
+  target.setMonth(0, 1)
+  if (target.getDay() !== 4) target.setMonth(0, 1 + ((4 - target.getDay() + 7) % 7))
+
+  return 1 + Math.ceil((firstThursday - target.valueOf()) / 604800000)
 }
 
 const passedSecondsOfCurrentDay = (now: Date) => {
@@ -31,7 +54,7 @@ const passedSecondsOfCurrentDay = (now: Date) => {
   const seconds = now.getSeconds()
   return hours * 60 * 60 + minutes * 60 + seconds
 }
-const passedSecondsOfCurrenMonth = (now: Date) => {
+const passedSecondsOfCurrentMonth = (now: Date) => {
   const days = now.getDate()
   return days * 24 * 60 * 60 + passedSecondsOfCurrentDay(now)
 }
@@ -83,7 +106,7 @@ export const progressOfMonth = () => {
   const year = now.getFullYear()
   const month = now.getMonth()
   const total = getMonthTotalTime(month, year)
-  return passedSecondsOfCurrenMonth(now) / total
+  return passedSecondsOfCurrentMonth(now) / total
 }
 
 export const progressOfQuarter = () => {
@@ -103,7 +126,7 @@ export const progressOfQuarter = () => {
   const seasonMonths = currentSeasonMonths()
   const total = seasonMonths.reduce((p, c) => p + getMonthTotalTime(c, year), 0)
   const passedMonth = seasonMonths.filter((m) => m < month)
-  return (passedMonth.reduce((p, c) => p + getMonthTotalTime(c, year), 0) + passedSecondsOfCurrenMonth(now)) / total
+  return (passedMonth.reduce((p, c) => p + getMonthTotalTime(c, year), 0) + passedSecondsOfCurrentMonth(now)) / total
 }
 
 export const progressOfYear = () => {
@@ -113,7 +136,7 @@ export const progressOfYear = () => {
   const passed =
     Array.from({ length: 12 }, (_, i) => i)
       .filter((m) => m < month)
-      .reduce((p, c) => p + getMonthTotalTime(c, year), 0) + passedSecondsOfCurrenMonth(now)
+      .reduce((p, c) => p + getMonthTotalTime(c, year), 0) + passedSecondsOfCurrentMonth(now)
   const total = (isLeap(year) ? 366 : 365) * 24 * 60 * 60
   return passed / total
 }
