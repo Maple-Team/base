@@ -13,6 +13,7 @@
 - [ ] rollup
 - [ ] microbundle
 - [ ] console.count
+- [ ] upgrade eslint
 
 ## Resources
 

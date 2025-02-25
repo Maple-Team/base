@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/types-utils",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "",
   "keywords": [],
   "license": "ISC",
@@ -10,6 +10,7 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc -w",
+    "prepublish": "npm run build",
     "postpublish": "pnpx @liutsing/npmmirror-sync",
     "new:patch": "npm version patch"
   },
