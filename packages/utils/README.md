@@ -15,3 +15,8 @@ libs, work 中常用的方法
 
 - 参考 `/Volumes/T7/snippets/practices/src`
 - use `benny`
+
+## Reading list
+
+- [jslib-base](https://github.com/yanhaijing/jslib-base) A modern JavaScript|Typescript library scaffolding, modularity, purity & extras
+- [jslib-base](https://github.com/logan70/jslib-base)
