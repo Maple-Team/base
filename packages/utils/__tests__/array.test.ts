@@ -1,4 +1,4 @@
-import { removeItem } from '@/array'
+import { removeItem } from '../src/array'
 
 describe('array test cases', () => {
   describe('remove item form array', () => {

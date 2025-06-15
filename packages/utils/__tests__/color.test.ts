@@ -1,6 +1,6 @@
 import type { ColorNumber } from '@liutsing/types-utils'
-import { generateFadedColors, randomHex, rgbToHex } from '@/color'
-import { isColorStr } from '@/reg'
+import { generateFadedColors, randomHex, rgbToHex } from '../src/color'
+import { isColorStr } from '../src/reg'
 
 describe('color test cases', () => {
   describe('rgbToHex tests', () => {

@@ -1,4 +1,4 @@
-import { md5_ as md5, sha1 } from '@/crypto'
+import { md5_ as md5, sha1 } from '../src/crypto'
 
 describe('crypto test', () => {
   describe('sha1', () => {

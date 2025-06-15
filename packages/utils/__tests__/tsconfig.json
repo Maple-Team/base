@@ -1,0 +1,13 @@
+{
+    "extends": "@liutsing/tsconfig",
+    "compilerOptions": {
+        "incremental": true,
+        "lib": ["esnext"],
+        "rootDir": "../..",
+        "paths": {
+            "@/*": ["../src/*"]
+        },
+        "composite": true
+    },
+    // "include":["../src/**/*"]
+}

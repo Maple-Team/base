@@ -1,0 +1,20 @@
+{
+    "extends": "@liutsing/tsconfig",
+    "compilerOptions": {
+        "incremental": true,
+        "lib": ["es2015", "esnext", "ES2015.Promise", "DOM"],
+        "baseUrl": ".",
+        "paths": {
+          "@/*": ["src/*"]
+        },
+        "rootDir": ".",
+        "emitDeclarationOnly": true,
+        "declaration": true,
+        "declarationDir": "types",
+        "composite": true
+    },
+    "typedocOptions": {
+        "entryPoints": ["src/index.ts"],
+        "out": "docs"
+    }
+}

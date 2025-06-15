@@ -1,4 +1,4 @@
-import { catchError, catchErrorTyped } from '@/promise'
+import { catchError, catchErrorTyped } from '../src/promise'
 
 describe('promise test cases', () => {
   // it('case 1', () => {

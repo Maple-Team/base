@@ -6,7 +6,7 @@ import {
   // progressOfQuarter,
   // progressOfYear,
   showHumanizeTime,
-} from '@/date'
+} from '../src/date'
 
 describe('date utils', () => {
   describe('week number tests', () => {

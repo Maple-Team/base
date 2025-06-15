@@ -1,4 +1,4 @@
-import { uuid } from '@/uuid'
+import { uuid } from '../src/uuid'
 
 describe('uuid test cases', () => {
   describe('uuid with length', () => {

@@ -1,15 +1,17 @@
 {
   "extends": "@liutsing/tsconfig",
   "compilerOptions": {
-    "lib": ["es2015", "esnext", "ES2015.Promise", "DOM"],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
+    "incremental": true,
+    "lib": ["esnext"],
+    "rootDir": ".",
+    "paths": { "@src/*": ["./src/*"] }
   },
-  "include": ["types", "__tests__"],
-  "typedocOptions": {
-    "entryPoints": ["src/index.ts"],
-    "out": "docs"
-}
+  "references": [
+    {
+      "path": "./src"
+    },
+    {
+      "path": "./__tests__"
+    }
+  ],
 }
