@@ -10,7 +10,7 @@ export interface BaseList<T> {
 export interface BaseResponse<T = unknown> {
   status: number
   message: string
-  data: T
+  data?: T
   errors?: string[]
   timestamp?: number
   [key: string]: unknown
