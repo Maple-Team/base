@@ -8,3 +8,4 @@ export * from './image'
 export * from './text'
 export * from './post'
 export type LarkMessage = LarkMessageText | LarkMessagePost | LarkMessageInteractive | LarkMessageImage
+export * from './type'

@@ -19,3 +19,7 @@ export type NumericRange<
 export type OptionalPick<T, U extends keyof T> = {
   [P in U]?: T[P]
 }
+
+export type Optional<T> = {
+  [P in keyof T]?: T[P]
+}
