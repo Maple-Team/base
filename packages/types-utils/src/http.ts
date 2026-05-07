@@ -7,10 +7,13 @@ export interface BaseList<T> {
   records: T[]
 }
 
-export interface BaseResponse<T> {
+export interface BaseResponse<T = unknown> {
   status: number
   message: string
   data: T
+  errors?: string[]
+  timestamp?: number
+  [key: string]: unknown
 }
 
 export type BaseParams<T> = Partial<T> & {
