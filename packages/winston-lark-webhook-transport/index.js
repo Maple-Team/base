@@ -18,12 +18,19 @@ module.exports = class LarkHook extends Transport {
     this.webhookUrl = opts.webhookUrl
     this.msgType = opts.msgType
     this.formatter = opts.formatter || undefined
+    this.appVersion = opts.appVersion || 'N/A'
 
     this.axiosInstance = axios.create({
       proxy: opts.proxy || undefined,
     })
   }
 
+  /**
+   *
+   * @param {import('./index').TransformableInfo} info
+   * @param {() => void} callback
+   * @returns
+   */
   async log(info, callback) {
     /**
      * ignore if level not match
@@ -33,9 +40,6 @@ module.exports = class LarkHook extends Transport {
       return
     }
 
-    /**
-     * @type import('./index').LarkMessage
-     */
     const payload = {
       msg_type: this.msgType,
     }
@@ -54,16 +58,23 @@ module.exports = class LarkHook extends Transport {
         payload[key] = layout[key]
       })
     } else {
+      const message = `错误平台: Node
+应用版本: ${this.appVersion}
+错误信息: ${info.message?.trim() ?? ''}
+错误栈: ${info.stack ?? ''}`
+
       switch (this.msgType) {
         case 'text':
-          payload.content = { text: info.message }
+          payload.content = {
+            text: message,
+          }
           break
         case 'post':
           payload.content = {
             post: {
               zh_cn: {
                 title: '应用出错了',
-                content: [{ tag: 'text', text: info.message }],
+                content: [{ tag: 'text', text: message }],
               },
             },
           }
@@ -74,7 +85,7 @@ module.exports = class LarkHook extends Transport {
               {
                 tag: 'div',
                 text: {
-                  content: info.message,
+                  content: message,
                   tag: 'plain_text',
                 },
               },
@@ -101,6 +112,8 @@ module.exports = class LarkHook extends Transport {
           if (res.code !== 0) throw new Error(res.msg)
         })
         .catch((err) => {
+          console.error('@liutsing/winston-lark-webhook-transport error:', err)
+          this.emit('error', err)
           throw err
         })
       this.emit('logged', info)

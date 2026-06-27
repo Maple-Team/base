@@ -1,6 +1,6 @@
 {
   "name": "@liutsing/winston-lark-webhook-transport",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "main": "index.js",
   "typings": "./index.d.ts",
   "scripts": {
