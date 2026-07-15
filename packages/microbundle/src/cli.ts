@@ -151,9 +151,9 @@ function printHelp(): void {
   console.log(`Usage: microbundle [entry] [options]
 
 Options:
-  -f, --format <list>    Output formats: es,cjs,iife
+  -f, --format <list>    Output formats: es,cjs,umd
   --out-dir <dir>        Output directory, defaults to dist
-  --name <global>        Global name for IIFE output
+  --name <global>        Global name for UMD output
   --external <list>      Extra external dependencies
   --tsconfig <file>      TypeScript config, defaults to tsconfig.json
   --target <target>      Transpile target hint: node or web
@@ -163,8 +163,10 @@ Options:
 `)
 }
 
-main().catch((error: unknown) => {
-  const message = error instanceof Error ? error.message : String(error)
-  console.error(message)
-  process.exitCode = 1
-})
+if (require.main === module) {
+  main().catch((error: unknown) => {
+    const message = error instanceof Error ? error.message : String(error)
+    console.error(message)
+    process.exitCode = 1
+  })
+}

@@ -14,7 +14,7 @@ import type {
 } from 'rollup'
 import { rollup } from 'rollup'
 
-export type BundleFormat = 'es' | 'cjs' | 'iife'
+export type BundleFormat = 'es' | 'cjs' | 'umd'
 
 export interface BuildOptions {
   cwd?: string
@@ -62,7 +62,7 @@ interface BuildContext {
   target?: string
 }
 
-const DEFAULT_FORMATS: BundleFormat[] = ['es', 'cjs', 'iife']
+const DEFAULT_FORMATS: BundleFormat[] = ['es', 'cjs', 'umd']
 const EXTENSIONS = ['.mjs', '.js', '.json', '.node', '.ts', '.tsx']
 const requireFromHere = createRequire(__filename)
 const builtins = new Set([
@@ -103,15 +103,15 @@ export function normalizeFormat(format: string): BundleFormat {
     return 'cjs'
   }
 
-  if (normalized === 'iifi' || normalized === 'browser') {
-    return 'iife'
+  if (normalized === 'umd' || normalized === 'iife' || normalized === 'browser') {
+    return 'umd'
   }
 
-  if (normalized === 'es' || normalized === 'cjs' || normalized === 'iife') {
+  if (normalized === 'es' || normalized === 'cjs' || normalized === 'umd') {
     return normalized
   }
 
-  throw new Error(`Unsupported format "${format}". Expected es, cjs, or iife.`)
+  throw new Error(`Unsupported format "${format}". Expected es, cjs, or umd.`)
 }
 
 function createBuildContext(options: BuildOptions): BuildContext {
@@ -338,10 +338,10 @@ function createOutputOptions(
   return {
     file: path.join(ctx.outDir, fileName),
     format,
-    name: format === 'iife' ? ctx.name : undefined,
+    name: format === 'umd' ? ctx.name : undefined,
     sourcemap: ctx.sourcemap,
-    exports: format === 'cjs' ? 'named' : undefined,
-    globals: format === 'iife' ? createGlobals(ctx) : undefined,
+    exports: format === 'es' ? undefined : 'named',
+    globals: format === 'umd' ? createGlobals(ctx) : undefined,
     plugins: minify ? [terser()] : undefined,
   }
 }
@@ -355,7 +355,7 @@ function outputFileName(baseName: string, format: BundleFormat, minify: boolean)
     return `${baseName}${minify ? '.min' : ''}.js`
   }
 
-  return `${baseName}.iife${minify ? '.min' : ''}.js`
+  return `${baseName}.umd${minify ? '.min' : ''}.js`
 }
 
 function createGlobals(ctx: BuildContext): Record<string, string> {

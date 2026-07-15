@@ -4,9 +4,14 @@ const os = require('node:os')
 const path = require('node:path')
 const vm = require('node:vm')
 const { build } = require('../dist/index.js')
+const { parseArgs } = require('../dist/cli.js')
 
 describe('@liutsing/microbundle', () => {
-  test('builds esm, cjs, iife, minified files, sourcemaps, declarations, and externals', async () => {
+  test('parses umd as a primary output format', () => {
+    expect(parseArgs(['-f', 'es,cjs,umd']).formats).toEqual(['es', 'cjs', 'umd'])
+  })
+
+  test('builds esm, cjs, umd, minified files, sourcemaps, declarations, and externals', async () => {
     const fixture = createFixture('api-build')
 
     writeFile(
@@ -63,12 +68,12 @@ describe('@liutsing/microbundle', () => {
     const result = await build({ cwd: fixture })
 
     expect(result.files.map((file) => path.relative(fixture, file)).sort()).toEqual([
-      'dist\\index.iife.js',
-      'dist\\index.iife.min.js',
       'dist\\index.js',
       'dist\\index.min.js',
       'dist\\index.min.mjs',
       'dist\\index.mjs',
+      'dist\\index.umd.js',
+      'dist\\index.umd.min.js',
     ])
 
     for (const file of [
@@ -76,8 +81,8 @@ describe('@liutsing/microbundle', () => {
       'dist/index.min.mjs',
       'dist/index.js',
       'dist/index.min.js',
-      'dist/index.iife.js',
-      'dist/index.iife.min.js',
+      'dist/index.umd.js',
+      'dist/index.umd.min.js',
     ]) {
       expect(fs.existsSync(path.join(fixture, file))).toBe(true)
       expect(fs.existsSync(path.join(fixture, `${file}.map`))).toBe(true)
@@ -142,7 +147,7 @@ describe('@liutsing/microbundle', () => {
     const cli = path.resolve(__dirname, '..', 'dist', 'cli.js')
     const result = childProcess.spawnSync(
       process.execPath,
-      [cli, 'src/index.ts', '--format', 'es,cjs,iifi', '--name', 'CliBuild'],
+      [cli, 'src/index.ts', '--format', 'es,cjs,umd', '--name', 'CliBuild'],
       {
         cwd: fixture,
         encoding: 'utf8',
@@ -166,13 +171,13 @@ describe('@liutsing/microbundle', () => {
       },
     )
     const context = {}
-    vm.runInNewContext(fs.readFileSync(path.join(fixture, 'dist/index.iife.js'), 'utf8'), context)
+    vm.runInNewContext(fs.readFileSync(path.join(fixture, 'dist/index.umd.js'), 'utf8'), context)
 
     expect(cjs.add(20, 22)).toBe(42)
     expect(esmResult.status).toBe(0)
     expect(esmResult.stdout.trim()).toBe('3')
     expect(context.CliBuild.add(2, 5)).toBe(7)
-    expect(fs.existsSync(path.join(fixture, 'dist/index.iife.min.js'))).toBe(true)
+    expect(fs.existsSync(path.join(fixture, 'dist/index.umd.min.js'))).toBe(true)
     expect(fs.existsSync(path.join(fixture, 'types/index.d.ts'))).toBe(true)
   })
 })
