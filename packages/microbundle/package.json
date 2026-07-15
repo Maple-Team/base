@@ -1,0 +1,46 @@
+{
+  "name": "@liutsing/microbundle",
+  "version": "0.0.1",
+  "description": "A small Rollup-powered library bundler inspired by microbundle.",
+  "keywords": [
+    "rollup",
+    "microbundle",
+    "bundler",
+    "typescript"
+  ],
+  "license": "MIT",
+  "author": "liutsing <liutsingluo@gmail.com>",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "microbundle": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "pnpm run build && jest",
+    "prepublishOnly": "pnpm run build && pnpm run test"
+  },
+  "prettier": "@liutsing/prettier-config",
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^29.0.3",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^1.0.0",
+    "rollup": "^4.62.2"
+  },
+  "peerDependencies": {
+    "typescript": ">=4.9"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "nx": {
+    "includedScripts": []
+  }
+}
