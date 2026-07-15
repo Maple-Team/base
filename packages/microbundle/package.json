@@ -21,7 +21,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "test": "pnpm run build && jest",
-    "prepublishOnly": "pnpm run build && pnpm run test"
+    "prepublishOnly": "pnpm run build && pnpm run test",
+    "postpublish": "pnpx @liutsing/npmmirror-sync"
   },
   "prettier": "@liutsing/prettier-config",
   "dependencies": {
