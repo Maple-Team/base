@@ -35,6 +35,10 @@ declare namespace LarkHook {
      */
     emitAxiosErrors?: boolean
     msgType: LarkMsgType
+    /**
+     * 应用版本
+     */
+    appVersion?: string
   }
 }
 

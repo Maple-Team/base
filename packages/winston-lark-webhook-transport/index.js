@@ -19,6 +19,7 @@ module.exports = class LarkHook extends Transport {
     this.msgType = opts.msgType
     this.formatter = opts.formatter || undefined
     this.appVersion = opts.appVersion || 'N/A'
+    this.emitAxiosErrors = !!opts.emitAxiosErrors
 
     this.axiosInstance = axios.create({
       proxy: opts.proxy || undefined,
@@ -112,8 +113,10 @@ module.exports = class LarkHook extends Transport {
           if (res.code !== 0) throw new Error(res.msg)
         })
         .catch((err) => {
-          console.error('@liutsing/winston-lark-webhook-transport error:', err)
-          this.emit('error', err)
+          if (this.emitAxiosErrors) {
+            console.error('@liutsing/winston-lark-webhook-transport error:', err)
+            this.emit('error', err)
+          }
           throw err
         })
       this.emit('logged', info)
